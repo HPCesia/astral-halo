@@ -1,0 +1,30 @@
+---
+import Navbar from '@components/Navbar.astro';
+import SideMenu from '@components/SideMenu.astro';
+
+import Layout from './Layout.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+  pageType?: string;
+}
+const { title, description, lang, pageType } = Astro.props;
+---
+
+<Layout title={title} description={description} lang={lang}>
+  <slot slot="head" name="head" />
+  <div id="body-wrap">
+    <div id="navbar-wrapper">
+      <Navbar />
+    </div>
+    <div id="sidemenu-wrapper">
+      <SideMenu />
+    </div>
+    <!-- Main content -->
+    <div id="content-wrapper">
+      <slot />
+    </div>
+  </div>
+</Layout>
