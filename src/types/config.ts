@@ -1,7 +1,15 @@
 export type SiteConfig = {
   title: string;
-
   lang: string;
+  favicon: (string | { src: string; theme?: 'light' | 'dark' })[];
+};
+
+export type NavbarConfig = {
+  navbarCenterItems: { text: string; href?: string; onclick?: string }[];
+  navbarRightItems: {
+    onlyWide: { icon: string; text?: string; href?: string; onclick?: string }[];
+    always: { icon: string; text?: string; href?: string; onclick?: string }[];
+  };
 };
 
 export type ProfileConfig = {

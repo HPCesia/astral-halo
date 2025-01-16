@@ -1,5 +1,57 @@
 ---
+import { navbarConfig, siteConfig } from '@/config';
 
+import { Icon } from 'astro-icon/components';
+
+import WidgetTextButton from './widgets/WidgetTextButton.astro';
+import WidgetIconButton from './widgets/WidgetIconButton.astro';
+
+interface Props {
+  title?: string;
+  lang?: string;
+}
+let { title } = Astro.props;
+if (!title) title = 'Astral Halo';
 ---
 
-<div id="navbar"></div>
+<div id="navbar" class="flex w-full h-[60px] bg-gray-100 items-center">
+  <div id="nav-left" class="left-0 flex mr-auto w-fit">
+    <WidgetTextButton id="site-name-wrapper" href="/">
+      <span class="text-xl font-bold">{title}</span>
+    </WidgetTextButton>
+  </div>
+  <div id="nav-center" class="left-0 flex m-auto w-fit max-md:hidden">
+    {
+      navbarConfig.navbarCenterItems.map((item) => (
+        <WidgetTextButton id="nav-menu-item" href={item.href} onclick={item.onclick}>
+          <span class="text-xl">{item.text}</span>
+        </WidgetTextButton>
+      ))
+    }
+  </div>
+  <div id="nav-right" class="left-0 flex ml-auto w-fit">
+    <div class="flex max-md:hidden">
+      {
+        navbarConfig.navbarRightItems.onlyWide.map((item) => (
+          <WidgetIconButton id="nav-menu-item" href={item.href} onclick={item.onclick} description={item.text}>
+            <Icon name={item.icon} class="text-2xl" />
+          </WidgetIconButton>
+        ))
+      }
+    </div>
+    <div class="flex">
+      {
+        navbarConfig.navbarRightItems.always.map((item) => (
+          <WidgetIconButton id="nav-menu-item" href={item.href} onclick={item.onclick} description={item.text}>
+            <Icon name={item.icon} class="text-2xl" />
+          </WidgetIconButton>
+        ))
+      }
+    </div>
+    <div class="flex md:hidden">
+      <WidgetIconButton id="toggle-sidebar-btn">
+        <Icon name="material-symbols:menu-rounded" class="text-2xl" />
+      </WidgetIconButton>
+    </div>
+  </div>
+</div>
