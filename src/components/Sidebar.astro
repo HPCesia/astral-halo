@@ -3,8 +3,8 @@ import { navbarConfig } from '@/config';
 
 import { Icon } from 'astro-icon/components';
 
-import WidgetTextButton from './widgets/WidgetTextButton.astro';
-import WidgetIconButton from './widgets/WidgetIconButton.astro';
+import TextButton from './widgets/TextButton.astro';
+import IconButton from './widgets/IconButton.astro';
 ---
 
 <div id="sidebar">
@@ -16,16 +16,16 @@ import WidgetIconButton from './widgets/WidgetIconButton.astro';
   >
     {
       navbarConfig.navbarCenterItems.map((item) => (
-        <WidgetTextButton id="nav-menu-item" href={item.href} onclick={item.onclick}>
+        <TextButton id="nav-menu-item" href={item.href} onclick={item.onclick}>
           <span class="text-xl">{item.text}</span>
-        </WidgetTextButton>
+        </TextButton>
       ))
     }
     {
       navbarConfig.navbarRightItems.onlyWide.map((item) => (
-        <WidgetIconButton id="nav-menu-item" href={item.href} onclick={item.onclick} description={item.text}>
+        <IconButton id="nav-menu-item" href={item.href} onclick={item.onclick} description={item.text}>
           <Icon name={item.icon} class="text-2xl" />
-        </WidgetIconButton>
+        </IconButton>
       ))
     }
   </div>

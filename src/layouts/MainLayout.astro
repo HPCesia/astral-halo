@@ -1,20 +1,18 @@
 ---
-import Layout from './Layout.astro';
-
 import Navbar from '@components/Navbar.astro';
 import SideToolBar from '@components/SideToolBar.astro';
 import Sidebar from '@components/Sidebar.astro';
+import GlobalLayout from './GlobalLayout.astro';
 
 interface Props {
   title?: string;
   description?: string;
   lang?: string;
-  pageType?: string;
 }
-const { title, description, lang, pageType } = Astro.props;
+const { title, description, lang } = Astro.props;
 ---
 
-<Layout title={title} description={description} lang={lang}>
+<GlobalLayout title={title} description={description} lang={lang}>
   <slot slot="head" name="head" />
   <Sidebar />
   <div id="body-wrap">
@@ -24,4 +22,4 @@ const { title, description, lang, pageType } = Astro.props;
       <slot />
     </div>
   </div>
-</Layout>
+</GlobalLayout>

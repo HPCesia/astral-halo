@@ -3,28 +3,25 @@ import { AstroParameterConflictError } from '@/types/Errors';
 
 interface Props {
   id: string;
-  description?: string;
   href?: string;
   onclick?: string;
 }
-let { id, description, href, onclick } = Astro.props;
-
-if (!description) description = '';
+let { id, href, onclick } = Astro.props;
 
 if (href && onclick) throw new AstroParameterConflictError('href', 'onclick');
-if (href) onclick = `window.location.href(\`${href}\`)`;
-else if (!onclick) onclick = '';
+if (href) onclick = `window.location.assign(\`${href}\`)`;
+else onclick = '';
 ---
 
-<button id={id} onclick={onclick} title={description} class="widget-icon-button">
+<button id={id} onclick={onclick} class="widget-text-button">
   <slot />
 </button>
 
 <style lang="stylus">
-.widget-icon-button
+.widget-text-button
   display flex
   align-items center
-  padding 0.5rem
+  padding 0.5rem 0.75rem
   margin 0.5rem
   text-align center
   word-break break-word
