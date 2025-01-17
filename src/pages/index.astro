@@ -1,7 +1,12 @@
 ---
+import PostCards from '@components/PostCards.astro';
+import CatagoryBar from '@components/widgets/CatagoryBar.astro';
 import MainLayout from '@layouts/MainLayout.astro';
 ---
 
 <MainLayout>
-  <h1>Welcome to Astro</h1>
+  <div id="main-content">
+    <CatagoryBar />
+    <PostCards />
+  </div>
 </MainLayout>

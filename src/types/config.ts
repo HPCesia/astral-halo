@@ -1,15 +1,9 @@
+import type { Color } from './Color';
+
 export type SiteConfig = {
   title: string;
   lang: string;
   favicon: (string | { src: string; theme?: 'light' | 'dark' })[];
-};
-
-export type NavbarConfig = {
-  navbarCenterItems: { text: string; href?: string; onclick?: string }[];
-  navbarRightItems: {
-    onlyWide: { icon: string; text?: string; href?: string; onclick?: string }[];
-    always: { icon: string; text?: string; href?: string; onclick?: string }[];
-  };
 };
 
 export type ProfileConfig = {
@@ -21,6 +15,26 @@ export type ProfileConfig = {
     url: string;
     icon: string;
   }[];
+};
+
+export type NavbarConfig = {
+  navbarCenterItems: { text: string; href?: string; onclick?: string }[];
+  navbarRightItems: {
+    onlyWide: {
+      icon: string;
+      text?: string;
+      href?: string;
+      onclick?: string;
+    }[];
+    always: { icon: string; text?: string; href?: string; onclick?: string }[];
+  };
+};
+
+export type ThemeConfig = {
+  themeColorLight: Color;
+  themeColorSubLight: Color;
+  themeColorDark: Color;
+  themeColorSubDark: Color;
 };
 
 export type LicenseConfig = {

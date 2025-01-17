@@ -1,0 +1,91 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import Button from './Button.astro';
+import { Icon } from 'astro-icon/components';
+import I18nKey from '@i18n/i18nKey';
+import { i18n } from '@i18n/translation';
+
+interface Props extends Omit<HTMLAttributes<'button'>, 'onclick'> {
+  showText?: boolean;
+}
+
+const { class: className, showText, ...rest } = Astro.props;
+---
+
+<Button
+  class:list={[
+    'darkmode-btn',
+    'border-2 border-neutral-200 dark:border-neutral-800',
+    className,
+  ]}
+  {...rest}
+>
+  <Icon class="darkmode-icon-light" name="material-symbols:light-mode-rounded" />
+  <Icon class="darkmode-icon-dark" name="material-symbols:dark-mode-rounded" />
+  <Icon class="darkmode-icon-auto" name="material-symbols:night-sight-auto-rounded" />
+  <span class="px-2 ml-auto mr-2">
+    {
+      showText &&
+        <span class="darkmode-text-light">{i18n(I18nKey.lightMode)}</span>
+        <span class="darkmode-text-dark">{i18n(I18nKey.darkMode)}</span>
+        <span class="darkmode-text-auto">{i18n(I18nKey.systemMode)}</span>
+    }
+  </span>
+</Button>
+
+<script>
+  const darkmodeBtns = document.querySelectorAll('button.darkmode-btn');
+
+  function refreshButtons() {
+    darkmodeBtns.forEach((btn) => {
+      const iconLight = btn.querySelector('.darkmode-icon-light');
+      const iconDark = btn.querySelector('.darkmode-icon-dark');
+      const iconAuto = btn.querySelector('.darkmode-icon-auto');
+      const textLight = btn.querySelector('.darkmode-text-light');
+      const textDark = btn.querySelector('.darkmode-text-dark');
+      const textAuto = btn.querySelector('.darkmode-text-auto');
+
+      if ('darkMode' in localStorage && localStorage.darkMode === 'true') {
+        iconLight?.classList.add('hidden');
+        iconDark?.classList.remove('hidden');
+        iconAuto?.classList.add('hidden');
+        textLight?.classList.add('hidden');
+        textDark?.classList.remove('hidden');
+        textAuto?.classList.add('hidden');
+      } else if ('darkMode' in localStorage && localStorage.darkMode === 'false') {
+        iconLight?.classList.remove('hidden');
+        iconDark?.classList.add('hidden');
+        iconAuto?.classList.add('hidden');
+        textLight?.classList.remove('hidden');
+        textDark?.classList.add('hidden');
+        textAuto?.classList.add('hidden');
+      } else {
+        iconLight?.classList.add('hidden');
+        iconDark?.classList.add('hidden');
+        iconAuto?.classList.remove('hidden');
+        textLight?.classList.add('hidden');
+        textDark?.classList.add('hidden');
+        textAuto?.classList.remove('hidden');
+      }
+    });
+  }
+
+  darkmodeBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (!('darkMode' in localStorage)) {
+        localStorage.darkMode = false;
+        document.documentElement.classList.remove('dark');
+      } else if (localStorage.darkMode === 'false') {
+        localStorage.darkMode = true;
+        document.documentElement.classList.add('dark');
+      } else {
+        localStorage.removeItem('darkMode');
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+          document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+      }
+      refreshButtons();
+    });
+  });
+  refreshButtons();
+</script>

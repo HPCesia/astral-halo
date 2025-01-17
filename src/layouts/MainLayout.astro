@@ -16,7 +16,7 @@ const { title, description, lang } = Astro.props;
   <slot slot="head" name="head" />
   <Sidebar />
   <div id="body-wrap">
-    <Navbar title={title} />
+    <Navbar />
     <!-- Main content -->
     <div id="content-wrapper">
       <slot />

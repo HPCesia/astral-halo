@@ -1,4 +1,10 @@
-import type { LicenseConfig, ProfileConfig, SiteConfig, NavbarConfig } from './types/config';
+import type {
+  LicenseConfig,
+  ProfileConfig,
+  SiteConfig,
+  NavbarConfig,
+  ThemeConfig,
+} from './types/config';
 
 import I18nKey from '@i18n/i18nKey';
 import { i18n } from '@i18n/translation';
@@ -27,13 +33,32 @@ export const navbarConfig: NavbarConfig = {
     onlyWide: [
       // Items displayed only when the width is greater than 768px.
       // 仅在宽度大于 768px 时显示的项目
-      { icon: 'material-symbols:rss-feed-rounded', text: i18n(I18nKey.subscribe), onclick: '' },
+      {
+        icon: 'material-symbols:rss-feed-rounded',
+        text: i18n(I18nKey.subscribe),
+        onclick: '',
+      },
     ],
     always: [
-      { icon: 'material-symbols:casino', text: i18n(I18nKey.randomPost), onclick: '' },
-      { icon: 'material-symbols:search-rounded', text: i18n(I18nKey.search), onclick: '' },
+      {
+        icon: 'material-symbols:casino',
+        text: i18n(I18nKey.randomPost),
+        onclick: '',
+      },
+      {
+        icon: 'material-symbols:search-rounded',
+        text: i18n(I18nKey.search),
+        onclick: '',
+      },
     ],
   },
+};
+
+export const themeConfig: ThemeConfig = {
+  themeColorLight: '#D75B3D',
+  themeColorSubLight: '#e5d5d5',
+  themeColorDark: '#397D9F',
+  themeColorSubDark: '#033D60',
 };
 
 export const licenseConfig: LicenseConfig = {

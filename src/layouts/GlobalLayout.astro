@@ -1,5 +1,6 @@
 ---
-import { profileConfig, siteConfig } from '@/config';
+import { profileConfig, siteConfig, themeConfig } from '@/config';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title?: string;
@@ -25,6 +26,8 @@ const siteLang = lang.replace('_', '-');
     <meta charset="UTF-8" />
     <meta name="author" content={profileConfig.name} />
 
+    <ClientRouter />
+
     <!-- Open Graph / Facebook -->
     <meta property="og:site_name" content={siteConfig.title} />
     <meta property="og:url" content={Astro.url} />
@@ -42,7 +45,32 @@ const siteLang = lang.replace('_', '-');
 
     <slot name="head" />
   </head>
-  <body>
+  <body class="bg-neutral-50 dark:bg-neutral-950 text-neutral-950 dark:text-neutral-50">
     <slot />
   </body>
 </html>
+
+<script>
+  // 深色模式切换
+  function applyDarkMode() {
+    if (
+      localStorage.darkMode === 'true' ||
+      (!('darkMode' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark');
+    } else document.documentElement.classList.remove('dark');
+  }
+  document.addEventListener('astro:after-swap', applyDarkMode);
+  applyDarkMode();
+</script>
+
+<style
+  is:global
+  define:vars={{
+    'theme-color-light': themeConfig.themeColorLight,
+    'theme-color-dark': themeConfig.themeColorDark,
+    'theme-color-sub-light': themeConfig.themeColorSubLight,
+    'theme-color-sub-dark': themeConfig.themeColorSubDark,
+  }}
+></style>

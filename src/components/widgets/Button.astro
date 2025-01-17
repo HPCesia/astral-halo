@@ -1,0 +1,42 @@
+---
+import { AstroParameterConflictError } from '@/types/Errors';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'button'> {
+  href?: string;
+}
+const { href, onclick, class: className, ...rest } = Astro.props;
+
+if (href && onclick) throw new AstroParameterConflictError('href', 'onclick');
+---
+
+<button {...{ href, onclick, ...rest }} class:list={[className]}>
+  <slot />
+</button>
+
+<style lang="sass">
+  button
+    display: flex
+    align-items: center
+    padding: 0.5rem
+    margin: 0.5rem
+    text-align: center
+    word-break: break-word
+    transition-duration: 300ms
+    border-radius: 9999px
+    width: fit-content
+    height: fit-content
+
+    &:hover
+      @apply bg-[var(--theme-color-light)] dark:bg-[var(--theme-color-dark)]
+</style>
+
+<script>
+  import { navigate } from 'astro:transitions/client';
+  document.querySelectorAll('button[href]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      let href = btn.getAttribute('href') || '/404.html';
+      navigate(href);
+    });
+  });
+</script>
