@@ -15,6 +15,7 @@ const { title, description, lang } = Astro.props;
 <GlobalLayout title={title} description={description} lang={lang}>
   <slot slot="head" name="head" />
   <Sidebar />
+  <SideToolBar />
   <div id="body-wrap">
     <Navbar />
     <!-- Main content -->

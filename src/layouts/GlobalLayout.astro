@@ -1,5 +1,5 @@
 ---
-import { profileConfig, siteConfig, themeConfig } from '@/config';
+import { profileConfig, siteConfig } from '@/config';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
@@ -45,7 +45,7 @@ const siteLang = lang.replace('_', '-');
 
     <slot name="head" />
   </head>
-  <body class="bg-neutral-50 dark:bg-neutral-950 text-neutral-950 dark:text-neutral-50">
+  <body class="theme-bg theme-text">
     <slot />
   </body>
 </html>
@@ -65,12 +65,6 @@ const siteLang = lang.replace('_', '-');
   applyDarkMode();
 </script>
 
-<style
-  is:global
-  define:vars={{
-    'theme-color-light': themeConfig.themeColorLight,
-    'theme-color-dark': themeConfig.themeColorDark,
-    'theme-color-sub-light': themeConfig.themeColorSubLight,
-    'theme-color-sub-dark': themeConfig.themeColorSubDark,
-  }}
-></style>
+<style is:global lang="scss">
+  @use '../styles/globals';
+</style>

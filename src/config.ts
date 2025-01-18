@@ -3,7 +3,7 @@ import type {
   ProfileConfig,
   SiteConfig,
   NavbarConfig,
-  ThemeConfig,
+  ToolBarConfig,
 } from './types/config';
 
 import I18nKey from '@i18n/i18nKey';
@@ -24,10 +24,10 @@ export const profileConfig: ProfileConfig = {
 
 export const navbarConfig: NavbarConfig = {
   navbarCenterItems: [
-    { text: i18n(I18nKey.archive), href: '/archive' },
-    { text: i18n(I18nKey.categories), href: '/categories' },
-    { text: i18n(I18nKey.tags), href: '/tags' },
-    { text: i18n(I18nKey.about), href: '/about' },
+    { text: i18n(I18nKey.archive), href: '/archive/' },
+    { text: i18n(I18nKey.categories), href: '/categories/' },
+    { text: i18n(I18nKey.tags), href: '/tags/' },
+    { text: i18n(I18nKey.about), href: '/about/' },
   ],
   navbarRightItems: {
     onlyWide: [
@@ -54,11 +54,9 @@ export const navbarConfig: NavbarConfig = {
   },
 };
 
-export const themeConfig: ThemeConfig = {
-  themeColorLight: '#D75B3D',
-  themeColorSubLight: '#e5d5d5',
-  themeColorDark: '#397D9F',
-  themeColorSubDark: '#033D60',
+export const toolBarConfig: ToolBarConfig = {
+  enable: true,
+  items: [],
 };
 
 export const licenseConfig: LicenseConfig = {

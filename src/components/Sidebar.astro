@@ -1,5 +1,5 @@
 ---
-import { navbarConfig, themeConfig } from '@/config';
+import { navbarConfig } from '@/config';
 
 import { Icon } from 'astro-icon/components';
 
@@ -15,10 +15,13 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
   </div>
   <div
     id="sidebar-menu"
-    class="fixed md:hidden h-full z-50 -right-1/3 w-1/3 duration-500 ease-in-out border-l-2 border-l-neutral-200 dark:border-l-neutral-800 bg-neutral-50 dark:bg-neutral-950"
+    class="fixed md:hidden h-full z-50 -right-1/3 w-1/3 duration-500 ease-in-out border-l-2 theme-border theme-card-bg"
   >
     <div id="sidebar-site-data"></div>
-    <DarkModeButton showText={true} class="text-lg !w-[calc(100%-1rem)]" />
+    <DarkModeButton
+      showText={true}
+      class="text-lg !w-[calc(100%-1rem)] border-2 theme-border"
+    />
     <div id="sidebar-menu-text-items">
       {
         navbarConfig.navbarCenterItems.map((item) => (

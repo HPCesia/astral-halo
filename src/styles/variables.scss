@@ -1,0 +1,31 @@
+@use 'sass:color';
+
+$theme-color-light: #d75b3d;
+$theme-color-dark: #397d9f;
+$theme-bg-color-light: theme('colors.neutral.50');
+$theme-bg-color-dark: theme('colors.neutral.900');
+$theme-card-bg-color-light: $theme-bg-color-light;
+$theme-card-bg-color-dark: $theme-bg-color-dark;
+$theme-text-color-light: theme('colors.neutral.900');
+$theme-text-color-dark: theme('colors.neutral.100');
+$theme-border-color-light: theme('colors.neutral.200');
+$theme-border-color-dark: theme('colors.neutral.800');
+
+:root {
+  --theme-color-light: #{$theme-color-light};
+  --theme-color-dark: #{$theme-color-dark};
+  --theme-color-light-lighten: #{color.adjust($theme-color-light, $lightness: 20%)};
+  --theme-color-dark-lighten: #{color.adjust($theme-color-dark, $lightness: 20%)};
+  --theme-color-light-darken: #{color.adjust($theme-color-light, $lightness: -20%)};
+  --theme-color-dark-darken: #{color.adjust($theme-color-dark, $lightness: -20%)};
+  --theme-color-light-transparent: #{color.adjust($theme-color-light, $alpha: -0.5)};
+  --theme-color-dark-transparent: #{color.adjust($theme-color-dark, $alpha: -0.5)};
+  --theme-bg-color-light: #{$theme-bg-color-light};
+  --theme-bg-color-dark: #{$theme-bg-color-dark};
+  --theme-card-bg-color-light: #{$theme-card-bg-color-light};
+  --theme-card-bg-color-dark: #{$theme-card-bg-color-dark};
+  --theme-text-color-light: #{$theme-text-color-light};
+  --theme-text-color-dark: #{$theme-text-color-dark};
+  --theme-border-color-light: #{$theme-border-color-light};
+  --theme-border-color-dark: #{$theme-border-color-dark};
+}

@@ -30,11 +30,14 @@ export type NavbarConfig = {
   };
 };
 
-export type ThemeConfig = {
-  themeColorLight: Color;
-  themeColorSubLight: Color;
-  themeColorDark: Color;
-  themeColorSubDark: Color;
+export type ToolBarConfig = {
+  enable: boolean;
+  items: {
+    icon: string;
+    text?: string;
+    href?: string;
+    onclick?: string;
+  }[];
 };
 
 export type LicenseConfig = {

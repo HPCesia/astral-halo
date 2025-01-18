@@ -1,5 +1,5 @@
 ---
-import { navbarConfig, themeConfig } from '@/config';
+import { navbarConfig } from '@/config';
 
 import { Icon } from 'astro-icon/components';
 
@@ -16,7 +16,7 @@ if (!title) title = 'Astral Halo';
 <div
   id="navbar"
   transition:persist
-  class="flex w-full h-[60px] items-center border-b-2 border-b-neutral-200 dark:border-b-neutral-800 bg-neutral-50 dark:bg-neutral-950"
+  class="flex w-full h-[60px] items-center border-b-2 theme-border theme-card-bg"
 >
   <div id="nav-left" class="left-0 flex mr-auto w-fit">
     <Button id="site-name-wrapper" href="/">
@@ -42,12 +42,7 @@ if (!title) title = 'Astral Halo';
     <div class="flex max-md:hidden">
       {
         navbarConfig.navbarRightItems.onlyWide.map((item) => (
-          <Button
-            id="nav-menu-item"
-            href={item.href}
-            onclick={item.onclick}
-            title={item.text}
-          >
+          <Button id="nav-menu-item" href={item.href} onclick={item.onclick} title={item.text}>
             <Icon name={item.icon} class="text-2xl" />
           </Button>
         ))
@@ -56,12 +51,7 @@ if (!title) title = 'Astral Halo';
     <div class="flex">
       {
         navbarConfig.navbarRightItems.always.map((item) => (
-          <Button
-            id="nav-menu-item"
-            href={item.href}
-            onclick={item.onclick}
-            title={item.text}
-          >
+          <Button id="nav-menu-item" href={item.href} onclick={item.onclick} title={item.text}>
             <Icon name={item.icon} class="text-2xl" />
           </Button>
         ))

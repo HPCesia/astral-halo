@@ -14,28 +14,30 @@ if (href && onclick) throw new AstroParameterConflictError('href', 'onclick');
   <slot />
 </button>
 
-<style lang="sass">
-  button
-    display: flex
-    align-items: center
-    padding: 0.5rem
-    margin: 0.5rem
-    text-align: center
-    word-break: break-word
-    transition-duration: 300ms
-    border-radius: 9999px
-    width: fit-content
-    height: fit-content
+<style lang="scss">
+  button {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    text-align: center;
+    word-break: break-word;
+    transition-duration: 300ms;
+    border-radius: 9999px;
+    width: fit-content;
+    height: fit-content;
 
-    &:hover
-      @apply bg-[var(--theme-color-light)] dark:bg-[var(--theme-color-dark)]
+    &:hover {
+      @apply bg-[var(--theme-color-light)] dark:bg-[var(--theme-color-dark)];
+    }
+  }
 </style>
 
 <script>
   import { navigate } from 'astro:transitions/client';
   document.querySelectorAll('button[href]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      let href = btn.getAttribute('href') || '/404.html';
+      const href = btn.getAttribute('href') || '/404.html';
       navigate(href);
     });
   });

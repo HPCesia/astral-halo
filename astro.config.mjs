@@ -8,6 +8,7 @@ import icon from 'astro-icon';
 export default defineConfig({
   site: 'https://astral-halo.netilify.app/',
   base: '/',
-  trailingSlash: 'always',
+  output: 'static',
+  trailingSlash: 'ignore',
   integrations: [tailwind({ nesting: true }), icon()],
 });

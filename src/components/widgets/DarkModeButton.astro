@@ -13,24 +13,16 @@ const { class: className, showText, ...rest } = Astro.props;
 ---
 
 <Button
-  class:list={[
-    'darkmode-btn',
-    'border-2 border-neutral-200 dark:border-neutral-800',
-    className,
-  ]}
+  class:list={['darkmode-btn', className]}
   {...rest}
+  data-text-light={i18n(I18nKey.lightMode)}
+  data-text-dark={i18n(I18nKey.darkMode)}
+  data-text-auto={i18n(I18nKey.systemMode)}
 >
   <Icon class="darkmode-icon-light" name="material-symbols:light-mode-rounded" />
   <Icon class="darkmode-icon-dark" name="material-symbols:dark-mode-rounded" />
   <Icon class="darkmode-icon-auto" name="material-symbols:night-sight-auto-rounded" />
-  <span class="px-2 ml-auto mr-2">
-    {
-      showText &&
-        <span class="darkmode-text-light">{i18n(I18nKey.lightMode)}</span>
-        <span class="darkmode-text-dark">{i18n(I18nKey.darkMode)}</span>
-        <span class="darkmode-text-auto">{i18n(I18nKey.systemMode)}</span>
-    }
-  </span>
+  {showText && <span class="darkmode-text px-2 ml-auto mr-2" />}
 </Button>
 
 <script>
@@ -41,31 +33,26 @@ const { class: className, showText, ...rest } = Astro.props;
       const iconLight = btn.querySelector('.darkmode-icon-light');
       const iconDark = btn.querySelector('.darkmode-icon-dark');
       const iconAuto = btn.querySelector('.darkmode-icon-auto');
-      const textLight = btn.querySelector('.darkmode-text-light');
-      const textDark = btn.querySelector('.darkmode-text-dark');
-      const textAuto = btn.querySelector('.darkmode-text-auto');
+      const text = btn.querySelector('.darkmode-text');
 
       if ('darkMode' in localStorage && localStorage.darkMode === 'true') {
         iconLight?.classList.add('hidden');
         iconDark?.classList.remove('hidden');
         iconAuto?.classList.add('hidden');
-        textLight?.classList.add('hidden');
-        textDark?.classList.remove('hidden');
-        textAuto?.classList.add('hidden');
+        if (text) text.textContent = btn.getAttribute('data-text-dark');
+        btn.setAttribute('title', btn.getAttribute('data-text-dark') || '');
       } else if ('darkMode' in localStorage && localStorage.darkMode === 'false') {
         iconLight?.classList.remove('hidden');
         iconDark?.classList.add('hidden');
         iconAuto?.classList.add('hidden');
-        textLight?.classList.remove('hidden');
-        textDark?.classList.add('hidden');
-        textAuto?.classList.add('hidden');
+        if (text) text.textContent = btn.getAttribute('data-text-light');
+        btn.setAttribute('title', btn.getAttribute('data-text-light') || '');
       } else {
         iconLight?.classList.add('hidden');
         iconDark?.classList.add('hidden');
         iconAuto?.classList.remove('hidden');
-        textLight?.classList.add('hidden');
-        textDark?.classList.add('hidden');
-        textAuto?.classList.remove('hidden');
+        if (text) text.textContent = btn.getAttribute('data-text-auto');
+        btn.setAttribute('title', btn.getAttribute('data-text-auto') || '');
       }
     });
   }

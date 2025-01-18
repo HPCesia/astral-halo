@@ -1,0 +1,22 @@
+@use './variables';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .theme-bg {
+    @apply bg-[var(--theme-bg-color-light)] dark:bg-[var(--theme-bg-color-dark)];
+  }
+
+  .theme-card-bg {
+    @apply bg-[var(--theme-card-bg-color-light)] dark:bg-[var(--theme-card-bg-color-dark)];
+  }
+
+  .theme-text {
+    @apply text-[var(--theme-text-color-light)] dark:text-[var(--theme-text-color-dark)];
+  }
+
+  .theme-border {
+    @apply border-[var(--theme-border-color-light)] dark:border-[var(--theme-border-color-dark)];
+  }
+}

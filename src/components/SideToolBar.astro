@@ -1,8 +1,56 @@
 ---
-
+import { Icon } from 'astro-icon/components';
+import Button from './widgets/Button.astro';
+import DarkModeButton from './widgets/DarkModeButton.astro';
 ---
 
-<div id="side-menu" class="close">
-  <div id="sm-hide"></div>
-  <div id="sm-show"></div>
+<div id="side-toolbar" transition:persist class="fixed bottom-10 right-0 text-xl">
+  <div id="stb-trigger" class="fixed bottom-0 right-0 w-12 h-32 -z-50"></div>
+  <div id="stb-hide" class="translate-x-full duration-500 ease-in-out">
+    <DarkModeButton id="stb-dark-mode" class="" />
+  </div>
+  <div id="stb-show" class="translate-x-full duration-500 ease-in-out">
+    <Button id="stb-show-more">
+      <Icon name="material-symbols:settings-rounded" class="animate-spin" />
+    </Button>
+    <Button id="stb-back-to-top">
+      <Icon name="material-symbols:arrow-upward-rounded" />
+    </Button>
+  </div>
 </div>
+
+<script>
+  const stbHide = document.getElementById('stb-hide');
+  const stbShow = document.getElementById('stb-show');
+  const stbShowMore = document.getElementById('stb-show-more');
+  const stbBackToTop = document.getElementById('stb-back-to-top');
+  const stbTrigger = document.getElementById('stb-trigger');
+
+  stbTrigger?.addEventListener('click', () => {
+    stbShow?.classList.toggle('translate-x-full');
+  });
+
+  stbShowMore?.addEventListener('click', () => {
+    stbHide?.classList.toggle('translate-x-full');
+  });
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 0) stbShow?.classList.remove('translate-x-full');
+    else {
+      stbShow?.classList.add('translate-x-full');
+      stbHide?.classList.add('translate-x-full');
+    }
+  });
+</script>
+
+<style lang="scss">
+  #side-toolbar {
+    button {
+      @apply bg-[var(--theme-color-light)] dark:bg-[var(--theme-color-dark)];
+
+      &:hover {
+        @apply bg-[var(--theme-color-light-lighten)] dark:bg-[var(--theme-color-dark-lighten)];
+      }
+    }
+  }
+</style>
