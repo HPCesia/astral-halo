@@ -10,12 +10,12 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 <div id="sidebar" transition:persist>
   <div
     id="sidebar-mask"
-    class="fixed z-40 hidden w-full h-full bg-black/10 backdrop-blur-md backdrop-saturate-100"
+    class="fixed z-40 opacity-0 pointer-events-none w-full h-full bg-black/10 backdrop-blur-md backdrop-saturate-100 duration-500 ease-in-out"
   >
   </div>
   <div
     id="sidebar-menu"
-    class="fixed md:hidden h-full z-50 -right-1/3 w-1/3 duration-500 ease-in-out border-l-2 theme-border theme-card-bg"
+    class="fixed h-full z-50 -right-1/3 w-1/3 duration-500 ease-in-out border-l-2 theme-border theme-card-bg"
   >
     <div id="sidebar-site-data"></div>
     <DarkModeButton
@@ -54,26 +54,30 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 </div>
 
 <script>
-  const toggleSidebarBtns = document.querySelectorAll('button#toggle-sidebar-btn');
+  const toggleSidebarBtns = document.getElementById('nav-toggle-sidebar-btn');
   const sidebarMask = document.getElementById('sidebar-mask');
   const sidebarMenu = document.getElementById('sidebar-menu');
 
-  toggleSidebarBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      sidebarMask?.classList.toggle('hidden');
-      sidebarMenu?.classList.toggle('-translate-x-full');
-    });
+  toggleSidebarBtns?.addEventListener('click', () => {
+    sidebarMask?.classList.remove('opacity-0');
+    sidebarMask?.classList.remove('pointer-events-none');
+    sidebarMenu?.classList.remove('-translate-x-full');
+    sidebarMenu?.removeAttribute('inert');
   });
 
   sidebarMask?.addEventListener('click', () => {
-    sidebarMask?.classList.add('hidden');
+    sidebarMask?.classList.add('opacity-0');
+    sidebarMask?.classList.add('pointer-events-none');
     sidebarMenu?.classList.remove('-translate-x-full');
+    sidebarMenu?.setAttribute('inert', 'true');
   });
 
   window.addEventListener('resize', () => {
     if (window.innerWidth > 768) {
-      sidebarMask?.classList.add('hidden');
+      sidebarMask?.classList.add('opacity-0');
+      sidebarMask?.classList.add('pointer-events-none');
       sidebarMenu?.classList.remove('-translate-x-full');
+      sidebarMenu?.setAttribute('inert', 'true');
     }
   });
 </script>

@@ -1,0 +1,22 @@
+---
+import { getCollection, render } from 'astro:content';
+import MainLayout from '@layouts/MainLayout.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('posts');
+  return articles.map((article) => ({
+    params: { article: article.data.abbrlink },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+---
+
+<MainLayout>
+  <div id="main-content">
+    <Content />
+  </div>
+  <div id="aside-content"></div>
+</MainLayout>

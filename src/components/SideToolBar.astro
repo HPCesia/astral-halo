@@ -28,10 +28,12 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 
   stbTrigger?.addEventListener('click', () => {
     stbShow?.classList.toggle('translate-x-full');
+    stbShow?.toggleAttribute('inert');
   });
 
   stbShowMore?.addEventListener('click', () => {
     stbHide?.classList.toggle('translate-x-full');
+    stbHide?.toggleAttribute('inert');
   });
 
   window.addEventListener('scroll', () => {
@@ -39,6 +41,8 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     else {
       stbShow?.classList.add('translate-x-full');
       stbHide?.classList.add('translate-x-full');
+      stbShow?.toggleAttribute('inert', true);
+      stbHide?.toggleAttribute('inert', true);
     }
   });
 </script>

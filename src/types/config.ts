@@ -1,9 +1,9 @@
-import type { Color } from './Color';
-
 export type SiteConfig = {
   title: string;
+  subtitle: string;
   lang: string;
   favicon: (string | { src: string; theme?: 'light' | 'dark' })[];
+  postsPerPage: number;
 };
 
 export type ProfileConfig = {

@@ -11,8 +11,10 @@ import { i18n } from '@i18n/translation';
 
 export const siteConfig: SiteConfig = {
   title: 'Astral Halo',
+  subtitle: '',
   lang: 'zh_CN', // "en" | "zh_CN" | "zh_TW"
   favicon: [''],
+  postsPerPage: 10,
 };
 
 export const profileConfig: ProfileConfig = {
@@ -24,9 +26,9 @@ export const profileConfig: ProfileConfig = {
 
 export const navbarConfig: NavbarConfig = {
   navbarCenterItems: [
-    { text: i18n(I18nKey.archive), href: '/archive/' },
-    { text: i18n(I18nKey.categories), href: '/categories/' },
-    { text: i18n(I18nKey.tags), href: '/tags/' },
+    { text: i18n(I18nKey.archive), href: '/archives/' },
+    { text: i18n(I18nKey.categories), href: '/archives/categories/' },
+    { text: i18n(I18nKey.tags), href: '/archives/tags/' },
     { text: i18n(I18nKey.about), href: '/about/' },
   ],
   navbarRightItems: {

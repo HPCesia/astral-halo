@@ -1,0 +1,86 @@
+---
+import MetaIcon from './MetaIcon.astro';
+import ReadMoreButton from './ReadMoreButton.astro';
+import PostCardCover from './PostCardCover.astro';
+
+interface Props {
+  class?: string;
+  title: string;
+  url: string;
+  published: Date;
+  updated?: Date;
+  tags: string[];
+  category?: string;
+  cover?: string;
+  description: string;
+}
+
+const { title, url, published, updated, tags, category, cover } = Astro.props;
+const className = Astro.props.class;
+
+const hasCover = cover !== '' && cover !== undefined && cover !== null;
+
+const metas: ({ icon: string; text: string; link?: string } | undefined)[] = [
+  {
+    icon: 'material-symbols:calendar-clock-outline-rounded',
+    text: published.toLocaleDateString(),
+  },
+  updated && {
+    icon: 'material-symbols:edit-calendar-outline-rounded',
+    text: updated.toLocaleDateString(),
+  },
+  category
+    ? {
+        icon: 'material-symbols:category-outline-rounded',
+        text: category,
+        link: `/archives/categories/${category}/1/`,
+      }
+    : undefined,
+  ...tags.map((tag) => {
+    return {
+      icon: 'material-symbols:tag-rounded',
+      text: tag,
+      link: `/archives/tags/${tag}/1/`,
+    };
+  }),
+];
+---
+
+<div
+  class:list={[
+    'theme-card-bg theme-border',
+    'border-2 rounded-xl p-4 flex max-md:flex-col-reverse w-full',
+    className,
+  ]}
+>
+  <div class="items-center px-12 py-7 w-full h-full mr-auto">
+    <div class="text-2xl mb-5"><a href={url}>{title}</a></div>
+    <div class="flex flex-wrap items-center mb-3 gap-x-4 gap-y-2 theme-text-second">
+      {
+        metas.map((meta) => {
+          return (
+            meta && (
+              <div class="flex items-center gap-1">
+                <MetaIcon name={meta.icon} />
+                {meta.link ? (
+                  <a href={meta.link} class="text-sm font-medium">
+                    {meta.text}
+                  </a>
+                ) : (
+                  <span class="text-sm font-medium">{meta.text}</span>
+                )}
+              </div>
+            )
+          );
+        })
+      }
+    </div>
+  </div>
+  {
+    hasCover ? (
+      <PostCardCover url={url} title={title} cover={cover} />
+    ) : (
+      <ReadMoreButton href={url} title={title} />
+    )
+  }
+</div>

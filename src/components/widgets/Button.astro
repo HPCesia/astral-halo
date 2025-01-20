@@ -30,6 +30,10 @@ if (href && onclick) throw new AstroParameterConflictError('href', 'onclick');
     &:hover {
       @apply bg-[var(--theme-color-light)] dark:bg-[var(--theme-color-dark)];
     }
+
+    &:active {
+      @apply brightness-75 scale-95;
+    }
   }
 </style>
 

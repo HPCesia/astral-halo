@@ -1,0 +1,39 @@
+---
+import type { BlogPostData } from '@/types/data';
+import { siteConfig } from '@/config';
+import PostCard from './widgets/PostCard.astro';
+
+interface Props {
+  posts: {
+    body: string;
+    data: BlogPostData;
+  }[];
+  currentPage: number;
+  postsPerPage?: number;
+}
+
+let { posts, currentPage, postsPerPage } = Astro.props;
+
+postsPerPage = postsPerPage || siteConfig.postsPerPage;
+
+posts = posts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+---
+
+<div id="post-page" class="flex flex-col gap-4">
+  {
+    posts.map((post) => {
+      const data = post.data;
+      return (
+        <PostCard
+          title={data.title}
+          url={'/posts/' + data.abbrlink + '/'}
+          published={data.published}
+          tags={data.tags}
+          category={data.category}
+          cover={data.cover}
+          description={data.description}
+        />
+      );
+    })
+  }
+</div>

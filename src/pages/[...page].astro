@@ -1,0 +1,32 @@
+---
+import { getSortedPosts } from '@utils/content-utils';
+import { siteConfig } from '@/config';
+import categoryBar from '@components/categoryBar.astro';
+import PostPage from '@components/PostPage.astro';
+import MainLayout from '@layouts/MainLayout.astro';
+
+export async function getStaticPaths() {
+  const articles = await getSortedPosts();
+  const pageNum = Math.ceil(articles.length / siteConfig.postsPerPage);
+  let pages = Array.from({ length: pageNum }).map((_, i) => ({
+    params: { page: i + 1 === 1 ? undefined : 'page/' + (i + 1).toString() },
+    props: { page: i + 1 },
+  }));
+  return pages;
+}
+
+const { page } = Astro.props;
+const articles = await getSortedPosts();
+const posts = articles.slice(
+  (page - 1) * siteConfig.postsPerPage,
+  page * siteConfig.postsPerPage
+);
+---
+
+<MainLayout>
+  <div id="main-content">
+    <categoryBar></categoryBar>
+    <PostPage posts={posts} currentPage={page} />
+  </div>
+  <div id="aside-content"></div>
+</MainLayout>

@@ -8,6 +8,8 @@ $theme-card-bg-color-light: $theme-bg-color-light;
 $theme-card-bg-color-dark: $theme-bg-color-dark;
 $theme-text-color-light: theme('colors.neutral.900');
 $theme-text-color-dark: theme('colors.neutral.100');
+$theme-text-color-secondary-light: theme('colors.neutral.600');
+$theme-text-color-secondary-dark: theme('colors.neutral.400');
 $theme-border-color-light: theme('colors.neutral.200');
 $theme-border-color-dark: theme('colors.neutral.800');
 
@@ -26,6 +28,8 @@ $theme-border-color-dark: theme('colors.neutral.800');
   --theme-card-bg-color-dark: #{$theme-card-bg-color-dark};
   --theme-text-color-light: #{$theme-text-color-light};
   --theme-text-color-dark: #{$theme-text-color-dark};
+  --theme-text-color-second-light: #{$theme-text-color-secondary-light};
+  --theme-text-color-second-dark: #{$theme-text-color-secondary-dark};
   --theme-border-color-light: #{$theme-border-color-light};
   --theme-border-color-dark: #{$theme-border-color-dark};
 }

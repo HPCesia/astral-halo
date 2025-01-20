@@ -1,0 +1,34 @@
+---
+import { getSortedPosts } from '@utils/content-utils';
+import MainLayout from '@layouts/MainLayout.astro';
+import PostPage from '@components/PostPage.astro';
+import { siteConfig } from '@/config';
+
+export async function getStaticPaths() {
+  const posts = await getSortedPosts();
+  const tags = [...new Set(posts.map((post) => post.data.tags).flat())];
+  return tags
+    .map((tag) => {
+      const tagPosts = posts.filter((post) => post.data.tags.includes(tag));
+      const pageNum = Math.ceil(tagPosts.length / siteConfig.postsPerPage);
+      return Array.from({ length: pageNum }, (_, i) => ({
+        params: { tag, page: (i + 1).toString() },
+        props: {
+          tag,
+          posts: tagPosts.slice(i * siteConfig.postsPerPage, (i + 1) * siteConfig.postsPerPage),
+          currentPage: i + 1,
+        },
+      }));
+    })
+    .flat();
+}
+
+const { tag, posts, currentPage } = Astro.props;
+---
+
+<MainLayout>
+  <div id="main-content">
+    <PostPage posts={posts} currentPage={currentPage} />
+  </div>
+  <div id="aside-content"></div>
+</MainLayout>

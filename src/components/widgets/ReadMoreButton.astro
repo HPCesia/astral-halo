@@ -1,0 +1,26 @@
+---
+import type { ComponentProps } from 'astro/types';
+import { Icon } from 'astro-icon/components';
+
+type Props = Omit<ComponentProps<typeof Icon>, 'name'>;
+
+const { href, title, ...rest } = Astro.props;
+---
+
+<a href={href} title={title}>
+  <Icon name="material-symbols:chevron-right-rounded" {...rest} />
+</a>
+
+<style>
+  a {
+    @apply max-md:hidden duration-100;
+    @apply hover:brightness-125;
+    @apply active:brightness-75 active:scale-95;
+  }
+
+  svg {
+    @apply min-h-48 h-full w-12 rounded-md;
+    @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
+    @apply bg-[var(--theme-color-light-transparent)] dark:bg-[var(--theme-color-dark-transparent)];
+  }
+</style>

@@ -16,6 +16,14 @@
     @apply text-[var(--theme-text-color-light)] dark:text-[var(--theme-text-color-dark)];
   }
 
+  .theme-text-hl {
+    @apply text-[var(--theme-color-light)] dark:text-[var(--theme-color-dark)];
+  }
+
+  .theme-text-second {
+    @apply text-[var(--theme-text-color-second-light)] dark:text-[var(--theme-text-color-second-dark)];
+  }
+
   .theme-border {
     @apply border-[var(--theme-border-color-light)] dark:border-[var(--theme-border-color-dark)];
   }
