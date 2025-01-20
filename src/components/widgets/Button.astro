@@ -26,6 +26,7 @@ if (href && onclick) throw new AstroParameterConflictError('href', 'onclick');
     border-radius: 9999px;
     width: fit-content;
     height: fit-content;
+    justify-content: center;
 
     &:hover {
       @apply bg-[var(--theme-color-light)] dark:bg-[var(--theme-color-dark)];
@@ -39,10 +40,12 @@ if (href && onclick) throw new AstroParameterConflictError('href', 'onclick');
 
 <script>
   import { navigate } from 'astro:transitions/client';
-  document.querySelectorAll('button[href]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const href = btn.getAttribute('href') || '/404.html';
-      navigate(href);
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll('button[href]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const href = btn.getAttribute('href') || '/404.html';
+        navigate(href);
+      });
     });
   });
 </script>

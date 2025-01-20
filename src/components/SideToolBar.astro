@@ -4,57 +4,82 @@ import Button from './widgets/Button.astro';
 import DarkModeButton from './widgets/DarkModeButton.astro';
 ---
 
-<div id="side-toolbar" transition:persist class="fixed bottom-10 right-0 text-xl">
-  <div id="stb-trigger" class="fixed bottom-0 right-0 w-12 h-32 -z-50"></div>
-  <div id="stb-hide" class="translate-x-full duration-500 ease-in-out">
+<div id="side-toolbar" transition:persist class="fixed bottom-10 right-0">
+  <div id="stb-hide" class="translate-x-full duration-500 ease-in-out" inert>
     <DarkModeButton id="stb-dark-mode" class="" />
   </div>
-  <div id="stb-show" class="translate-x-full duration-500 ease-in-out">
+  <div id="stb-show" class="translate-x-full duration-500 ease-in-out" inert>
     <Button id="stb-show-more">
       <Icon name="material-symbols:settings-rounded" class="animate-spin" />
     </Button>
-    <Button id="stb-back-to-top">
-      <Icon name="material-symbols:arrow-upward-rounded" />
+    <Button id="stb-back-to-top" class="group">
+      <span
+        id="stb-read-percentage"
+        class="absolute opacity-0 duration-300 group-hover:opacity-0 text-sm"></span>
+      <Icon
+        id="stb-back-to-top-icon"
+        name="material-symbols:arrow-upward-rounded"
+        class="opacity-0 group-hover:opacity-100 duration-300"
+      />
     </Button>
   </div>
 </div>
 
 <script>
-  const stbHide = document.getElementById('stb-hide');
-  const stbShow = document.getElementById('stb-show');
-  const stbShowMore = document.getElementById('stb-show-more');
-  const stbBackToTop = document.getElementById('stb-back-to-top');
-  const stbTrigger = document.getElementById('stb-trigger');
+  import { scrollToTop, getReadingProgress } from '@scripts/utils';
 
-  stbTrigger?.addEventListener('click', () => {
-    stbShow?.classList.toggle('translate-x-full');
-    stbShow?.toggleAttribute('inert');
-  });
+  document.addEventListener('astro:page-load', () => {
+    const stbHide = document.getElementById('stb-hide');
+    const stbShow = document.getElementById('stb-show');
+    const stbShowMore = document.getElementById('stb-show-more');
+    const stbBackToTop = document.getElementById('stb-back-to-top');
+    const stbBackToTopIcon = document.getElementById('stb-back-to-top-icon');
+    const stbReadPercent = document.getElementById('stb-read-percentage');
 
-  stbShowMore?.addEventListener('click', () => {
-    stbHide?.classList.toggle('translate-x-full');
-    stbHide?.toggleAttribute('inert');
-  });
+    stbShowMore?.addEventListener('click', () => {
+      stbHide?.classList.toggle('translate-x-full');
+      stbHide?.toggleAttribute('inert');
+    });
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 0) stbShow?.classList.remove('translate-x-full');
-    else {
-      stbShow?.classList.add('translate-x-full');
-      stbHide?.classList.add('translate-x-full');
-      stbShow?.toggleAttribute('inert', true);
-      stbHide?.toggleAttribute('inert', true);
-    }
+    stbBackToTop?.addEventListener('click', () => {
+      scrollToTop();
+    });
+
+    window.addEventListener('scroll', () => {
+      // 控制工具栏显隐
+      if (window.scrollY > 0) {
+        stbShow?.classList.remove('translate-x-full');
+        stbShow?.removeAttribute('inert');
+      } else {
+        stbShow?.classList.add('translate-x-full');
+        stbHide?.classList.add('translate-x-full');
+        stbShow?.setAttribute('inert', '');
+        stbHide?.setAttribute('inert', '');
+      }
+      // 控制进度条
+      const scrolledPercentage = getReadingProgress();
+      if (stbReadPercent) stbReadPercent.textContent = `${scrolledPercentage}`;
+      const bottomPos =
+        (document.getElementById('comment') || document.getElementById('footer'))?.offsetTop ||
+        document.documentElement.scrollHeight;
+      const isNearEnd = window.screenY + document.documentElement.clientHeight >= bottomPos;
+      if (isNearEnd) {
+        stbReadPercent?.classList.add('opacity-0');
+        stbBackToTopIcon?.classList.remove('opacity-0');
+      } else {
+        stbReadPercent?.classList.remove('opacity-0');
+        stbBackToTopIcon?.classList.add('opacity-0');
+      }
+    });
   });
 </script>
 
 <style lang="scss">
-  #side-toolbar {
-    button {
-      @apply bg-[var(--theme-color-light)] dark:bg-[var(--theme-color-dark)];
+  button {
+    @apply bg-[var(--theme-color-light)] dark:bg-[var(--theme-color-dark)];
 
-      &:hover {
-        @apply bg-[var(--theme-color-light-lighten)] dark:bg-[var(--theme-color-dark-lighten)];
-      }
+    &:hover {
+      @apply bg-[var(--theme-color-light-lighten)] dark:bg-[var(--theme-color-dark-lighten)];
     }
   }
 </style>

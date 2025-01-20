@@ -54,30 +54,32 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 </div>
 
 <script>
-  const toggleSidebarBtns = document.getElementById('nav-toggle-sidebar-btn');
-  const sidebarMask = document.getElementById('sidebar-mask');
-  const sidebarMenu = document.getElementById('sidebar-menu');
+  document.addEventListener('astro:page-load', () => {
+    const toggleSidebarBtns = document.getElementById('nav-toggle-sidebar-btn');
+    const sidebarMask = document.getElementById('sidebar-mask');
+    const sidebarMenu = document.getElementById('sidebar-menu');
 
-  toggleSidebarBtns?.addEventListener('click', () => {
-    sidebarMask?.classList.remove('opacity-0');
-    sidebarMask?.classList.remove('pointer-events-none');
-    sidebarMenu?.classList.remove('-translate-x-full');
-    sidebarMenu?.removeAttribute('inert');
-  });
+    toggleSidebarBtns?.addEventListener('click', () => {
+      sidebarMask?.classList.remove('opacity-0');
+      sidebarMask?.classList.remove('pointer-events-none');
+      sidebarMenu?.classList.add('-translate-x-full');
+      sidebarMenu?.removeAttribute('inert');
+    });
 
-  sidebarMask?.addEventListener('click', () => {
-    sidebarMask?.classList.add('opacity-0');
-    sidebarMask?.classList.add('pointer-events-none');
-    sidebarMenu?.classList.remove('-translate-x-full');
-    sidebarMenu?.setAttribute('inert', 'true');
-  });
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
+    sidebarMask?.addEventListener('click', () => {
       sidebarMask?.classList.add('opacity-0');
       sidebarMask?.classList.add('pointer-events-none');
       sidebarMenu?.classList.remove('-translate-x-full');
       sidebarMenu?.setAttribute('inert', 'true');
-    }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        sidebarMask?.classList.add('opacity-0');
+        sidebarMask?.classList.add('pointer-events-none');
+        sidebarMenu?.classList.remove('-translate-x-full');
+        sidebarMenu?.setAttribute('inert', 'true');
+      }
+    });
   });
 </script>
