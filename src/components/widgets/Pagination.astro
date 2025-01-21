@@ -43,44 +43,68 @@ else {
 }
 ---
 
-<div id="pagination" class="flex justify-center items-center gap-2">
+<div id="pagination" class="flex w-full">
   {
-    pages.map((p) => {
-      return (
-        <Button
-          class:list={[
-            'theme-bg theme-border border-2 !rounded-xl',
-            current === p.page && 'theme-card-bg-hl',
-          ]}
-          href={p.url}
-        >
-          <span class="mx-1">{`${p.page === -1 ? '...' : p.page}`}</span>
-        </Button>
-      );
-    })
-  }
-  {
-    total > 1 && (
-      <div
-        id="page-jumper"
-        class="flex flex-row items-center theme-card-bg theme-border mx-2 rounded-xl border-2"
-        data-base-url={baseUrl}
-        data-special-pages={specialPages?.map((p) => `${p.page}:${p.url}`).join(',')}
+    current > 1 && (
+      <Button
+        id="prev-page-btn"
+        class="theme-bg theme-border border-2 !rounded-xl mr-auto"
+        href={getPageUrl(current - 1)}
       >
-        <input
-          id="page-jumper-input"
-          type="number"
-          min="1"
-          max={total}
-          class="duration-300 theme-bg border-none !active:border-none pl-4"
-        />
-        <Button
-          id="page-jumper-button"
-          class="theme-card-bg !rounded-xl !m-0 relative right-0 duration-300"
+        <Icon name="material-symbols:keyboard-double-arrow-left-rounded" class="my-1" />
+      </Button>
+    )
+  }
+  <div class="flex justify-center items-center gap-2 mx-auto">
+    {
+      pages.map((p) => {
+        return (
+          <Button
+            class:list={[
+              'theme-bg theme-border border-2 !rounded-xl',
+              current === p.page && 'theme-card-bg-hl',
+            ]}
+            href={p.url}
+          >
+            <span class="mx-1">{`${p.page === -1 ? '...' : p.page}`}</span>
+          </Button>
+        );
+      })
+    }
+    {
+      total > 1 && (
+        <div
+          id="page-jumper"
+          class="flex flex-row items-center theme-card-bg theme-border mx-2 rounded-xl border-2"
+          data-base-url={baseUrl}
+          data-special-pages={specialPages?.map((p) => `${p.page}:${p.url}`).join(',')}
         >
-          <Icon name="material-symbols:keyboard-double-arrow-right-rounded" class="my-1" />
-        </Button>
-      </div>
+          <input
+            id="page-jumper-input"
+            type="number"
+            min="1"
+            max={total}
+            class="duration-300 theme-bg border-none !active:border-none pl-4"
+          />
+          <Button
+            id="page-jumper-button"
+            class="theme-card-bg !rounded-xl !m-0 relative right-0 duration-300"
+          >
+            <Icon name="material-symbols:keyboard-double-arrow-right-rounded" class="my-1" />
+          </Button>
+        </div>
+      )
+    }
+  </div>
+  {
+    current < total && (
+      <Button
+        id="next-page-btn"
+        class="theme-bg theme-border border-2 !rounded-xl ml-auto"
+        href={getPageUrl(current + 1)}
+      >
+        <Icon name="material-symbols:keyboard-double-arrow-right-rounded" class="my-1" />
+      </Button>
     )
   }
 </div>

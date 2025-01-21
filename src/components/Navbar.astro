@@ -19,12 +19,12 @@ if (!title) title = 'Astral Halo';
   transition:persist
   class="flex fixed z-30 w-full h-16 items-center border-b-2 theme-border theme-card-bg"
 >
-  <div id="nav-left" class="left-0 flex mr-auto w-fit">
+  <div id="nav-left" class="flex mr-auto w-fit">
     <Button id="site-name" href="/">
       <span class="text-xl font-bold">{title}</span>
     </Button>
   </div>
-  <div id="nav-center" class="left-0 flex m-auto w-fit max-md:hidden">
+  <div id="nav-center" class="flex m-auto w-fit max-md:hidden">
     {
       navbarConfig.navbarCenterItems.map((item) => {
         const text = i18n(item.text);
@@ -36,7 +36,7 @@ if (!title) title = 'Astral Halo';
       })
     }
   </div>
-  <div id="nav-right" class="left-0 flex ml-auto w-fit">
+  <div id="nav-right" class="flex ml-auto w-fit">
     <div class="flex max-md:hidden">
       {
         navbarConfig.navbarRightItems.onlyWide.map((item) => {

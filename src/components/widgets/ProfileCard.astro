@@ -16,6 +16,7 @@ const avaterAttr = profileConfig.avatar
 
 <div
   id="profile-card"
+  transition:persist
   class="theme-card-bg theme-border rounded-xl border-2 flex flex-col items-center text-center"
 >
   <div class="m-3 w-fit min-w-20">
@@ -24,7 +25,9 @@ const avaterAttr = profileConfig.avatar
     </a>
   </div>
   <div class="mx-3 mb-5 flex flex-col w-full">
-    <div class="text-lg mb-3">{profileConfig.name}</div>
+    <div class="text-lg mb-3">
+      <a href="/about/" class="font-bold">{profileConfig.name}</a>
+    </div>
     <div>{profileConfig.bio}</div>
   </div>
 </div>
