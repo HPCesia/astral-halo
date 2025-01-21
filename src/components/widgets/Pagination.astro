@@ -133,7 +133,6 @@ else {
         const [page, url] = p.split(':', 2);
         return { page: Number(page), url: url };
       });
-      console.log(specialPages);
       return specialPages?.find((p) => p.page === page)?.url || `${baseUrl}/${page}`;
     }
 

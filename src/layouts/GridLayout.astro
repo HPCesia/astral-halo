@@ -10,10 +10,13 @@ const { title, description, lang } = Astro.props;
 ---
 
 <MainLayout title={title} description={description} lang={lang}>
-  <div id="main-content" class="my-4 w-full mx-4">
+  <div id="main-content" class="my-4 w-full">
     <slot />
   </div>
-  <div id="aside-content" class="max-xl:hidden my-4 mx-2 w-96">
-    <slot name="aside" slot="aside" />
+  <div id="aside-content" class="max-xl:hidden my-4 w-96 flex flex-col gap-4">
+    <slot name="aside-fixed" slot="aside-fixed" />
+    <div class="sticky flex flex-col gap-4 top-20">
+      <slot name="aside-sticky" slot="aside-sticky" />
+    </div>
   </div>
 </MainLayout>

@@ -1,0 +1,45 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  class?: string;
+  headings: MarkdownHeading[];
+}
+
+const { headings = [], class: className } = Astro.props;
+const minDepth = Math.min(...headings.map((h) => h.depth));
+const maxLevel = 3;
+---
+
+<div class:list={['theme-card-bg theme-border border-2 rounded-xl p-2', className]}>
+  <div></div>
+  {
+    headings
+      .filter((heading) => heading.depth < minDepth + maxLevel)
+      .map((heading) => (
+        <a class:list={[`level-${heading.depth - minDepth + 1}`]} href={`#${heading.slug}`}>
+          {heading.text}
+        </a>
+      ))
+  }
+</div>
+
+<style lang="scss">
+  $max-level: 3;
+
+  a {
+    display: block;
+    padding: 0.5rem 1rem;
+
+    @apply duration-200 ease-in-out;
+    @apply hover:scale-105;
+    @apply active:scale-95;
+
+    @for $i from 1 through $max-level {
+      &.level-#{$i} {
+        padding-left: #{($i - 1) * 0.5 + 1}rem;
+        font-size: #{1 - ($i - 1) * 0.1}rem;
+      }
+    }
+  }
+</style>

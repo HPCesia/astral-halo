@@ -1,27 +1,34 @@
 article {
   h1 {
-    @apply text-2xl font-bold;
-    @apply mt-4 mb-2;
+    @apply text-2xl;
   }
 
   h2 {
-    @apply text-xl font-bold;
-    @apply mt-4 mb-2;
+    @apply text-xl;
   }
 
   h3 {
-    @apply text-lg font-bold;
-    @apply mt-4 mb-2;
+    @apply text-lg;
   }
 
   h4 {
-    @apply text-base font-bold;
-    @apply mt-4 mb-2;
+    @apply text-base;
   }
 
   h5 {
-    @apply text-base font-bold;
-    @apply mt-4 mb-2;
+    @apply text-base;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    display: inline;
+    width: 100%;
+    scroll-margin-top: 4rem;
+    font-weight: bold;
+    margin: 1rem 0 0.5rem;
   }
 
   p {

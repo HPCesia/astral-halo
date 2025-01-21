@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import GridLayout from '@layouts/GridLayout.astro';
 import ProfileCard from '@components/widgets/ProfileCard.astro';
 import '@/styles/article.scss';
+import TOC from '@components/widgets/TOC.astro';
 
 export async function getStaticPaths() {
   const articles = await getCollection('posts');
@@ -13,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
-const { Content } = await render(article);
+const { Content, headings } = await render(article);
 ---
 
 <GridLayout>
@@ -22,7 +23,10 @@ const { Content } = await render(article);
       <Content />
     </article>
   </div>
-  <Fragment slot="aside">
+  <Fragment slot="aside-fixed">
     <ProfileCard />
+  </Fragment>
+  <Fragment slot="aside-sticky">
+    <TOC headings={headings} />
   </Fragment>
 </GridLayout>
