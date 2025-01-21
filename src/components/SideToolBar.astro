@@ -26,7 +26,7 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 </div>
 
 <script>
-  import { scrollToTop, getReadingProgress } from '@scripts/utils';
+  import { getReadingProgress } from '@scripts/utils';
 
   document.addEventListener('astro:page-load', () => {
     const stbHide = document.getElementById('stb-hide');
@@ -42,7 +42,10 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     });
 
     stbBackToTop?.addEventListener('click', () => {
-      scrollToTop();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     });
 
     window.addEventListener('scroll', () => {

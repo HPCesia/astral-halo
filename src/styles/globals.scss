@@ -7,6 +7,10 @@
   font-size: 17px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer components {
   .theme-bg {
     @apply bg-[var(--theme-bg-color-light)] dark:bg-[var(--theme-bg-color-dark)];
