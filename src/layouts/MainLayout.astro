@@ -16,11 +16,12 @@ const { title, description, lang } = Astro.props;
   <slot slot="head" name="head" />
   <Sidebar />
   <SideToolBar />
-  <div id="body-wrap">
-    <Navbar />
+  <Navbar />
+  <div id="body-wrap" class="items-center w-full">
     <!-- Main content -->
-    <div id="content-wrapper">
+    <div id="content-wrapper" class="flex mx-auto gap-4 max-w-screen-xl">
       <slot />
     </div>
   </div>
+  <div id="footer"></div>
 </GlobalLayout>

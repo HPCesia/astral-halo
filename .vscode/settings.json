@@ -6,12 +6,7 @@
   "css.validate": false,
   "scss.validate": false,
   "less.validate": false,
-  "stylelint.validate": [
-    "css",
-    "postcss",
-    "scss",
-    "astro",
-  ],
+  "stylelint.validate": ["css", "postcss", "scss", "astro"],
   "eslint.validate": [
     "javascript",
     "javascriptreact",

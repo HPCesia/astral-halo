@@ -1,0 +1,30 @@
+---
+import { profileConfig } from '@/config';
+import { Image } from 'astro:assets';
+import avatarImg from '/src/assets/img/avatar.jpg';
+
+const avaterAttr = profileConfig.avatar
+  ? {
+      src: profileConfig.avatar,
+      alt: profileConfig.name,
+      inferSize: true,
+      width: 800,
+      height: 800,
+    }
+  : { src: avatarImg, alt: profileConfig.name };
+---
+
+<div
+  id="profile-card"
+  class="theme-card-bg theme-border rounded-xl border-2 flex flex-col items-center text-center"
+>
+  <div class="m-3 w-fit min-w-20">
+    <a href="/about/">
+      <Image class="rounded-full border-4 w-20 h-20 theme-border" {...avaterAttr} />
+    </a>
+  </div>
+  <div class="mx-3 mb-5 flex flex-col w-full">
+    <div class="text-lg mb-3">{profileConfig.name}</div>
+    <div>{profileConfig.bio}</div>
+  </div>
+</div>

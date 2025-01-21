@@ -1,5 +1,40 @@
 ---
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
 
+interface Props {
+  categories: string[];
+  currentCategory?: string;
+}
+
+const { categories, currentCategory } = Astro.props;
 ---
 
-<div id="category-bar" class="flex w-full rounded-md px-2 py-3"></div>
+<div
+  id="category-bar"
+  class="theme-card-bg theme-border flex w-full rounded-xl px-2 py-3 border-2 mb-4"
+>
+  <a href={`/`} class:list={[currentCategory ? '' : 'theme-card-bg-hl']}>
+    {i18n(I18nKey.recentPosts)}
+  </a>
+  {
+    categories.map((category) => (
+      <a
+        href={`/archives/categories/${category}/1/`}
+        class:list={[currentCategory === category ? 'theme-card-bg-hl' : '']}
+      >
+        {category}
+      </a>
+    ))
+  }
+</div>
+
+<style lang="scss">
+  a {
+    @apply mx-2 rounded-md px-2 py-1;
+
+    &:hover {
+      @apply bg-[var(--theme-color-light-lighten)] dark:bg-[var(--theme-color-dark-lighten)];
+    }
+  }
+</style>

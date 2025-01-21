@@ -1,3 +1,5 @@
+import type I18nKey from '@i18n/I18nKey';
+
 export type SiteConfig = {
   title: string;
   subtitle: string;
@@ -18,11 +20,11 @@ export type ProfileConfig = {
 };
 
 export type NavbarConfig = {
-  navbarCenterItems: { text: string; href?: string; onclick?: string }[];
+  navbarCenterItems: { text: string | I18nKey; href?: string; onclick?: string }[];
   navbarRightItems: {
     onlyWide: {
       icon: string;
-      text?: string;
+      text: string | I18nKey;
       href?: string;
       onclick?: string;
     }[];

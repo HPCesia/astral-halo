@@ -1,13 +1,15 @@
 ---
 import type { ComponentProps } from 'astro/types';
 import { Icon } from 'astro-icon/components';
+import { i18n } from '@i18n/translation';
+import I18nKey from '@i18n/I18nKey';
 
 type Props = Omit<ComponentProps<typeof Icon>, 'name'>;
 
 const { href, title, ...rest } = Astro.props;
 ---
 
-<a href={href} title={title}>
+<a href={href} title={title || i18n(I18nKey.more)}>
   <Icon name="material-symbols:chevron-right-rounded" {...rest} />
 </a>
 

@@ -1,0 +1,19 @@
+---
+import MainLayout from '@layouts/MainLayout.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+}
+const { title, description, lang } = Astro.props;
+---
+
+<MainLayout title={title} description={description} lang={lang}>
+  <div id="main-content" class="my-4 w-full mx-4">
+    <slot />
+  </div>
+  <div id="aside-content" class="max-xl:hidden my-4 mx-2 w-96">
+    <slot name="aside" slot="aside" />
+  </div>
+</MainLayout>

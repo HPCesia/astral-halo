@@ -1,0 +1,47 @@
+---
+import { getTimeArchives } from '@utils/content-utils';
+import PostCard from '@components/widgets/PostCard.astro';
+
+type AllTimeArchives = Awaited<ReturnType<typeof getTimeArchives>>;
+type YearArchives = AllTimeArchives[number];
+type MonthArchives = YearArchives['months'][number];
+
+interface Props {
+  group: AllTimeArchives | YearArchives | MonthArchives;
+}
+
+const { group } = Astro.props;
+---
+
+{
+  Array.isArray(group) ? (
+    group.map((year) => <Astro.self group={year} />)
+  ) : 'year' in group ? (
+    <Fragment>
+      <div class="text-2xl font-bold ml-2">
+        <a href={`/archives/${group.year}/`}>{group.year}</a>
+      </div>
+      {group.months.map((month) => (
+        <Astro.self group={month} />
+      ))}
+    </Fragment>
+  ) : (
+    <Fragment>
+      <div class="text-xl font-bold ml-3">{group.month}</div>
+      {group.posts.map((post) => {
+        const data = post.data;
+        return (
+          <PostCard
+            title={data.title}
+            url={'/posts/' + data.abbrlink + '/'}
+            published={data.published}
+            tags={data.tags}
+            category={data.category}
+            cover={data.cover}
+            description={data.description}
+          />
+        );
+      })}
+    </Fragment>
+  )
+}

@@ -1,0 +1,43 @@
+article {
+  h1 {
+    @apply text-2xl font-bold;
+    @apply mt-4 mb-2;
+  }
+
+  h2 {
+    @apply text-xl font-bold;
+    @apply mt-4 mb-2;
+  }
+
+  h3 {
+    @apply text-lg font-bold;
+    @apply mt-4 mb-2;
+  }
+
+  h4 {
+    @apply text-base font-bold;
+    @apply mt-4 mb-2;
+  }
+
+  h5 {
+    @apply text-base font-bold;
+    @apply mt-4 mb-2;
+  }
+
+  p {
+    @apply my-2;
+  }
+
+  img {
+    @apply mx-auto my-4 rounded-md;
+  }
+
+  hr {
+    @apply border-dashed border-2;
+    @apply mx-2 my-4;
+  }
+
+  a {
+    @apply text-[var(--theme-color-light)] dark:text-[var(--theme-color-dark)];
+  }
+}

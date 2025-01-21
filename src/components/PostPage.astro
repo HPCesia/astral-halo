@@ -2,6 +2,7 @@
 import type { BlogPostData } from '@/types/data';
 import { siteConfig } from '@/config';
 import PostCard from './widgets/PostCard.astro';
+import Pagination from './widgets/Pagination.astro';
 
 interface Props {
   posts: {
@@ -10,12 +11,15 @@ interface Props {
   }[];
   currentPage: number;
   postsPerPage?: number;
+  baseUrl: string;
+  specialPage?: { page: number; url: string }[];
 }
 
-let { posts, currentPage, postsPerPage } = Astro.props;
+let { posts, currentPage, postsPerPage, baseUrl, specialPage } = Astro.props;
 
 postsPerPage = postsPerPage || siteConfig.postsPerPage;
 
+const totalPages = Math.ceil(posts.length / postsPerPage);
 posts = posts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
 ---
 
@@ -36,4 +40,10 @@ posts = posts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage
       );
     })
   }
+  <Pagination
+    total={totalPages}
+    current={currentPage}
+    baseUrl={baseUrl}
+    specialPages={specialPage}
+  />
 </div>

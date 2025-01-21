@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
-import MainLayout from '@layouts/MainLayout.astro';
+import GridLayout from '@layouts/GridLayout.astro';
+import ProfileCard from '@components/widgets/ProfileCard.astro';
+import '@/styles/article.scss';
 
 export async function getStaticPaths() {
   const articles = await getCollection('posts');
@@ -14,9 +16,13 @@ const { article } = Astro.props;
 const { Content } = await render(article);
 ---
 
-<MainLayout>
-  <div id="main-content">
-    <Content />
+<GridLayout>
+  <div class="theme-card-bg theme-border border-2 px-6 py-4 rounded-xl">
+    <article>
+      <Content />
+    </article>
   </div>
-  <div id="aside-content"></div>
-</MainLayout>
+  <Fragment slot="aside">
+    <ProfileCard />
+  </Fragment>
+</GridLayout>

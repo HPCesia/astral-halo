@@ -6,19 +6,18 @@ import type {
   ToolBarConfig,
 } from './types/config';
 
-import I18nKey from '@i18n/i18nKey';
-import { i18n } from '@i18n/translation';
+import I18nKey from '@i18n/I18nKey';
 
 export const siteConfig: SiteConfig = {
   title: 'Astral Halo',
   subtitle: '',
   lang: 'zh_CN', // "en" | "zh_CN" | "zh_TW"
   favicon: [''],
-  postsPerPage: 10,
+  postsPerPage: 2,
 };
 
 export const profileConfig: ProfileConfig = {
-  avatar: 'assets/images/demo-avatar.png',
+  // avatar: 'https://example.com/avatar.png', // must be a absolute URL, if not set, will use src/asset/img/avatar.jpg
   name: 'John Doe',
   bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   links: [],
@@ -26,10 +25,10 @@ export const profileConfig: ProfileConfig = {
 
 export const navbarConfig: NavbarConfig = {
   navbarCenterItems: [
-    { text: i18n(I18nKey.archive), href: '/archives/' },
-    { text: i18n(I18nKey.categories), href: '/archives/categories/' },
-    { text: i18n(I18nKey.tags), href: '/archives/tags/' },
-    { text: i18n(I18nKey.about), href: '/about/' },
+    { text: I18nKey.archive, href: '/archives/' },
+    { text: I18nKey.categories, href: '/archives/categories/' },
+    { text: I18nKey.tags, href: '/archives/tags/' },
+    { text: I18nKey.about, href: '/about/' },
   ],
   navbarRightItems: {
     onlyWide: [
@@ -37,19 +36,19 @@ export const navbarConfig: NavbarConfig = {
       // 仅在宽度大于 768px 时显示的项目
       {
         icon: 'material-symbols:rss-feed-rounded',
-        text: i18n(I18nKey.subscribe),
+        text: I18nKey.subscribe,
         onclick: '',
       },
     ],
     always: [
       {
         icon: 'material-symbols:casino',
-        text: i18n(I18nKey.randomPost),
+        text: I18nKey.randomPost,
         onclick: '',
       },
       {
         icon: 'material-symbols:search-rounded',
-        text: i18n(I18nKey.search),
+        text: I18nKey.search,
         onclick: '',
       },
     ],

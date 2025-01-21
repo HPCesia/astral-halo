@@ -1,10 +1,12 @@
 ---
-import { getSortedPosts } from '@utils/content-utils';
-import MainLayout from '@layouts/MainLayout.astro';
+import { getCategories, getSortedPosts } from '@utils/content-utils';
 import PostPage from '@components/PostPage.astro';
 import { siteConfig } from '@/config';
 import { i18n } from '@i18n/translation';
-import I18nKey from '@i18n/i18nKey';
+import I18nKey from '@i18n/I18nKey';
+import GridLayout from '@layouts/GridLayout.astro';
+import CategoryBar from '@components/CategoryBar.astro';
+import ProfileCard from '@components/widgets/ProfileCard.astro';
 
 export async function getStaticPaths() {
   const posts = await getSortedPosts();
@@ -15,10 +17,10 @@ export async function getStaticPaths() {
     .map((category) => {
       const categoryPosts = posts.filter((post) => post.data.category === category);
       const pageNum = Math.ceil(categoryPosts.length / siteConfig.postsPerPage);
+      category = category.replaceAll(/[\\/]/g, '-');
       return Array.from({ length: pageNum }, (_, i) => ({
-        params: { category, page: (i + 1).toString() },
+        params: { category: category, page: (i + 1).toString() },
         props: {
-          category,
           posts: categoryPosts.slice(
             i * siteConfig.postsPerPage,
             (i + 1) * siteConfig.postsPerPage
@@ -30,12 +32,19 @@ export async function getStaticPaths() {
     .flat();
 }
 
-const { category, posts, currentPage } = Astro.props;
+const { posts, currentPage } = Astro.props;
+const { category } = Astro.params;
+const categories = await getCategories();
 ---
 
-<MainLayout>
-  <div id="main-content">
-    <PostPage posts={posts} currentPage={currentPage} />
-  </div>
-  <div id="aside-content"></div>
-</MainLayout>
+<GridLayout>
+  <CategoryBar categories={categories} currentCategory={category} />
+  <PostPage
+    posts={posts}
+    currentPage={currentPage}
+    baseUrl={`/archives/categories/${category}`}
+  />
+  <Fragment slot="aside">
+    <ProfileCard />
+  </Fragment>
+</GridLayout>

@@ -1,9 +1,10 @@
 ---
-import { getSortedPosts } from '@utils/content-utils';
+import { getCategories, getSortedPosts } from '@utils/content-utils';
 import { siteConfig } from '@/config';
-import categoryBar from '@components/categoryBar.astro';
+import CategoryBar from '@components/CategoryBar.astro';
 import PostPage from '@components/PostPage.astro';
-import MainLayout from '@layouts/MainLayout.astro';
+import GridLayout from '@layouts/GridLayout.astro';
+import ProfileCard from '@components/widgets/ProfileCard.astro';
 
 export async function getStaticPaths() {
   const articles = await getSortedPosts();
@@ -17,16 +18,18 @@ export async function getStaticPaths() {
 
 const { page } = Astro.props;
 const articles = await getSortedPosts();
-const posts = articles.slice(
-  (page - 1) * siteConfig.postsPerPage,
-  page * siteConfig.postsPerPage
-);
+const categories = await getCategories();
 ---
 
-<MainLayout>
-  <div id="main-content">
-    <categoryBar></categoryBar>
-    <PostPage posts={posts} currentPage={page} />
-  </div>
-  <div id="aside-content"></div>
-</MainLayout>
+<GridLayout>
+  <CategoryBar categories={categories} />
+  <PostPage
+    posts={articles}
+    currentPage={page}
+    baseUrl={`/page`}
+    specialPage={[{ page: 1, url: '/' }]}
+  />
+  <Fragment slot="aside">
+    <ProfileCard />
+  </Fragment>
+</GridLayout>

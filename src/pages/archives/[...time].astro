@@ -1,0 +1,37 @@
+---
+import TimeArchives from '@components/TimeArchives.astro';
+import ProfileCard from '@components/widgets/ProfileCard.astro';
+import GridLayout from '@layouts/GridLayout.astro';
+import { getTimeArchives } from '@utils/content-utils';
+
+type AllTimeArchives = Awaited<ReturnType<typeof getTimeArchives>>;
+type YearArchives = AllTimeArchives[number];
+type MonthArchives = YearArchives['months'][number];
+
+export async function getStaticPaths() {
+  const timeReducedPosts = await getTimeArchives();
+  let paths: {
+    params: { time: string | undefined };
+    props: { group: AllTimeArchives | YearArchives | MonthArchives };
+  }[] = [{ params: { time: undefined }, props: { group: timeReducedPosts } }];
+  paths = [
+    ...paths,
+    ...timeReducedPosts.map((group) => ({
+      params: { time: `${group.year}` },
+      props: { group: group },
+    })),
+  ];
+  return paths;
+}
+
+const { group } = Astro.props;
+---
+
+<GridLayout>
+  <div class="flex flex-col gap-4">
+    <TimeArchives group={group} />
+  </div>
+  <Fragment slot="aside">
+    <ProfileCard />
+  </Fragment>
+</GridLayout>

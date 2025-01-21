@@ -12,7 +12,9 @@ const { url, title, cover } = Astro.props;
 ---
 
 <a href={url} title={title} class="group">
-  <div><Icon name="material-symbols:chevron-right-rounded" /></div>
+  <div>
+    <Icon name="material-symbols:chevron-right-rounded" />
+  </div>
   <Image src={cover} alt={title} inferSize={true} />
 </a>
 

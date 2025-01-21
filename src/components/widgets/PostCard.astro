@@ -33,14 +33,14 @@ const metas: ({ icon: string; text: string; link?: string } | undefined)[] = [
     ? {
         icon: 'material-symbols:category-outline-rounded',
         text: category,
-        link: `/archives/categories/${category}/1/`,
+        link: `/archives/categories/${category.replaceAll(/[\\/]/g, '-')}/1/`,
       }
     : undefined,
   ...tags.map((tag) => {
     return {
       icon: 'material-symbols:tag-rounded',
       text: tag,
-      link: `/archives/tags/${tag}/1/`,
+      link: `/archives/tags/${tag.replaceAll(/[\\/]/g, '-')}/1/`,
     };
   }),
 ];
