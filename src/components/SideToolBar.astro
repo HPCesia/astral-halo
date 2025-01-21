@@ -62,7 +62,7 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
       const bottomPos =
         (document.getElementById('comment') || document.getElementById('footer'))?.offsetTop ||
         document.documentElement.scrollHeight;
-      const isNearEnd = window.screenY + document.documentElement.clientHeight >= bottomPos;
+      const isNearEnd = window.scrollY + document.documentElement.clientHeight >= bottomPos;
       if (isNearEnd) {
         stbReadPercent?.classList.add('opacity-0');
         stbBackToTopIcon?.classList.remove('opacity-0');
