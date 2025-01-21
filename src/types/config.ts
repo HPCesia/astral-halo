@@ -4,6 +4,7 @@ export type SiteConfig = {
   title: string;
   subtitle: string;
   lang: string;
+  copyrightYear: number;
   favicon: (string | { src: string; theme?: 'light' | 'dark' })[];
   postsPerPage: number;
 };

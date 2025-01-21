@@ -1,0 +1,35 @@
+---
+import { profileConfig, siteConfig } from '@/config';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer id="footer">
+  <div id="footer-links"></div>
+  <div
+    id="footer-bar-wrapper"
+    class="theme-card-bg theme-border border-t-2 w-full mt-4 overflow-hidden p-4"
+  >
+    <div id="footer-bar" class="flex justify-between">
+      <div id="footer-left" class="text-center">
+        © {siteConfig.copyrightYear}{
+          siteConfig.copyrightYear < currentYear && `-${currentYear}`
+        } By <a href="/about/">{profileConfig.name}</a>
+      </div>
+      <div id="footer-right">
+        Powered by <a href="https://astro.build/" class="font-bold mr-4">Astro</a>
+        Theme <a href="https://github.com/HPCesia/astral-halo/" class="font-bold">Astro Halo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style lang="scss">
+  a {
+    @apply duration-150;
+
+    &:hover {
+      @apply text-[var(--theme-color-light)] dark:text-[var(--theme-color-dark)];
+    }
+  }
+</style>

@@ -13,6 +13,7 @@ export const siteConfig: SiteConfig = {
   subtitle: '',
   lang: 'zh_CN', // "en" | "zh_CN" | "zh_TW"
   favicon: [''],
+  copyrightYear: 2025,
   postsPerPage: 10,
 };
 
