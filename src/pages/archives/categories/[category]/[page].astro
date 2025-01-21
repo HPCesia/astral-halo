@@ -19,7 +19,7 @@ export async function getStaticPaths() {
       const pageNum = Math.ceil(categoryPosts.length / siteConfig.postsPerPage);
       category = category.replaceAll(/[\\/]/g, '-');
       return Array.from({ length: pageNum }, (_, i) => ({
-        params: { category: category, page: (i + 1).toString() },
+        params: { category: encodeURIComponent(category), page: (i + 1).toString() },
         props: {
           posts: categoryPosts.slice(
             i * siteConfig.postsPerPage,
