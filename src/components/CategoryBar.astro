@@ -23,7 +23,7 @@ const { categories, currentCategory } = Astro.props;
         href={`/archives/categories/${category}/1/`}
         class:list={[currentCategory === category ? 'theme-card-bg-hl' : '']}
       >
-        {category}
+        {i18n(category)}
       </a>
     ))
   }

@@ -13,7 +13,7 @@ export const siteConfig: SiteConfig = {
   subtitle: '',
   lang: 'zh_CN', // "en" | "zh_CN" | "zh_TW"
   favicon: [''],
-  postsPerPage: 2,
+  postsPerPage: 10,
 };
 
 export const profileConfig: ProfileConfig = {

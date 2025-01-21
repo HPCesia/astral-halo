@@ -14,7 +14,7 @@ export async function getStaticPaths() {
       const pageNum = Math.ceil(tagPosts.length / siteConfig.postsPerPage);
       tag = tag.replaceAll(/[\\/]/g, '-');
       return Array.from({ length: pageNum }, (_, i) => ({
-        params: { tag: encodeURIComponent(tag), page: (i + 1).toString() },
+        params: { tag: tag, page: (i + 1).toString() },
         props: {
           posts: tagPosts.slice(i * siteConfig.postsPerPage, (i + 1) * siteConfig.postsPerPage),
           currentPage: i + 1,
@@ -30,7 +30,7 @@ const { tag } = Astro.params;
 
 <GridLayout>
   <PostPage posts={posts} currentPage={currentPage} baseUrl={`/archives/tags/${tag}`} />
-  <Fragment slot="aside">
+  <Fragment slot="aside-fixed">
     <ProfileCard />
   </Fragment>
 </GridLayout>
