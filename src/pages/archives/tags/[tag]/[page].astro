@@ -4,21 +4,28 @@ import PostPage from '@components/PostPage.astro';
 import { siteConfig } from '@/config';
 import GridLayout from '@layouts/GridLayout.astro';
 import ProfileCard from '@components/widgets/ProfileCard.astro';
+import I18nKey from '@i18n/I18nKey';
 
 export async function getStaticPaths() {
   const posts = await getSortedPosts();
-  const tags = [...new Set(posts.map((post) => post.data.tags).flat())];
+  const tags = [
+    ...new Set(
+      posts
+        .map((post) => (post.data.tags.length > 0 ? post.data.tags : [I18nKey.untagged]))
+        .flat()
+    ),
+  ];
   return tags
     .map((tag) => {
-      const tagPosts = posts.filter((post) => post.data.tags.includes(tag));
+      const tagPosts =
+        tag === I18nKey.untagged
+          ? posts.filter((post) => post.data.tags.length === 0)
+          : posts.filter((post) => post.data.tags.includes(tag));
       const pageNum = Math.ceil(tagPosts.length / siteConfig.postsPerPage);
       tag = tag.replaceAll(/[\\/]/g, '-');
       return Array.from({ length: pageNum }, (_, i) => ({
         params: { tag: tag, page: (i + 1).toString() },
-        props: {
-          posts: tagPosts.slice(i * siteConfig.postsPerPage, (i + 1) * siteConfig.postsPerPage),
-          currentPage: i + 1,
-        },
+        props: { posts: tagPosts, currentPage: i + 1 },
       }));
     })
     .flat();
