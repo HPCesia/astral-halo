@@ -80,31 +80,35 @@ article {
     }
   }
 
-  ol > li {
-    position: relative;
-    padding: 0.25rem 0.25rem 0.25rem 1.8em;
+  ol {
+    counter-reset: li;
 
-    &::before {
-      content: counter(li);
-      counter-increment: li 1;
-      position: absolute;
-      margin-top: 0.25em;
-      left: 0;
-      font-size: 0.75em;
-      line-height: 1.5em;
-      text-align: center;
-      border-radius: 9999px;
-      width: 1.5em;
-      height: 1.5em;
+    > li {
+      position: relative;
+      padding: 0.25rem 0.25rem 0.25rem 1.8em;
 
-      @apply bg-[var(--theme-color-light-trans-1d2)];
-      @apply dark:bg-[var(--theme-color-dark-trans-1d2)];
-      @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
-    }
+      &::before {
+        content: counter(li);
+        counter-increment: li 1;
+        position: absolute;
+        margin-top: 0.25em;
+        left: 0;
+        font-size: 0.75em;
+        line-height: 1.5em;
+        text-align: center;
+        border-radius: 9999px;
+        width: 1.5em;
+        height: 1.5em;
 
-    // 解决错位问题
-    p:first-child {
-      margin-top: 0;
+        @apply bg-[var(--theme-color-light-trans-1d2)];
+        @apply dark:bg-[var(--theme-color-dark-trans-1d2)];
+        @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
+      }
+
+      // 解决错位问题
+      p:first-child {
+        margin-top: 0;
+      }
     }
   }
 
@@ -113,6 +117,28 @@ article {
 
     padding: 0.5rem;
     margin: 0.5rem 0.25rem;
+    counter-reset: line;
+
+    code {
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      word-break: break-word;
+
+      // 代码块行号显示
+      > span {
+        position: relative;
+        padding-left: 1.2em;
+
+        &::before {
+          content: counter(line);
+          counter-increment: line;
+          position: absolute;
+          left: 0.1em;
+          top: 0;
+          font-size: 0.85em;
+        }
+      }
+    }
   }
 
   code:not(pre code) {
