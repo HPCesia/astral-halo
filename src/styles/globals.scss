@@ -24,12 +24,20 @@ html {
     @apply bg-[var(--theme-color-light)] dark:bg-[var(--theme-color-dark)];
   }
 
+  .theme-card-bg-hl-trans {
+    @apply bg-[var(--theme-color-light-trans-1d2)] dark:bg-[var(--theme-color-dark-trans-1d2)];
+  }
+
   .theme-text {
     @apply text-[var(--theme-text-color-light)] dark:text-[var(--theme-text-color-dark)];
   }
 
   .theme-text-hl {
     @apply text-[var(--theme-color-light)] dark:text-[var(--theme-color-dark)];
+  }
+
+  .theme-text-hl-contrast {
+    @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
   }
 
   .theme-text-second {

@@ -20,8 +20,28 @@ $theme-border-color-dark: theme('colors.neutral.800');
   --theme-color-dark-lighten: #{color.adjust($theme-color-dark, $lightness: 20%)};
   --theme-color-light-darken: #{color.adjust($theme-color-light, $lightness: -20%)};
   --theme-color-dark-darken: #{color.adjust($theme-color-dark, $lightness: -20%)};
-  --theme-color-light-transparent: #{color.adjust($theme-color-light, $alpha: -0.5)};
-  --theme-color-dark-transparent: #{color.adjust($theme-color-dark, $alpha: -0.5)};
+
+  @for $i from 1 through 8 {
+    $numerator: $i;
+    $denominator: 8;
+
+    @while $numerator % 2 == 0 and $denominator % 2 == 0 {
+      $numerator: calc($numerator / 2);
+      $denominator: calc($denominator / 2);
+    }
+
+    $alpha: calc($i / 8 - 1);
+
+    --theme-color-light-trans-#{$numerator}d#{$denominator}: #{color.adjust(
+        $theme-color-light,
+        $alpha: $alpha
+      )};
+    --theme-color-dark-trans-#{$numerator}d#{$denominator}: #{color.adjust(
+        $theme-color-dark,
+        $alpha: $alpha
+      )};
+  }
+
   --theme-bg-color-light: #{$theme-bg-color-light};
   --theme-bg-color-dark: #{$theme-bg-color-dark};
   --theme-card-bg-color-light: #{$theme-card-bg-color-light};

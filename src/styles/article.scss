@@ -32,19 +32,103 @@ article {
   }
 
   p {
-    @apply my-2;
+    margin: 0.5rem 0;
   }
 
   img {
-    @apply mx-auto my-4 rounded-md;
+    @apply rounded-md;
+
+    margin: 1rem auto;
+    max-width: 75%;
+    max-height: 40rem;
   }
 
   hr {
-    @apply border-2 border-dashed;
-    @apply mx-2 my-4;
+    border: 1px dashed;
+    margin: 1.5rem 0.25rem;
   }
 
   a {
-    @apply text-[var(--theme-color-light)] dark:text-[var(--theme-color-dark)];
+    @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
+
+    &:not(sup a, sub a) {
+      @apply underline decoration-dashed;
+    }
+  }
+
+  ul,
+  ol {
+    margin-top: 0.5rem;
+  }
+
+  ul > li {
+    position: relative;
+    padding: 0.25rem 0.25rem 0.25rem 1.4em;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0.6em;
+      left: 0.25em;
+      border-radius: 9999px;
+      border: 0.25em solid;
+      width: 0.75em;
+      height: 0.75em;
+
+      @apply border-[var(--theme-color-light-trans-3d4)];
+      @apply dark:border-[var(--theme-color-dark-trans-3d4)];
+    }
+  }
+
+  ol > li {
+    position: relative;
+    padding: 0.25rem 0.25rem 0.25rem 1.8em;
+
+    &::before {
+      content: counter(li);
+      counter-increment: li 1;
+      position: absolute;
+      margin-top: 0.25em;
+      left: 0;
+      font-size: 0.75em;
+      line-height: 1.5em;
+      text-align: center;
+      border-radius: 9999px;
+      width: 1.5em;
+      height: 1.5em;
+
+      @apply bg-[var(--theme-color-light-trans-1d2)];
+      @apply dark:bg-[var(--theme-color-dark-trans-1d2)];
+      @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
+    }
+
+    // 解决错位问题
+    p:first-child {
+      margin-top: 0;
+    }
+  }
+
+  pre {
+    @apply rounded-md;
+
+    padding: 0.5rem;
+    margin: 0.5rem 0.25rem;
+  }
+
+  code:not(pre code) {
+    @apply bg-[var(--theme-color-light-trans-1d2)];
+    @apply dark:bg-[var(--theme-color-dark-trans-1d2)];
+    @apply rounded-md;
+    @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
+
+    padding: 0 0.25rem;
+  }
+
+  blockquote {
+    @apply border-[var(--theme-color-light)] dark:border-[var(--theme-color-dark)];
+    @apply bg-[var(--theme-color-light-trans-1d8)] dark:bg-[var(--theme-color-dark-trans-1d8)];
+    @apply rounded-sm border-l-4;
+
+    padding: 0.25rem 0.25rem 0.25rem 0.75rem;
   }
 }
