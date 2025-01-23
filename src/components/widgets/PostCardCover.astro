@@ -12,7 +12,7 @@ const { url, title, cover } = Astro.props;
 ---
 
 <a href={url} title={title} class="group">
-  <div>
+  <div class="cover-mask">
     <Icon name="material-symbols:chevron-right-rounded" />
   </div>
   <ImageWrapper src={cover} alt={title} />
@@ -20,16 +20,12 @@ const { url, title, cover } = Astro.props;
 
 <style>
   a {
-    @apply relative min-h-48 w-full md:w-3/4 md:max-w-96;
+    @apply relative min-h-48 w-full overflow-hidden rounded-md md:w-3/4 md:max-w-96;
     @apply duration-100 active:scale-95 active:brightness-75;
   }
 
-  img {
-    @apply h-full w-full rounded-md object-cover;
-  }
-
-  div {
-    @apply absolute inset-0 h-full w-full bg-black/60;
+  div.cover-mask {
+    @apply absolute inset-0 z-10 h-full w-full bg-black/60;
     @apply flex items-center justify-center;
     @apply opacity-0 duration-300 group-hover:opacity-100;
   }
