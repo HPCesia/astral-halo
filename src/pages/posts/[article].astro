@@ -1,5 +1,6 @@
 ---
 import '@/styles/article.scss';
+import License from '@components/License.astro';
 import ProfileCard from '@components/widgets/ProfileCard.astro';
 import TOC from '@components/widgets/TOC.astro';
 import GridLayout from '@layouts/GridLayout.astro';
@@ -22,6 +23,7 @@ const { Content, headings } = await render(article);
     <article>
       <Content />
     </article>
+    <License time={article.data.published} />
   </div>
   <Fragment slot="aside-fixed">
     <ProfileCard />

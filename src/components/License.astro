@@ -1,0 +1,49 @@
+---
+import { licenseConfig, profileConfig, siteConfig } from '@/config';
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
+
+interface Props {
+  time: Date;
+  license?: string;
+  licenseUrl?: string;
+}
+
+const { time, license, licenseUrl } = Astro.props;
+
+const infomations = [
+  {
+    key: i18n(I18nKey.publishedAt),
+    value: time.toLocaleDateString(siteConfig.lang.replace('_', '-')),
+  },
+  {
+    key: i18n(I18nKey.author),
+    value: profileConfig.name,
+    link: '/about/',
+  },
+  {
+    key: i18n(I18nKey.license),
+    value: license || licenseConfig.name,
+    link: licenseUrl || licenseConfig.url,
+  },
+];
+---
+
+<div class="theme-card-bg-hl-trans theme-border my-4 flex items-center rounded-xl border-2 p-4">
+  <div class="mx-auto grid grid-cols-2 gap-x-4">
+    {
+      infomations.map((info) => (
+        <Fragment>
+          <span class="mr-4 text-right font-bold">{info.key}</span>
+          {info.link ? (
+            <a href={info.link} class="theme-text-hl-contrast">
+              {info.value}
+            </a>
+          ) : (
+            <span>{info.value}</span>
+          )}
+        </Fragment>
+      ))
+    }
+  </div>
+</div>
