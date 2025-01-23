@@ -1,17 +1,6 @@
 ---
 import { profileConfig } from '@/config';
-import avatarImg from '@assets/img/avatar.jpg';
-import { Image } from 'astro:assets';
-
-const avaterAttr = profileConfig.avatar
-  ? {
-      src: profileConfig.avatar,
-      alt: profileConfig.name,
-      inferSize: true,
-      width: 800,
-      height: 800,
-    }
-  : { src: avatarImg, alt: profileConfig.name };
+import ImageWrapper from '@components/utils/ImageWrapper.astro';
 ---
 
 <div
@@ -21,7 +10,11 @@ const avaterAttr = profileConfig.avatar
 >
   <div class="m-3 w-fit min-w-20">
     <a href="/about/">
-      <Image class="theme-border h-20 w-20 rounded-full border-4" {...avaterAttr} />
+      <ImageWrapper
+        class="theme-border h-20 w-20 rounded-full border-4"
+        src={profileConfig.avatar}
+        alt={profileConfig.name}
+      />
     </a>
   </div>
   <div class="mx-3 mb-5 flex w-full flex-col">

@@ -17,7 +17,7 @@ export const siteConfig: SiteConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-  // avatar: 'https://example.com/avatar.png', // must be a absolute URL, if not set, will use src/asset/img/avatar.jpg
+  avatar: 'assets/img/avatar.jpg',
   name: 'John Doe',
   bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   links: [],

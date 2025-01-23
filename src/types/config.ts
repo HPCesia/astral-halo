@@ -10,7 +10,7 @@ export type SiteConfig = {
 };
 
 export type ProfileConfig = {
-  avatar?: string;
+  avatar: string;
   name: string;
   bio?: string;
   links: {
