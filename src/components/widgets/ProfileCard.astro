@@ -1,7 +1,7 @@
 ---
 import { profileConfig } from '@/config';
+import avatarImg from '@assets/img/avatar.jpg';
 import { Image } from 'astro:assets';
-import avatarImg from '/src/assets/img/avatar.jpg';
 
 const avaterAttr = profileConfig.avatar
   ? {
@@ -17,15 +17,15 @@ const avaterAttr = profileConfig.avatar
 <div
   id="profile-card"
   transition:persist
-  class="theme-card-bg theme-border rounded-xl border-2 flex flex-col items-center text-center"
+  class="theme-card-bg theme-border flex flex-col items-center rounded-xl border-2 text-center"
 >
   <div class="m-3 w-fit min-w-20">
     <a href="/about/">
-      <Image class="rounded-full border-4 w-20 h-20 theme-border" {...avaterAttr} />
+      <Image class="theme-border h-20 w-20 rounded-full border-4" {...avaterAttr} />
     </a>
   </div>
-  <div class="mx-3 mb-5 flex flex-col w-full">
-    <div class="text-lg mb-3">
+  <div class="mx-3 mb-5 flex w-full flex-col">
+    <div class="mb-3 text-lg">
       <a href="/about/" class="font-bold">{profileConfig.name}</a>
     </div>
     <div>{profileConfig.bio}</div>

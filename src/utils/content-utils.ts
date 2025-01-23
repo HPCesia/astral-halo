@@ -1,7 +1,7 @@
-import { getCollection } from 'astro:content';
 import type { BlogPostData } from '@/types/data';
-import { i18n } from '@i18n/translation';
 import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
+import { getCollection } from 'astro:content';
 
 export async function getSortedPosts(): Promise<{ body: string; data: BlogPostData }[]> {
   const allBlogPosts = (await getCollection('posts')) as unknown as {

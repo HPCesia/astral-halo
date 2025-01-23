@@ -13,9 +13,9 @@ const { title, description, lang } = Astro.props;
   <div id="main-content" class="my-4 w-full">
     <slot />
   </div>
-  <div id="aside-content" class="max-xl:hidden my-4 w-96 flex flex-col gap-4">
+  <div id="aside-content" class="my-4 flex w-96 flex-col gap-4 max-xl:hidden">
     <slot name="aside-fixed" slot="aside-fixed" />
-    <div class="sticky flex flex-col gap-4 top-20">
+    <div class="sticky top-20 flex flex-col gap-4">
       <slot name="aside-sticky" slot="aside-sticky" />
     </div>
   </div>

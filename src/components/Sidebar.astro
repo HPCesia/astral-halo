@@ -1,8 +1,6 @@
 ---
 import { navbarConfig } from '@/config';
-
 import { Icon } from 'astro-icon/components';
-
 import Button from './widgets/Button.astro';
 import DarkModeButton from './widgets/DarkModeButton.astro';
 ---
@@ -10,17 +8,17 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 <div id="sidebar" transition:persist>
   <div
     id="sidebar-mask"
-    class="fixed z-40 opacity-0 pointer-events-none w-full h-full bg-black/10 backdrop-blur-md backdrop-saturate-100 duration-500 ease-in-out"
+    class="pointer-events-none fixed z-40 h-full w-full bg-black/10 opacity-0 backdrop-blur-md backdrop-saturate-100 duration-500 ease-in-out"
   >
   </div>
   <div
     id="sidebar-menu"
-    class="fixed h-full z-50 -right-1/2 w-1/2 duration-500 ease-in-out border-l-2 theme-border theme-card-bg"
+    class="theme-border theme-card-bg fixed -right-1/2 z-50 h-full w-1/2 border-l-2 duration-500 ease-in-out"
   >
     <div id="sidebar-site-data"></div>
     <DarkModeButton
       showText={true}
-      class="text-lg !w-[calc(100%-1rem)] border-2 theme-border"
+      class="theme-border !w-[calc(100%-1rem)] border-2 text-lg"
     />
     <div id="sidebar-menu-text-items">
       {

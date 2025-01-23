@@ -1,10 +1,10 @@
 ---
-import { getSortedPosts } from '@utils/content-utils';
-import PostPage from '@components/PostPage.astro';
 import { siteConfig } from '@/config';
-import GridLayout from '@layouts/GridLayout.astro';
+import PostPage from '@components/PostPage.astro';
 import ProfileCard from '@components/widgets/ProfileCard.astro';
 import I18nKey from '@i18n/I18nKey';
+import GridLayout from '@layouts/GridLayout.astro';
+import { getSortedPosts } from '@utils/content-utils';
 
 export async function getStaticPaths() {
   const posts = await getSortedPosts();

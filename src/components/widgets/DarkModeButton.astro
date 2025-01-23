@@ -1,9 +1,9 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import Button from './Button.astro';
-import { Icon } from 'astro-icon/components';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
+import { Icon } from 'astro-icon/components';
+import type { HTMLAttributes } from 'astro/types';
+import Button from './Button.astro';
 
 interface Props extends Omit<HTMLAttributes<'button'>, 'onclick'> {
   showText?: boolean;
@@ -22,7 +22,7 @@ const { class: className, showText, ...rest } = Astro.props;
   <Icon class="darkmode-icon-light" name="material-symbols:light-mode-rounded" />
   <Icon class="darkmode-icon-dark" name="material-symbols:dark-mode-rounded" />
   <Icon class="darkmode-icon-auto" name="material-symbols:night-sight-auto-rounded" />
-  {showText && <span class="darkmode-text px-2 ml-auto mr-2" />}
+  {showText && <span class="darkmode-text ml-auto mr-2 px-2" />}
 </Button>
 
 <script>

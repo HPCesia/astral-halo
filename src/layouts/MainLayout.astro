@@ -1,9 +1,9 @@
 ---
 import Navbar from '@components/Navbar.astro';
+import PageFooter from '@components/PageFooter.astro';
 import SideToolBar from '@components/SideToolBar.astro';
 import Sidebar from '@components/Sidebar.astro';
 import GlobalLayout from './GlobalLayout.astro';
-import PageFooter from '@components/PageFooter.astro';
 
 interface Props {
   title?: string;
@@ -18,9 +18,9 @@ const { title, description, lang } = Astro.props;
   <Sidebar />
   <SideToolBar />
   <Navbar />
-  <div id="body-wrap" class="items-center w-full">
+  <div id="body-wrap" class="w-full items-center">
     <!-- Main content -->
-    <div id="content-wrapper" class="flex mx-auto gap-4 max-w-screen-xl">
+    <div id="content-wrapper" class="mx-auto flex max-w-screen-xl gap-4">
       <slot />
     </div>
   </div>

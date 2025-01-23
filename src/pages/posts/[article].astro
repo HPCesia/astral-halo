@@ -1,9 +1,9 @@
 ---
-import { getCollection, render } from 'astro:content';
-import GridLayout from '@layouts/GridLayout.astro';
-import ProfileCard from '@components/widgets/ProfileCard.astro';
 import '@/styles/article.scss';
+import ProfileCard from '@components/widgets/ProfileCard.astro';
 import TOC from '@components/widgets/TOC.astro';
+import GridLayout from '@layouts/GridLayout.astro';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const articles = await getCollection('posts');
@@ -18,7 +18,7 @@ const { Content, headings } = await render(article);
 ---
 
 <GridLayout>
-  <div class="theme-card-bg theme-border border-2 px-6 py-4 rounded-xl">
+  <div class="theme-card-bg theme-border rounded-xl border-2 px-6 py-4">
     <article>
       <Content />
     </article>

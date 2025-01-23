@@ -1,11 +1,10 @@
 import type {
   LicenseConfig,
+  NavbarConfig,
   ProfileConfig,
   SiteConfig,
-  NavbarConfig,
   ToolBarConfig,
 } from './types/config';
-
 import I18nKey from '@i18n/I18nKey';
 
 export const siteConfig: SiteConfig = {

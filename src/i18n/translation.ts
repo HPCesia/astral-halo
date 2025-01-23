@@ -1,13 +1,12 @@
-import { siteConfig } from '@/config';
 import I18nKey from './I18nKey';
+import { en } from './langs/en';
+import { zh_CN } from './langs/zh_CN';
+import { zh_TW } from './langs/zh_TW';
+import { siteConfig } from '@/config';
 
 export type Translation = {
   [K in I18nKey]: string;
 };
-
-import { en } from './langs/en';
-import { zh_CN } from './langs/zh_CN';
-import { zh_TW } from './langs/zh_TW';
 
 const defaultTranslation = en;
 

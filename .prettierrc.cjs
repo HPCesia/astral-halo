@@ -7,7 +7,15 @@ module.exports = {
   trailingComma: 'es5',
   useTabs: false,
 
-  plugins: ['prettier-plugin-astro'],
+  importOrderSeparation: false,
+  importOrderSortSpecifiers: true,
+
+  plugins: [
+    'prettier-plugin-astro',
+    'prettier-plugin-tailwindcss',
+    '@trivago/prettier-plugin-sort-imports',
+    'prettier-plugin-astro-organize-imports',
+  ],
 
   overrides: [{ files: '*.astro', options: { parser: 'astro' } }],
 };

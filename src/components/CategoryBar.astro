@@ -12,7 +12,7 @@ const { categories, currentCategory } = Astro.props;
 
 <div
   id="category-bar"
-  class="theme-card-bg theme-border flex w-full rounded-xl px-2 py-3 border-2 mb-4"
+  class="theme-card-bg theme-border mb-4 flex w-full rounded-xl border-2 px-2 py-3"
 >
   <a href={`/`} class:list={[currentCategory ? '' : 'theme-card-bg-hl']}>
     {i18n(I18nKey.recentPosts)}

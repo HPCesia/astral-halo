@@ -1,10 +1,8 @@
 ---
 import { navbarConfig } from '@/config';
-
-import { Icon } from 'astro-icon/components';
-
-import Button from './widgets/Button.astro';
 import { i18n } from '@i18n/translation';
+import { Icon } from 'astro-icon/components';
+import Button from './widgets/Button.astro';
 
 interface Props {
   title?: string;
@@ -17,14 +15,14 @@ if (!title) title = 'Astral Halo';
 <div
   id="navbar"
   transition:persist
-  class="flex fixed z-30 w-full h-16 items-center border-b-2 theme-border theme-card-bg"
+  class="theme-border theme-card-bg fixed z-30 flex h-16 w-full items-center border-b-2"
 >
-  <div id="nav-left" class="flex mr-auto w-fit">
+  <div id="nav-left" class="mr-auto flex w-fit">
     <Button id="site-name" href="/">
       <span class="text-xl font-bold">{title}</span>
     </Button>
   </div>
-  <div id="nav-center" class="flex m-auto w-fit max-md:hidden">
+  <div id="nav-center" class="m-auto flex w-fit max-md:hidden">
     {
       navbarConfig.navbarCenterItems.map((item) => {
         const text = i18n(item.text);
@@ -36,7 +34,7 @@ if (!title) title = 'Astral Halo';
       })
     }
   </div>
-  <div id="nav-right" class="flex ml-auto w-fit">
+  <div id="nav-right" class="ml-auto flex w-fit">
     <div class="flex max-md:hidden">
       {
         navbarConfig.navbarRightItems.onlyWide.map((item) => {

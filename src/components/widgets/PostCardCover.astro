@@ -20,21 +20,21 @@ const { url, title, cover } = Astro.props;
 
 <style>
   a {
-    @apply min-h-48 w-full md:w-3/4 md:max-w-96 relative;
-    @apply active:brightness-75 active:scale-95 duration-100;
+    @apply relative min-h-48 w-full md:w-3/4 md:max-w-96;
+    @apply duration-100 active:scale-95 active:brightness-75;
   }
 
   img {
-    @apply w-full h-full object-cover rounded-md;
+    @apply h-full w-full rounded-md object-cover;
   }
 
   div {
-    @apply absolute inset-0 w-full h-full bg-black/60;
+    @apply absolute inset-0 h-full w-full bg-black/60;
     @apply flex items-center justify-center;
-    @apply opacity-0 group-hover:opacity-100 duration-300;
+    @apply opacity-0 duration-300 group-hover:opacity-100;
   }
 
   svg {
-    @apply w-24 h-24 text-white;
+    @apply h-24 w-24 text-white;
   }
 </style>

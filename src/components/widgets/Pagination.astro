@@ -48,20 +48,20 @@ else {
     current > 1 && (
       <Button
         id="prev-page-btn"
-        class="theme-bg theme-border border-2 !rounded-xl mr-auto"
+        class="theme-bg theme-border mr-auto !rounded-xl border-2"
         href={getPageUrl(current - 1)}
       >
         <Icon name="material-symbols:keyboard-double-arrow-left-rounded" class="my-1" />
       </Button>
     )
   }
-  <div class="flex justify-center items-center gap-2 mx-auto">
+  <div class="mx-auto flex items-center justify-center gap-2">
     {
       pages.map((p) => {
         return (
           <Button
             class:list={[
-              'theme-bg theme-border border-2 !rounded-xl',
+              'theme-bg theme-border !rounded-xl border-2',
               current === p.page && 'theme-card-bg-hl',
             ]}
             href={p.url}
@@ -75,7 +75,7 @@ else {
       total > 1 && (
         <div
           id="page-jumper"
-          class="flex flex-row items-center theme-card-bg theme-border mx-2 rounded-xl border-2"
+          class="theme-card-bg theme-border mx-2 flex flex-row items-center rounded-xl border-2"
           data-base-url={baseUrl}
           data-special-pages={specialPages?.map((p) => `${p.page}:${p.url}`).join(',')}
         >
@@ -84,11 +84,11 @@ else {
             type="number"
             min="1"
             max={total}
-            class="duration-300 theme-bg border-none !active:border-none pl-4"
+            class="theme-bg !active:border-none border-none pl-4 duration-300"
           />
           <Button
             id="page-jumper-button"
-            class="theme-card-bg !rounded-xl !m-0 relative right-0 duration-300"
+            class="theme-card-bg relative right-0 !m-0 !rounded-xl duration-300"
           >
             <Icon name="material-symbols:keyboard-double-arrow-right-rounded" class="my-1" />
           </Button>
@@ -100,7 +100,7 @@ else {
     current < total && (
       <Button
         id="next-page-btn"
-        class="theme-bg theme-border border-2 !rounded-xl ml-auto"
+        class="theme-bg theme-border ml-auto !rounded-xl border-2"
         href={getPageUrl(current + 1)}
       >
         <Icon name="material-symbols:keyboard-double-arrow-right-rounded" class="my-1" />

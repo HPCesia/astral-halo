@@ -1,8 +1,8 @@
 ---
-import type { ComponentProps } from 'astro/types';
-import { Icon } from 'astro-icon/components';
-import { i18n } from '@i18n/translation';
 import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
+import { Icon } from 'astro-icon/components';
+import type { ComponentProps } from 'astro/types';
 
 type Props = Omit<ComponentProps<typeof Icon>, 'name'>;
 
@@ -15,13 +15,13 @@ const { href, title, ...rest } = Astro.props;
 
 <style>
   a {
-    @apply max-md:hidden duration-100;
+    @apply duration-100 max-md:hidden;
     @apply hover:brightness-125;
-    @apply active:brightness-75 active:scale-95;
+    @apply active:scale-95 active:brightness-75;
   }
 
   svg {
-    @apply min-h-48 h-full w-12 rounded-md;
+    @apply h-full min-h-48 w-12 rounded-md;
     @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
     @apply bg-[var(--theme-color-light-transparent)] dark:bg-[var(--theme-color-dark-transparent)];
   }

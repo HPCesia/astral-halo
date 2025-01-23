@@ -1,6 +1,6 @@
 ---
-import { getTimeArchives } from '@utils/content-utils';
 import PostCard from '@components/widgets/PostCard.astro';
+import { getTimeArchives } from '@utils/content-utils';
 
 type AllTimeArchives = Awaited<ReturnType<typeof getTimeArchives>>;
 type YearArchives = AllTimeArchives[number];
@@ -18,7 +18,7 @@ const { group } = Astro.props;
     group.map((year) => <Astro.self group={year} />)
   ) : 'year' in group ? (
     <Fragment>
-      <div class="text-2xl font-bold ml-2">
+      <div class="ml-2 text-2xl font-bold">
         <a href={`/archives/${group.year}/`}>{group.year}</a>
       </div>
       {group.months.map((month) => (
@@ -27,7 +27,7 @@ const { group } = Astro.props;
     </Fragment>
   ) : (
     <Fragment>
-      <div class="text-xl font-bold ml-3">{group.month}</div>
+      <div class="ml-3 text-xl font-bold">{group.month}</div>
       {group.posts.map((post) => {
         const data = post.data;
         return (
