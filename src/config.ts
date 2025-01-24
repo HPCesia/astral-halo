@@ -1,4 +1,6 @@
 import type {
+  ArticleConfig,
+  FooterConfig,
   LicenseConfig,
   NavbarConfig,
   ProfileConfig,
@@ -12,7 +14,6 @@ export const siteConfig: SiteConfig = {
   subtitle: '',
   lang: 'zh_CN', // "en" | "zh_CN" | "zh_TW"
   favicon: [''],
-  copyrightYear: 2025,
   postsPerPage: 10,
 };
 
@@ -64,4 +65,36 @@ export const licenseConfig: LicenseConfig = {
   enable: true,
   name: 'CC BY-NC-SA 4.0',
   url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
+};
+
+export const footerConfig: FooterConfig = {
+  copyrightYear: 2025,
+  rightItems: [
+    [
+      {
+        text: 'Astro',
+        link: 'https://astro.build/',
+        class: 'font-bold text-sm',
+      },
+    ],
+    [
+      {
+        text: 'Astral Halo',
+        link: 'https://github.com/HPCesia/astral-halo/',
+        class: 'font-bold text-sm',
+      },
+    ],
+  ],
+};
+
+export const articleConfig: ArticleConfig = {
+  toc: true,
+  wordCount: true,
+  readingTime: {
+    enable: true,
+    wordsPerMinute: {
+      cjk: 300,
+      nonCjk: 160,
+    },
+  },
 };

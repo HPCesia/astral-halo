@@ -1,0 +1,83 @@
+---
+import { articleConfig } from '@/config';
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
+import { countWords } from '@utils/content-utils';
+import MetaIcon from './widgets/MetaIcon.astro';
+
+interface Props {
+  title: string;
+  publishedAt: Date;
+  category: string;
+  tags: string[];
+  wordCount: ReturnType<typeof countWords>;
+  class?: string;
+}
+
+const { title, publishedAt, category, tags, wordCount, class: className } = Astro.props;
+
+const readTime =
+  Math.ceil(wordCount.cjk / articleConfig.readingTime.wordsPerMinute.cjk) +
+  Math.ceil(wordCount.nonCjk / articleConfig.readingTime.wordsPerMinute.nonCjk);
+
+const metas: ({ icon: string; text: string; link?: string } | undefined)[] = [
+  {
+    icon: 'material-symbols:calendar-clock-outline-rounded',
+    text: publishedAt.toLocaleDateString(),
+  },
+  articleConfig.wordCount
+    ? {
+        icon: 'material-symbols:docs-rounded',
+        text: `${wordCount.total} ${wordCount.total === 1 ? i18n(I18nKey.wordCount) : i18n(I18nKey.wordsCount)}`,
+      }
+    : undefined,
+  articleConfig.readingTime
+    ? {
+        icon: 'material-symbols:nest-clock-farsight-analog-rounded',
+        text: `${readTime} ${readTime === 1 ? i18n(I18nKey.minuteCount) : i18n(I18nKey.minutesCount)}`,
+      }
+    : undefined,
+  category
+    ? {
+        icon: 'material-symbols:category-outline-rounded',
+        text: category,
+        link: `/archives/categories/${category.replaceAll(/[\\/]/g, '-')}/1/`,
+      }
+    : undefined,
+  ...tags.map((tag) => {
+    return {
+      icon: 'material-symbols:tag-rounded',
+      text: tag,
+      link: `/archives/tags/${tag.replaceAll(/[\\/]/g, '-')}/1/`,
+    };
+  }),
+];
+---
+
+<div id="post-info" class:list={['flex flex-col', className]}>
+  <h1 class="text-3xl font-bold">{title}</h1>
+  <div id="post-meta" class="mt-4 flex flex-wrap gap-3">
+    {
+      metas.map((meta) => {
+        return (
+          meta && (
+            <div class="flex items-center">
+              <MetaIcon name={meta.icon} />
+              {meta.link ? (
+                <a
+                  href={meta.link}
+                  class="theme-text-second text-sm font-medium duration-100 hover:brightness-125"
+                  title={meta.text}
+                >
+                  {meta.text}
+                </a>
+              ) : (
+                <span class="theme-text-second text-sm font-medium">{meta.text}</span>
+              )}
+            </div>
+          )
+        );
+      })
+    }
+  </div>
+</div>

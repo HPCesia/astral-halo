@@ -65,3 +65,19 @@ export async function getTimeArchives() {
   }));
   return timeReducedPosts;
 }
+
+export function countWords(text: string): { cjk: number; nonCjk: number; total: number } {
+  const cjkRegex =
+    /[\u4E00-\u9FFF\u3400-\u4DBF\u20000-\u2A6DF\u2A700-\u2B73F\u2B740-\u2B81F\u2B820-\u2CEAF\uF900-\uFAFF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF]/g;
+  const cjkCount = (text.match(cjkRegex) || []).length;
+  const nonCjkText = text.replace(cjkRegex, '');
+  const wordCount = nonCjkText
+    .trim()
+    .split(/\s+/)
+    .filter((word) => word.length > 0).length;
+  return {
+    cjk: cjkCount,
+    nonCjk: wordCount,
+    total: cjkCount + wordCount,
+  };
+}

@@ -4,7 +4,6 @@ export type SiteConfig = {
   title: string;
   subtitle: string;
   lang: string;
-  copyrightYear: number;
   favicon: (string | { src: string; theme?: 'light' | 'dark' })[];
   postsPerPage: number;
 };
@@ -47,4 +46,21 @@ export type LicenseConfig = {
   enable: boolean;
   name: string;
   url: string;
+};
+
+export type FooterConfig = {
+  copyrightYear: number;
+  rightItems: (string | { text: string; link?: string; class?: string })[][];
+};
+
+export type ArticleConfig = {
+  toc: boolean;
+  wordCount: boolean;
+  readingTime: {
+    enable: boolean;
+    wordsPerMinute: {
+      cjk: number;
+      nonCjk: number;
+    };
+  };
 };
