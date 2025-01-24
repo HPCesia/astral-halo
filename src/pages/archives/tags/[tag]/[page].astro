@@ -35,7 +35,7 @@ const { posts, currentPage } = Astro.props;
 const { tag } = Astro.params;
 ---
 
-<GridLayout>
+<GridLayout title={tag}>
   <PostPage posts={posts} currentPage={currentPage} baseUrl={`/archives/tags/${tag}`} />
   <Fragment slot="aside-fixed">
     <ProfileCard />
