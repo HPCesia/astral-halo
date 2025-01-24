@@ -12,7 +12,7 @@ let { title, lang, description } = Astro.props;
 
 let pageTitle: string;
 if (title) pageTitle = `${title} - ${siteConfig.title}`;
-else pageTitle = `${siteConfig.title}`;
+else pageTitle = `${siteConfig.title} - ${siteConfig.subtitle}`;
 
 if (!lang) lang = `${siteConfig.lang}`;
 const siteLang = lang.replace('_', '-');
@@ -45,7 +45,7 @@ const siteLang = lang.replace('_', '-');
 
     <slot name="head" />
   </head>
-  <body class="theme-bg theme-text">
+  <body class="theme-bg theme-text flex min-h-screen flex-col">
     <slot />
   </body>
 </html>
