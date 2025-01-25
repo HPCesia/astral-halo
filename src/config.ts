@@ -19,9 +19,20 @@ export const siteConfig: SiteConfig = {
 
 export const profileConfig: ProfileConfig = {
   avatar: 'assets/img/avatar.jpg',
-  name: 'John Doe',
+  name: 'Lorem Ipsum',
   bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  links: [],
+  links: [
+    {
+      name: 'GitHub',
+      url: 'https://github.com/example',
+      icon: 'mdi:github',
+    },
+    {
+      name: 'Email',
+      url: 'mailto:example@example.com',
+      icon: 'mdi:email',
+    },
+  ],
 };
 
 export const navbarConfig: NavbarConfig = {
