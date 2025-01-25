@@ -3,6 +3,11 @@ import '@/styles/markdown.scss';
 import Button from '@components/widgets/Button.astro';
 import { isFirstInstance } from '@utils/component-utils';
 import { Icon } from 'astro-icon/components';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'article'>;
+
+const { class: className, ...rest } = Astro.props;
 
 const html = await Astro.slots.render('default');
 const hasPre = /<pre[\s>]/i.test(html);
@@ -10,7 +15,7 @@ const hasPre = /<pre[\s>]/i.test(html);
 const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || import.meta.env.DEV);
 ---
 
-<article>
+<article class={className} {...rest}>
   <Fragment set:html={html} />
 </article>
 
