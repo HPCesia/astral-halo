@@ -36,10 +36,11 @@ article {
   }
 
   a {
-    @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
+    @apply text-[var(--theme-color-light-darken)] underline decoration-dashed dark:text-[var(--theme-color-dark-lighten)];
 
-    &:not(sup a, sub a) {
-      @apply underline decoration-dashed;
+    &[data-footnote-ref],
+    &[data-footnote-backref] {
+      scroll-margin-top: 4rem;
     }
   }
 
