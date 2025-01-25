@@ -6,6 +6,7 @@ import { Icon } from 'astro-icon/components';
 
 const html = await Astro.slots.render('default');
 const hasPre = /<pre[\s>]/i.test(html);
+// 开发环境下，保存文件后 isFirstInstance 会返回 false，所以需要强制显示工具栏
 const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || import.meta.env.DEV);
 ---
 
@@ -36,29 +37,24 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
   document.addEventListener('astro:page-load', (_event) => {
     const codeBlocks = document.querySelectorAll('article pre');
     const template = document.getElementById('code-toolbar-template') as HTMLTemplateElement;
-
     if (!template) return;
 
-    codeBlocks.forEach((pre) => {
+    const wrapPre = (pre: HTMLPreElement) => {
       const language = (pre?.getAttribute('data-language') || 'plaintext').toLocaleUpperCase();
 
-      // 创建包装器
       const wrapper = document.createElement('div');
       wrapper.className = template.className;
 
-      // 克隆工具栏模板
       const toolbar = template.content.cloneNode(true) as DocumentFragment;
       const langLabel = toolbar.querySelector('.language');
       if (langLabel) {
         langLabel.textContent = language;
       }
 
-      // 包装原始的 pre 元素
       pre.parentNode?.insertBefore(wrapper, pre);
       wrapper.appendChild(toolbar);
       wrapper.appendChild(pre);
 
-      // 添加事件监听器
       const toggleBtn = wrapper.querySelector('.toggle-btn');
       const copyBtn = wrapper.querySelector('.copy-btn');
 
@@ -84,6 +80,10 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
           }, 300);
         }
       });
+    };
+
+    codeBlocks.forEach((pre) => {
+      wrapPre(pre as HTMLPreElement);
     });
   });
 </script>
