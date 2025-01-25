@@ -19,6 +19,19 @@ const postsCollection = defineCollection({
     lang: z.string().optional().default(''),
   }),
 });
+
+const specCollection = defineCollection({
+  loader: glob({
+    pattern: '**/*.md',
+    base: 'src/content/spec',
+  }),
+  schema: z.object({
+    title: z.string().optional(),
+    description: z.string().optional(),
+  }),
+});
+
 export const collections = {
   posts: postsCollection,
+  spec: specCollection,
 };
