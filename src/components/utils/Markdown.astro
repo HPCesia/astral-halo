@@ -1,7 +1,89 @@
 ---
 import '@/styles/markdown.scss';
+import Button from '@components/widgets/Button.astro';
+import { isFirstInstance } from '@utils/component-utils';
+import { Icon } from 'astro-icon/components';
+
+const html = await Astro.slots.render('default');
+const hasPre = /<pre[\s>]/i.test(html);
+const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || import.meta.env.DEV);
 ---
 
 <article>
-  <slot />
+  <Fragment set:html={html} />
 </article>
+
+{
+  firstHasPre && (
+    <template id="code-toolbar-template" class="relative m-2 overflow-hidden rounded-lg">
+      <div class="theme-border theme-card-bg-hl-trans z-10 flex items-center justify-between">
+        <Button class="toggle-btn !bg-transparent">
+          <Icon
+            name="material-symbols:keyboard-arrow-down-rounded"
+            class="h-5 w-5 duration-300"
+          />
+        </Button>
+        <span class="language font-mono text-sm" />
+        <Button class="copy-btn !bg-transparent">
+          <Icon name="material-symbols:file-copy-rounded" class="h-5 w-5 duration-300" />
+        </Button>
+      </div>
+    </template>
+  )
+}
+
+<script>
+  document.addEventListener('astro:page-load', (_event) => {
+    const codeBlocks = document.querySelectorAll('article pre');
+    const template = document.getElementById('code-toolbar-template') as HTMLTemplateElement;
+
+    if (!template) return;
+
+    codeBlocks.forEach((pre) => {
+      const language = (pre?.getAttribute('data-language') || 'plaintext').toLocaleUpperCase();
+
+      // 创建包装器
+      const wrapper = document.createElement('div');
+      wrapper.className = template.className;
+
+      // 克隆工具栏模板
+      const toolbar = template.content.cloneNode(true) as DocumentFragment;
+      const langLabel = toolbar.querySelector('.language');
+      if (langLabel) {
+        langLabel.textContent = language;
+      }
+
+      // 包装原始的 pre 元素
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.appendChild(toolbar);
+      wrapper.appendChild(pre);
+
+      // 添加事件监听器
+      const toggleBtn = wrapper.querySelector('.toggle-btn');
+      const copyBtn = wrapper.querySelector('.copy-btn');
+
+      toggleBtn?.addEventListener('click', () => {
+        toggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
+        pre.classList.toggle('hidden');
+      });
+
+      const code = pre.querySelector('code');
+      copyBtn?.addEventListener('click', async () => {
+        try {
+          const text = code?.textContent || '';
+          await navigator.clipboard.writeText(text);
+          copyBtn?.classList.add('text-green-500');
+          setTimeout(() => {
+            copyBtn?.classList.remove('text-green-500');
+          }, 300);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+          copyBtn?.classList.add('text-red-500');
+          setTimeout(() => {
+            copyBtn?.classList.remove('text-red-500');
+          }, 300);
+        }
+      });
+    });
+  });
+</script>
