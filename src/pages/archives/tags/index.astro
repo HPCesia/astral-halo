@@ -1,6 +1,7 @@
 ---
 import type { BlogPostData } from '@/types/data';
 import { getSortedPosts, getTags } from '@/utils/content-utils';
+import Timeline from '@components/Timeline.astro';
 import Button from '@components/widgets/Button.astro';
 import PostCard from '@components/widgets/PostCard.astro';
 import I18nKey from '@i18n/I18nKey';
@@ -16,31 +17,36 @@ tags.forEach((tag) => {
   const posts = allPosts.filter((post) => post.data.tags?.includes(tag)).slice(0, 3);
   tagPosts.set(tag, posts);
 });
-
 const untaggedPosts = allPosts
   .filter((post) => !post.data.tags || post.data.tags.length === 0)
   .slice(0, 3);
+if (untaggedPosts.length > 0) tagPosts.set(i18n(I18nKey.untagged), untaggedPosts);
 ---
 
 <MainLayout title={i18n(I18nKey.tags)}>
   <div class="mx-auto flex max-w-screen-xl flex-col items-center">
     <h1 class="my-8 text-3xl font-bold">{i18n(I18nKey.tags)}</h1>
-    <div class="relative flex flex-col">
-      <div
-        class="timeline absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-blue-500 to-purple-500"
-      >
-      </div>
-      {
-        tags.map((tag) => (
-          <div class="relative mb-12 pl-12">
-            <div class="timeline-dot absolute left-2 top-5 h-4 w-4 rounded-full bg-blue-500" />
+    <Timeline items={Array.from(tagPosts.keys())}>
+      <fragment slot="title">
+        {
+          (tag: string) => (
             <div class="mb-6 flex items-center justify-between">
               <h2 class="text-2xl font-bold">{tag}</h2>
-              <Button href={`/archives/tags/${tag.replaceAll(/[\\/]/g, '-')}/1/`} title={tag}>
+              <Button
+                href={`/archives/tags/${tag === i18n(I18nKey.untagged) ? I18nKey.untagged : tag.replaceAll(/[\\/]/g, '-')}/1/`}
+                title={tag}
+                class="!pl-3"
+              >
                 {i18n(I18nKey.more)}
                 <Icon name="material-symbols:chevron-right-rounded" class="text-2xl" />
               </Button>
             </div>
+          )
+        }
+      </fragment>
+      <fragment slot="body">
+        {
+          (tag: string) => (
             <div class="ml-4 flex flex-col gap-4">
               {tagPosts.get(tag)?.map((post) => (
                 <PostCard
@@ -54,54 +60,9 @@ const untaggedPosts = allPosts
                 />
               ))}
             </div>
-          </div>
-        ))
-      }
-      {
-        untaggedPosts.length > 0 && (
-          <div class="relative mb-12 pl-12">
-            <div class="timeline-dot absolute left-2 top-5 h-4 w-4 rounded-full bg-blue-500" />
-            <div class="mb-6 flex items-center justify-between">
-              <h2 class="text-2xl font-bold">{i18n(I18nKey.untagged)}</h2>
-              <Button href={`/archives/tags/untagged/1/`} title={i18n(I18nKey.untagged)}>
-                {i18n(I18nKey.more)}
-                <Icon name="material-symbols:chevron-right-rounded" class="text-2xl" />
-              </Button>
-            </div>
-            <div class="ml-4 flex flex-col gap-4">
-              {untaggedPosts.map((post) => (
-                <PostCard
-                  title={post.data.title}
-                  url={`/posts/${post.data.abbrlink}/`}
-                  published={post.data.published}
-                  tags={[]}
-                  category={post.data.category}
-                  cover={post.data.cover}
-                  description={post.data.description}
-                />
-              ))}
-            </div>
-          </div>
-        )
-      }
-    </div>
+          )
+        }
+      </fragment>
+    </Timeline>
   </div>
 </MainLayout>
-
-<style>
-  .timeline {
-    @apply opacity-60;
-  }
-
-  .timeline-dot {
-    @apply shadow-lg transition-transform duration-300;
-  }
-
-  .timeline-dot:hover {
-    @apply scale-125;
-  }
-
-  .flex-col:empty {
-    @apply min-h-[3rem];
-  }
-</style>

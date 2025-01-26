@@ -1,0 +1,72 @@
+---
+// Usage:
+//  <TimeLine items={items}>
+//    <fragement slot="title">
+//      {(item) => (titleHTML)}
+//    </fragement>
+//    <fragement slot="body">
+//      {(item) => (bodyHTML)}
+//    </fragement>
+//  </TimeLine>
+//
+// The result will same to:
+//  <div class="timeline-classes">
+//    {
+//      items.map((item) => (
+//        <div class="timeline-node-wrapper-classes">
+//          <div class="timeline-node-classes"></div>
+//          {titleHTML}
+//          {bodyHTML}
+//        </div>
+//    }
+//  </div>
+
+interface Props {
+  items: unknown[];
+}
+
+const { items } = Astro.props;
+
+const renderedItems = await Promise.all(
+  items.map(async (item) => {
+    return {
+      title: Astro.slots.has('title') ? await Astro.slots.render('title', [item]) : undefined,
+      body: Astro.slots.has('body') ? await Astro.slots.render('body', [item]) : undefined,
+    };
+  })
+);
+---
+
+<div class="relative flex flex-col">
+  <div
+    class="timeline absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-blue-500 to-purple-500"
+  >
+  </div>
+  {
+    renderedItems.map((item) => (
+      <div class="relative mb-12 pl-12">
+        <div class="timeline-dot absolute left-2 top-5 h-4 w-4 rounded-full bg-blue-500" />
+        <Fragment set:html={item.title} />
+        <Fragment set:html={item.body} />
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .flex-col:empty {
+    @apply min-h-[3rem];
+  }
+
+  .timeline {
+    @apply opacity-60;
+  }
+
+  .timeline-dot {
+    @apply shadow-lg transition-transform duration-300;
+  }
+
+  .timeline-dot:hover {
+    @apply scale-125;
+  }
+</style>

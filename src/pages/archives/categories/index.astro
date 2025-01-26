@@ -1,6 +1,7 @@
 ---
 import type { BlogPostData } from '@/types/data';
 import { getCategories, getSortedPosts } from '@/utils/content-utils';
+import Timeline from '@components/Timeline.astro';
 import Button from '@components/widgets/Button.astro';
 import PostCard from '@components/widgets/PostCard.astro';
 import I18nKey from '@i18n/I18nKey';
@@ -16,32 +17,35 @@ categories.forEach((category) => {
   const posts = allPosts.filter((post) => post.data.category === category).slice(0, 3);
   categoryPosts.set(category, posts);
 });
-
 const uncategorizedPosts = allPosts.filter((post) => !post.data.category).slice(0, 3);
+if (uncategorizedPosts.length > 0)
+  categoryPosts.set(i18n(I18nKey.uncategorized), uncategorizedPosts);
 ---
 
 <MainLayout title={i18n(I18nKey.categories)}>
   <div class="mx-auto flex max-w-screen-xl flex-col items-center">
     <h1 class="my-8 text-3xl font-bold">{i18n(I18nKey.categories)}</h1>
-    <div class="relative flex flex-col">
-      <div
-        class="timeline absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-blue-500 to-purple-500"
-      >
-      </div>
-      {
-        categories.map((category) => (
-          <div class="relative mb-12 pl-12">
-            <div class="timeline-dot absolute left-2 top-5 h-4 w-4 rounded-full bg-blue-500" />
+    <Timeline items={Array.from(categoryPosts.keys())}>
+      <fragment slot="title">
+        {
+          (category: string) => (
             <div class="mb-6 flex items-center justify-between">
               <h2 class="text-2xl font-bold">{category}</h2>
               <Button
-                href={`/archives/categories/${category.replaceAll(/[\\/]/g, '-')}/1/`}
+                href={`/archives/categories/${category === i18n(I18nKey.uncategorized) ? I18nKey.uncategorized : category.replaceAll(/[\\/]/g, '-')}/1/`}
                 title={category}
+                class="!pl-3"
               >
                 {i18n(I18nKey.more)}
                 <Icon name="material-symbols:chevron-right-rounded" class="text-2xl" />
               </Button>
             </div>
+          )
+        }
+      </fragment>
+      <fragment slot="body">
+        {
+          (category: string) => (
             <div class="ml-4 flex flex-col gap-4">
               {categoryPosts.get(category)?.map((post) => (
                 <PostCard
@@ -55,57 +59,9 @@ const uncategorizedPosts = allPosts.filter((post) => !post.data.category).slice(
                 />
               ))}
             </div>
-          </div>
-        ))
-      }
-      {
-        uncategorizedPosts.length > 0 && (
-          <div class="relative mb-12 pl-12">
-            <div class="timeline-dot absolute left-2 top-5 h-4 w-4 rounded-full bg-blue-500" />
-            <div class="mb-6 flex items-center justify-between">
-              <h2 class="text-2xl font-bold">{i18n(I18nKey.uncategorized)}</h2>
-              <Button
-                href={`/archives/categories/uncategorized/1/`}
-                title={i18n(I18nKey.uncategorized)}
-              >
-                {i18n(I18nKey.more)}
-                <Icon name="material-symbols:chevron-right-rounded" class="text-2xl" />
-              </Button>
-            </div>
-            <div class="ml-4 flex flex-col gap-4">
-              {uncategorizedPosts.map((post) => (
-                <PostCard
-                  title={post.data.title}
-                  url={`/posts/${post.data.abbrlink}/`}
-                  published={post.data.published}
-                  tags={post.data.tags || []}
-                  category={undefined}
-                  cover={post.data.cover}
-                  description={post.data.description}
-                />
-              ))}
-            </div>
-          </div>
-        )
-      }
-    </div>
+          )
+        }
+      </fragment>
+    </Timeline>
   </div>
 </MainLayout>
-
-<style>
-  .timeline {
-    @apply opacity-60;
-  }
-
-  .timeline-dot {
-    @apply shadow-lg transition-transform duration-300;
-  }
-
-  .timeline-dot:hover {
-    @apply scale-125;
-  }
-
-  .flex-col:empty {
-    @apply min-h-[3rem];
-  }
-</style>
