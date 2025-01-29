@@ -34,36 +34,34 @@ export async function getTags(): Promise<string[]> {
 
 export async function getTimeArchives() {
   const allBlogPosts = await getSortedPosts();
-  const yearReducedPosts = allBlogPosts.reduce(
-    (acc: { year: number; posts: { body: string; data: BlogPostData }[] }[], item) => {
-      const year = item.data.published.getFullYear();
-      const existYear = acc.find((group) => group.year === year);
-      if (existYear) {
-        existYear.posts.push(item);
-      } else {
-        acc.push({ year, posts: [item] });
-      }
-      return acc;
-    },
-    []
-  );
-  const timeReducedPosts = yearReducedPosts.map((group) => ({
-    year: group.year,
-    months: group.posts.reduce(
-      (acc: { month: number; posts: { body: string; data: BlogPostData }[] }[], item) => {
-        const month = item.data.published.getMonth() + 1;
-        const existMonth = acc.find((group) => group.month === month);
-        if (existMonth) {
-          existMonth.posts.push(item);
-        } else {
-          acc.push({ month: month, posts: [item] });
-        }
-        return acc;
-      },
-      []
-    ),
-  }));
-  return timeReducedPosts;
+  const yearMap = new Map<number, Map<number, { body: string; data: BlogPostData }[]>>();
+  for (const post of allBlogPosts) {
+    const year = post.data.published.getFullYear();
+    const month = post.data.published.getMonth() + 1;
+    let monthMap = yearMap.get(year);
+    if (!monthMap) {
+      monthMap = new Map();
+      yearMap.set(year, monthMap);
+    }
+    let monthPosts = monthMap.get(month);
+    if (!monthPosts) {
+      monthPosts = [];
+      monthMap.set(month, monthPosts);
+    }
+
+    monthPosts.push(post);
+  }
+  return Array.from(yearMap.entries())
+    .map(([year, monthMap]) => ({
+      year,
+      months: Array.from(monthMap.entries())
+        .map(([month, posts]) => ({
+          month,
+          posts,
+        }))
+        .sort((a, b) => b.month - a.month),
+    }))
+    .sort((a, b) => b.year - a.year);
 }
 
 export function countWords(text: string): { cjk: number; nonCjk: number; total: number } {
