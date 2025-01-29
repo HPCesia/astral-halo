@@ -1,5 +1,6 @@
 ---
 import { navbarConfig } from '@/config';
+import { i18n } from '@i18n/translation';
 import { Icon } from 'astro-icon/components';
 import Button from './widgets/Button.astro';
 import DarkModeButton from './widgets/DarkModeButton.astro';
@@ -23,12 +24,7 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     <div id="sidebar-menu-text-items">
       {
         navbarConfig.navbarCenterItems.map((item) => (
-          <Button
-            id="sidebar-menu-item"
-            href={item.href}
-            onclick={item.onclick}
-            title={item.text}
-          >
+          <Button id="sidebar-menu-item" href={item.href} title={i18n(item.text)}>
             <span class="text-xl">{item.text}</span>
           </Button>
         ))
@@ -40,8 +36,11 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
           <Button
             id="sidebar-menu-item"
             href={item.href}
-            onclick={item.onclick}
-            title={item.text}
+            title={i18n(item.text)}
+            {...(item.onclick &&
+              (typeof item.onclick === 'string'
+                ? { onclick: item.onclick }
+                : { id: 'side-' + item.onclick.id }))}
           >
             <Icon name={item.icon} class="text-2xl" />
           </Button>
@@ -77,6 +76,20 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
         sidebarMask?.classList.add('pointer-events-none');
         sidebarMenu?.classList.remove('-translate-x-full');
         sidebarMenu?.setAttribute('inert', 'true');
+      }
+    });
+  });
+</script>
+
+<script>
+  import { navbarConfig } from '@/config';
+  const rightItems = navbarConfig.navbarRightItems.onlyWide;
+
+  document.addEventListener('astro:page-load', () => {
+    rightItems.forEach((item) => {
+      if (item.onclick && typeof item.onclick !== 'string') {
+        const element = document.getElementById('side-' + item.onclick.id);
+        if (element) element.addEventListener('click', item.onclick.function);
       }
     });
   });

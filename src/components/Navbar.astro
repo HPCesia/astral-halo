@@ -25,7 +25,7 @@ if (!title) title = 'Astral Halo';
   <div id="nav-center" class="m-auto flex w-fit max-md:hidden">
     {
       navbarConfig.navbarCenterItems.map((item) => (
-        <Button href={item.href} onclick={item.onclick} title={i18n(item.text)} class="!px-4">
+        <Button href={item.href} title={i18n(item.text)} class="!px-4">
           <span class="text-xl tracking-wide">{i18n(item.text)}</span>
         </Button>
       ))
@@ -38,8 +38,11 @@ if (!title) title = 'Astral Halo';
           <Button
             class="nav-menu-item"
             href={item.href}
-            onclick={item.onclick}
             title={i18n(item.text)}
+            {...(item.onclick &&
+              (typeof item.onclick === 'string'
+                ? { onclick: item.onclick }
+                : { id: 'nav-' + item.onclick.id }))}
           >
             <Icon name={item.icon} class="text-2xl" />
           </Button>
@@ -52,8 +55,11 @@ if (!title) title = 'Astral Halo';
           <Button
             class="nav-menu-item"
             href={item.href}
-            onclick={item.onclick}
             title={i18n(item.text)}
+            {...(item.onclick &&
+              (typeof item.onclick === 'string'
+                ? { onclick: item.onclick }
+                : { id: 'nav-' + item.onclick.id }))}
           >
             <Icon name={item.icon} class="text-2xl" />
           </Button>
@@ -68,3 +74,20 @@ if (!title) title = 'Astral Halo';
   </div>
 </div>
 <div id="navbar-placeholder" class="pt-20"></div>
+
+<script>
+  import { navbarConfig } from '@/config';
+  const rightItems = [
+    navbarConfig.navbarRightItems.onlyWide,
+    navbarConfig.navbarRightItems.always,
+  ].flat();
+
+  document.addEventListener('astro:page-load', () => {
+    rightItems.forEach((item) => {
+      if (item.onclick && typeof item.onclick !== 'string') {
+        const element = document.getElementById('nav-' + item.onclick.id);
+        if (element) element.addEventListener('click', item.onclick.function);
+      }
+    });
+  });
+</script>

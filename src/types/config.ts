@@ -20,15 +20,30 @@ export type ProfileConfig = {
 };
 
 export type NavbarConfig = {
-  navbarCenterItems: { text: string | I18nKey; href?: string; onclick?: string }[];
+  navbarCenterItems: { text: string | I18nKey; href?: string }[];
   navbarRightItems: {
     onlyWide: {
       icon: string;
       text: string | I18nKey;
       href?: string;
-      onclick?: string;
+      onclick?:
+        | string
+        | {
+            id: string;
+            function: (this: HTMLElement, ev: MouseEvent) => unknown;
+          };
     }[];
-    always: { icon: string; text?: string; href?: string; onclick?: string }[];
+    always: {
+      icon: string;
+      text: string | I18nKey;
+      href?: string;
+      onclick?:
+        | string
+        | {
+            id: string;
+            function: (this: HTMLElement, ev: MouseEvent) => unknown;
+          };
+    }[];
   };
 };
 
