@@ -24,27 +24,26 @@ if (!title) title = 'Astral Halo';
   </div>
   <div id="nav-center" class="m-auto flex w-fit max-md:hidden">
     {
-      navbarConfig.navbarCenterItems.map((item) => {
-        const text = i18n(item.text);
-        return (
-          <Button href={item.href} onclick={item.onclick} title={text} class="!px-4">
-            <span class="text-xl tracking-wide">{text}</span>
-          </Button>
-        );
-      })
+      navbarConfig.navbarCenterItems.map((item) => (
+        <Button href={item.href} onclick={item.onclick} title={i18n(item.text)} class="!px-4">
+          <span class="text-xl tracking-wide">{i18n(item.text)}</span>
+        </Button>
+      ))
     }
   </div>
   <div id="nav-right" class="ml-auto flex w-fit">
     <div class="flex max-md:hidden">
       {
-        navbarConfig.navbarRightItems.onlyWide.map((item) => {
-          const text = i18n(item.text);
-          return (
-            <Button class="nav-menu-item" href={item.href} onclick={item.onclick} title={text}>
-              <Icon name={item.icon} class="text-2xl" />
-            </Button>
-          );
-        })
+        navbarConfig.navbarRightItems.onlyWide.map((item) => (
+          <Button
+            class="nav-menu-item"
+            href={item.href}
+            onclick={item.onclick}
+            title={i18n(item.text)}
+          >
+            <Icon name={item.icon} class="text-2xl" />
+          </Button>
+        ))
       }
     </div>
     <div class="flex">
@@ -54,7 +53,7 @@ if (!title) title = 'Astral Halo';
             class="nav-menu-item"
             href={item.href}
             onclick={item.onclick}
-            title={item.text}
+            title={i18n(item.text)}
           >
             <Icon name={item.icon} class="text-2xl" />
           </Button>
