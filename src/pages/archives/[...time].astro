@@ -6,13 +6,12 @@ import { getTimeArchives } from '@utils/content-utils';
 
 type AllTimeArchives = Awaited<ReturnType<typeof getTimeArchives>>;
 type YearArchives = AllTimeArchives[number];
-type MonthArchives = YearArchives['months'][number];
 
 export async function getStaticPaths() {
   const timeReducedPosts = await getTimeArchives();
   let paths: {
     params: { time: string | undefined };
-    props: { group: AllTimeArchives | YearArchives | MonthArchives };
+    props: { group: AllTimeArchives | YearArchives };
   }[] = [{ params: { time: undefined }, props: { group: timeReducedPosts } }];
   paths = [
     ...paths,
