@@ -23,9 +23,10 @@
 
 interface Props {
   items: unknown[];
+  class?: string;
 }
 
-const { items } = Astro.props;
+const { items, class: className } = Astro.props;
 
 const renderedItems = await Promise.all(
   items.map(async (item) => {
@@ -37,7 +38,7 @@ const renderedItems = await Promise.all(
 );
 ---
 
-<div class="relative flex flex-col">
+<div class:list={['relative flex flex-col', className]}>
   <div
     class="timeline absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-blue-500 to-purple-500"
   >
