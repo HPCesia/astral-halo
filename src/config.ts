@@ -49,7 +49,7 @@ export const navbarConfig: NavbarConfig = {
       {
         icon: 'material-symbols:rss-feed-rounded',
         text: I18nKey.subscribe,
-        onclick: '',
+        href: '/rss.xml',
       },
     ],
     always: [
