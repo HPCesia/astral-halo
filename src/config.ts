@@ -8,6 +8,7 @@ import type {
   ToolBarConfig,
 } from './types/config';
 import I18nKey from '@i18n/I18nKey';
+import { getRandomPost } from '@scripts/utils';
 
 export const siteConfig: SiteConfig = {
   title: 'Astral Halo',
@@ -58,29 +59,7 @@ export const navbarConfig: NavbarConfig = {
         text: I18nKey.randomPost,
         onclick: {
           id: 'random-post-btn',
-          function: async () => {
-            // Use rss.xml to get random post
-            // 使用 rss.xml 获取随机文章
-            const site = import.meta.env.SITE;
-            try {
-              const response = await fetch('/rss.xml');
-              const text = await response.text();
-              const parser = new DOMParser();
-              const xml = parser.parseFromString(text, 'text/xml');
-              const items = xml.querySelectorAll('item link');
-              const links = Array.from(items).map((item) => item.textContent || '');
-
-              if (links.length > 0) {
-                const randomLink = links[Math.floor(Math.random() * links.length)].replace(
-                  site,
-                  '/'
-                );
-                window.location.href = randomLink;
-              }
-            } catch (error) {
-              console.error('Failed to get random post:', error);
-            }
-          },
+          function: getRandomPost,
         },
       },
       {
