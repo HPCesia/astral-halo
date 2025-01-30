@@ -1,3 +1,5 @@
+import { navigate } from 'astro:transitions/client';
+
 export function getReadingProgress(): number {
   const docEl = document.documentElement;
   const bodyEl = document.body;
@@ -28,7 +30,7 @@ export async function getRandomPost() {
 
     if (links.length > 0) {
       const randomLink = links[Math.floor(Math.random() * links.length)].replace(site, '/');
-      window.location.href = randomLink;
+      navigate(randomLink);
     }
   } catch (error) {
     console.error('Failed to get random post:', error);
