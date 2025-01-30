@@ -51,7 +51,7 @@ if (untaggedPosts.length > 0) tagPosts.set(i18n(I18nKey.untagged), untaggedPosts
               {tagPosts.get(tag)?.map((post) => (
                 <PostCard
                   title={post.data.title}
-                  url={`/posts/${post.data.abbrlink}/`}
+                  url={`/posts/${post.data.slug}/`}
                   published={post.data.published}
                   tags={post.data.tags || []}
                   category={post.data.category}

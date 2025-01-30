@@ -1,6 +1,6 @@
 ---
 title: Maunal
-abbrlink: '12345678'
+slug: '12345678'
 published: 2025-01-16 22:01:22
 category: TEST
 tags:

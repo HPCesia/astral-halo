@@ -1,7 +1,7 @@
 export type BlogPostData = {
   body: string;
   title: string;
-  abbrlink: string;
+  slug: string;
   published: Date;
   description: string;
   tags: string[];

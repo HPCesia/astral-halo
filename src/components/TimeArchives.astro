@@ -36,7 +36,7 @@ const { group } = Astro.props;
                   {monthGroup.posts.map((post) => (
                     <PostCard
                       title={post.data.title}
-                      url={`/posts/${post.data.abbrlink}/`}
+                      url={`/posts/${post.data.slug}/`}
                       published={post.data.published}
                       tags={post.data.tags || []}
                       category={post.data.category}

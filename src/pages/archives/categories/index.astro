@@ -50,7 +50,7 @@ if (uncategorizedPosts.length > 0)
               {categoryPosts.get(category)?.map((post) => (
                 <PostCard
                   title={post.data.title}
-                  url={`/posts/${post.data.abbrlink}/`}
+                  url={`/posts/${post.data.slug}/`}
                   published={post.data.published}
                   tags={post.data.tags || []}
                   category={post.data.category}

@@ -30,7 +30,7 @@ posts = posts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage
       return (
         <PostCard
           title={data.title}
-          url={'/posts/' + data.abbrlink + '/'}
+          url={'/posts/' + data.slug + '/'}
           published={data.published}
           tags={data.tags}
           category={data.category}

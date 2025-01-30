@@ -13,7 +13,7 @@ export async function GET(context: AstroGlobal) {
       title: post.data.title,
       pubDate: post.data.published,
       description: post.data.description,
-      link: `/posts/${post.data.abbrlink}`,
+      link: `/posts/${post.data.slug}`,
     })),
   });
 }

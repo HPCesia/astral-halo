@@ -12,7 +12,7 @@ import { getCollection, render } from 'astro:content';
 export async function getStaticPaths() {
   const articles = await getCollection('posts');
   return articles.map((article) => ({
-    params: { article: article.data.abbrlink },
+    params: { article: article.data.slug },
     props: { article },
   }));
 }
