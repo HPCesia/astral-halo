@@ -25,7 +25,7 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
       {
         navbarConfig.navbarCenterItems.map((item) => (
           <Button id="sidebar-menu-item" href={item.href} title={i18n(item.text)}>
-            <span class="text-xl">{item.text}</span>
+            <span class="text-xl">{i18n(item.text)}</span>
           </Button>
         ))
       }
