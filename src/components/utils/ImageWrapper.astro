@@ -1,5 +1,4 @@
 ---
-import { url } from '@utils/url-utils';
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import path from 'path';
@@ -47,7 +46,7 @@ const imageStyle = `object-position: ${position}`;
   {
     !isLocal && (
       <img
-        src={isPublic ? url(src) : src}
+        src={isPublic ? (new URL(src, Astro.site) as unknown as string) : src}
         alt={alt || ''}
         class={imageClass}
         style={imageStyle}
