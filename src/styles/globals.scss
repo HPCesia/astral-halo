@@ -1,9 +1,49 @@
-@use './variables';
+@use 'sass:color';
+@use './variables' as var;
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  --theme-color-light: #{var.$theme-color-light};
+  --theme-color-dark: #{var.$theme-color-dark};
+  --theme-color-light-lighten: #{color.adjust(var.$theme-color-light, $lightness: 20%)};
+  --theme-color-dark-lighten: #{color.adjust(var.$theme-color-dark, $lightness: 20%)};
+  --theme-color-light-darken: #{color.adjust(var.$theme-color-light, $lightness: -20%)};
+  --theme-color-dark-darken: #{color.adjust(var.$theme-color-dark, $lightness: -20%)};
+
+  @for $i from 1 through 8 {
+    $numerator: $i;
+    $denominator: 8;
+
+    @while $numerator % 2 == 0 and $denominator % 2 == 0 {
+      $numerator: calc($numerator / 2);
+      $denominator: calc($denominator / 2);
+    }
+
+    $alpha: calc($i / 8 - 1);
+
+    --theme-color-light-trans-#{$numerator}d#{$denominator}: #{color.adjust(
+        var.$theme-color-light,
+        $alpha: $alpha
+      )};
+    --theme-color-dark-trans-#{$numerator}d#{$denominator}: #{color.adjust(
+        var.$theme-color-dark,
+        $alpha: $alpha
+      )};
+  }
+
+  --theme-bg-color-light: #{var.$theme-bg-color-light};
+  --theme-bg-color-dark: #{var.$theme-bg-color-dark};
+  --theme-card-bg-color-light: #{var.$theme-card-bg-color-light};
+  --theme-card-bg-color-dark: #{var.$theme-card-bg-color-dark};
+  --theme-text-color-light: #{var.$theme-text-color-light};
+  --theme-text-color-dark: #{var.$theme-text-color-dark};
+  --theme-text-color-second-light: #{var.$theme-text-color-secondary-light};
+  --theme-text-color-second-dark: #{var.$theme-text-color-secondary-dark};
+  --theme-border-color-light: #{var.$theme-border-color-light};
+  --theme-border-color-dark: #{var.$theme-border-color-dark};
+
   font-size: 17px;
 }
 
