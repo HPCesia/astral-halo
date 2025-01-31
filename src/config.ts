@@ -4,11 +4,12 @@ import type {
   LicenseConfig,
   NavbarConfig,
   ProfileConfig,
+  SearchConfig,
   SiteConfig,
   ToolBarConfig,
 } from './types/config';
 import I18nKey from '@i18n/I18nKey';
-import { getRandomPost } from '@scripts/utils';
+import { getRandomPost, toggleSearch } from '@scripts/utils';
 
 export const siteConfig: SiteConfig = {
   title: 'Astral Halo',
@@ -65,7 +66,10 @@ export const navbarConfig: NavbarConfig = {
       {
         icon: 'material-symbols:search-rounded',
         text: I18nKey.search,
-        onclick: '',
+        onclick: {
+          id: 'search-btn',
+          function: toggleSearch,
+        },
       },
     ],
   },
@@ -112,4 +116,9 @@ export const articleConfig: ArticleConfig = {
       nonCjk: 160,
     },
   },
+};
+
+export const searchConfig: SearchConfig = {
+  enable: true,
+  provider: 'pagefind',
 };

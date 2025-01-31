@@ -79,3 +79,8 @@ export type ArticleConfig = {
     };
   };
 };
+
+export type SearchConfig = {
+  enable: boolean;
+  provider: 'pagefind' | 'algolia';
+};

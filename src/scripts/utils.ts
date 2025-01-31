@@ -36,3 +36,8 @@ export async function getRandomPost() {
     console.error('Failed to get random post:', error);
   }
 }
+
+export function toggleSearch() {
+  const searchContainer = document.getElementById('search-container');
+  searchContainer?.classList.toggle('hidden');
+}

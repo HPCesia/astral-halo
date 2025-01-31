@@ -1,0 +1,53 @@
+---
+import { searchConfig } from '@/config';
+import Algolia from './search/Algolia.astro';
+import Pagefind from './search/Pagefind.astro';
+---
+
+<div id="search-container" class="fixed z-30 hidden h-full w-full" transition:persist>
+  <div
+    class="fixed -z-10 h-full w-full bg-black/20 backdrop-blur-sm backdrop-saturate-100 duration-500 ease-in-out"
+  >
+  </div>
+  <div
+    class="theme-card-bg theme-border mx-auto mt-32 flex w-11/12 flex-col items-center justify-center gap-4 overflow-hidden rounded-xl border-2 md:w-1/2"
+  >
+    <div class="w-full p-4">
+      {
+        (() => {
+          switch (searchConfig.provider) {
+            case 'pagefind':
+              return <Pagefind />;
+            case 'algolia':
+              return <Algolia />;
+          }
+        })()
+      }
+    </div>
+    <div
+      class="theme-card-bg-hl-trans relative mt-auto w-full flex-shrink-0 px-4 py-2 text-center"
+    >
+      Powered by {
+        searchConfig.provider === 'pagefind' ? (
+          <a href="https://pagefind.app" target="_blank" class="text-blue-500">
+            Pagefind
+          </a>
+        ) : (
+          <a href="https://www.algolia.com" target="_blank" class="text-blue-500">
+            Algolia
+          </a>
+        )
+      }
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const searchContainer = document.getElementById('search-container');
+    const searchContainerMask = searchContainer?.querySelector(':first-child');
+    searchContainerMask?.addEventListener('click', () => {
+      searchContainer?.classList.add('hidden');
+    });
+  });
+</script>
