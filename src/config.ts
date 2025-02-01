@@ -46,8 +46,6 @@ export const navbarConfig: NavbarConfig = {
   ],
   navbarRightItems: {
     onlyWide: [
-      // Items displayed only when the width is greater than 768px.
-      // 仅在宽度大于 768px 时显示的项目
       {
         icon: 'material-symbols:rss-feed-rounded',
         text: I18nKey.subscribe,
