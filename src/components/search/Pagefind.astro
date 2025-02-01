@@ -1,3 +1,99 @@
 ---
+import { isFirstInstance } from '@utils/component-utils';
+import { Icon } from 'astro-icon/components';
+import SearchBaseUI from './SearchBaseUI.astro';
 
+const bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
 ---
+
+<SearchBaseUI data-pagefind-ui data-bundle-path={bundlePath} />
+
+{
+  (isFirstInstance('md-has-pre', Astro.url) || import.meta.env.DEV) && (
+    <template id="pagefind-result-template">
+      <a class="theme-card-bg hover:theme-card-bg-hl-trans group rounded-md p-2" href="#">
+        <div class="flex flex-row items-center gap-1 text-center">
+          <span class="group-hover:theme-text-hl-contrast text-lg">Fake Result</span>
+          <Icon
+            name="material-symbols:chevron-right-rounded"
+            class="theme-text-hl-contrast text-lg"
+          />
+        </div>
+        <div id="pagefind-result-template-excerpt" class="theme-text-second">
+          This is a fake result.
+        </div>
+      </a>
+    </template>
+  )
+}
+
+<script>
+  import type { PagefindSearchResult } from '@/types/PagefindSearchAPI';
+
+  async function initPageFind() {
+    for (const el of document.querySelectorAll('[data-pagefind-ui]')) {
+      const bundlePath = el.getAttribute('data-bundle-path');
+      const pagefind = await import(/* @vite-ignore */ `${bundlePath}pagefind.js`);
+      await pagefind.options({
+        baseUrl: import.meta.env.BASE_URL,
+        bundlePath: bundlePath,
+      });
+      pagefind.init();
+
+      const searchInput = el.querySelector('input') as HTMLInputElement;
+      const searchResultsWrapper = el.querySelector('.search-result') as HTMLDivElement;
+      const searchResultTemplate = document.getElementById(
+        'pagefind-result-template'
+      ) as HTMLTemplateElement;
+      if (!searchInput || !searchResultsWrapper || !searchResultTemplate) {
+        console.error('Pagefind: Required elements not found');
+        return;
+      }
+
+      const search = async (text: string) => {
+        const results: PagefindSearchResult[] = (await pagefind.debouncedSearch(text, 300))
+          .results;
+        searchResultsWrapper.innerHTML = '';
+        if (results.length === 0) {
+          searchResultsWrapper.textContent = 'No results found';
+          return;
+        }
+        results.forEach(async (result) => {
+          const data = await result.data();
+          const resultNode = searchResultTemplate.content.cloneNode(true) as DocumentFragment;
+          const resultLink = resultNode.querySelector('a') as HTMLAnchorElement;
+          const resultTitle = resultNode.querySelector('span') as HTMLSpanElement;
+          const resultExcerpt = resultNode.querySelector(
+            '#pagefind-result-template-excerpt'
+          ) as HTMLDivElement;
+
+          resultLink.setAttribute('href', data.url);
+          resultTitle.textContent = data.meta.title;
+          resultExcerpt.innerHTML = data.excerpt;
+
+          resultExcerpt.removeAttribute('id');
+          searchResultsWrapper.appendChild(resultNode);
+        });
+      };
+
+      searchInput.addEventListener('input', async () => {
+        await search(searchInput.value);
+      });
+    }
+  }
+
+  document.addEventListener('astro:page-load', initPageFind);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPageFind);
+  } else {
+    initPageFind();
+  }
+</script>
+
+<style is:global>
+  [data-pagefind-ui] mark {
+    background-color: transparent;
+
+    @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
+  }
+</style>

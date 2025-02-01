@@ -1,0 +1,36 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'div'>;
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<div class:list={['w-full', className]} {...rest}>
+  <div
+    class="theme-bg theme-border mb-2 flex w-full flex-row items-center gap-2 rounded-md border-2 p-4 text-center"
+  >
+    <Icon name="material-symbols:search-rounded" class="text-3xl" />
+    <input type="text" class="theme-bg w-full py-1" />
+  </div>
+  <div
+    class="search-result flex h-fit max-h-[calc(60vh-8rem)] flex-col items-center gap-2 overflow-y-auto text-center"
+  >
+  </div>
+</div>
+
+<style>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    appearance: none;
+  }
+
+  input[type='number'] {
+    appearance: textfield;
+  }
+
+  input:focus {
+    outline: none;
+  }
+</style>

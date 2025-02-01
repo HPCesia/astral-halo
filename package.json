@@ -19,6 +19,7 @@
     "astro": "^5.2.3",
     "astro-compress": "2.3.5",
     "astro-icon": "^1.1.5",
+    "astro-pagefind": "^1.8.0",
     "autoprefixer": "^10.4.20",
     "postcss-load-config": "^6.0.1",
     "sass": "^1.83.4",
