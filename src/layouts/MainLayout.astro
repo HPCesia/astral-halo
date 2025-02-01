@@ -20,11 +20,11 @@ const { title, description, lang } = Astro.props;
   <Sidebar />
   <SideToolBar />
   <Navbar />
-  {searchConfig.enable && <Search />}
   <slot name="header" />
   <div id="body-wrap" class="w-full items-center md:px-4">
     <!-- Main content -->
     <slot />
   </div>
+  {searchConfig.enable && <Search />}
   <PageFooter />
 </GlobalLayout>
