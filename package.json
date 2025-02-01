@@ -8,7 +8,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint ./src --fix && stylelint ./src/**/*.{scss,css,astro} --fix && astro check",
-    "format": "prettier --write ./src"
+    "format": "prettier --write ./src",
+    "new": "node scripts/new.mjs",
+    "pub": "node scripts/pub.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.11",
