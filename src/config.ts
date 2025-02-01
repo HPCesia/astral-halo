@@ -93,14 +93,14 @@ export const footerConfig: FooterConfig = {
       {
         text: 'Astro',
         link: 'https://astro.build/',
-        class: 'font-bold text-sm',
+        class: 'font-bold',
       },
     ],
     [
       {
         text: 'Astral Halo',
         link: 'https://github.com/HPCesia/astral-halo/',
-        class: 'font-bold text-sm',
+        class: 'font-bold',
       },
     ],
   ],
