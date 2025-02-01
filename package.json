@@ -16,7 +16,7 @@
     "@astrojs/tailwind": "^5.1.5",
     "@iconify-json/material-symbols": "^1.2.13",
     "@iconify-json/mdi": "^1.2.3",
-    "astro": "^5.1.10",
+    "astro": "^5.2.3",
     "astro-compress": "2.3.5",
     "astro-icon": "^1.1.5",
     "autoprefixer": "^10.4.20",
