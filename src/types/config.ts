@@ -1,52 +1,74 @@
 import type I18nKey from '@i18n/I18nKey';
 
-export type ButtonSubConfig = (
-  | {
-      /**
-       * The icon of the button. Should be a name of iconify icon.
-       *
-       * 按钮的图标。应该是一个 iconify 图标的名称。
-       */
-      icon: string;
-      /**
-       * The text of the button.
-       *
-       * 按钮的文本。
-       */
-      text?: string | I18nKey;
-    }
-  | {
+export type ButtonSubConfig<T extends string> = T extends 'text'
+  ? {
       /**
        * The text of the button.
        *
        * 按钮的文本。
        */
       text: string | I18nKey;
-    }
-) &
-  (
-    | {
+    } & (
+      | {
+          /**
+           * The URL of the button.
+           *
+           * 按钮的 URL。
+           */
+          href?: string;
+        }
+      | {
+          /**
+           * The function to be called when the button is clicked.
+           *
+           * 当按钮被点击时要调用的函数。
+           */
+          onclick?:
+            | string
+            | {
+                id: string;
+                function: (this: HTMLElement, ev: MouseEvent) => unknown;
+              };
+        }
+    )
+  : T extends 'icon'
+    ? {
         /**
-         * The URL of the button.
+         * The icon of the button. Should be a name of iconify icon.
          *
-         * 按钮的 URL。
+         * 按钮的图标。应该是一个 iconify 图标的名称。
          */
-        href?: string;
-      }
-    | {
+        icon: string;
         /**
-         * The function to be called when the button is clicked.
+         * The text of the button.
          *
-         * 当按钮被点击时要调用的函数。
+         * 按钮的文本。
          */
-        onclick?:
-          | string
-          | {
-              id: string;
-              function: (this: HTMLElement, ev: MouseEvent) => unknown;
-            };
-      }
-  );
+        text?: string | I18nKey;
+      } & (
+        | {
+            /**
+             * The URL of the button.
+             *
+             * 按钮的 URL。
+             */
+            href?: string;
+          }
+        | {
+            /**
+             * The function to be called when the button is clicked.
+             *
+             * 当按钮被点击时要调用的函数。
+             */
+            onclick?:
+              | string
+              | {
+                  id: string;
+                  function: (this: HTMLElement, ev: MouseEvent) => unknown;
+                };
+          }
+      )
+    : never;
 
 export type SiteConfig = {
   /**
@@ -133,7 +155,7 @@ export type NavbarConfig = {
    *
    * 在导航栏中间显示的项目。
    */
-  navbarCenterItems: { text: string | I18nKey; href?: string }[];
+  navbarCenterItems: ButtonSubConfig<'text'>[];
   /**
    * The items displayed in the right of the navbar.
    *
@@ -145,13 +167,13 @@ export type NavbarConfig = {
      *
      * 仅在宽屏幕（大于 768px）显示的项目。
      */
-    onlyWide: ButtonSubConfig[];
+    onlyWide: ButtonSubConfig<'icon'>[];
     /**
      * The items displayed always.
      *
      * 总是显示的项目。
      */
-    always: ButtonSubConfig[];
+    always: ButtonSubConfig<'icon'>[];
   };
 };
 
@@ -167,7 +189,7 @@ export type ToolBarConfig = {
    *
    * 在侧边工具栏中显示的项目。
    */
-  items: ButtonSubConfig[];
+  items: ButtonSubConfig<'icon'>[];
 };
 
 export type LicenseConfig = {
@@ -254,12 +276,14 @@ export type ArticleConfig = {
 };
 
 export type SearchConfig = {
-  /** Whether to enable search.
+  /**
+   * Whether to enable search.
    *
    * 是否启用搜索。
    */
   enable: boolean;
-  /** `'pagefind'` | `'algolia'`.
+  /**
+   * `'pagefind'` | `'algolia'`.
    *
    * Algolia is not implemented yet, just a placeholder. Please use Pagefind.
    *

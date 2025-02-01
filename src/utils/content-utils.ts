@@ -21,7 +21,9 @@ export async function getSortedPosts(): Promise<{ body: string; data: BlogPostDa
 export async function getCategories(): Promise<string[]> {
   const allBlogPosts = await getSortedPosts();
   const categories = [
-    ...new Set(allBlogPosts.map((post) => post.data.category || i18n(I18nKey.uncategorized))),
+    ...new Set(
+      allBlogPosts.map((post) => post.data.category || (i18n(I18nKey.uncategorized) as string))
+    ),
   ];
   return categories;
 }
@@ -48,7 +50,6 @@ export async function getTimeArchives() {
       monthPosts = [];
       monthMap.set(month, monthPosts);
     }
-
     monthPosts.push(post);
   }
   return Array.from(yearMap.entries())

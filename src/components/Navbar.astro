@@ -25,7 +25,11 @@ if (!title) title = 'Astral Halo';
   <div id="nav-center" class="m-auto flex w-fit max-md:hidden">
     {
       navbarConfig.navbarCenterItems.map((item) => (
-        <Button href={item.href} title={i18n(item.text)} class="!px-4">
+        <Button
+          {...('href' in item && item.href && { href: item.href })}
+          title={i18n(item.text)}
+          class="!px-4"
+        >
           <span class="text-xl tracking-wide">{i18n(item.text)}</span>
         </Button>
       ))
@@ -37,9 +41,10 @@ if (!title) title = 'Astral Halo';
         navbarConfig.navbarRightItems.onlyWide.map((item) => (
           <Button
             class="nav-menu-item"
-            href={item.href}
+            {...('href' in item && item.href && { href: item.href })}
             title={i18n(item.text)}
-            {...(item.onclick &&
+            {...('onclick' in item &&
+              item.onclick &&
               (typeof item.onclick === 'string'
                 ? { onclick: item.onclick }
                 : { id: 'nav-' + item.onclick.id }))}
@@ -54,9 +59,10 @@ if (!title) title = 'Astral Halo';
         navbarConfig.navbarRightItems.always.map((item) => (
           <Button
             class="nav-menu-item"
-            href={item.href}
+            {...('href' in item && item.href && { href: item.href })}
             title={i18n(item.text)}
-            {...(item.onclick &&
+            {...('onclick' in item &&
+              item.onclick &&
               (typeof item.onclick === 'string'
                 ? { onclick: item.onclick }
                 : { id: 'nav-' + item.onclick.id }))}
@@ -84,7 +90,7 @@ if (!title) title = 'Astral Halo';
 
   document.addEventListener('astro:page-load', () => {
     rightItems.forEach((item) => {
-      if (item.onclick && typeof item.onclick !== 'string') {
+      if ('onclick' in item && item.onclick && typeof item.onclick !== 'string') {
         const element = document.getElementById('nav-' + item.onclick.id);
         if (element) element.addEventListener('click', item.onclick.function);
       }

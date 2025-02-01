@@ -24,7 +24,11 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     <div id="sidebar-menu-text-items">
       {
         navbarConfig.navbarCenterItems.map((item) => (
-          <Button id="sidebar-menu-item" href={item.href} title={i18n(item.text)}>
+          <Button
+            id="sidebar-menu-item"
+            {...('href' in item && item.href && { href: item.href })}
+            title={i18n(item.text)}
+          >
             <span class="text-xl">{i18n(item.text)}</span>
           </Button>
         ))
@@ -35,9 +39,10 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
         navbarConfig.navbarRightItems.onlyWide.map((item) => (
           <Button
             id="sidebar-menu-item"
-            href={item.href}
+            {...('href' in item && item.href && { href: item.href })}
             title={i18n(item.text)}
-            {...(item.onclick &&
+            {...('onclick' in item &&
+              item.onclick &&
               (typeof item.onclick === 'string'
                 ? { onclick: item.onclick }
                 : { id: 'side-' + item.onclick.id }))}
@@ -87,7 +92,7 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 
   document.addEventListener('astro:page-load', () => {
     rightItems.forEach((item) => {
-      if (item.onclick && typeof item.onclick !== 'string') {
+      if ('onclick' in item && item.onclick && typeof item.onclick !== 'string') {
         const element = document.getElementById('side-' + item.onclick.id);
         if (element) element.addEventListener('click', item.onclick.function);
       }

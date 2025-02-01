@@ -20,7 +20,7 @@ tags.forEach((tag) => {
 const untaggedPosts = allPosts
   .filter((post) => !post.data.tags || post.data.tags.length === 0)
   .slice(0, 3);
-if (untaggedPosts.length > 0) tagPosts.set(i18n(I18nKey.untagged), untaggedPosts);
+if (untaggedPosts.length > 0) tagPosts.set(i18n(I18nKey.untagged) as string, untaggedPosts);
 ---
 
 <MainLayout title={i18n(I18nKey.tags)}>

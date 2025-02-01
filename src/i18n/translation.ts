@@ -23,7 +23,8 @@ export function getTranslation(lang: string): Translation {
   return map[lang.toLowerCase()] || defaultTranslation;
 }
 
-export function i18n(key: I18nKey | string): string {
+export function i18n(key: I18nKey | string | undefined): string | undefined {
+  if (typeof key === 'undefined') return undefined;
   const lang = siteConfig.lang || 'en';
   const translate = getTranslation(lang);
   return key in I18nKey ? translate[key as I18nKey] : key;

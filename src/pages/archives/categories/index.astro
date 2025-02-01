@@ -19,7 +19,7 @@ categories.forEach((category) => {
 });
 const uncategorizedPosts = allPosts.filter((post) => !post.data.category).slice(0, 3);
 if (uncategorizedPosts.length > 0)
-  categoryPosts.set(i18n(I18nKey.uncategorized), uncategorizedPosts);
+  categoryPosts.set(i18n(I18nKey.uncategorized) as string, uncategorizedPosts);
 ---
 
 <MainLayout title={i18n(I18nKey.categories)}>
