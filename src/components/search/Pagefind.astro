@@ -1,5 +1,4 @@
 ---
-import { isFirstInstance } from '@utils/component-utils';
 import { Icon } from 'astro-icon/components';
 import SearchBaseUI from './SearchBaseUI.astro';
 
@@ -8,24 +7,20 @@ const bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
 
 <SearchBaseUI data-pagefind-ui data-bundle-path={bundlePath} />
 
-{
-  (isFirstInstance('md-has-pre', Astro.url) || import.meta.env.DEV) && (
-    <template id="pagefind-result-template">
-      <a class="theme-card-bg hover:theme-card-bg-hl-trans group rounded-md p-2" href="#">
-        <div class="flex flex-row items-center gap-1 text-center">
-          <span class="group-hover:theme-text-hl-contrast text-lg">Fake Result</span>
-          <Icon
-            name="material-symbols:chevron-right-rounded"
-            class="theme-text-hl-contrast text-lg"
-          />
-        </div>
-        <div id="pagefind-result-template-excerpt" class="theme-text-second">
-          This is a fake result.
-        </div>
-      </a>
-    </template>
-  )
-}
+<template id="pagefind-result-template">
+  <a class="theme-card-bg hover:theme-card-bg-hl-trans group rounded-md p-2" href="#">
+    <div class="flex flex-row items-center gap-1 text-center">
+      <span class="group-hover:theme-text-hl-contrast text-lg">Fake Result</span>
+      <Icon
+        name="material-symbols:chevron-right-rounded"
+        class="theme-text-hl-contrast text-lg"
+      />
+    </div>
+    <div id="pagefind-result-template-excerpt" class="theme-text-second">
+      This is a fake result.
+    </div>
+  </a>
+</template>
 
 <script>
   import type { PagefindSearchResult } from '@/types/PagefindSearchAPI';
@@ -36,7 +31,7 @@ const bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
       const pagefind = await import(/* @vite-ignore */ `${bundlePath}pagefind.js`);
       await pagefind.options({
         baseUrl: import.meta.env.BASE_URL,
-        bundlePath: bundlePath,
+        basePath: bundlePath,
       });
       pagefind.init();
 
