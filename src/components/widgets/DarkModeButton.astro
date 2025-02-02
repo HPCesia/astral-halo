@@ -26,53 +26,58 @@ const { class: className, showText, ...rest } = Astro.props;
 </Button>
 
 <script>
-  const darkmodeBtns = document.querySelectorAll('button.darkmode-btn');
+  function initDarkmodeButtons() {
+    const darkmodeBtns = document.querySelectorAll('button.darkmode-btn');
 
-  function refreshButtons() {
+    function refreshButtons() {
+      darkmodeBtns.forEach((btn) => {
+        const iconLight = btn.querySelector('.darkmode-icon-light');
+        const iconDark = btn.querySelector('.darkmode-icon-dark');
+        const iconAuto = btn.querySelector('.darkmode-icon-auto');
+        const text = btn.querySelector('.darkmode-text');
+
+        if ('darkMode' in localStorage && localStorage.darkMode === 'true') {
+          iconLight?.classList.add('hidden');
+          iconDark?.classList.remove('hidden');
+          iconAuto?.classList.add('hidden');
+          if (text) text.textContent = btn.getAttribute('data-text-dark');
+          btn.setAttribute('title', btn.getAttribute('data-text-dark') || '');
+        } else if ('darkMode' in localStorage && localStorage.darkMode === 'false') {
+          iconLight?.classList.remove('hidden');
+          iconDark?.classList.add('hidden');
+          iconAuto?.classList.add('hidden');
+          if (text) text.textContent = btn.getAttribute('data-text-light');
+          btn.setAttribute('title', btn.getAttribute('data-text-light') || '');
+        } else {
+          iconLight?.classList.add('hidden');
+          iconDark?.classList.add('hidden');
+          iconAuto?.classList.remove('hidden');
+          if (text) text.textContent = btn.getAttribute('data-text-auto');
+          btn.setAttribute('title', btn.getAttribute('data-text-auto') || '');
+        }
+      });
+    }
+
     darkmodeBtns.forEach((btn) => {
-      const iconLight = btn.querySelector('.darkmode-icon-light');
-      const iconDark = btn.querySelector('.darkmode-icon-dark');
-      const iconAuto = btn.querySelector('.darkmode-icon-auto');
-      const text = btn.querySelector('.darkmode-text');
-
-      if ('darkMode' in localStorage && localStorage.darkMode === 'true') {
-        iconLight?.classList.add('hidden');
-        iconDark?.classList.remove('hidden');
-        iconAuto?.classList.add('hidden');
-        if (text) text.textContent = btn.getAttribute('data-text-dark');
-        btn.setAttribute('title', btn.getAttribute('data-text-dark') || '');
-      } else if ('darkMode' in localStorage && localStorage.darkMode === 'false') {
-        iconLight?.classList.remove('hidden');
-        iconDark?.classList.add('hidden');
-        iconAuto?.classList.add('hidden');
-        if (text) text.textContent = btn.getAttribute('data-text-light');
-        btn.setAttribute('title', btn.getAttribute('data-text-light') || '');
-      } else {
-        iconLight?.classList.add('hidden');
-        iconDark?.classList.add('hidden');
-        iconAuto?.classList.remove('hidden');
-        if (text) text.textContent = btn.getAttribute('data-text-auto');
-        btn.setAttribute('title', btn.getAttribute('data-text-auto') || '');
-      }
+      btn.addEventListener('click', () => {
+        if (!('darkMode' in localStorage)) {
+          localStorage.darkMode = false;
+          document.documentElement.classList.remove('dark');
+        } else if (localStorage.darkMode === 'false') {
+          localStorage.darkMode = true;
+          document.documentElement.classList.add('dark');
+        } else {
+          localStorage.removeItem('darkMode');
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+            document.documentElement.classList.add('dark');
+          else document.documentElement.classList.remove('dark');
+        }
+        refreshButtons();
+      });
     });
+
+    refreshButtons();
   }
 
-  darkmodeBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      if (!('darkMode' in localStorage)) {
-        localStorage.darkMode = false;
-        document.documentElement.classList.remove('dark');
-      } else if (localStorage.darkMode === 'false') {
-        localStorage.darkMode = true;
-        document.documentElement.classList.add('dark');
-      } else {
-        localStorage.removeItem('darkMode');
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches)
-          document.documentElement.classList.add('dark');
-        else document.documentElement.classList.remove('dark');
-      }
-      refreshButtons();
-    });
-  });
-  refreshButtons();
+  document.addEventListener('astro:page-load', initDarkmodeButtons);
 </script>
