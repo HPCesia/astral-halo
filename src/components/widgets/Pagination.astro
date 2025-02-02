@@ -179,9 +179,4 @@ else {
     pageJumperButton?.addEventListener('click', pageJumperExecHandler);
   }
   document.addEventListener('astro:page-load', initPagination);
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPagination);
-  } else {
-    initPagination();
-  }
 </script>

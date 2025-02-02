@@ -6,7 +6,7 @@ import Button from './widgets/Button.astro';
 import DarkModeButton from './widgets/DarkModeButton.astro';
 ---
 
-<div id="sidebar" transition:persist>
+<div id="sidebar">
   <div
     id="sidebar-mask"
     class="pointer-events-none fixed z-40 h-full w-full bg-black/10 opacity-0 backdrop-blur-md backdrop-saturate-100 duration-500 ease-in-out"
@@ -97,9 +97,4 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
   }
 
   document.addEventListener('astro:page-load', initSidebar);
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSidebar);
-  } else {
-    initSidebar();
-  }
 </script>

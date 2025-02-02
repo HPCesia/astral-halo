@@ -6,7 +6,8 @@ import '@/styles/twikoo.scss';
 <script
   src="https://cdn.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.nocss.js"
   crossorigin="anonymous"
-  is:inline></script>
+  is:inline
+  data-astro-rerun></script>
 <script>
   import { commentConfig } from '@/config';
   const twikooConfig = commentConfig.twikoo;
@@ -23,10 +24,6 @@ import '@/styles/twikoo.scss';
       });
     }
   }
+
   document.addEventListener('astro:page-load', initTwikoo);
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTwikoo);
-  } else {
-    initTwikoo();
-  }
 </script>

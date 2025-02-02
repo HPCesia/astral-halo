@@ -21,7 +21,10 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
 
 {
   firstHasPre && (
-    <template id="code-toolbar-template" class="relative my-4 overflow-hidden rounded-lg">
+    <template
+      id="code-toolbar-template"
+      class="code-block-wrapper relative my-4 overflow-hidden rounded-lg"
+    >
       <div class="theme-border theme-card-bg-hl-trans z-10 flex items-center justify-between">
         <Button class="toggle-btn !bg-transparent">
           <Icon
@@ -87,15 +90,14 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
       });
     };
 
+    const isWrapped = (pre: HTMLPreElement) => {
+      return pre.parentElement?.classList.contains('code-block-wrapper');
+    };
+
     codeBlocks.forEach((pre) => {
-      wrapPre(pre as HTMLPreElement);
+      if (!isWrapped(pre as HTMLPreElement)) wrapPre(pre as HTMLPreElement);
     });
   }
 
   document.addEventListener('astro:page-load', prettierPreCode);
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', prettierPreCode);
-  } else {
-    prettierPreCode();
-  }
 </script>

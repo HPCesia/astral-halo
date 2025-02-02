@@ -76,11 +76,6 @@ const bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
   }
 
   document.addEventListener('astro:page-load', initPageFind);
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPageFind);
-  } else {
-    initPageFind();
-  }
 </script>
 
 <style is:global>
