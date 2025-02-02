@@ -56,7 +56,10 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 </div>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  import { navbarConfig } from '@/config';
+  const rightItems = navbarConfig.navbarRightItems.onlyWide;
+
+  function initSidebar() {
     const toggleSidebarBtns = document.getElementById('nav-toggle-sidebar-btn');
     const sidebarMask = document.getElementById('sidebar-mask');
     const sidebarMenu = document.getElementById('sidebar-menu');
@@ -83,19 +86,20 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
         sidebarMenu?.setAttribute('inert', 'true');
       }
     });
-  });
-</script>
 
-<script>
-  import { navbarConfig } from '@/config';
-  const rightItems = navbarConfig.navbarRightItems.onlyWide;
-
-  document.addEventListener('astro:page-load', () => {
+    // 绑定设置的点击事件
     rightItems.forEach((item) => {
       if ('onclick' in item && item.onclick && typeof item.onclick !== 'string') {
         const element = document.getElementById('side-' + item.onclick.id);
         if (element) element.addEventListener('click', item.onclick.function);
       }
     });
-  });
+  }
+
+  document.addEventListener('astro:page-load', initSidebar);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSidebar);
+  } else {
+    initSidebar();
+  }
 </script>

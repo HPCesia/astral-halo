@@ -28,7 +28,7 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 <script>
   import { getReadingProgress } from '@scripts/utils';
 
-  document.addEventListener('astro:page-load', () => {
+  function initSideToolBar() {
     const stbHide = document.getElementById('stb-hide');
     const stbShow = document.getElementById('stb-show');
     const stbShowMore = document.getElementById('stb-show-more');
@@ -74,7 +74,14 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
         stbBackToTopIcon?.classList.add('opacity-0');
       }
     });
-  });
+  }
+
+  document.addEventListener('astro:page-load', initSideToolBar);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSideToolBar);
+  } else {
+    initSideToolBar();
+  }
 </script>
 
 <style lang="scss">

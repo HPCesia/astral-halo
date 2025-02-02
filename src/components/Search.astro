@@ -43,11 +43,18 @@ import Pagefind from './search/Pagefind.astro';
 </div>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  function initSearchContainer() {
     const searchContainer = document.getElementById('search-container');
     const searchContainerMask = searchContainer?.querySelector(':first-child');
     searchContainerMask?.addEventListener('click', () => {
       searchContainer?.classList.add('hidden');
     });
-  });
+  }
+
+  document.addEventListener('astro:page-load', initSearchContainer);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSearchContainer);
+  } else {
+    initSearchContainer();
+  }
 </script>

@@ -4,15 +4,16 @@ import type { HTMLAttributes, HTMLTag } from 'astro/types';
 
 interface Props extends HTMLAttributes<'button'> {
   href?: string;
+  prefetch?: boolean;
 }
-const { href, onclick, class: className, ...rest } = Astro.props;
+const { href, onclick, prefetch, class: className, ...rest } = Astro.props;
 
 if (href && onclick) throw new AstroParameterConflictError('href', 'onclick');
 
 const Tag = (href ? 'a' : Fragment) as HTMLTag;
 ---
 
-<Tag {...{ href }}>
+<Tag {...{ href, 'data-astro-prefetch': prefetch as boolean }}>
   <button {...{ onclick, ...rest }} class:list={[className]}>
     <slot />
   </button>

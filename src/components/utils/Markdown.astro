@@ -39,7 +39,7 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
 }
 
 <script>
-  document.addEventListener('astro:page-load', (_event) => {
+  function prettierPreCode() {
     const codeBlocks = document.querySelectorAll('article pre');
     const template = document.getElementById('code-toolbar-template') as HTMLTemplateElement;
     if (!template) return;
@@ -90,5 +90,12 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
     codeBlocks.forEach((pre) => {
       wrapPre(pre as HTMLPreElement);
     });
-  });
+  }
+
+  document.addEventListener('astro:page-load', prettierPreCode);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prettierPreCode);
+  } else {
+    prettierPreCode();
+  }
 </script>
