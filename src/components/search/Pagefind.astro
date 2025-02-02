@@ -5,7 +5,11 @@ import SearchBaseUI from './SearchBaseUI.astro';
 const bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
 ---
 
-<SearchBaseUI data-pagefind-ui data-bundle-path={bundlePath} />
+<SearchBaseUI
+  data-pagefind-ui
+  data-bundle-path={bundlePath}
+  data-base-url={import.meta.env.BASE_URL}
+/>
 
 <template id="pagefind-result-template">
   <a class="theme-card-bg hover:theme-card-bg-hl-trans group rounded-md p-2" href="#">
@@ -22,32 +26,28 @@ const bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
   </a>
 </template>
 
-<script>
-  import type { PagefindSearchResult } from '@/types/PagefindSearchAPI';
-
+<script is:inline>
   async function initPageFind() {
     for (const el of document.querySelectorAll('[data-pagefind-ui]')) {
       const bundlePath = el.getAttribute('data-bundle-path');
-      const pagefind = await import(/* @vite-ignore */ `${bundlePath}pagefind.js`);
+      const baseUrl = el.getAttribute('data-base-url');
+      const pagefind = await import(`${bundlePath}pagefind.js`);
       await pagefind.options({
-        baseUrl: import.meta.env.BASE_URL,
+        baseUrl: baseUrl,
         basePath: bundlePath,
       });
       pagefind.init();
 
-      const searchInput = el.querySelector('input') as HTMLInputElement;
-      const searchResultsWrapper = el.querySelector('.search-result') as HTMLDivElement;
-      const searchResultTemplate = document.getElementById(
-        'pagefind-result-template'
-      ) as HTMLTemplateElement;
+      const searchInput = el.querySelector('input');
+      const searchResultsWrapper = el.querySelector('.search-result');
+      const searchResultTemplate = document.getElementById('pagefind-result-template');
       if (!searchInput || !searchResultsWrapper || !searchResultTemplate) {
         console.error('Pagefind: Required elements not found');
         return;
       }
 
-      const search = async (text: string) => {
-        const results: PagefindSearchResult[] = (await pagefind.debouncedSearch(text, 300))
-          .results;
+      const search = async (text) => {
+        const results = (await pagefind.debouncedSearch(text, 300)).results;
         searchResultsWrapper.innerHTML = '';
         if (results.length === 0) {
           searchResultsWrapper.textContent = 'No results found';
@@ -55,12 +55,10 @@ const bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
         }
         results.forEach(async (result) => {
           const data = await result.data();
-          const resultNode = searchResultTemplate.content.cloneNode(true) as DocumentFragment;
-          const resultLink = resultNode.querySelector('a') as HTMLAnchorElement;
-          const resultTitle = resultNode.querySelector('span') as HTMLSpanElement;
-          const resultExcerpt = resultNode.querySelector(
-            '#pagefind-result-template-excerpt'
-          ) as HTMLDivElement;
+          const resultNode = searchResultTemplate.content.cloneNode(true);
+          const resultLink = resultNode.querySelector('a');
+          const resultTitle = resultNode.querySelector('span');
+          const resultExcerpt = resultNode.querySelector('#pagefind-result-template-excerpt');
 
           resultLink.setAttribute('href', data.url);
           resultTitle.textContent = data.meta.title;
