@@ -68,6 +68,14 @@ html {
     @apply bg-[var(--theme-color-light-trans-1d2)] dark:bg-[var(--theme-color-dark-trans-1d2)];
   }
 
+  .theme-card-bg-contrary {
+    @apply bg-[var(--theme-bg-color-dark)] dark:bg-[var(--theme-bg-color-light)];
+  }
+
+  .theme-card-bg-contrary-hl {
+    @apply bg-[var(--theme-color-dark)] dark:bg-[var(--theme-color-light)];
+  }
+
   .theme-text {
     @apply text-[var(--theme-text-color-light)] dark:text-[var(--theme-text-color-dark)];
   }
@@ -84,7 +92,15 @@ html {
     @apply text-[var(--theme-text-color-second-light)] dark:text-[var(--theme-text-color-second-dark)];
   }
 
+  .theme-text-contrary {
+    @apply text-[var(--theme-text-color-dark)] dark:text-[var(--theme-text-color-light)];
+  }
+
   .theme-border {
     @apply border-[var(--theme-border-color-light)] dark:border-[var(--theme-border-color-dark)];
+  }
+
+  .theme-border-hl {
+    @apply border-[var(--theme-color-light)] dark:border-[var(--theme-color-dark)];
   }
 }
