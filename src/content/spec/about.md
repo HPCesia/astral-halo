@@ -1,6 +1,7 @@
 ---
 title: About
 description: Welcome!
+comment: false
 ---
 
 # Lorem

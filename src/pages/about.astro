@@ -13,7 +13,7 @@ const aboutMd = await getEntry('spec', 'about');
 const { Content } = aboutMd ? await render(aboutMd) : Fragment;
 ---
 
-<MainLayout title={i18n(I18nKey.about)}>
+<MainLayout title={i18n(I18nKey.about)} comment={aboutMd?.data.comment}>
   <div class="mx-auto flex max-w-screen-xl flex-col items-center justify-center">
     <div class="my-4 flex w-5/6 flex-row items-center justify-between gap-4 md:w-2/3">
       <div class="mb-5 mr-auto flex flex-col">
