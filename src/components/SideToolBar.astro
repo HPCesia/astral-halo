@@ -1,4 +1,5 @@
 ---
+import { articleConfig } from '@/config';
 import { Icon } from 'astro-icon/components';
 import Button from './widgets/Button.astro';
 import DarkModeButton from './widgets/DarkModeButton.astro';
@@ -12,6 +13,14 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     <Button id="stb-show-more">
       <Icon name="material-symbols:settings-rounded" class="animate-spin" />
     </Button>
+    {
+      articleConfig.toc && (
+        <Button id="stb-toc" class="hidden xl:!hidden">
+          <Icon name="material-symbols:toc-rounded" />
+        </Button>
+        <div id="stb-toc-wrapper" class="absolute scale-0 hidden duration-300 bottom-10 max-w-72 w-[calc(100vw-4rem)]"></div>
+      )
+    }
     <Button id="stb-back-to-top" class="group">
       <span
         id="stb-read-percentage"
@@ -35,6 +44,8 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     const stbBackToTop = document.getElementById('stb-back-to-top');
     const stbBackToTopIcon = document.getElementById('stb-back-to-top-icon');
     const stbReadPercent = document.getElementById('stb-read-percentage');
+    const stbToc = document.getElementById('stb-toc');
+    const stbTocWrapper = document.getElementById('stb-toc-wrapper');
 
     stbShowMore?.addEventListener('click', () => {
       stbHide?.classList.toggle('translate-x-full');
@@ -48,6 +59,26 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
       });
     });
 
+    stbToc?.addEventListener('click', () => {
+      stbTocWrapper?.classList.toggle('scale-0');
+      stbTocWrapper?.classList.toggle('-translate-x-full');
+    });
+
+    const toc = document.getElementById('toc');
+    if (toc && stbTocWrapper) {
+      stbTocWrapper.appendChild(toc.cloneNode(true));
+      stbTocWrapper.children[0].id = 'stb-toc-content';
+      stbToc?.classList.remove('hidden');
+      stbTocWrapper.classList.remove('hidden');
+    }
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1280) {
+        stbTocWrapper?.classList.add('scale-0');
+        stbTocWrapper?.classList.remove('-translate-x-full');
+      }
+    });
+
     window.addEventListener('scroll', () => {
       // 控制工具栏显隐
       if (window.scrollY > 0) {
@@ -58,6 +89,9 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
         stbHide?.classList.add('translate-x-full');
         stbShow?.setAttribute('inert', '');
         stbHide?.setAttribute('inert', '');
+
+        stbTocWrapper?.classList.add('scale-0');
+        stbTocWrapper?.classList.remove('-translate-x-full');
       }
       // 控制进度条
       const scrolledPercentage = getReadingProgress();
