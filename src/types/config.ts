@@ -94,7 +94,7 @@ export type SiteConfig = {
    *
    * 站点的 favicon。
    */
-  favicon: (string | { src: string; theme?: 'light' | 'dark' })[];
+  favicon: string[];
   /**
    * The number of posts displayed per page.
    *
@@ -290,4 +290,42 @@ export type SearchConfig = {
    * Algolia 尚未实现，只是一个占位符。请使用 Pagefind。
    */
   provider: 'pagefind' | 'algolia';
+};
+
+export type CommentConfig = {
+  /**
+   * Whether to enable comments.
+   *
+   * 是否启用评论。
+   */
+  enable: boolean;
+  /**
+   * `'twikoo'`.
+   *
+   * Twikoo is the only comment provider supported yet.
+   *
+   * Twikoo 是目前唯一支持的评论系统。
+   */
+  provider: 'twikoo';
+  /**
+   * The configuration of Twikoo.
+   *
+   * Twikoo 的配置。
+   *
+   * @see https://twikoo.js.org/
+   */
+  twikoo?: {
+    /**
+     * The envID of Twikoo.
+     *
+     * Twikoo 的 envID。
+     */
+    envId: string;
+    /**
+     * The region of Twikoo backend.
+     *
+     * Twikoo 后端的地区设置。
+     */
+    region?: string;
+  };
 };

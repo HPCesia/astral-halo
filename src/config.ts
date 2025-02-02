@@ -1,5 +1,6 @@
 import type {
   ArticleConfig,
+  CommentConfig,
   FooterConfig,
   LicenseConfig,
   NavbarConfig,
@@ -119,4 +120,12 @@ export const articleConfig: ArticleConfig = {
 export const searchConfig: SearchConfig = {
   enable: true,
   provider: 'pagefind',
+};
+
+export const commentConfig: CommentConfig = {
+  enable: true,
+  provider: 'twikoo',
+  twikoo: {
+    envId: 'https://comment.hpcesia.com/.netlify/functions/twikoo',
+  },
 };

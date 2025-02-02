@@ -1,0 +1,633 @@
+/* stylelint-disable no-descending-specificity */
+/* stylelint-disable selector-class-pattern */
+
+@use './globals.scss' as global;
+
+.twikoo {
+  @apply relative flex h-fit w-full flex-col items-center;
+}
+
+.tk-comments {
+  @apply w-full;
+
+  .tk-row {
+    @apply flex w-full flex-row gap-2;
+  }
+
+  .tk-col {
+    @apply flex w-full flex-col gap-2;
+  }
+
+  // 回复框样式
+  .tk-submit {
+    @apply relative w-full;
+
+    .tk-avatar {
+      display: none;
+    }
+
+    // 输入框部分样式
+    .tk-col {
+      @apply flex-col-reverse;
+    }
+
+    // 文本框输入样式
+    .el-textarea {
+      @apply theme-border relative w-full overflow-hidden rounded-xl border-2 pb-9;
+
+      textarea {
+        @apply theme-card-bg w-full p-4;
+
+        resize: none;
+
+        &:focus {
+          outline: none;
+        }
+
+        &::placeholder {
+          @apply theme-text-second;
+        }
+      }
+
+      .el-input__count {
+        @apply theme-text-second absolute bottom-2 right-10 text-sm;
+      }
+    }
+
+    // 个人信息输入框样式
+    .tk-meta-input {
+      @apply flex w-[calc(100%-3.5rem)] flex-col items-center gap-2 md:w-[calc(100%-6.75rem)] md:flex-row;
+    }
+
+    .actions {
+      @apply relative w-full;
+
+      .tk-row-actions-start {
+        @apply absolute bottom-[8.15rem] ml-3 flex flex-row items-center gap-2 md:bottom-[3.15rem];
+
+        input {
+          display: none;
+        }
+      }
+
+      button {
+        @apply theme-border theme-card-bg-hl absolute py-[0.95rem] md:py-[0.3rem];
+
+        &.tk-preview {
+          @apply bottom-[3.7rem] right-0 md:bottom-0 md:right-[3.35rem];
+        }
+
+        &.tk-send {
+          @apply bottom-0 right-0;
+        }
+      }
+    }
+
+    .__markdown {
+      @apply absolute bottom-[7.75rem] right-3 md:bottom-[2.75rem];
+    }
+
+    &:has(.tk-cancel) {
+      .tk-meta-input {
+        @apply w-[calc(100%-3.5rem)] md:w-[calc(100%-10rem)];
+      }
+
+      .actions button {
+        @apply py-[0.3rem];
+
+        &.tk-preview {
+          @apply bottom-[4.9rem] md:bottom-0;
+        }
+
+        &.tk-cancel {
+          @apply theme-card-bg-contrary-hl theme-text-contrary bottom-[2.4rem] right-0 md:bottom-0 md:right-[6.7rem];
+        }
+      }
+    }
+
+    .tk-preview-container {
+      @apply theme-border theme-bg mt-2 w-full rounded-xl border-2 p-2;
+    }
+  }
+
+  .tk-comments-container {
+    // 评论整体样式
+    @apply mt-4 flex w-full flex-col gap-4;
+
+    .tk-comments-title {
+      @apply flex flex-row items-center justify-between px-2;
+
+      .tk-comments-count {
+        @apply text-lg font-bold;
+      }
+
+      .tk-icon {
+        @apply mx-2 cursor-pointer;
+      }
+    }
+
+    .tk-comment {
+      @apply relative scroll-m-20;
+    }
+
+    > .tk-comment {
+      @apply max-md:theme-card-bg max-md:theme-border p-4 max-md:rounded-xl max-md:border-2;
+
+      > .tk-avatar {
+        @apply top-3;
+      }
+    }
+
+    .tk-replies {
+      @apply ml-6 mt-4 flex flex-col gap-2;
+
+      &:not(.tk-replies-expand) {
+        @apply max-h-32 overflow-y-hidden;
+      }
+    }
+
+    // 详细样式
+    .tk-avatar {
+      @apply theme-border absolute top-0 h-8 min-h-8 w-8 min-w-8 overflow-hidden rounded-full border-2;
+    }
+
+    .tk-main > .tk-row {
+      @apply mb-2 ml-[2.5rem] w-[calc(100%-3rem)] justify-between;
+    }
+
+    .tk-meta {
+      a {
+        @apply hover:theme-text-hl duration-300;
+      }
+
+      small {
+        @apply theme-text-second;
+      }
+
+      .tk-actions {
+        @apply opacity-0 duration-300;
+      }
+    }
+
+    // 评论操作样式
+    .tk-main:not(:has(.tk-replies:hover)):hover > .tk-row .tk-meta .tk-actions {
+      @apply opacity-100;
+    }
+
+    .tk-action {
+      .tk-action-link {
+        @apply theme-border relative flex items-center justify-center rounded-xl border-2 px-2 py-1 text-center duration-300;
+
+        .tk-action-icon-solid {
+          @apply absolute left-2 opacity-0 duration-300;
+        }
+
+        .tk-action-count {
+          @apply text-sm;
+
+          &:not(:empty) {
+            @apply ml-2;
+          }
+        }
+
+        &:first-child {
+          display: none;
+        }
+
+        &:hover {
+          @apply theme-card-bg-hl;
+
+          .tk-action-icon-solid {
+            @apply opacity-100;
+          }
+        }
+      }
+    }
+
+    .tk-content {
+      @apply relative mx-2 mb-3;
+    }
+
+    .tk-extras {
+      @apply flex flex-row gap-3;
+
+      .tk-extra {
+        @apply theme-text-second theme-border flex flex-row items-center justify-center gap-2 rounded-md border-2 p-1 text-center text-xs;
+      }
+
+      .tk-icon {
+        @apply hidden;
+      }
+    }
+
+    .tk-replies .tk-content > span:first-child {
+      // 回复提示（回复：xxx）样式
+      @apply theme-text-second text-xs;
+    }
+
+    .tk-expand-wrap,
+    .tk-collapse-wrap {
+      @apply mt-1 flex items-center justify-center text-center;
+    }
+
+    .tk-expand {
+      @apply theme-card-bg hover:theme-card-bg-hl-trans w-full cursor-pointer rounded-md py-1 text-sm duration-300;
+    }
+  }
+
+  // 图标样式
+  .tk-submit-action-icon {
+    @apply inline-block max-h-6 min-h-6 min-w-6 max-w-6 fill-[var(--theme-text-color-light)] dark:fill-[var(--theme-text-color-dark)];
+  }
+
+  .tk-action-icon {
+    @apply inline-block max-h-5 min-h-5 min-w-5 max-w-5 overflow-clip fill-[var(--theme-text-color-light)] dark:fill-[var(--theme-text-color-dark)];
+  }
+
+  .tk-icon {
+    @apply inline-block max-h-4 min-h-4 min-w-4 max-w-4 overflow-clip fill-[var(--theme-text-color-light)] dark:fill-[var(--theme-text-color-dark)];
+  }
+
+  .tk-tag {
+    @apply theme-border rounded-lg border-2 p-1 text-xs;
+  }
+}
+
+.tk-footer {
+  @apply mt-4 w-full text-right text-sm;
+
+  a {
+    @apply text-[var(--theme-color-light)] dark:text-[var(--theme-color-dark)];
+  }
+}
+
+.tk-admin-container {
+  @apply absolute z-10 h-3/4 w-full overflow-hidden bg-black/30 backdrop-blur-sm;
+
+  &:not(:has(.tk-admin.__show)) {
+    display: none;
+  }
+
+  .tk-admin {
+    @apply relative flex h-full w-full items-center justify-center text-center;
+
+    .tk-admin-close {
+      @apply absolute right-2 top-[0.65rem] z-50 h-8 w-8 fill-[var(--theme-text-color-light)] p-2 dark:fill-[var(--theme-text-color-dark)];
+    }
+
+    > div {
+      @apply flex h-full w-full items-center justify-center;
+    }
+  }
+
+  .tk-login {
+    @apply flex flex-col items-center gap-4 p-4;
+
+    .tk-login-title {
+      @apply text-2xl font-bold;
+    }
+  }
+
+  .tk-panel {
+    @apply h-full w-full overflow-y-scroll;
+
+    .tk-panel-title {
+      @apply left-0 top-0 z-40 flex w-full flex-row items-center justify-between p-4;
+
+      // 管理面板标题
+      div {
+        @apply text-xl font-bold;
+      }
+
+      a {
+        @apply theme-border theme-card-bg hover:theme-card-bg-hl mx-6 rounded-xl border-2 px-3 py-1 text-xs duration-300;
+      }
+    }
+
+    .tk-tabs {
+      @apply theme-border flex flex-row items-center justify-between border-b-2 px-4 text-center text-lg;
+
+      .tk-tab {
+        @apply hover:theme-card-bg-hl w-full cursor-pointer py-1 duration-300;
+
+        &.__active {
+          @apply theme-border-hl border-b-2;
+        }
+      }
+    }
+
+    .tk-admin-warn {
+      @apply m-2 rounded-sm border-l-4 border-yellow-400 bg-yellow-100 p-4 text-start text-yellow-700;
+
+      a {
+        @apply font-semibold text-yellow-900;
+      }
+    }
+
+    // 评论管理样式
+    .tk-admin-comment {
+      @apply p-4;
+    }
+
+    .tk-admin-comment-filter {
+      @apply flex flex-row items-center justify-between gap-2 p-4;
+
+      div {
+        @apply w-full;
+
+        input {
+          @apply theme-border theme-card-bg w-full rounded-xl border-2 px-2 py-1;
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
+      select {
+        @apply theme-border theme-card-bg w-1/4 rounded-xl border-2 p-2;
+      }
+    }
+
+    .tk-admin-comment-list {
+      @apply px-3 text-start;
+    }
+
+    .tk-admin-comment-item {
+      @apply theme-border border-b-2 py-1;
+    }
+
+    .tk-admin-comment-meta {
+      @apply flex flex-row flex-wrap items-center gap-2 text-start;
+
+      .tk-avatar {
+        @apply theme-border h-8 w-8 overflow-hidden rounded-full border-2;
+      }
+
+      a {
+        @apply hover:theme-text-hl duration-300;
+      }
+
+      span:last-child,
+      .tk-time {
+        @apply theme-text-second text-sm;
+      }
+    }
+
+    .tk-pagination {
+      @apply flex flex-row flex-wrap items-center justify-between p-4;
+
+      > div {
+        @apply flex flex-row items-center gap-2;
+      }
+
+      input {
+        @apply theme-border theme-card-bg w-16 rounded-xl border-2 px-2 py-1;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          appearance: none;
+        }
+
+        &[type='number'] {
+          appearance: textfield;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .tk-pagination-pager {
+      @apply hover:theme-card-bg-hl cursor-pointer rounded-md px-2 py-1;
+
+      &.__current {
+        @apply theme-card-bg-hl;
+      }
+    }
+
+    // 配置管理样式
+    .tk-admin-config {
+      @apply p-4;
+    }
+
+    .tk-admin-config-groups {
+      @apply flex flex-col items-center gap-3 px-4;
+    }
+
+    details {
+      @apply theme-border w-full overflow-hidden rounded-xl border-2 duration-300;
+
+      summary {
+        @apply hover:theme-card-bg-hl-trans w-full px-3 py-1 text-start text-2xl duration-300;
+
+        &::marker {
+          margin-right: 1.5rem;
+        }
+      }
+
+      &[open] {
+        summary {
+          @apply theme-card-bg-hl-trans;
+        }
+      }
+    }
+
+    .tk-admin-config-item {
+      @apply mt-4 grid w-full items-center gap-2 px-4;
+
+      grid-template-columns: 25% 75%;
+
+      .tk-admin-config-title {
+        @apply text-end text-lg;
+      }
+
+      input {
+        @apply theme-border theme-card-bg w-full rounded-xl border-2 px-2 py-1;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .tk-admin-config-desc {
+        @apply theme-text-second whitespace-pre-wrap text-start text-sm;
+      }
+    }
+
+    // 导入样式
+    .tk-admin-import {
+      @apply flex flex-col items-start gap-4 p-4;
+
+      .tk-admin-import-label {
+        @apply text-start text-xl font-bold;
+      }
+
+      select {
+        @apply theme-border theme-card-bg w-full rounded-xl border-2 p-2;
+      }
+
+      input {
+        @apply theme-border theme-card-bg w-full rounded-xl border-2 px-2 py-1;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .el-textarea {
+        @apply h-full w-full;
+
+        textarea {
+          @apply theme-border theme-card-bg h-full w-full rounded-xl border-2 px-2 py-1;
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+
+    // 导出样式
+    .tk-admin-export {
+      @apply p-4;
+    }
+  }
+}
+
+.el-input-group {
+  @apply theme-card-bg theme-border flex w-full flex-row items-center overflow-hidden rounded-xl border-2 text-sm;
+
+  div {
+    @apply theme-card-bg-hl-trans w-fit whitespace-nowrap px-2 py-1;
+  }
+
+  input {
+    @apply w-full bg-transparent px-2 py-1;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .el-button {
+    @apply border-none bg-none p-0;
+  }
+}
+
+.el-button {
+  @apply theme-border theme-card-bg-hl text-nowrap rounded-xl border-2 px-2 py-1 text-center text-sm duration-300;
+
+  &:not(.is-disabled) {
+    @apply hover:scale-105 hover:brightness-110 active:scale-95 active:brightness-90;
+  }
+
+  &.is-disabled {
+    @apply cursor-not-allowed brightness-75;
+  }
+}
+
+// Markdown 样式
+.tk-content,
+.tk-preview-container {
+  // 标题通用样式
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    display: inline;
+    width: 100%;
+    margin: 1rem 0 0.5rem;
+    scroll-margin-top: 4rem;
+    font-weight: bold;
+  }
+
+  // 基础文本元素
+  p {
+    margin: 0.5rem 0;
+  }
+
+  a {
+    @apply text-[var(--theme-color-light-darken)] underline decoration-dashed dark:text-[var(--theme-color-dark-lighten)];
+
+    &[data-footnote-ref],
+    &[data-footnote-backref] {
+      scroll-margin-top: 4rem;
+    }
+  }
+
+  // 代码样式
+  .code-toolbar {
+    @apply relative w-full;
+
+    .toolbar {
+      @apply absolute right-3 top-1 flex flex-row-reverse items-center justify-between gap-4 text-xs;
+    }
+
+    .copy-to-clipboard-button {
+      @apply theme-border theme-card-bg-hl rounded-md border-2 px-2 py-1 opacity-0 duration-300;
+    }
+
+    &:hover .copy-to-clipboard-button {
+      @apply opacity-100;
+    }
+
+    pre {
+      @apply rounded-md;
+    }
+  }
+
+  code:not(pre code) {
+    padding: 0 0.25rem;
+
+    @apply theme-text-hl-contrast rounded-md bg-[var(--theme-color-light-trans-1d8)] dark:bg-[var(--theme-color-dark-trans-1d8)];
+  }
+
+  // 媒体元素
+  img:not(.tk-owo-emotion) {
+    position: relative;
+    margin: 1rem auto;
+    max-width: 75%;
+    max-height: 40rem;
+
+    @apply rounded-md;
+  }
+
+  img.tk-owo-emotion {
+    @apply inline-block h-7 self-baseline;
+  }
+
+  // 分割线样式
+  hr {
+    margin: 1.5rem 0.25rem;
+    border: 1px dashed;
+  }
+
+  // 引用块样式
+  blockquote {
+    padding: 0.25rem 0.25rem 0.25rem 0.75rem;
+
+    @apply theme-border-hl my-2 rounded-sm border-l-4 bg-[var(--theme-color-light-trans-1d8)] dark:bg-[var(--theme-color-dark-trans-1d8)];
+  }
+
+  // 折叠块样式
+  details {
+    @apply theme-border w-full overflow-hidden rounded-xl border-2 duration-300;
+
+    summary {
+      @apply hover:theme-card-bg-hl-trans w-full px-3 py-1 text-start text-2xl duration-300;
+
+      &::marker {
+        margin-right: 1.5rem;
+      }
+    }
+
+    &[open] {
+      summary {
+        @apply theme-card-bg-hl-trans;
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+---
+import { commentConfig } from '@/config';
+import Twikoo from './comment/Twikoo.astro';
+---
+
+<div id="page-comment">
+  {
+    (() => {
+      switch (commentConfig.provider) {
+        case 'twikoo':
+          return <Twikoo />;
+      }
+    })()
+  }
+</div>

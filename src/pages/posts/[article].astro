@@ -1,5 +1,6 @@
 ---
-import { articleConfig } from '@/config';
+import { articleConfig, commentConfig } from '@/config';
+import Comment from '@components/Comment.astro';
 import License from '@components/License.astro';
 import PostInfo from '@components/PostInfo.astro';
 import Markdown from '@components/utils/Markdown.astro';
@@ -39,6 +40,7 @@ const wordCount = countWords(article.body || '');
       <Content />
     </Markdown>
     <License time={article.data.published} />
+    {article.data.comment && commentConfig.enable && <Comment />}
   </div>
   <Fragment slot="aside-fixed">
     <ProfileCard />

@@ -1,0 +1,32 @@
+---
+import '@/styles/twikoo.scss';
+---
+
+<div id="twikoo-wrap"></div>
+<script
+  src="https://cdn.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.nocss.js"
+  crossorigin="anonymous"
+  is:inline></script>
+<script>
+  import { commentConfig } from '@/config';
+  const twikooConfig = commentConfig.twikoo;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  declare const twikoo: any;
+
+  function initTwikoo() {
+    if (typeof twikoo === 'undefined') {
+      setTimeout(initTwikoo, 100);
+    } else {
+      twikoo.init({
+        el: '#twikoo-wrap',
+        ...twikooConfig,
+      });
+    }
+  }
+  document.addEventListener('astro:page-load', initTwikoo);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTwikoo);
+  } else {
+    initTwikoo();
+  }
+</script>

@@ -8,4 +8,5 @@ export type BlogPostData = {
   draft?: boolean;
   cover?: string;
   category?: string;
+  comment?: boolean;
 };
