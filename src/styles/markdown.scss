@@ -123,20 +123,27 @@ article {
 
     code {
       white-space: pre-wrap;
-      overflow-wrap: break-word;
-      word-break: break-word;
+      overflow-wrap: anywhere;
+      word-break: break-all;
+      display: flex;
+      flex-direction: column;
+      gap: 0.125em;
 
       > span {
         position: relative;
-        padding-left: 1.2em;
+        display: block;
+        padding-left: 2em;
 
         &::before {
           position: absolute;
-          left: 0.1em;
-          top: 0;
+          left: 0;
           content: counter(line);
           counter-increment: line;
           font-size: 0.85em;
+          width: 2em;
+          text-align: right;
+          padding-right: 0.25em;
+          transform: translateY(0.15em);
         }
       }
     }
