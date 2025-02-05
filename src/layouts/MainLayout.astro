@@ -11,9 +11,8 @@ interface Props {
   title?: string;
   description?: string;
   lang?: string;
-  comment?: boolean;
 }
-const { title, description, lang, comment } = Astro.props;
+const { title, description, lang } = Astro.props;
 ---
 
 <GlobalLayout title={title} description={description} lang={lang}>
@@ -26,6 +25,6 @@ const { title, description, lang, comment } = Astro.props;
     <!-- Main content -->
     <slot />
   </div>
-  {searchConfig.enable && comment && <Search />}
+  {searchConfig.enable && <Search />}
   <PageFooter />
 </GlobalLayout>

@@ -24,11 +24,7 @@ const { Content, headings } = await render(article);
 const wordCount = countWords(article.body || '');
 ---
 
-<GridLayout
-  title={article.data.title}
-  description={article.data.description}
-  comment={article.data.comment}
->
+<GridLayout title={article.data.title} description={article.data.description}>
   <Fragment slot="header-content">
     <PostInfo
       title={article.data.title}

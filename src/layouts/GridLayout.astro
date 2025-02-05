@@ -5,12 +5,11 @@ interface Props {
   title?: string;
   description?: string;
   lang?: string;
-  comment?: boolean;
 }
-const { title, description, lang, comment } = Astro.props;
+const { title, description, lang } = Astro.props;
 ---
 
-<MainLayout title={title} description={description} lang={lang} comment={comment}>
+<MainLayout title={title} description={description} lang={lang}>
   <div class="mx-auto flex max-w-screen-xl flex-col gap-4">
     <slot name="header-content" />
     <div class="flex gap-4">
