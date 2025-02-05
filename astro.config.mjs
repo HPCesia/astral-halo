@@ -12,7 +12,7 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'ignore',
   integrations: [
-    tailwind({ nesting: true }),
+    tailwind({ nesting: true, applyBaseStyles: false }),
     icon(),
     sitemap({ filter: (page) => !page.includes('/archives/') && !page.includes('/about/') }),
     pagefind(),
