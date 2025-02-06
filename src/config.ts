@@ -15,7 +15,7 @@ import { getRandomPost } from '@scripts/utils';
 export const siteConfig: SiteConfig = {
   title: 'Astral Halo',
   subtitle: '',
-  lang: 'zh_CN', // "en" | "zh_CN" | "zh_TW"
+  lang: 'en', // "en" | "zh_CN" | "zh_TW"
   favicon: [''],
   postsPerPage: 10,
 };
