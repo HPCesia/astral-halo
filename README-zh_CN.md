@@ -1,5 +1,8 @@
 # Astral Halo
 
+> [!WARNING]
+> 该项目仍在开发中，可能存在 bug，且会有破坏性变更。请谨慎使用。
+
 [在线预览（Netlify）](https://astral-halo.netlify.app/) | [English](README.md) | 简体中文
 
 Astral Halo 是一个基于 [Astro](https://astro.build) 开发的静态博客模板。
