@@ -5,7 +5,7 @@ import { Icon } from 'astro-icon/components';
 import Button from './Button.astro';
 ---
 
-<div id="profile-card" transition:persist class="card card-bordered border-2">
+<div id="profile-card" transition:name="profile-card" class="card card-bordered border-2">
   <figure class="px-4 pt-4">
     <a href="/about/">
       <ImageWrapper class="rounded-xl" src={profileConfig.avatar} alt={profileConfig.name} />

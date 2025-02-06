@@ -79,8 +79,14 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 
     const toc = document.getElementById('toc');
     if (toc && stbTocWrapper) {
+      const remainAttrs = ['class', 'style'];
       stbTocWrapper.appendChild(toc.cloneNode(true));
       stbTocWrapper.children[0].id = 'stb-toc-content';
+      Array.from(stbTocWrapper.children[0].attributes).forEach((attr) => {
+        if (!remainAttrs.includes(attr.name)) {
+          stbTocWrapper.children[0].removeAttribute(attr.name);
+        }
+      });
       stbToc?.classList.remove('hidden');
       stbTocWrapper.classList.remove('hidden');
     }

@@ -11,7 +11,11 @@ const minDepth = Math.min(...headings.map((h) => h.depth));
 const maxLevel = 3;
 ---
 
-<div id="toc" class:list={['card card-bordered border-2', className]}>
+<div
+  id="toc"
+  class:list={['card card-bordered border-2 bg-base-100', className]}
+  transition:name="toc-card"
+>
   <div class="card-body p-2">
     {
       headings
