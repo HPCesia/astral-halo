@@ -7,11 +7,26 @@ article {
   h3,
   h4,
   h5 {
-    display: inline;
+    display: inline-block;
     width: 100%;
     margin: 1rem 0 0.5rem;
     scroll-margin-top: 4rem;
     font-weight: bold;
+    position: relative;
+
+    a {
+      padding: 0 0.5rem;
+      opacity: 0;
+      text-decoration: none;
+      color: theme('colors.primary');
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    &:hover {
+      a {
+        opacity: 1;
+      }
+    }
   }
 
   // 各级标题特殊样式

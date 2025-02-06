@@ -1,10 +1,12 @@
 // @ts-check
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
+import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import icon from 'astro-icon';
 import pagefind from 'astro-pagefind';
 import { defineConfig } from 'astro/config';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,5 +22,21 @@ export default defineConfig({
   ],
   markdown: {
     remarkPlugins: [remarkReadingTime],
+    rehypePlugins: [
+      rehypeHeadingIds,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'append',
+          content: {
+            type: 'text',
+            value: '#',
+          },
+          properties: {
+            'aria-label': 'Anchor link',
+          },
+        },
+      ],
+    ],
   },
 });
