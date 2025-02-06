@@ -3,22 +3,26 @@ import { articleConfig } from '@/config';
 import MetaIcon from '@components/widgets/MetaIcon.astro';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
-import { countWords } from '@utils/content-utils';
 
 interface Props {
   title: string;
   publishedAt: Date;
   category: string;
   tags: string[];
-  wordCount: ReturnType<typeof countWords>;
+  wordsCount: number;
+  readingTime: number;
   class?: string;
 }
 
-const { title, publishedAt, category, tags, wordCount, class: className } = Astro.props;
-
-const readTime =
-  Math.ceil(wordCount.cjk / articleConfig.readingTime.wordsPerMinute.cjk) +
-  Math.ceil(wordCount.nonCjk / articleConfig.readingTime.wordsPerMinute.nonCjk);
+const {
+  title,
+  publishedAt,
+  category,
+  tags,
+  wordsCount: wordCount,
+  readingTime,
+  class: className,
+} = Astro.props;
 
 const metas: ({ icon: string; text: string; link?: string } | undefined)[] = [
   {
@@ -28,13 +32,13 @@ const metas: ({ icon: string; text: string; link?: string } | undefined)[] = [
   articleConfig.wordCount
     ? {
         icon: 'material-symbols:docs-rounded',
-        text: `${wordCount.total} ${wordCount.total === 1 ? i18n(I18nKey.wordCount) : i18n(I18nKey.wordsCount)}`,
+        text: `${wordCount} ${wordCount === 1 ? i18n(I18nKey.wordCount) : i18n(I18nKey.wordsCount)}`,
       }
     : undefined,
   articleConfig.readingTime
     ? {
         icon: 'material-symbols:nest-clock-farsight-analog-rounded',
-        text: `${readTime} ${readTime === 1 ? i18n(I18nKey.minuteCount) : i18n(I18nKey.minutesCount)}`,
+        text: `${readingTime} ${readingTime === 1 ? i18n(I18nKey.minuteCount) : i18n(I18nKey.minutesCount)}`,
       }
     : undefined,
   category

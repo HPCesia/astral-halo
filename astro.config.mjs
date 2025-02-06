@@ -1,4 +1,5 @@
 // @ts-check
+import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import icon from 'astro-icon';
@@ -17,4 +18,7 @@ export default defineConfig({
     sitemap({ filter: (page) => !page.includes('/archives/') && !page.includes('/about/') }),
     pagefind(),
   ],
+  markdown: {
+    remarkPlugins: [remarkReadingTime],
+  },
 });

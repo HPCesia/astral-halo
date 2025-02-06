@@ -7,7 +7,6 @@ import Markdown from '@components/utils/Markdown.astro';
 import ProfileCard from '@components/widgets/ProfileCard.astro';
 import TOC from '@components/widgets/TOC.astro';
 import GridLayout from '@layouts/GridLayout.astro';
-import { countWords } from '@utils/content-utils';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -19,9 +18,7 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
-const { Content, headings } = await render(article);
-
-const wordCount = countWords(article.body || '');
+const { Content, headings, remarkPluginFrontmatter } = await render(article);
 ---
 
 <GridLayout title={article.data.title} description={article.data.description}>
@@ -31,7 +28,8 @@ const wordCount = countWords(article.body || '');
       publishedAt={article.data.published}
       category={article.data.category}
       tags={article.data.tags}
-      wordCount={wordCount}
+      wordsCount={remarkPluginFrontmatter.words}
+      readingTime={remarkPluginFrontmatter.minutes}
       class="mx-2 mt-4"
     />
   </Fragment>
