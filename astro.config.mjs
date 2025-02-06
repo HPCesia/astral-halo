@@ -21,6 +21,13 @@ export default defineConfig({
     pagefind(),
   ],
   markdown: {
+    shikiConfig: {
+      themes: {
+        light: 'one-light',
+        dark: 'one-dark-pro',
+      },
+      defaultColor: false,
+    },
     remarkPlugins: [remarkReadingTime],
     rehypePlugins: [
       rehypeHeadingIds,

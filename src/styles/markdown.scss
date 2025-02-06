@@ -169,6 +169,25 @@ article {
     @apply rounded-md bg-primary/10 text-primary;
   }
 
+  .astro-code,
+  .astro-code span {
+    &:where([data-theme='light'], [data-theme='light'] *) {
+      color: var(--shiki-light);
+      background-color: var(--shiki-light-bg);
+      font-style: var(--shiki-light-font-style);
+      font-weight: var(--shiki-light-font-weight);
+      text-decoration: var(--shiki-light-text-decoration);
+    }
+
+    &:where([data-theme='dark'], [data-theme='dark'] *) {
+      color: var(--shiki-dark);
+      background-color: var(--shiki-dark-bg);
+      font-style: var(--shiki-dark-font-style);
+      font-weight: var(--shiki-dark-font-weight);
+      text-decoration: var(--shiki-dark-text-decoration);
+    }
+  }
+
   // 引用块样式
   blockquote {
     padding: 0.25rem 0.25rem 0.25rem 0.75rem;
