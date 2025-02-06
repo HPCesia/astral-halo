@@ -46,36 +46,35 @@ else {
 <div id="pagination" class="flex w-full">
   {
     current > 1 && (
-      <Button
-        id="prev-page-btn"
-        class="theme-bg theme-border mr-auto !rounded-xl border-2"
-        href={getPageUrl(current - 1)}
-      >
+      <Button id="prev-page-btn" class="mr-auto rounded-xl" href={getPageUrl(current - 1)}>
         <Icon name="material-symbols:keyboard-double-arrow-left-rounded" class="my-1" />
       </Button>
     )
   }
   <div class="mx-auto flex items-center justify-center gap-2">
-    {
-      pages.map((p) => {
-        return (
-          <Button
-            class:list={[
-              'theme-bg theme-border !rounded-xl border-2',
-              current === p.page && 'theme-card-bg-hl',
-            ]}
-            href={p.url}
-          >
-            <span class="mx-1">{`${p.page === -1 ? '...' : p.page}`}</span>
-          </Button>
-        );
-      })
-    }
+    <div class="join rounded-xl">
+      {
+        pages.map((p) => {
+          return (
+            <Button
+              class:list={[
+                'join-item',
+                current === p.page && 'btn-active',
+                p.page === -1 && 'btn-disabled',
+              ]}
+              href={p.url}
+            >
+              <span class="mx-1">{`${p.page === -1 ? '...' : p.page}`}</span>
+            </Button>
+          );
+        })
+      }
+    </div>
     {
       total > 1 && (
-        <div
+        <label
           id="page-jumper"
-          class="theme-card-bg theme-border mx-2 flex flex-row items-center rounded-xl border-2"
+          class="input input-bordered mx-2 flex flex-row items-center overflow-hidden rounded-xl px-0"
           data-base-url={baseUrl}
           data-special-pages={specialPages?.map((p) => `${p.page}:${p.url}`).join(',')}
         >
@@ -84,25 +83,18 @@ else {
             type="number"
             min="1"
             max={total}
-            class="theme-bg !active:border-none border-none pl-4 duration-300"
+            class="pl-4 duration-300"
           />
-          <Button
-            id="page-jumper-button"
-            class="theme-card-bg relative right-0 !m-0 !rounded-xl duration-300"
-          >
+          <Button id="page-jumper-button" class="relative right-0 m-0 rounded-xl duration-300">
             <Icon name="material-symbols:keyboard-double-arrow-right-rounded" class="my-1" />
           </Button>
-        </div>
+        </label>
       )
     }
   </div>
   {
     current < total && (
-      <Button
-        id="next-page-btn"
-        class="theme-bg theme-border ml-auto !rounded-xl border-2"
-        href={getPageUrl(current + 1)}
-      >
+      <Button id="next-page-btn" class="ml-auto rounded-xl" href={getPageUrl(current + 1)}>
         <Icon name="material-symbols:keyboard-double-arrow-right-rounded" class="my-1" />
       </Button>
     )

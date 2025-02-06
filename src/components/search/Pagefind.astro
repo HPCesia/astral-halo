@@ -12,15 +12,15 @@ const bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
 />
 
 <template id="pagefind-result-template">
-  <a class="theme-card-bg hover:theme-card-bg-hl-trans group rounded-md p-2" href="#">
+  <a
+    class="hover:bg-primary group w-full rounded-md p-2 duration-150 hover:bg-opacity-30"
+    href="#"
+  >
     <div class="flex flex-row items-center gap-1 text-center">
-      <span class="group-hover:theme-text-hl-contrast text-lg">Fake Result</span>
-      <Icon
-        name="material-symbols:chevron-right-rounded"
-        class="theme-text-hl-contrast text-lg"
-      />
+      <span class="group-hover:text-primary text-lg duration-150">Fake Result</span>
+      <Icon name="material-symbols:chevron-right" class="text-primary text-lg" />
     </div>
-    <div id="pagefind-result-template-excerpt" class="theme-text-second">
+    <div id="pagefind-result-template-excerpt" class="text-sm opacity-60">
       This is a fake result.
     </div>
   </a>
@@ -82,6 +82,6 @@ const bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
   [data-pagefind-ui] mark {
     background-color: transparent;
 
-    @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
+    @apply text-secondary;
   }
 </style>

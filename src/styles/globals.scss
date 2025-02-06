@@ -1,106 +1,11 @@
-@use 'sass:color';
-@use './variables' as var;
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --theme-color-light: #{var.$theme-color-light};
-  --theme-color-dark: #{var.$theme-color-dark};
-  --theme-color-light-lighten: #{color.adjust(var.$theme-color-light, $lightness: 20%)};
-  --theme-color-dark-lighten: #{color.adjust(var.$theme-color-dark, $lightness: 20%)};
-  --theme-color-light-darken: #{color.adjust(var.$theme-color-light, $lightness: -20%)};
-  --theme-color-dark-darken: #{color.adjust(var.$theme-color-dark, $lightness: -20%)};
-
-  @for $i from 1 through 8 {
-    $numerator: $i;
-    $denominator: 8;
-
-    @while $numerator % 2 == 0 and $denominator % 2 == 0 {
-      $numerator: calc($numerator / 2);
-      $denominator: calc($denominator / 2);
-    }
-
-    $alpha: calc($i / 8 - 1);
-
-    --theme-color-light-trans-#{$numerator}d#{$denominator}: #{color.adjust(
-        var.$theme-color-light,
-        $alpha: $alpha
-      )};
-    --theme-color-dark-trans-#{$numerator}d#{$denominator}: #{color.adjust(
-        var.$theme-color-dark,
-        $alpha: $alpha
-      )};
-  }
-
-  --theme-bg-color-light: #{var.$theme-bg-color-light};
-  --theme-bg-color-dark: #{var.$theme-bg-color-dark};
-  --theme-card-bg-color-light: #{var.$theme-card-bg-color-light};
-  --theme-card-bg-color-dark: #{var.$theme-card-bg-color-dark};
-  --theme-text-color-light: #{var.$theme-text-color-light};
-  --theme-text-color-dark: #{var.$theme-text-color-dark};
-  --theme-text-color-second-light: #{var.$theme-text-color-secondary-light};
-  --theme-text-color-second-dark: #{var.$theme-text-color-secondary-dark};
-  --theme-border-color-light: #{var.$theme-border-color-light};
-  --theme-border-color-dark: #{var.$theme-border-color-dark};
-
   font-size: 17px;
 }
 
 html {
   scroll-behavior: smooth;
-}
-
-@layer components {
-  .theme-bg {
-    @apply bg-[var(--theme-bg-color-light)] dark:bg-[var(--theme-bg-color-dark)];
-  }
-
-  .theme-card-bg {
-    @apply bg-[var(--theme-card-bg-color-light)] dark:bg-[var(--theme-card-bg-color-dark)];
-  }
-
-  .theme-card-bg-hl {
-    @apply bg-[var(--theme-color-light)] dark:bg-[var(--theme-color-dark)];
-  }
-
-  .theme-card-bg-hl-trans {
-    @apply bg-[var(--theme-color-light-trans-1d2)] dark:bg-[var(--theme-color-dark-trans-1d2)];
-  }
-
-  .theme-card-bg-contrary {
-    @apply bg-[var(--theme-bg-color-dark)] dark:bg-[var(--theme-bg-color-light)];
-  }
-
-  .theme-card-bg-contrary-hl {
-    @apply bg-[var(--theme-color-dark)] dark:bg-[var(--theme-color-light)];
-  }
-
-  .theme-text {
-    @apply text-[var(--theme-text-color-light)] dark:text-[var(--theme-text-color-dark)];
-  }
-
-  .theme-text-hl {
-    @apply text-[var(--theme-color-light)] dark:text-[var(--theme-color-dark)];
-  }
-
-  .theme-text-hl-contrast {
-    @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
-  }
-
-  .theme-text-second {
-    @apply text-[var(--theme-text-color-second-light)] dark:text-[var(--theme-text-color-second-dark)];
-  }
-
-  .theme-text-contrary {
-    @apply text-[var(--theme-text-color-dark)] dark:text-[var(--theme-text-color-light)];
-  }
-
-  .theme-border {
-    @apply border-[var(--theme-border-color-light)] dark:border-[var(--theme-border-color-dark)];
-  }
-
-  .theme-border-hl {
-    @apply border-[var(--theme-color-light)] dark:border-[var(--theme-color-dark)];
-  }
 }

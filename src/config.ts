@@ -10,7 +10,7 @@ import type {
   ToolBarConfig,
 } from './types/config';
 import I18nKey from '@i18n/I18nKey';
-import { getRandomPost, toggleSearch } from '@scripts/utils';
+import { getRandomPost } from '@scripts/utils';
 
 export const siteConfig: SiteConfig = {
   title: 'Astral Halo',
@@ -65,10 +65,7 @@ export const navbarConfig: NavbarConfig = {
       {
         icon: 'material-symbols:search-rounded',
         text: I18nKey.search,
-        onclick: {
-          id: 'search-btn',
-          function: toggleSearch,
-        },
+        onclick: 'search_modal.showModal()',
       },
     ],
   },

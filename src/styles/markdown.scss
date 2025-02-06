@@ -38,7 +38,7 @@ article {
   }
 
   a {
-    @apply theme-text-hl-contrast underline decoration-dashed;
+    @apply text-primary underline decoration-dashed;
 
     &[data-footnote-ref],
     &[data-footnote-backref] {
@@ -81,8 +81,7 @@ article {
       border: 0.25em solid;
       border-radius: 9999px;
 
-      @apply border-[var(--theme-color-light-trans-3d4)];
-      @apply dark:border-[var(--theme-color-dark-trans-3d4)];
+      @apply border-primary/75;
     }
   }
 
@@ -106,7 +105,7 @@ article {
         text-align: center;
         border-radius: 9999px;
 
-        @apply theme-card-bg-hl-trans theme-text-hl-contrast;
+        @apply bg-primary/50 text-primary;
       }
 
       p:first-child {
@@ -152,22 +151,22 @@ article {
   code:not(pre code) {
     padding: 0 0.25rem;
 
-    @apply theme-text-hl-contrast rounded-md bg-[var(--theme-color-light-trans-1d8)] dark:bg-[var(--theme-color-dark-trans-1d8)];
+    @apply text-primary bg-primary/10 rounded-md;
   }
 
   // 引用块样式
   blockquote {
     padding: 0.25rem 0.25rem 0.25rem 0.75rem;
 
-    @apply theme-border-hl rounded-sm border-l-4 bg-[var(--theme-color-light-trans-1d8)] dark:bg-[var(--theme-color-dark-trans-1d8)];
+    @apply border-primary bg-primary/10 rounded-sm border-l-4;
   }
 
   // 折叠块样式
   details {
-    @apply theme-border w-full overflow-hidden rounded-xl border-2 duration-300;
+    @apply border-base-300 w-full overflow-hidden rounded-xl border-2 duration-300;
 
     summary {
-      @apply hover:theme-card-bg-hl-trans w-full px-3 py-1 text-start text-2xl duration-300;
+      @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-2xl duration-300;
 
       &::marker {
         margin-right: 1.5rem;
@@ -176,7 +175,7 @@ article {
 
     &[open] {
       summary {
-        @apply theme-card-bg-hl-trans;
+        @apply bg-primary/50;
       }
     }
   }

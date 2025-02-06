@@ -13,70 +13,84 @@ const { class: className, showText, ...rest } = Astro.props;
 ---
 
 <Button
-  class:list={['darkmode-btn', className]}
+  class:list={['darkmode-btn swap swap-rotate', className]}
   {...rest}
   data-text-light={i18n(I18nKey.lightMode)}
   data-text-dark={i18n(I18nKey.darkMode)}
   data-text-auto={i18n(I18nKey.systemMode)}
 >
-  <Icon class="darkmode-icon-light" name="material-symbols:light-mode-rounded" />
-  <Icon class="darkmode-icon-dark" name="material-symbols:dark-mode-rounded" />
-  <Icon class="darkmode-icon-auto" name="material-symbols:night-sight-auto-rounded" />
-  {showText && <span class="darkmode-text ml-auto mr-2 px-2" />}
+  <input type="checkbox" />
+  <Icon class="darkmode-icon-light swap-off" name="material-symbols:light-mode-rounded" />
+  <Icon class="darkmode-icon-dark swap-on" name="material-symbols:dark-mode-rounded" />
+  <Icon
+    class="darkmode-icon-auto swap-indeterminate"
+    name="material-symbols:night-sight-auto-rounded"
+  />
+  {showText && <span class="darkmode-text pl-6" />}
 </Button>
 
 <script>
   function initDarkmodeButtons() {
     const darkmodeBtns = document.querySelectorAll('button.darkmode-btn');
 
-    function refreshButtons() {
-      darkmodeBtns.forEach((btn) => {
-        const iconLight = btn.querySelector('.darkmode-icon-light');
-        const iconDark = btn.querySelector('.darkmode-icon-dark');
-        const iconAuto = btn.querySelector('.darkmode-icon-auto');
-        const text = btn.querySelector('.darkmode-text');
-
-        if ('darkMode' in localStorage && localStorage.darkMode === 'true') {
-          iconLight?.classList.add('hidden');
-          iconDark?.classList.remove('hidden');
-          iconAuto?.classList.add('hidden');
-          if (text) text.textContent = btn.getAttribute('data-text-dark');
-          btn.setAttribute('title', btn.getAttribute('data-text-dark') || '');
-        } else if ('darkMode' in localStorage && localStorage.darkMode === 'false') {
-          iconLight?.classList.remove('hidden');
-          iconDark?.classList.add('hidden');
-          iconAuto?.classList.add('hidden');
-          if (text) text.textContent = btn.getAttribute('data-text-light');
-          btn.setAttribute('title', btn.getAttribute('data-text-light') || '');
-        } else {
-          iconLight?.classList.add('hidden');
-          iconDark?.classList.add('hidden');
-          iconAuto?.classList.remove('hidden');
-          if (text) text.textContent = btn.getAttribute('data-text-auto');
-          btn.setAttribute('title', btn.getAttribute('data-text-auto') || '');
-        }
-      });
-    }
-
     darkmodeBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        if (!('darkMode' in localStorage)) {
-          localStorage.darkMode = false;
-          document.documentElement.classList.remove('dark');
-        } else if (localStorage.darkMode === 'false') {
-          localStorage.darkMode = true;
-          document.documentElement.classList.add('dark');
-        } else {
-          localStorage.removeItem('darkMode');
-          if (window.matchMedia('(prefers-color-scheme: dark)').matches)
-            document.documentElement.classList.add('dark');
-          else document.documentElement.classList.remove('dark');
-        }
-        refreshButtons();
-      });
-    });
+      const checkbox = btn.querySelector('input[type="checkbox"]') as HTMLInputElement;
+      const text = btn.querySelector('.darkmode-text');
 
-    refreshButtons();
+      // 初始化状态
+      if ('darkMode' in localStorage) {
+        checkbox.checked = localStorage.darkMode === 'true';
+        checkbox.indeterminate = false;
+      } else {
+        checkbox.indeterminate = true;
+      }
+
+      // 更新文本和标题
+      function updateText() {
+        if (!text) return;
+
+        const textContent = checkbox.indeterminate
+          ? btn.getAttribute('data-text-auto')
+          : checkbox.checked
+            ? btn.getAttribute('data-text-dark')
+            : btn.getAttribute('data-text-light');
+
+        text.textContent = textContent;
+        btn.setAttribute('title', textContent || '');
+      }
+
+      // 更新主题
+      function updateTheme() {
+        if (checkbox.indeterminate) {
+          localStorage.removeItem('darkMode');
+          const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        } else {
+          localStorage.darkMode = checkbox.checked;
+          document.documentElement.setAttribute(
+            'data-theme',
+            checkbox.checked ? 'dark' : 'light'
+          );
+        }
+      }
+
+      btn.addEventListener('click', () => {
+        if (checkbox.indeterminate) {
+          checkbox.indeterminate = false;
+          checkbox.checked = false;
+        } else if (!checkbox.checked) {
+          checkbox.checked = true;
+        } else {
+          checkbox.indeterminate = true;
+        }
+
+        updateText();
+        updateTheme();
+      });
+
+      updateText();
+      updateTheme();
+    });
   }
 
   document.addEventListener('astro:page-load', initDarkmodeButtons);

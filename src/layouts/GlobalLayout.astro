@@ -46,7 +46,7 @@ const siteLang = lang.replace('_', '-');
 
     <slot name="head" />
   </head>
-  <body class="theme-bg theme-text flex min-h-screen flex-col">
+  <body class="bg-base-100 text-base-content flex min-h-screen flex-col">
     <slot />
   </body>
 </html>
@@ -59,8 +59,8 @@ const siteLang = lang.replace('_', '-');
       (!('darkMode' in localStorage) &&
         window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
-      document.documentElement.classList.add('dark');
-    } else document.documentElement.classList.remove('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else document.documentElement.setAttribute('data-theme', 'light');
   }
   document.addEventListener('astro:after-swap', applyDarkMode);
   applyDarkMode();

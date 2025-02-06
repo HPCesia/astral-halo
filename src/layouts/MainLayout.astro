@@ -4,7 +4,6 @@ import Navbar from '@components/Navbar.astro';
 import PageFooter from '@components/PageFooter.astro';
 import Search from '@components/Search.astro';
 import SideToolBar from '@components/SideToolBar.astro';
-import Sidebar from '@components/Sidebar.astro';
 import GlobalLayout from './GlobalLayout.astro';
 
 interface Props {
@@ -17,14 +16,14 @@ const { title, description, lang } = Astro.props;
 
 <GlobalLayout title={title} description={description} lang={lang}>
   <slot slot="head" name="head" />
-  <Sidebar />
   <SideToolBar />
-  <Navbar />
-  <slot name="header" />
-  <div id="body-wrap" class="w-full items-center md:px-4">
-    <!-- Main content -->
-    <slot />
-  </div>
+  <Navbar>
+    <slot name="header" />
+    <div id="body-wrap" class="w-full items-center md:px-4">
+      <!-- Main content -->
+      <slot />
+    </div>
+  </Navbar>
   {searchConfig.enable && <Search />}
   <PageFooter />
 </GlobalLayout>

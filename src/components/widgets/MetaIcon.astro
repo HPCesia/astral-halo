@@ -11,15 +11,13 @@ const { class: className, ...rest } = Astro.props;
 
 <style lang="scss">
   .meta-icon {
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     align-items: center;
     margin-right: 0.5rem;
     display: flex;
     justify-content: center;
 
-    @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
-    @apply bg-[var(--theme-color-light-trans-1d2)] dark:bg-[var(--theme-color-dark-trans-1d2)];
-    @apply rounded-md;
+    @apply text-primary;
   }
 </style>

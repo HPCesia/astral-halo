@@ -10,31 +10,26 @@ interface Props {
 const { categories, currentCategory } = Astro.props;
 ---
 
-<div
-  id="category-bar"
-  class="theme-card-bg theme-border mb-4 flex w-full rounded-xl border-2 px-2 py-3"
->
-  <a href={`/`} class:list={[currentCategory ? '' : 'theme-card-bg-hl']}>
-    {i18n(I18nKey.recentPosts)}
-  </a>
-  {
-    categories.map((category) => (
-      <a
-        href={`/archives/categories/${category}/1/`}
-        class:list={[currentCategory === category ? 'theme-card-bg-hl' : '']}
-      >
-        {i18n(category)}
-      </a>
-    ))
-  }
-</div>
-
-<style lang="scss">
-  a {
-    @apply mx-2 rounded-md px-2 py-1;
-
-    &:hover {
-      @apply bg-[var(--theme-color-light-lighten)] dark:bg-[var(--theme-color-dark-lighten)];
+<div id="category-bar" class="card card-bordered mb-4 w-full border-2">
+  <div class="card-body flex flex-row items-center gap-2 overflow-auto px-2 py-3">
+    <a
+      href={`/`}
+      class:list={['btn btn-ghost h-8 min-h-8 px-3 py-0', currentCategory ? '' : 'btn-active']}
+    >
+      {i18n(I18nKey.recentPosts)}
+    </a>
+    {
+      categories.map((category) => (
+        <a
+          href={`/archives/categories/${category}/1/`}
+          class:list={[
+            'btn btn-ghost h-8 min-h-8 px-3 py-0',
+            currentCategory === category ? 'btn-active' : '',
+          ]}
+        >
+          {i18n(category)}
+        </a>
+      ))
     }
-  }
-</style>
+  </div>
+</div>

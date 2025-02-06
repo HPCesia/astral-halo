@@ -20,14 +20,11 @@ const { url, title, cover } = Astro.props;
 
 <style>
   a {
-    @apply relative flex min-h-48 w-full overflow-hidden rounded-md md:w-3/4 md:max-w-96;
-    @apply duration-100 active:scale-95 active:brightness-75;
+    @apply relative flex min-h-48 w-full overflow-hidden duration-100 active:brightness-75;
   }
 
   div.cover-mask {
-    @apply absolute inset-0 z-10 h-full w-full bg-black/60;
-    @apply flex items-center justify-center;
-    @apply opacity-0 duration-300 group-hover:opacity-100;
+    @apply absolute inset-0 z-10 flex h-full w-full items-center justify-center bg-black/60 opacity-0 duration-300 group-hover:opacity-100;
   }
 
   svg {

@@ -4,39 +4,36 @@ import { footerConfig, profileConfig } from '@/config';
 const currentYear = new Date().getFullYear();
 ---
 
-<footer id="footer" class="relative mt-auto w-full flex-shrink-0">
-  <div id="footer-links"></div>
-  <div
-    id="footer-bar-wrapper"
-    class="theme-card-bg theme-border relative bottom-0 mt-4 max-h-fit w-full overflow-hidden border-t-2 p-4"
-  >
-    <div id="footer-bar" class="flex justify-between gap-6">
-      <div id="footer-left" class="text-center">
-        © {footerConfig.copyrightYear}{
-          footerConfig.copyrightYear < currentYear && `-${currentYear}`
-        }
-        <a href="/about/">{profileConfig.name}</a>
-      </div>
-      <div id="footer-right" class="flex flex-wrap justify-items-end gap-4">
-        {
-          footerConfig.rightItems.map((item) => (
-            <span>
-              {item.map((c) => {
-                if (typeof c === 'string') return <span>{c}</span>;
-                else if ('link' in c)
-                  return (
-                    <a href={c.link} class={c.class || ''}>
-                      {c.text}
-                    </a>
-                  );
-                else return <span class:list={c.class || ''}>{c.text}</span>;
-              })}
-            </span>
-          ))
-        }
-      </div>
-    </div>
-  </div>
+<footer class="footer mt-auto flex-shrink-0"></footer>
+<footer
+  class="footer bg-base-200 text-base-content border-base-300 border-t px-10 py-4 text-base"
+>
+  <aside class="items-center">
+    <p>
+      © {footerConfig.copyrightYear}{
+        footerConfig.copyrightYear < currentYear && `-${currentYear}`
+      }
+      <a href="/about/" class="font-bold">{profileConfig.name}</a>
+    </p>
+  </aside>
+  <nav class="flex flex-row md:place-self-center md:justify-self-end">
+    {
+      footerConfig.rightItems.map((item) => (
+        <span>
+          {item.map((c) => {
+            if (typeof c === 'string') return <span>{c}</span>;
+            else if ('link' in c)
+              return (
+                <a href={c.link} class={c.class || ''}>
+                  {c.text}
+                </a>
+              );
+            else return <span class:list={c.class || ''}>{c.text}</span>;
+          })}
+        </span>
+      ))
+    }
+  </nav>
 </footer>
 
 <style lang="scss">
@@ -44,7 +41,7 @@ const currentYear = new Date().getFullYear();
     @apply duration-150;
 
     &:hover {
-      @apply text-[var(--theme-color-light)] dark:text-[var(--theme-color-dark)];
+      @apply text-primary;
     }
   }
 </style>

@@ -23,6 +23,7 @@
     "astro-icon": "^1.1.5",
     "astro-pagefind": "^1.8.0",
     "autoprefixer": "^10.4.20",
+    "daisyui": "^4.12.23",
     "postcss-load-config": "^6.0.1",
     "sass": "^1.83.4",
     "sharp": "^0.33.5",

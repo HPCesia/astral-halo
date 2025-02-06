@@ -11,17 +11,18 @@ const minDepth = Math.min(...headings.map((h) => h.depth));
 const maxLevel = 3;
 ---
 
-<div id="toc" class:list={['theme-card-bg theme-border rounded-xl border-2 p-2', className]}>
-  <div></div>
-  {
-    headings
-      .filter((heading) => heading.depth < minDepth + maxLevel)
-      .map((heading) => (
-        <a class:list={[`level-${heading.depth - minDepth + 1}`]} href={`#${heading.slug}`}>
-          {heading.text}
-        </a>
-      ))
-  }
+<div id="toc" class:list={['card card-bordered border-2', className]}>
+  <div class="card-body p-2">
+    {
+      headings
+        .filter((heading) => heading.depth < minDepth + maxLevel)
+        .map((heading) => (
+          <a class:list={[`level-${heading.depth - minDepth + 1}`]} href={`#${heading.slug}`}>
+            {heading.text}
+          </a>
+        ))
+    }
+  </div>
 </div>
 
 <style lang="scss">

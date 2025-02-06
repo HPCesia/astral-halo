@@ -33,10 +33,10 @@
 
     // 文本框输入样式
     .el-textarea {
-      @apply theme-border relative w-full overflow-hidden rounded-xl border-2 pb-9;
+      @apply border-base-300 relative w-full overflow-hidden rounded-xl border-2 pb-9;
 
       textarea {
-        @apply theme-card-bg w-full p-4;
+        @apply bg-base-200/50 w-full p-4;
 
         resize: none;
 
@@ -45,12 +45,12 @@
         }
 
         &::placeholder {
-          @apply theme-text-second;
+          @apply text-base-content/50;
         }
       }
 
       .el-input__count {
-        @apply theme-text-second absolute bottom-2 right-10 text-sm;
+        @apply text-base-content/50 absolute bottom-2 right-10 text-sm;
       }
     }
 
@@ -71,7 +71,7 @@
       }
 
       button {
-        @apply theme-border theme-card-bg-hl absolute py-[0.95rem] md:py-[0.3rem];
+        @apply border-base-300 bg-primary absolute py-[0.95rem] md:py-[0.3rem];
 
         &.tk-preview {
           @apply bottom-[3.7rem] right-0 md:bottom-0 md:right-[3.35rem];
@@ -100,20 +100,20 @@
         }
 
         &.tk-cancel {
-          @apply theme-card-bg-contrary-hl theme-text-contrary bottom-[2.4rem] right-0 md:bottom-0 md:right-[6.7rem];
+          @apply bg-error text-error-content bottom-[2.4rem] right-0 md:bottom-0 md:right-[6.7rem];
         }
       }
     }
 
     .tk-preview-container {
-      @apply theme-border theme-bg mt-2 w-full rounded-xl border-2 p-2;
+      @apply border-base-300 bg-base-100 mt-2 w-full rounded-xl border-2 p-2;
     }
   }
 
   // 表情框样式
   .OwO-body {
     /* stylelint-disable-next-line scss/operator-no-unspaced */
-    @apply theme-card-bg theme-border absolute -left-3 top-9 z-20 hidden w-[calc(100vw-3rem)] max-w-[30rem] rounded-xl border-2 duration-300;
+    @apply bg-base-200/50 border-base-300 absolute -left-3 top-9 z-20 hidden w-[calc(100vw-3rem)] max-w-[30rem] rounded-xl border-2 duration-300;
   }
 
   .OwO-open .OwO-body {
@@ -144,10 +144,10 @@
     @apply flex flex-wrap items-center text-nowrap px-4;
 
     > li {
-      @apply hover:theme-card-bg-hl-trans flex h-8 cursor-pointer items-center px-3 text-center duration-300;
+      @apply hover:bg-primary/50 flex h-8 cursor-pointer items-center px-3 text-center duration-300;
 
       &.OwO-package-active {
-        @apply theme-card-bg-hl-trans;
+        @apply bg-primary/50;
       }
     }
   }
@@ -173,7 +173,7 @@
     }
 
     > .tk-comment {
-      @apply max-md:theme-card-bg max-md:theme-border p-4 max-md:rounded-xl max-md:border-2;
+      @apply max-md:bg-base-200/50 max-md:border-base-300 p-4 max-md:rounded-xl max-md:border-2;
 
       > .tk-avatar {
         @apply top-3;
@@ -190,7 +190,7 @@
 
     // 详细样式
     .tk-avatar {
-      @apply theme-border absolute top-0 h-8 min-h-8 w-8 min-w-8 overflow-hidden rounded-full border-2;
+      @apply border-base-300 absolute top-0 h-8 min-h-8 w-8 min-w-8 overflow-hidden rounded-full border-2;
     }
 
     .tk-main > .tk-row {
@@ -199,11 +199,11 @@
 
     .tk-meta {
       a {
-        @apply hover:theme-text-hl duration-300;
+        @apply hover:text-primary duration-300;
       }
 
       small {
-        @apply theme-text-second;
+        @apply text-base-content/50;
       }
 
       .tk-actions {
@@ -218,7 +218,7 @@
 
     .tk-action {
       .tk-action-link {
-        @apply theme-border relative flex items-center justify-center rounded-xl border-2 px-2 py-1 text-center duration-300;
+        @apply border-base-300 relative flex items-center justify-center rounded-xl border-2 px-2 py-1 text-center duration-300;
 
         .tk-action-icon-solid {
           @apply absolute left-2 opacity-0 duration-300;
@@ -237,7 +237,7 @@
         }
 
         &:hover {
-          @apply theme-card-bg-hl;
+          @apply bg-primary;
 
           .tk-action-icon-solid {
             @apply opacity-100;
@@ -254,7 +254,7 @@
       @apply flex flex-row gap-3;
 
       .tk-extra {
-        @apply theme-text-second theme-border flex flex-row items-center justify-center gap-2 rounded-md border-2 p-1 text-center text-xs;
+        @apply text-base-content/50 border-base-300 flex flex-row items-center justify-center gap-2 rounded-md border-2 p-1 text-center text-xs;
       }
 
       .tk-icon {
@@ -264,7 +264,7 @@
 
     .tk-replies .tk-content > span:first-child {
       // 回复提示（回复：xxx）样式
-      @apply theme-text-second text-xs;
+      @apply text-base-content/50 text-xs;
     }
 
     .tk-expand-wrap,
@@ -273,25 +273,25 @@
     }
 
     .tk-expand {
-      @apply theme-card-bg hover:theme-card-bg-hl-trans w-full cursor-pointer rounded-md py-1 text-sm duration-300;
+      @apply bg-base-200/50 hover:bg-primary/50 w-full cursor-pointer rounded-md py-1 text-sm duration-300;
     }
   }
 
   // 图标样式
   .tk-submit-action-icon {
-    @apply inline-block max-h-6 min-h-6 min-w-6 max-w-6 cursor-pointer fill-[var(--theme-text-color-light)] dark:fill-[var(--theme-text-color-dark)];
+    @apply fill-primary inline-block max-h-6 min-h-6 min-w-6 max-w-6 cursor-pointer;
   }
 
   .tk-action-icon {
-    @apply inline-block max-h-5 min-h-5 min-w-5 max-w-5 overflow-clip fill-[var(--theme-text-color-light)] dark:fill-[var(--theme-text-color-dark)];
+    @apply fill-primary inline-block max-h-5 min-h-5 min-w-5 max-w-5 overflow-clip;
   }
 
   .tk-icon {
-    @apply inline-block max-h-4 min-h-4 min-w-4 max-w-4 overflow-clip fill-[var(--theme-text-color-light)] dark:fill-[var(--theme-text-color-dark)];
+    @apply fill-primary inline-block max-h-4 min-h-4 min-w-4 max-w-4 overflow-clip;
   }
 
   .tk-tag {
-    @apply theme-border rounded-lg border-2 p-1 text-xs;
+    @apply border-base-300 rounded-lg border-2 p-1 text-xs;
   }
 }
 
@@ -299,7 +299,7 @@
   @apply mt-4 w-full text-right text-sm;
 
   a {
-    @apply text-[var(--theme-color-light)] dark:text-[var(--theme-color-dark)];
+    @apply text-primary;
   }
 }
 
@@ -314,7 +314,7 @@
     @apply relative flex h-full w-full items-center justify-center text-center;
 
     .tk-admin-close {
-      @apply absolute right-2 top-[0.65rem] z-50 h-8 w-8 fill-[var(--theme-text-color-light)] p-2 dark:fill-[var(--theme-text-color-dark)];
+      @apply fill-primary absolute right-2 top-[0.65rem] z-50 h-8 w-8;
     }
 
     > div {
@@ -342,18 +342,18 @@
       }
 
       a {
-        @apply theme-border theme-card-bg hover:theme-card-bg-hl mx-6 rounded-xl border-2 px-3 py-1 text-xs duration-300;
+        @apply border-base-300 bg-base-200/50 hover:bg-primary mx-6 rounded-xl border-2 px-3 py-1 text-xs duration-300;
       }
     }
 
     .tk-tabs {
-      @apply theme-border flex flex-row items-center justify-between border-b-2 px-4 text-center text-lg;
+      @apply border-base-300 flex flex-row items-center justify-between border-b-2 px-4 text-center text-lg;
 
       .tk-tab {
-        @apply hover:theme-card-bg-hl w-full cursor-pointer py-1 duration-300;
+        @apply hover:bg-primary w-full cursor-pointer py-1 duration-300;
 
         &.__active {
-          @apply theme-border-hl border-b-2;
+          @apply border-primary border-b-2;
         }
       }
     }
@@ -378,7 +378,7 @@
         @apply w-full;
 
         input {
-          @apply theme-border theme-card-bg w-full rounded-xl border-2 px-2 py-1;
+          @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 px-2 py-1;
 
           &:focus {
             outline: none;
@@ -387,7 +387,7 @@
       }
 
       select {
-        @apply theme-border theme-card-bg w-1/4 rounded-xl border-2 p-2;
+        @apply border-base-300 bg-base-200/50 w-1/4 rounded-xl border-2 p-2;
       }
     }
 
@@ -396,23 +396,23 @@
     }
 
     .tk-admin-comment-item {
-      @apply theme-border border-b-2 py-1;
+      @apply border-base-300 border-b-2 py-1;
     }
 
     .tk-admin-comment-meta {
       @apply flex flex-row flex-wrap items-center gap-2 text-start;
 
       .tk-avatar {
-        @apply theme-border h-8 w-8 overflow-hidden rounded-full border-2;
+        @apply border-base-300 h-8 w-8 overflow-hidden rounded-full border-2;
       }
 
       a {
-        @apply hover:theme-text-hl duration-300;
+        @apply hover:text-primary duration-300;
       }
 
       span:last-child,
       .tk-time {
-        @apply theme-text-second text-sm;
+        @apply text-base-content/50 text-sm;
       }
     }
 
@@ -424,7 +424,7 @@
       }
 
       input {
-        @apply theme-border theme-card-bg w-16 rounded-xl border-2 px-2 py-1;
+        @apply border-base-300 bg-base-200/50 w-16 rounded-xl border-2 px-2 py-1;
 
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button {
@@ -442,10 +442,10 @@
     }
 
     .tk-pagination-pager {
-      @apply hover:theme-card-bg-hl cursor-pointer rounded-md px-2 py-1;
+      @apply hover:bg-primary cursor-pointer rounded-md px-2 py-1;
 
       &.__current {
-        @apply theme-card-bg-hl;
+        @apply bg-primary;
       }
     }
 
@@ -459,10 +459,10 @@
     }
 
     details {
-      @apply theme-border w-full overflow-hidden rounded-xl border-2 duration-300;
+      @apply border-base-300 w-full overflow-hidden rounded-xl border-2 duration-300;
 
       summary {
-        @apply hover:theme-card-bg-hl-trans w-full px-3 py-1 text-start text-2xl duration-300;
+        @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-2xl duration-300;
 
         &::marker {
           margin-right: 1.5rem;
@@ -471,7 +471,7 @@
 
       &[open] {
         summary {
-          @apply theme-card-bg-hl-trans;
+          @apply bg-primary/50;
         }
       }
     }
@@ -486,7 +486,7 @@
       }
 
       input {
-        @apply theme-border theme-card-bg w-full rounded-xl border-2 px-2 py-1;
+        @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 px-2 py-1;
 
         &:focus {
           outline: none;
@@ -494,7 +494,7 @@
       }
 
       .tk-admin-config-desc {
-        @apply theme-text-second whitespace-pre-wrap text-start text-sm;
+        @apply text-base-content/50 whitespace-pre-wrap text-start text-sm;
       }
     }
 
@@ -507,11 +507,11 @@
       }
 
       select {
-        @apply theme-border theme-card-bg w-full rounded-xl border-2 p-2;
+        @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 p-2;
       }
 
       input {
-        @apply theme-border theme-card-bg w-full rounded-xl border-2 px-2 py-1;
+        @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 px-2 py-1;
 
         &:focus {
           outline: none;
@@ -522,7 +522,7 @@
         @apply h-full w-full;
 
         textarea {
-          @apply theme-border theme-card-bg h-full w-full rounded-xl border-2 px-2 py-1;
+          @apply border-base-300 bg-base-200/50 h-full w-full rounded-xl border-2 px-2 py-1;
 
           &:focus {
             outline: none;
@@ -539,10 +539,10 @@
 }
 
 .el-input-group {
-  @apply theme-card-bg theme-border flex w-full flex-row items-center overflow-hidden rounded-xl border-2 text-sm;
+  @apply bg-base-200/50 border-base-300 flex w-full flex-row items-center overflow-hidden rounded-xl border-2 text-sm;
 
   div {
-    @apply theme-card-bg-hl-trans w-fit whitespace-nowrap px-2 py-1;
+    @apply bg-primary/50 w-fit whitespace-nowrap px-2 py-1;
   }
 
   input {
@@ -559,7 +559,7 @@
 }
 
 .el-button {
-  @apply theme-border theme-card-bg-hl text-nowrap rounded-xl border-2 px-2 py-1 text-center text-sm duration-300;
+  @apply border-base-300 bg-primary text-nowrap rounded-xl border-2 px-2 py-1 text-center text-sm duration-300;
 
   &:not(.is-disabled) {
     @apply hover:scale-105 hover:brightness-110 active:scale-95 active:brightness-90;
@@ -592,7 +592,7 @@
   }
 
   a {
-    @apply text-[var(--theme-color-light-darken)] underline decoration-dashed dark:text-[var(--theme-color-dark-lighten)];
+    @apply text-primary underline decoration-dashed;
 
     &[data-footnote-ref],
     &[data-footnote-backref] {
@@ -609,7 +609,7 @@
     }
 
     .copy-to-clipboard-button {
-      @apply theme-border theme-card-bg-hl rounded-md border-2 px-2 py-1 opacity-0 duration-300;
+      @apply border-base-300 bg-primary rounded-md border-2 px-2 py-1 opacity-0 duration-300;
     }
 
     &:hover .copy-to-clipboard-button {
@@ -624,7 +624,7 @@
   code:not(pre code) {
     padding: 0 0.25rem;
 
-    @apply theme-text-hl-contrast rounded-md bg-[var(--theme-color-light-trans-1d8)] dark:bg-[var(--theme-color-dark-trans-1d8)];
+    @apply text-primary bg-primary/10 rounded-md;
   }
 
   // 媒体元素
@@ -651,15 +651,15 @@
   blockquote {
     padding: 0.25rem 0.25rem 0.25rem 0.75rem;
 
-    @apply theme-border-hl my-2 rounded-sm border-l-4 bg-[var(--theme-color-light-trans-1d8)] dark:bg-[var(--theme-color-dark-trans-1d8)];
+    @apply border-primary bg-primary/10 my-2 rounded-sm border-l-4;
   }
 
   // 折叠块样式
   details {
-    @apply theme-border w-full overflow-hidden rounded-xl border-2 duration-300;
+    @apply border-base-300 w-full overflow-hidden rounded-xl border-2 duration-300;
 
     summary {
-      @apply hover:theme-card-bg-hl-trans w-full px-3 py-1 text-start text-2xl duration-300;
+      @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-2xl duration-300;
 
       &::marker {
         margin-right: 1.5rem;
@@ -668,7 +668,7 @@
 
     &[open] {
       summary {
-        @apply theme-card-bg-hl-trans;
+        @apply bg-primary/50;
       }
     }
   }

@@ -48,14 +48,15 @@ const metas: ({ icon: string; text: string; link?: string } | undefined)[] = [
 
 <div
   class:list={[
-    'theme-card-bg theme-border',
-    'flex w-full rounded-xl border-2 p-4 max-md:flex-col-reverse',
+    'card md:card-side card-bordered flex w-full rounded-xl border-2 max-md:flex-col-reverse',
     className,
   ]}
 >
-  <div class="mr-auto h-full w-full items-center px-12 py-7">
-    <div class="mb-5 text-2xl"><a href={url}>{title}</a></div>
-    <div class="theme-text-second mb-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+  <div class="card-body">
+    <a href={url} class="card-title">{title}</a>
+    <div
+      class="text-base-content mb-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-opacity-60"
+    >
       {
         metas.map((meta) => {
           return (
@@ -78,19 +79,13 @@ const metas: ({ icon: string; text: string; link?: string } | undefined)[] = [
   </div>
   {
     hasCover ? (
-      <PostCardCover url={url} title={title} cover={cover} />
+      <figure class="md:w-3/4 md:max-w-96">
+        <PostCardCover url={url} title={title} cover={cover} />
+      </figure>
     ) : (
-      <ReadMoreButton href={url} title={title} />
+      <figure>
+        <ReadMoreButton href={url} title={title} />
+      </figure>
     )
   }
 </div>
-
-<style>
-  .meta-text {
-    @apply text-sm font-medium;
-  }
-
-  a.meta-text {
-    @apply duration-100 hover:brightness-125;
-  }
-</style>

@@ -3,6 +3,7 @@ import { navbarConfig } from '@/config';
 import { i18n } from '@i18n/translation';
 import { Icon } from 'astro-icon/components';
 import Button from './widgets/Button.astro';
+import DarkModeButton from './widgets/DarkModeButton.astro';
 
 interface Props {
   title?: string;
@@ -12,77 +13,124 @@ let { title } = Astro.props;
 if (!title) title = 'Astral Halo';
 ---
 
-<div
-  id="navbar"
-  class="theme-border theme-card-bg fixed z-30 flex h-16 w-full items-center border-b-2"
->
-  <div id="nav-left" class="mr-auto flex w-fit">
-    <Button id="site-name" href="/" class="group">
-      <span class="text-xl font-bold duration-300 group-hover:opacity-0">{title}</span>
-      <Icon
-        name="material-symbols:home-rounded"
-        class="absolute text-3xl opacity-0 duration-300 group-hover:opacity-100"
-      />
-    </Button>
-  </div>
-  <div id="nav-center" class="m-auto flex w-fit max-md:hidden">
-    {
-      navbarConfig.navbarCenterItems.map((item) => (
-        <Button
-          {...('href' in item && item.href && { href: item.href })}
-          title={i18n(item.text)}
-          class="!px-4"
-        >
-          <span class="text-xl tracking-wide">{i18n(item.text)}</span>
+<div class="drawer drawer-end">
+  <input id="sidebar-drawer" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content flex flex-col">
+    <!-- Navbar -->
+    <div
+      id="navbar"
+      class="navbar bg-base-200/50 fixed z-20 flex h-16 w-full items-center backdrop-blur-md"
+    >
+      <div class="navbar-start">
+        <Button id="site-name" href="/" class="btn-ghost group">
+          <span class="text-xl font-bold duration-300 group-hover:opacity-0">{title}</span>
+          <Icon
+            name="material-symbols:home-rounded"
+            class="absolute text-3xl opacity-0 duration-300 group-hover:opacity-100"
+          />
         </Button>
-      ))
-    }
+      </div>
+      <nav class="navbar-center join max-md:hidden">
+        {
+          navbarConfig.navbarCenterItems.map((item) => (
+            <Button
+              {...('href' in item && item.href && { href: item.href })}
+              title={i18n(item.text)}
+              class="btn-ghost join-item"
+            >
+              <span class="text-xl tracking-wide">{i18n(item.text)}</span>
+            </Button>
+          ))
+        }
+      </nav>
+      <div class="navbar-end">
+        <div class="flex max-md:hidden">
+          {
+            navbarConfig.navbarRightItems.onlyWide.map((item) => (
+              <Button
+                class="nav-menu-item btn-ghost btn-circle"
+                {...('href' in item && item.href && { href: item.href })}
+                title={i18n(item.text)}
+                {...('onclick' in item &&
+                  item.onclick &&
+                  (typeof item.onclick === 'string'
+                    ? { onclick: item.onclick }
+                    : { id: 'nav-' + item.onclick.id }))}
+              >
+                <Icon name={item.icon} class="text-2xl" />
+              </Button>
+            ))
+          }
+        </div>
+        <div class="flex">
+          {
+            navbarConfig.navbarRightItems.always.map((item) => (
+              <Button
+                class="nav-menu-item btn-ghost btn-circle"
+                {...('href' in item && item.href && { href: item.href })}
+                title={i18n(item.text)}
+                {...('onclick' in item &&
+                  item.onclick &&
+                  (typeof item.onclick === 'string'
+                    ? { onclick: item.onclick }
+                    : { id: 'nav-' + item.onclick.id }))}
+              >
+                <Icon name={item.icon} class="text-2xl" />
+              </Button>
+            ))
+          }
+        </div>
+        <div class="md:hidden">
+          <label for="sidebar-drawer" class="btn btn-ghost btn-circle">
+            <Icon name="material-symbols:menu-rounded" class="text-2xl" />
+          </label>
+        </div>
+      </div>
+    </div>
+    <div id="navbar-placeholder" class="pt-20"></div>
+    <!-- Page Content -->
+    <slot />
   </div>
-  <div id="nav-right" class="ml-auto flex w-fit">
-    <div class="flex max-md:hidden">
+  <div class="drawer-side z-50">
+    <!-- Sidebar -->
+    <label for="sidebar-drawer" class="drawer-overlay"></label>
+    <ul class="menu bg-base-200 min-h-full w-[min(calc(100%-3rem),20rem)] p-4">
+      <li><DarkModeButton class="btn-ghost text-xl" showText={true} /></li>
+      {
+        navbarConfig.navbarCenterItems.map((item) => (
+          <li>
+            <Button
+              {...('href' in item && item.href && { href: item.href })}
+              title={i18n(item.text)}
+              class="btn-ghost"
+            >
+              <span class="text-xl">{i18n(item.text)}</span>
+            </Button>
+          </li>
+        ))
+      }
       {
         navbarConfig.navbarRightItems.onlyWide.map((item) => (
-          <Button
-            class="nav-menu-item"
-            {...('href' in item && item.href && { href: item.href })}
-            title={i18n(item.text)}
-            {...('onclick' in item &&
-              item.onclick &&
-              (typeof item.onclick === 'string'
-                ? { onclick: item.onclick }
-                : { id: 'nav-' + item.onclick.id }))}
-          >
-            <Icon name={item.icon} class="text-2xl" />
-          </Button>
+          <li>
+            <Button
+              {...('href' in item && item.href && { href: item.href })}
+              title={i18n(item.text)}
+              {...('onclick' in item &&
+                item.onclick &&
+                (typeof item.onclick === 'string'
+                  ? { onclick: item.onclick }
+                  : { id: 'side-' + item.onclick.id }))}
+              class="btn-ghost"
+            >
+              <Icon name={item.icon} class="text-2xl" />
+              <span class="text-xl">{i18n(item.text)}</span>
+            </Button>
+          </li>
         ))
       }
-    </div>
-    <div class="flex">
-      {
-        navbarConfig.navbarRightItems.always.map((item) => (
-          <Button
-            class="nav-menu-item"
-            {...('href' in item && item.href && { href: item.href })}
-            title={i18n(item.text)}
-            {...('onclick' in item &&
-              item.onclick &&
-              (typeof item.onclick === 'string'
-                ? { onclick: item.onclick }
-                : { id: 'nav-' + item.onclick.id }))}
-          >
-            <Icon name={item.icon} class="text-2xl" />
-          </Button>
-        ))
-      }
-    </div>
-    <div class="flex md:hidden">
-      <Button id="nav-toggle-sidebar-btn">
-        <Icon name="material-symbols:menu-rounded" class="text-2xl" />
-      </Button>
-    </div>
+    </ul>
   </div>
 </div>
-<div id="navbar-placeholder" class="pt-20"></div>
 
 <script>
   import { navbarConfig } from '@/config';

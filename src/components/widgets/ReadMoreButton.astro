@@ -15,14 +15,10 @@ const { href, title, ...rest } = Astro.props;
 
 <style>
   a {
-    @apply duration-100 max-md:hidden;
-    @apply hover:brightness-125;
-    @apply active:scale-95 active:brightness-75;
+    @apply duration-150 hover:brightness-125 active:brightness-75 max-md:hidden;
   }
 
   svg {
-    @apply h-full min-h-48 w-12 rounded-md;
-    @apply text-[var(--theme-color-light-darken)] dark:text-[var(--theme-color-dark-lighten)];
-    @apply bg-[var(--theme-color-light-trans-1d2)] dark:bg-[var(--theme-color-dark-trans-1d2)];
+    @apply text-primary bg-primary/40 h-full min-h-48 w-12;
   }
 </style>

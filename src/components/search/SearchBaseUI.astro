@@ -1,4 +1,6 @@
 ---
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
 import { Icon } from 'astro-icon/components';
 import type { HTMLAttributes } from 'astro/types';
 
@@ -8,29 +10,12 @@ const { class: className, ...rest } = Astro.props;
 ---
 
 <div class:list={['w-full', className]} {...rest}>
-  <div
-    class="theme-bg theme-border mb-2 flex w-full flex-row items-center gap-2 rounded-md border-2 p-4 text-center"
-  >
+  <label class="input input-bordered flex items-center gap-2">
+    <input type="text" class="grow" placeholder={i18n(I18nKey.search)} />
     <Icon name="material-symbols:search-rounded" class="text-3xl" />
-    <input type="text" class="theme-bg w-full py-1" />
-  </div>
+  </label>
   <div
-    class="search-result flex h-fit max-h-[calc(60vh-8rem)] flex-col items-center gap-2 overflow-y-auto text-center"
+    class="search-result mt-4 flex h-fit max-h-[calc(60vh-8rem)] flex-col items-center gap-2 overflow-y-auto text-center"
   >
   </div>
 </div>
-
-<style>
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    appearance: none;
-  }
-
-  input[type='number'] {
-    appearance: textfield;
-  }
-
-  input:focus {
-    outline: none;
-  }
-</style>

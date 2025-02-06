@@ -23,20 +23,21 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
   firstHasPre && (
     <template
       id="code-toolbar-template"
-      class="code-block-wrapper relative my-4 overflow-hidden rounded-lg"
+      class="code-block-wrapper collapse-open collapse relative my-4"
     >
-      <div class="theme-border theme-card-bg-hl-trans z-10 flex items-center justify-between">
-        <Button class="toggle-btn !bg-transparent">
+      <div class="bg-primary/60 text-primary-content z-10 flex items-center justify-between">
+        <Button class="toggle-btn btn-ghost rounded-bl-none">
           <Icon
             name="material-symbols:keyboard-arrow-down-rounded"
             class="h-5 w-5 duration-300"
           />
         </Button>
         <span class="language font-mono text-sm" />
-        <Button class="copy-btn !bg-transparent">
+        <Button class="copy-btn btn-ghost rounded-br-none">
           <Icon name="material-symbols:file-copy-rounded" class="h-5 w-5 duration-300" />
         </Button>
       </div>
+      <div class="collapse-content p-0" />
     </template>
   )
 }
@@ -61,14 +62,14 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
 
       pre.parentNode?.insertBefore(wrapper, pre);
       wrapper.appendChild(toolbar);
-      wrapper.appendChild(pre);
+      wrapper.querySelector('.collapse-content')?.appendChild(pre);
 
       const toggleBtn = wrapper.querySelector('.toggle-btn');
       const copyBtn = wrapper.querySelector('.copy-btn');
 
       toggleBtn?.addEventListener('click', () => {
         toggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
-        pre.classList.toggle('hidden');
+        wrapper.classList.toggle('collapse-open');
       });
 
       const code = pre.querySelector('code');
@@ -76,16 +77,16 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
         try {
           const text = code?.textContent || '';
           await navigator.clipboard.writeText(text);
-          copyBtn?.classList.add('text-green-500');
+          copyBtn?.classList.add('text-success');
           setTimeout(() => {
-            copyBtn?.classList.remove('text-green-500');
-          }, 300);
+            copyBtn?.classList.remove('text-success');
+          }, 600);
         } catch (err) {
           console.error('Failed to copy:', err);
-          copyBtn?.classList.add('text-red-500');
+          copyBtn?.classList.add('text-error');
           setTimeout(() => {
-            copyBtn?.classList.remove('text-red-500');
-          }, 300);
+            copyBtn?.classList.remove('text-error');
+          }, 600);
         }
       });
     };
