@@ -92,7 +92,7 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
     };
 
     const isWrapped = (pre: HTMLPreElement) => {
-      return pre.parentElement?.classList.contains('code-block-wrapper');
+      return pre.parentElement?.classList.contains('collapse-content');
     };
 
     codeBlocks.forEach((pre) => {
