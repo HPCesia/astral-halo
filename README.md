@@ -1,12 +1,12 @@
 # Astral Halo
 
-English | [简体中文](README-zh_CN.md) | [Live Preview (Netlify)](https://astral-halo.netlify.app/)
+[Live Demo (Netlify)](https://astral-halo.netlify.app/) | English | [简体中文](README-zh_CN.md)
 
 Astral Halo is a static blog template developed with [Astro](https://astro.build).
 
 ## Features
 
-- [x] Built with Astro and Tailwind CSS
+- [x] Built with Astro and Tailwind CSS (using daisyUI)
 - [x] Freely switchable light/dark themes
 - [x] Responsive design
 - [x] Search functionality (currently only supports [Pagefind](https://pagefind.app/))

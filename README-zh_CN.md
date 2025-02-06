@@ -6,7 +6,7 @@ Astral Halo 是一个基于 [Astro](https://astro.build) 开发的静态博客�
 
 ## 功能特性
 
-- [x] 基于 Astro 和 Tailwind CSS 开发
+- [x] 基于 Astro 和 Tailwind CSS（使用 daisyUI）开发
 - [x] 可自由切换的明亮/暗黑主题
 - [x] 响应式设计
 - [x] 搜索（目前仅支持 [Pagefind](https://pagefind.app/)）
