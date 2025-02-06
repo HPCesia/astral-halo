@@ -43,6 +43,11 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
 }
 
 <script>
+  async function init() {
+    prettierPreCode();
+    wrapTables();
+  }
+
   function prettierPreCode() {
     const codeBlocks = document.querySelectorAll('article pre');
     const template = document.getElementById('code-toolbar-template') as HTMLTemplateElement;
@@ -100,5 +105,15 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
     });
   }
 
-  document.addEventListener('astro:page-load', prettierPreCode);
+  function wrapTables() {
+    const tables = document.querySelectorAll('article table');
+    tables.forEach((table) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'overflow-auto';
+      table.parentNode?.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+    });
+  }
+
+  document.addEventListener('astro:page-load', init);
 </script>
