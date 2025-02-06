@@ -3,10 +3,56 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import readline from 'node:readline';
 
-const [, , name] = process.argv;
+function parseArgs(args) {
+  const result = {
+    name: null,
+    timezone: null,
+  };
+
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (arg.startsWith('--timezone=')) {
+      result.timezone = arg.split('=')[1];
+      continue;
+    }
+    if (!result.name) {
+      result.name = arg;
+    }
+  }
+  return result;
+}
+
+function validateTimezone(timezone) {
+  if (!timezone) return null;
+
+  // 验证时区偏移格式 (+/-HH:mm)
+  if (/^[+-]\d{2}:\d{2}$/.test(timezone)) {
+    const [hours, minutes] = timezone.slice(1).split(':').map(Number);
+    if (hours <= 23 && minutes <= 59) {
+      return { type: 'offset', value: timezone };
+    }
+  }
+
+  // 验证时区名称格式
+  try {
+    Intl.DateTimeFormat('en-US', { timeZone: timezone });
+    return { type: 'timezone', value: timezone };
+  } catch {
+    console.error(`Invalid timezone: ${timezone}`);
+    console.error('Example formats:');
+    console.error('  Offset: +08:00, -05:30');
+    console.error('  Name: Asia/Shanghai, America/New_York');
+    process.exit(1);
+  }
+}
+
+const { name, timezone } = parseArgs(process.argv.slice(2));
 
 if (!name) {
-  console.error('Usage: pnpm publish [name]');
+  console.error('Usage: pnpm publish [name] [--timezone=offset|locale]');
+  console.error('Examples:');
+  console.error('  pnpm publish "My Post" --timezone=+08:00');
+  console.error('  pnpm publish "My Post" --timezone=Asia/Shanghai');
   process.exit(1);
 }
 
@@ -113,8 +159,67 @@ async function main() {
 
     const content = await fs.readFile(draftPath, 'utf-8');
 
-    const now = new Date().toISOString();
-    const updatedContent = content.replace(/^(---\n(?:.*\n)*?)(---)/, (match, front, end) => {
+    let targetDate = new Date();
+    let offsetStr;
+
+    if (timezone) {
+      const validTimezone = validateTimezone(timezone);
+      if (validTimezone.type === 'offset') {
+        // 如果是时区偏移，需要根据偏移调整时间
+        // 解析偏移
+        const [, sign, hours, minutes] = validTimezone.value
+          .match(/([+-])(\d{2}):(\d{2})/)
+          .map((v, i) => (i > 1 ? parseInt(v) : v));
+
+        // 将本地时间转换为 UTC
+        const utcTime = targetDate.getTime() + targetDate.getTimezoneOffset() * 60000;
+
+        // 从 UTC 调整到目标时区
+        const targetTime = utcTime + (sign === '+' ? 1 : -1) * (hours * 60 + minutes) * 60000;
+        targetDate = new Date(targetTime);
+        offsetStr = validTimezone.value;
+      } else {
+        // 如果是时区名称，使用该时区的时间
+        const utcDate = new Date(targetDate.getTime() - targetDate.getTimezoneOffset() * 60000);
+        const formatter = new Intl.DateTimeFormat('en-US', {
+          timeZone: validTimezone.value,
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+          timeZoneName: 'short',
+        });
+
+        const localeDateParts = formatter.formatToParts(utcDate);
+        const timezonePart = localeDateParts.find((part) => part.type === 'timeZoneName').value;
+        const match = timezonePart.match(/GMT([+-]\d{1,2})(?::?(\d{2})?)?/);
+        if (match) {
+          const [, hours, minutes = '00'] = match;
+          offsetStr = `${hours.padStart(2, '0')}:${minutes}`;
+          if (!offsetStr.startsWith('+') && !offsetStr.startsWith('-')) {
+            offsetStr = '+' + offsetStr;
+          }
+        }
+
+        targetDate = new Date(
+          targetDate.toLocaleString('en-US', { timeZone: validTimezone.value })
+        );
+      }
+    } else {
+      // 使用系统默认时区
+      const offset = -targetDate.getTimezoneOffset();
+      const offsetHours = Math.floor(Math.abs(offset) / 60)
+        .toString()
+        .padStart(2, '0');
+      const offsetMinutes = (Math.abs(offset) % 60).toString().padStart(2, '0');
+      offsetStr = `${offset >= 0 ? '+' : '-'}${offsetHours}:${offsetMinutes}`;
+    }
+
+    const now = targetDate.toLocaleString('sv').replace(' ', 'T') + offsetStr;
+    const updatedContent = content.replace(/^(---[\s\S]*?)(---)/, (match, front, end) => {
       if (!front.includes('published:')) {
         return `${front}published: ${now}\n${end}`;
       }
