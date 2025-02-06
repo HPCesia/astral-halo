@@ -48,14 +48,14 @@ const metas: ({ icon: string; text: string; link?: string } | undefined)[] = [
 
 <div
   class:list={[
-    'card md:card-side card-bordered flex w-full rounded-xl border-2 max-md:flex-col-reverse',
+    'card card-bordered flex w-full rounded-xl border-2 md:card-side max-md:flex-col-reverse',
     className,
   ]}
 >
   <div class="card-body">
     <a href={url} class="card-title">{title}</a>
     <div
-      class="text-base-content mb-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-opacity-60"
+      class="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-base-content text-opacity-60"
     >
       {
         metas.map((meta) => {

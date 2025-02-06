@@ -6,22 +6,35 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 ---
 
 <div id="side-toolbar" class="fixed bottom-10 right-0 z-30 grid grid-cols-1 gap-2">
-  <div id="stb-hide" class="translate-x-full duration-500 ease-in-out grid grid-cols-1 gap-2 pr-4" inert>
+  <div
+    id="stb-hide"
+    class="grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
+    inert
+  >
     <DarkModeButton id="stb-dark-mode" class="btn-circle btn-primary btn-sm" />
   </div>
-  <div id="stb-show" class="translate-x-full duration-500 ease-in-out grid grid-cols-1 gap-2 pr-4" inert>
-    <Button id="stb-show-more" class='btn-circle btn-primary btn-sm'>
+  <div
+    id="stb-show"
+    class="grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
+    inert
+  >
+    <Button id="stb-show-more" class="btn-circle btn-primary btn-sm">
       <Icon name="material-symbols:settings-rounded" class="animate-spin" />
     </Button>
     {
       articleConfig.toc && (
-        <Button id="stb-toc" class="hidden xl:!hidden btn-circle btn-primary btn-sm">
-          <Icon name="material-symbols:toc-rounded" />
-        </Button>
-        <div id="stb-toc-wrapper" class="absolute scale-0 hidden duration-300 bottom-10 max-w-72 w-[calc(100vw-4rem)]"></div>
+        <Fragment>
+          <Button id="stb-toc" class="btn-circle btn-primary btn-sm hidden xl:!hidden">
+            <Icon name="material-symbols:toc-rounded" />
+          </Button>
+          <div
+            id="stb-toc-wrapper"
+            class="absolute bottom-10 hidden w-[calc(100vw-4rem)] max-w-72 scale-0 duration-300"
+          />
+        </Fragment>
       )
     }
-    <Button id="stb-back-to-top" class='group btn-circle btn-primary btn-sm'>
+    <Button id="stb-back-to-top" class="group btn-circle btn-primary btn-sm">
       <span
         id="stb-read-percentage"
         class="absolute text-sm opacity-0 duration-300 group-hover:opacity-0"></span>
@@ -112,4 +125,3 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 
   document.addEventListener('astro:page-load', initSideToolBar);
 </script>
-

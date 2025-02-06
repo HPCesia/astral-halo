@@ -33,10 +33,10 @@
 
     // 文本框输入样式
     .el-textarea {
-      @apply border-base-300 relative w-full overflow-hidden rounded-xl border-2 pb-9;
+      @apply relative w-full overflow-hidden rounded-xl border-2 border-base-300 pb-9;
 
       textarea {
-        @apply bg-base-200/50 w-full p-4;
+        @apply w-full bg-base-200/50 p-4;
 
         resize: none;
 
@@ -50,7 +50,7 @@
       }
 
       .el-input__count {
-        @apply text-base-content/50 absolute bottom-2 right-10 text-sm;
+        @apply absolute bottom-2 right-10 text-sm text-base-content/50;
       }
     }
 
@@ -71,7 +71,7 @@
       }
 
       button {
-        @apply border-base-300 bg-primary absolute py-[0.95rem] md:py-[0.3rem];
+        @apply absolute border-base-300 bg-primary py-[0.95rem] md:py-[0.3rem];
 
         &.tk-preview {
           @apply bottom-[3.7rem] right-0 md:bottom-0 md:right-[3.35rem];
@@ -100,20 +100,20 @@
         }
 
         &.tk-cancel {
-          @apply bg-error text-error-content bottom-[2.4rem] right-0 md:bottom-0 md:right-[6.7rem];
+          @apply bottom-[2.4rem] right-0 bg-error text-error-content md:bottom-0 md:right-[6.7rem];
         }
       }
     }
 
     .tk-preview-container {
-      @apply border-base-300 bg-base-100 mt-2 w-full rounded-xl border-2 p-2;
+      @apply mt-2 w-full rounded-xl border-2 border-base-300 bg-base-100 p-2;
     }
   }
 
   // 表情框样式
   .OwO-body {
     /* stylelint-disable-next-line scss/operator-no-unspaced */
-    @apply bg-base-200/50 border-base-300 absolute -left-3 top-9 z-20 hidden w-[calc(100vw-3rem)] max-w-[30rem] rounded-xl border-2 duration-300;
+    @apply absolute -left-3 top-9 z-20 hidden w-[calc(100vw-3rem)] max-w-[30rem] rounded-xl border-2 border-base-300 bg-base-200/50 duration-300;
   }
 
   .OwO-open .OwO-body {
@@ -144,7 +144,7 @@
     @apply flex flex-wrap items-center text-nowrap px-4;
 
     > li {
-      @apply hover:bg-primary/50 flex h-8 cursor-pointer items-center px-3 text-center duration-300;
+      @apply flex h-8 cursor-pointer items-center px-3 text-center duration-300 hover:bg-primary/50;
 
       &.OwO-package-active {
         @apply bg-primary/50;
@@ -173,7 +173,7 @@
     }
 
     > .tk-comment {
-      @apply max-md:bg-base-200/50 max-md:border-base-300 p-4 max-md:rounded-xl max-md:border-2;
+      @apply p-4 max-md:rounded-xl max-md:border-2 max-md:border-base-300 max-md:bg-base-200/50;
 
       > .tk-avatar {
         @apply top-3;
@@ -190,7 +190,7 @@
 
     // 详细样式
     .tk-avatar {
-      @apply border-base-300 absolute top-0 h-8 min-h-8 w-8 min-w-8 overflow-hidden rounded-full border-2;
+      @apply absolute top-0 h-8 min-h-8 w-8 min-w-8 overflow-hidden rounded-full border-2 border-base-300;
     }
 
     .tk-main > .tk-row {
@@ -199,7 +199,7 @@
 
     .tk-meta {
       a {
-        @apply hover:text-primary duration-300;
+        @apply duration-300 hover:text-primary;
       }
 
       small {
@@ -218,7 +218,7 @@
 
     .tk-action {
       .tk-action-link {
-        @apply border-base-300 relative flex items-center justify-center rounded-xl border-2 px-2 py-1 text-center duration-300;
+        @apply relative flex items-center justify-center rounded-xl border-2 border-base-300 px-2 py-1 text-center duration-300;
 
         .tk-action-icon-solid {
           @apply absolute left-2 opacity-0 duration-300;
@@ -254,7 +254,7 @@
       @apply flex flex-row gap-3;
 
       .tk-extra {
-        @apply text-base-content/50 border-base-300 flex flex-row items-center justify-center gap-2 rounded-md border-2 p-1 text-center text-xs;
+        @apply flex flex-row items-center justify-center gap-2 rounded-md border-2 border-base-300 p-1 text-center text-xs text-base-content/50;
       }
 
       .tk-icon {
@@ -264,7 +264,7 @@
 
     .tk-replies .tk-content > span:first-child {
       // 回复提示（回复：xxx）样式
-      @apply text-base-content/50 text-xs;
+      @apply text-xs text-base-content/50;
     }
 
     .tk-expand-wrap,
@@ -273,25 +273,25 @@
     }
 
     .tk-expand {
-      @apply bg-base-200/50 hover:bg-primary/50 w-full cursor-pointer rounded-md py-1 text-sm duration-300;
+      @apply w-full cursor-pointer rounded-md bg-base-200/50 py-1 text-sm duration-300 hover:bg-primary/50;
     }
   }
 
   // 图标样式
   .tk-submit-action-icon {
-    @apply fill-primary inline-block max-h-6 min-h-6 min-w-6 max-w-6 cursor-pointer;
+    @apply inline-block max-h-6 min-h-6 min-w-6 max-w-6 cursor-pointer fill-primary;
   }
 
   .tk-action-icon {
-    @apply fill-primary inline-block max-h-5 min-h-5 min-w-5 max-w-5 overflow-clip;
+    @apply inline-block max-h-5 min-h-5 min-w-5 max-w-5 overflow-clip fill-primary;
   }
 
   .tk-icon {
-    @apply fill-primary inline-block max-h-4 min-h-4 min-w-4 max-w-4 overflow-clip;
+    @apply inline-block max-h-4 min-h-4 min-w-4 max-w-4 overflow-clip fill-primary;
   }
 
   .tk-tag {
-    @apply border-base-300 rounded-lg border-2 p-1 text-xs;
+    @apply rounded-lg border-2 border-base-300 p-1 text-xs;
   }
 }
 
@@ -314,7 +314,7 @@
     @apply relative flex h-full w-full items-center justify-center text-center;
 
     .tk-admin-close {
-      @apply fill-primary absolute right-2 top-[0.65rem] z-50 h-8 w-8;
+      @apply absolute right-2 top-[0.65rem] z-50 h-8 w-8 fill-primary;
     }
 
     > div {
@@ -342,18 +342,18 @@
       }
 
       a {
-        @apply border-base-300 bg-base-200/50 hover:bg-primary mx-6 rounded-xl border-2 px-3 py-1 text-xs duration-300;
+        @apply mx-6 rounded-xl border-2 border-base-300 bg-base-200/50 px-3 py-1 text-xs duration-300 hover:bg-primary;
       }
     }
 
     .tk-tabs {
-      @apply border-base-300 flex flex-row items-center justify-between border-b-2 px-4 text-center text-lg;
+      @apply flex flex-row items-center justify-between border-b-2 border-base-300 px-4 text-center text-lg;
 
       .tk-tab {
-        @apply hover:bg-primary w-full cursor-pointer py-1 duration-300;
+        @apply w-full cursor-pointer py-1 duration-300 hover:bg-primary;
 
         &.__active {
-          @apply border-primary border-b-2;
+          @apply border-b-2 border-primary;
         }
       }
     }
@@ -378,7 +378,7 @@
         @apply w-full;
 
         input {
-          @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 px-2 py-1;
+          @apply w-full rounded-xl border-2 border-base-300 bg-base-200/50 px-2 py-1;
 
           &:focus {
             outline: none;
@@ -387,7 +387,7 @@
       }
 
       select {
-        @apply border-base-300 bg-base-200/50 w-1/4 rounded-xl border-2 p-2;
+        @apply w-1/4 rounded-xl border-2 border-base-300 bg-base-200/50 p-2;
       }
     }
 
@@ -396,23 +396,23 @@
     }
 
     .tk-admin-comment-item {
-      @apply border-base-300 border-b-2 py-1;
+      @apply border-b-2 border-base-300 py-1;
     }
 
     .tk-admin-comment-meta {
       @apply flex flex-row flex-wrap items-center gap-2 text-start;
 
       .tk-avatar {
-        @apply border-base-300 h-8 w-8 overflow-hidden rounded-full border-2;
+        @apply h-8 w-8 overflow-hidden rounded-full border-2 border-base-300;
       }
 
       a {
-        @apply hover:text-primary duration-300;
+        @apply duration-300 hover:text-primary;
       }
 
       span:last-child,
       .tk-time {
-        @apply text-base-content/50 text-sm;
+        @apply text-sm text-base-content/50;
       }
     }
 
@@ -424,7 +424,7 @@
       }
 
       input {
-        @apply border-base-300 bg-base-200/50 w-16 rounded-xl border-2 px-2 py-1;
+        @apply w-16 rounded-xl border-2 border-base-300 bg-base-200/50 px-2 py-1;
 
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button {
@@ -442,7 +442,7 @@
     }
 
     .tk-pagination-pager {
-      @apply hover:bg-primary cursor-pointer rounded-md px-2 py-1;
+      @apply cursor-pointer rounded-md px-2 py-1 hover:bg-primary;
 
       &.__current {
         @apply bg-primary;
@@ -459,10 +459,10 @@
     }
 
     details {
-      @apply border-base-300 w-full overflow-hidden rounded-xl border-2 duration-300;
+      @apply w-full overflow-hidden rounded-xl border-2 border-base-300 duration-300;
 
       summary {
-        @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-2xl duration-300;
+        @apply w-full px-3 py-1 text-start text-2xl duration-300 hover:bg-primary/50;
 
         &::marker {
           margin-right: 1.5rem;
@@ -486,7 +486,7 @@
       }
 
       input {
-        @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 px-2 py-1;
+        @apply w-full rounded-xl border-2 border-base-300 bg-base-200/50 px-2 py-1;
 
         &:focus {
           outline: none;
@@ -494,7 +494,7 @@
       }
 
       .tk-admin-config-desc {
-        @apply text-base-content/50 whitespace-pre-wrap text-start text-sm;
+        @apply whitespace-pre-wrap text-start text-sm text-base-content/50;
       }
     }
 
@@ -507,11 +507,11 @@
       }
 
       select {
-        @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 p-2;
+        @apply w-full rounded-xl border-2 border-base-300 bg-base-200/50 p-2;
       }
 
       input {
-        @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 px-2 py-1;
+        @apply w-full rounded-xl border-2 border-base-300 bg-base-200/50 px-2 py-1;
 
         &:focus {
           outline: none;
@@ -522,7 +522,7 @@
         @apply h-full w-full;
 
         textarea {
-          @apply border-base-300 bg-base-200/50 h-full w-full rounded-xl border-2 px-2 py-1;
+          @apply h-full w-full rounded-xl border-2 border-base-300 bg-base-200/50 px-2 py-1;
 
           &:focus {
             outline: none;
@@ -539,10 +539,10 @@
 }
 
 .el-input-group {
-  @apply bg-base-200/50 border-base-300 flex w-full flex-row items-center overflow-hidden rounded-xl border-2 text-sm;
+  @apply flex w-full flex-row items-center overflow-hidden rounded-xl border-2 border-base-300 bg-base-200/50 text-sm;
 
   div {
-    @apply bg-primary/50 w-fit whitespace-nowrap px-2 py-1;
+    @apply w-fit whitespace-nowrap bg-primary/50 px-2 py-1;
   }
 
   input {
@@ -559,7 +559,7 @@
 }
 
 .el-button {
-  @apply border-base-300 bg-primary text-nowrap rounded-xl border-2 px-2 py-1 text-center text-sm duration-300;
+  @apply text-nowrap rounded-xl border-2 border-base-300 bg-primary px-2 py-1 text-center text-sm duration-300;
 
   &:not(.is-disabled) {
     @apply hover:scale-105 hover:brightness-110 active:scale-95 active:brightness-90;
@@ -609,7 +609,7 @@
     }
 
     .copy-to-clipboard-button {
-      @apply border-base-300 bg-primary rounded-md border-2 px-2 py-1 opacity-0 duration-300;
+      @apply rounded-md border-2 border-base-300 bg-primary px-2 py-1 opacity-0 duration-300;
     }
 
     &:hover .copy-to-clipboard-button {
@@ -624,7 +624,7 @@
   code:not(pre code) {
     padding: 0 0.25rem;
 
-    @apply text-primary bg-primary/10 rounded-md;
+    @apply rounded-md bg-primary/10 text-primary;
   }
 
   // 媒体元素
@@ -651,15 +651,15 @@
   blockquote {
     padding: 0.25rem 0.25rem 0.25rem 0.75rem;
 
-    @apply border-primary bg-primary/10 my-2 rounded-sm border-l-4;
+    @apply my-2 rounded-sm border-l-4 border-primary bg-primary/10;
   }
 
   // 折叠块样式
   details {
-    @apply border-base-300 w-full overflow-hidden rounded-xl border-2 duration-300;
+    @apply w-full overflow-hidden rounded-xl border-2 border-base-300 duration-300;
 
     summary {
-      @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-2xl duration-300;
+      @apply w-full px-3 py-1 text-start text-2xl duration-300 hover:bg-primary/50;
 
       &::marker {
         margin-right: 1.5rem;

@@ -151,22 +151,22 @@ article {
   code:not(pre code) {
     padding: 0 0.25rem;
 
-    @apply text-primary bg-primary/10 rounded-md;
+    @apply rounded-md bg-primary/10 text-primary;
   }
 
   // 引用块样式
   blockquote {
     padding: 0.25rem 0.25rem 0.25rem 0.75rem;
 
-    @apply border-primary bg-primary/10 rounded-sm border-l-4;
+    @apply rounded-sm border-l-4 border-primary bg-primary/10;
   }
 
   // 折叠块样式
   details {
-    @apply border-base-300 w-full overflow-hidden rounded-xl border-2 duration-300;
+    @apply w-full overflow-hidden rounded-xl border-2 border-base-300 duration-300;
 
     summary {
-      @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-2xl duration-300;
+      @apply w-full px-3 py-1 text-start text-2xl duration-300 hover:bg-primary/50;
 
       &::marker {
         margin-right: 1.5rem;

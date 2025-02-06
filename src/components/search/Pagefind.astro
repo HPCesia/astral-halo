@@ -13,12 +13,12 @@ const bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
 
 <template id="pagefind-result-template">
   <a
-    class="hover:bg-primary group w-full rounded-md p-2 duration-150 hover:bg-opacity-30"
+    class="group w-full rounded-md p-2 duration-150 hover:bg-primary hover:bg-opacity-30"
     href="#"
   >
     <div class="flex flex-row items-center gap-1 text-center">
-      <span class="group-hover:text-primary text-lg duration-150">Fake Result</span>
-      <Icon name="material-symbols:chevron-right" class="text-primary text-lg" />
+      <span class="text-lg duration-150 group-hover:text-primary">Fake Result</span>
+      <Icon name="material-symbols:chevron-right" class="text-lg text-primary" />
     </div>
     <div id="pagefind-result-template-excerpt" class="text-sm opacity-60">
       This is a fake result.
