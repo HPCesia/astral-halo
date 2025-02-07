@@ -24,6 +24,7 @@ export default {
           secondary: '#626437',
           'secondary-content': '#ffffff',
           accent: '#512620',
+          'base-content': '#111',
         },
         dark: {
           ...themes['dark'],
@@ -32,6 +33,7 @@ export default {
           secondary: '#DB446B',
           'secondary-content': '#ffffff',
           accent: '#D29F60',
+          'base-content': '#eee',
         },
       },
     ],

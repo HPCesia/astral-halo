@@ -82,24 +82,6 @@ article {
     margin-top: 0.5rem;
   }
 
-  ul > li {
-    position: relative;
-    padding: 0.25rem 0.25rem 0.25rem 1.4em;
-
-    &::before {
-      position: absolute;
-      top: 0.6em;
-      left: 0.25em;
-      width: 0.75em;
-      height: 0.75em;
-      content: '';
-      border: 0.25em solid;
-      border-radius: 9999px;
-
-      @apply border-primary/75;
-    }
-  }
-
   ol {
     counter-reset: li;
 
@@ -125,6 +107,40 @@ article {
 
       p:first-child {
         margin-top: 0;
+      }
+    }
+  }
+
+  ul > li {
+    position: relative;
+    padding: 0.25rem 0.25rem 0.25rem 1.4em;
+
+    &:not(:has(input[type='checkbox']))::before {
+      position: absolute;
+      top: 0.6em;
+      left: 0.25em;
+      width: 0.75em;
+      height: 0.75em;
+      content: '';
+      border: 0.25em solid;
+      border-radius: 9999px;
+
+      @apply border-primary/75;
+    }
+
+    > input[type='checkbox'] {
+      position: absolute;
+      top: calc(0.25rem + 0.25em);
+      left: 0;
+      width: 0.85em;
+      height: 0.85em;
+      appearance: none;
+      border: 0.125em solid;
+      border-radius: 0.25em;
+      transition: 300ms all ease;
+
+      &:checked {
+        @apply bg-primary/50;
       }
     }
   }
@@ -216,6 +232,23 @@ article {
 
   // 表格样式
   table {
-    @apply table;
+    @apply relative w-full text-left text-sm;
+
+    :where(thead tr, tbody tr:not(:last-child), tbody tr:first-child:last-child) {
+      @apply border-b-2 border-b-base-200;
+    }
+
+    :where(tfoot) {
+      @apply border-t-2 border-t-base-200;
+    }
+
+    :where(thead, tfoot) {
+      @apply whitespace-nowrap bg-base-300/15 text-xs font-bold text-base-content/90;
+    }
+
+    :where(th, td) {
+      padding: 0.75rem 1rem;
+      vertical-align: middle;
+    }
   }
 }
