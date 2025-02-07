@@ -310,4 +310,9 @@ article {
       vertical-align: middle;
     }
   }
+
+  // 数学样式
+  mjx-container[display='true'] {
+    overflow: auto;
+  }
 }

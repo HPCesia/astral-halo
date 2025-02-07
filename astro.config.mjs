@@ -1,4 +1,5 @@
 // @ts-check
+import { CDN } from './src/constants/cdn.mjs';
 import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.mjs';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
@@ -8,7 +9,9 @@ import icon from 'astro-icon';
 import pagefind from 'astro-pagefind';
 import { defineConfig } from 'astro/config';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeMathJaxCHtml from 'rehype-mathjax/chtml';
 import remarkGithubBlockQuote from 'remark-github-beta-blockquote-admonitions';
+import remarkMath from 'remark-math';
 
 // https://astro.build/config
 export default defineConfig({
@@ -31,6 +34,7 @@ export default defineConfig({
       defaultColor: false,
     },
     remarkPlugins: [
+      remarkMath,
       remarkReadingTime,
       // @ts-expect-error - types are not up to date
       [
@@ -56,6 +60,14 @@ export default defineConfig({
           },
           properties: {
             'aria-label': 'Anchor link',
+          },
+        },
+      ],
+      [
+        rehypeMathJaxCHtml,
+        {
+          chtml: {
+            fontURL: CDN.mathjaxFont,
           },
         },
       ],

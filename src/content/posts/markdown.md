@@ -41,6 +41,12 @@ use triple backticks to create code blocks.
 ```
 ````
 
+$\LaTeX$ formulas are also supported, inline formula like $e^{i\pi} + 1 = 0$ or block formula like:
+
+$$
+ \int_{-\infty}^{+\infty} e^{-x^2} \mathrm{d}x = \sqrt{\pi}
+$$
+
 ## Heading Level 2
 
 Other GitHub Flavored Markdown features include:
