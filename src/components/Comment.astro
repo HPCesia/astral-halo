@@ -1,6 +1,7 @@
 ---
 import { commentConfig } from '@/config';
-import Twikoo from './comment/Twikoo.astro';
+import Giscus from '@components/comment/Giscus.astro';
+import Twikoo from '@components/comment/Twikoo.astro';
 ---
 
 <div id="page-comment">
@@ -9,6 +10,8 @@ import Twikoo from './comment/Twikoo.astro';
       switch (commentConfig.provider) {
         case 'twikoo':
           return <Twikoo />;
+        case 'giscus':
+          return <Giscus />;
       }
     })()
   }

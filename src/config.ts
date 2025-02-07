@@ -120,9 +120,16 @@ export const searchConfig: SearchConfig = {
 };
 
 export const commentConfig: CommentConfig = {
-  enable: true,
+  enable: false,
   provider: 'twikoo',
   twikoo: {
-    envId: 'https://comment.hpcesia.com/.netlify/functions/twikoo',
+    envId: 'your-env-id',
+  },
+  giscus: {
+    repo: 'your/repo',
+    repoId: 'your-repo-id',
+    category: 'your-category',
+    categoryId: 'your-category-id',
+    mapping: 'og:title',
   },
 };

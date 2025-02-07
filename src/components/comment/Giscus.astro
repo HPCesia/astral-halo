@@ -1,0 +1,31 @@
+---
+import { commentConfig, siteConfig } from '@/config';
+import { CDN } from '@constants/cdn';
+
+const giscusConfig = commentConfig.giscus!;
+
+const giscusConfigData = {
+  'data-repo': giscusConfig.repo,
+  'data-repo-id': giscusConfig.repoId,
+  'data-category': giscusConfig.category,
+  'data-category-id': giscusConfig.categoryId,
+  ...(typeof giscusConfig.mapping === 'string'
+    ? {
+        'data-mapping': giscusConfig.mapping,
+      }
+    : {
+        'data-mapping': giscusConfig.mapping.type,
+        'data-term': giscusConfig.mapping.term,
+      }),
+  'data-strict': '1',
+  'data-theme': giscusConfig.theme || 'preferred_color_scheme',
+  'data-input-position': giscusConfig.inputPosition || 'bottom',
+  'data-reactions-enabled': giscusConfig.reactionsEnabled ? '1' : '0',
+  'data-emit-metadata': giscusConfig.emitMetadata ? '1' : '0',
+  'data-lang': siteConfig.lang.replace('_', '-'),
+  ...(giscusConfig.lazyLoad ? { 'data-loading': 'lazy' } : {}),
+  crossorigin: 'anonymous',
+};
+---
+
+<script is:inline src={CDN.giscus} {...giscusConfigData} data-astro-rerun></script>
