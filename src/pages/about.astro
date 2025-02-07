@@ -1,5 +1,6 @@
 ---
-import { profileConfig } from '@/config';
+import { commentConfig, profileConfig } from '@/config';
+import Comment from '@components/Comment.astro';
 import ImageWrapper from '@components/utils/ImageWrapper.astro';
 import Markdown from '@components/utils/Markdown.astro';
 import Button from '@components/widgets/Button.astro';
@@ -45,5 +46,6 @@ const { Content } = aboutMd ? await render(aboutMd) : Fragment;
     <Markdown class="w-5/6 md:w-3/4">
       <Content />
     </Markdown>
+    {aboutMd?.data.comment && commentConfig.enable && <Comment />}
   </div>
 </MainLayout>
