@@ -1,6 +1,12 @@
 import { toString } from 'mdast-util-to-string';
 
-/* Use the post's first paragraph as the excerpt */
+/**
+ * Remark plugin to extract the first paragraph as excerpt
+ *
+ * 提取第一个段落作为摘要的 Remark 插件
+ *
+ * @returns {import('unified').Plugin}
+ */
 export function remarkExcerpt() {
   return (tree, { data }) => {
     let excerpt = '';
