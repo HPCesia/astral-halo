@@ -1,5 +1,4 @@
 import daisyui from 'daisyui';
-import themes from 'daisyui/src/theming/themes';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -18,22 +17,28 @@ export default {
     themes: [
       {
         light: {
-          ...themes['light'],
           primary: '#BC4D2E',
-          'primary-content': '#ffffff',
-          secondary: '#626437',
-          'secondary-content': '#ffffff',
-          accent: '#512620',
+          'primary-content': '#FEFEDB',
+          secondary: '#EFBF89',
+          'secondary-content': '#111',
+          accent: '#742C22',
+          'accent-content': '#FFF',
+          'base-100': '#FFFFFD',
+          'base-200': '#F6E7D2',
+          'base-300': '#E6C9AC',
           'base-content': '#111',
         },
         dark: {
-          ...themes['dark'],
-          primary: '#3C8CC7',
-          'primary-content': '#ffffff',
-          secondary: '#DB446B',
-          'secondary-content': '#ffffff',
-          accent: '#D29F60',
-          'base-content': '#eee',
+          primary: '#88B7DC',
+          'primary-content': '#FFF',
+          secondary: '#C47890',
+          'secondary-content': '#FFF',
+          accent: '#A343B0',
+          'accent-content': '#FFF',
+          'base-100': '#272A3C',
+          'base-200': '#18192A',
+          'base-300': '#11121F',
+          'base-content': '#EEE',
         },
       },
     ],
