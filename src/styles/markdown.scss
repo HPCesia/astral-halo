@@ -208,7 +208,58 @@ article {
   blockquote {
     padding: 0.25rem 0.25rem 0.25rem 0.75rem;
 
-    @apply rounded-sm border-l-4 border-primary bg-primary/10;
+    @apply my-2 rounded-sm border-l-4 border-primary bg-primary/10;
+  }
+
+  // GitHub Alert 样式
+  .admonition {
+    padding: 0.25rem 0.25rem 0.25rem 0.75rem;
+
+    @apply my-4 rounded-sm border-l-4;
+
+    .admonition-title {
+      font-weight: bold;
+    }
+
+    &-note {
+      @apply border-info bg-info/10;
+
+      .admonition-title {
+        @apply text-info;
+      }
+    }
+
+    &-tip {
+      @apply border-success bg-success/10;
+
+      .admonition-title {
+        @apply text-success;
+      }
+    }
+
+    &-important {
+      @apply border-accent bg-accent/10;
+
+      .admonition-title {
+        @apply text-accent;
+      }
+    }
+
+    &-warning {
+      @apply border-warning bg-warning/10;
+
+      .admonition-title {
+        @apply text-warning;
+      }
+    }
+
+    &-caution {
+      @apply border-error bg-error/10;
+
+      .admonition-title {
+        @apply text-error;
+      }
+    }
   }
 
   // 折叠块样式

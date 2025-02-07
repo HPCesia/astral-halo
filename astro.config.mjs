@@ -7,6 +7,7 @@ import icon from 'astro-icon';
 import pagefind from 'astro-pagefind';
 import { defineConfig } from 'astro/config';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import remarkGithubBlockQuote from 'remark-github-beta-blockquote-admonitions';
 
 // https://astro.build/config
 export default defineConfig({
@@ -28,7 +29,20 @@ export default defineConfig({
       },
       defaultColor: false,
     },
-    remarkPlugins: [remarkReadingTime],
+    remarkPlugins: [
+      remarkReadingTime,
+      // @ts-expect-error - types are not up to date
+      [
+        remarkGithubBlockQuote,
+        {
+          classNameMaps: {
+            block: (/** @type {string} */ title) =>
+              `admonition admonition-${title.toLowerCase()}`,
+            title: 'admonition-title',
+          },
+        },
+      ],
+    ],
     rehypePlugins: [
       rehypeHeadingIds,
       [

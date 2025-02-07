@@ -11,7 +11,8 @@ Here is an example of a Markdown blog post.
 # Heading Level 1
 
 You can use GitHub Flavored Markdown to format your blog posts. For example, you can use **bold**, _italic_ and ~~strikethrough~~ text, create a [link](https://example.com) or just write a raw URL like https://example.com, and add images:
-![Example Image](https://example.com/image.jpg)
+
+![Example Image](../../assets/img/avatar.jpg)
 
 common Markdown features like:
 
@@ -56,10 +57,27 @@ And tables:
 | A looooooooooong row | A looooooooooong row |
 | A very loooooooooooooooooooooooooooooooooooooooooooooooooong row | |
 
-You can also add footnotes[^1] or [reference links][1] .
+You can also add footnotes[^1] or [reference links][1].
 
 [^1]: This is a footnote.
 
 [1]: https://example.com
+
+[GitHub blockquote alerts](https://github.com/orgs/community/discussions/16925) is also supported:
+
+> [!NOTE]
+> This is a note.
+
+> [!TIP]
+> This is a tip.
+
+> [!IMPORTANT]
+> This is important.
+
+> [!WARNING]
+> This is a warning.
+
+> [!CAUTION]
+> This is a caution.
 
 And that's it!
