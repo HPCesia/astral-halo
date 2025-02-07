@@ -9,6 +9,33 @@ interface Props {
 const { headings = [], class: className } = Astro.props;
 const minDepth = Math.min(...headings.map((h) => h.depth));
 const maxLevel = 3;
+
+// 构建嵌套的 TOC 结构
+function buildTocTree(headings: MarkdownHeading[]) {
+  const filteredHeadings = headings.filter((h) => h.depth < minDepth + maxLevel);
+  const result: (MarkdownHeading & { children: typeof result })[] = [];
+  const stack: { node: (typeof result)[0]; depth: number }[] = [];
+
+  for (const heading of filteredHeadings) {
+    const node = { ...heading, children: [] };
+
+    while (stack.length > 0 && stack[stack.length - 1].depth >= heading.depth) {
+      stack.pop();
+    }
+
+    if (stack.length === 0) {
+      result.push(node);
+    } else {
+      stack[stack.length - 1].node.children.push(node);
+    }
+
+    stack.push({ node, depth: heading.depth });
+  }
+
+  return result;
+}
+
+const tocTree = buildTocTree(headings);
 ---
 
 <div
@@ -17,19 +44,41 @@ const maxLevel = 3;
   transition:name="toc-card"
 >
   <div class="card-body p-2">
-    {
-      headings
-        .filter((heading) => heading.depth < minDepth + maxLevel)
-        .map((heading) => (
-          <a class:list={[`level-${heading.depth - minDepth + 1}`]} href={`#${heading.slug}`}>
-            {heading.text}
-          </a>
-        ))
-    }
+    <ul>
+      {
+        // 递归渲染 TOC 组件
+        (() => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          function renderTocItem(item: MarkdownHeading & { children: any[] }) {
+            return (
+              <li>
+                <a class:list={[`level-${item.depth - minDepth + 1}`]} href={`#${item.slug}`}>
+                  {item.text}
+                </a>
+                {item.children.length > 0 && (
+                  <ul>{item.children.map((child) => renderTocItem(child))}</ul>
+                )}
+              </li>
+            );
+          }
+          return tocTree.map((heading) => renderTocItem(heading));
+        })()
+      }
+    </ul>
   </div>
 </div>
 
 <style>
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  ul ul {
+    padding-left: 1rem;
+  }
+
   a {
     display: block;
     padding: 0.5rem 1rem;
