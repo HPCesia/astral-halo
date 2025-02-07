@@ -16,15 +16,15 @@
     "@astrojs/markdown-remark": "^6.1.0",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/tailwind": "^5.1.5",
     "@iconify-json/material-symbols": "^1.2.14",
     "@iconify-json/mdi": "^1.2.3",
+    "@tailwindcss/vite": "^4.0.4",
     "astro": "^5.2.5",
     "astro-compress": "2.3.5",
     "astro-icon": "^1.1.5",
     "astro-pagefind": "^1.8.0",
     "autoprefixer": "^10.4.20",
-    "daisyui": "^4.12.23",
+    "daisyui": "5.0.0-beta.7",
     "mdast-util-to-string": "^4.0.0",
     "postcss-load-config": "^6.0.1",
     "reading-time": "^1.5.0",
@@ -32,9 +32,8 @@
     "rehype-mathjax": "^6.0.0",
     "remark-github-beta-blockquote-admonitions": "^3.1.1",
     "remark-math": "^6.0.0",
-    "sass": "^1.84.0",
     "sharp": "^0.33.5",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.0.4",
     "typescript": "^5.7.3",
     "unist-util-visit": "^5.0.0"
   },
@@ -55,7 +54,6 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "stylelint": "^16.14.1",
     "stylelint-config-html": "^1.1.0",
-    "stylelint-config-standard-scss": "^14.0.0",
     "typescript-eslint": "^8.23.0"
   }
 }

@@ -4,21 +4,19 @@ import { i18n } from '@i18n/translation';
 import { Icon } from 'astro-icon/components';
 import type { ComponentProps } from 'astro/types';
 
-type Props = Omit<ComponentProps<typeof Icon>, 'name'>;
+type Props = Omit<ComponentProps<typeof Icon>, 'name' | 'class'>;
 
 const { href, title, ...rest } = Astro.props;
 ---
 
-<a href={href} title={title || i18n(I18nKey.more)}>
-  <Icon name="material-symbols:chevron-right-rounded" {...rest} />
+<a
+  href={href}
+  title={title || i18n(I18nKey.more)}
+  class="duration-150 hover:brightness-125 active:brightness-75 max-md:hidden"
+>
+  <Icon
+    name="material-symbols:chevron-right-rounded"
+    {...rest}
+    class="bg-primary/40 text-primary h-full min-h-48 w-12"
+  />
 </a>
-
-<style>
-  a {
-    @apply duration-150 hover:brightness-125 active:brightness-75 max-md:hidden;
-  }
-
-  svg {
-    @apply h-full min-h-48 w-12 bg-primary/40 text-primary;
-  }
-</style>

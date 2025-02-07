@@ -23,7 +23,7 @@ if (uncategorizedPosts.length > 0)
 ---
 
 <MainLayout title={i18n(I18nKey.categories)}>
-  <div class="mx-auto flex max-w-screen-xl flex-col items-center">
+  <div class="mx-auto flex max-w-(--breakpoint-xl) flex-col items-center">
     <h1 class="my-8 text-3xl font-bold">{i18n(I18nKey.categories)}</h1>
     <Timeline items={Array.from(categoryPosts.keys())}>
       <fragment slot="title">
@@ -34,7 +34,7 @@ if (uncategorizedPosts.length > 0)
               <Button
                 href={`/archives/categories/${category === i18n(I18nKey.uncategorized) ? I18nKey.uncategorized : category.replaceAll(/[\\/]/g, '-')}/1/`}
                 title={category}
-                class="!pl-3"
+                class="pl-3!"
               >
                 {i18n(I18nKey.more)}
                 <Icon name="material-symbols:chevron-right-rounded" class="text-2xl" />

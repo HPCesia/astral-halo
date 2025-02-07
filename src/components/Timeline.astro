@@ -38,36 +38,18 @@ const renderedItems = await Promise.all(
 );
 ---
 
-<div class:list={['relative flex flex-col', className]}>
+<div class:list={['relative flex flex-col empty:min-h-12', className]}>
   <div
-    class="timeline absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-blue-500 to-purple-500"
+    class="timeline absolute top-0 left-4 h-full w-0.5 bg-linear-to-b from-blue-500 to-purple-500 opacity-60"
   >
   </div>
   {
     renderedItems.map((item) => (
       <div class="relative mb-12 pl-12">
-        <div class="timeline-dot absolute left-2 top-5 h-4 w-4 rounded-full bg-blue-500" />
+        <div class="absolute top-5 left-2 h-4 w-4 rounded-full bg-blue-500 shadow-lg transition-transform duration-300 hover:scale-125" />
         <Fragment set:html={item.title} />
         <Fragment set:html={item.body} />
       </div>
     ))
   }
 </div>
-
-<style>
-  .flex-col:empty {
-    @apply min-h-[3rem];
-  }
-
-  .timeline {
-    @apply opacity-60;
-  }
-
-  .timeline-dot {
-    @apply shadow-lg transition-transform duration-300;
-  }
-
-  .timeline-dot:hover {
-    @apply scale-125;
-  }
-</style>

@@ -1,7 +1,7 @@
-@use './globals.scss' as global;
+@reference './global.css';
 
 article {
-  // 标题通用样式
+  /* 标题通用样式 */
   h1,
   h2,
   h3,
@@ -18,7 +18,7 @@ article {
       padding: 0 0.5rem;
       opacity: 0;
       text-decoration: none;
-      color: theme('colors.primary');
+      color: var(--color-primary);
       transition: opacity 0.2s ease-in-out;
     }
 
@@ -29,7 +29,7 @@ article {
     }
   }
 
-  // 各级标题特殊样式
+  /* 各级标题特殊样式 */
   h1 {
     @apply text-2xl;
   }
@@ -47,7 +47,7 @@ article {
     @apply text-base;
   }
 
-  // 基础文本元素
+  /* 基础文本元素 */
   p {
     margin: 0.5rem 0;
   }
@@ -61,7 +61,7 @@ article {
     }
   }
 
-  // 媒体元素
+  /* 媒体元素 */
   img {
     position: relative;
     margin: 1rem auto;
@@ -76,7 +76,7 @@ article {
     border: 1px dashed;
   }
 
-  // 列表样式
+  /* 列表样式 */
   ul,
   ol {
     margin-top: 0.5rem;
@@ -147,13 +147,13 @@ article {
           position: absolute;
           font-size: 0.75em;
           line-height: 0.75em;
-          color: theme('colors.primary-content');
+          color: var(--colors-primary-content);
         }
       }
     }
   }
 
-  // 代码样式
+  /* 代码样式 */
   pre {
     padding: 0.5rem;
     counter-reset: line;
@@ -190,7 +190,7 @@ article {
   code:not(pre code) {
     padding: 0 0.25rem;
 
-    @apply rounded-md bg-primary/10 text-primary;
+    @apply bg-primary/10 text-primary rounded-md;
   }
 
   .astro-code,
@@ -212,14 +212,14 @@ article {
     }
   }
 
-  // 引用块样式
+  /* 引用块样式 */
   blockquote {
     padding: 0.25rem 0.25rem 0.25rem 0.75rem;
 
-    @apply my-2 rounded-sm border-l-4 border-primary bg-primary/10;
+    @apply border-primary bg-primary/10 my-2 rounded-sm border-l-4;
   }
 
-  // GitHub Alert 样式
+  /* GitHub Alert 样式 */
   .admonition {
     padding: 0.25rem 0.25rem 0.25rem 0.75rem;
 
@@ -229,7 +229,7 @@ article {
       font-weight: bold;
     }
 
-    &-note {
+    &.admonition-note {
       @apply border-info bg-info/10;
 
       .admonition-title {
@@ -237,7 +237,7 @@ article {
       }
     }
 
-    &-tip {
+    &.admonition-tip {
       @apply border-success bg-success/10;
 
       .admonition-title {
@@ -245,7 +245,7 @@ article {
       }
     }
 
-    &-important {
+    &.admonition-important {
       @apply border-accent bg-accent/10;
 
       .admonition-title {
@@ -253,7 +253,7 @@ article {
       }
     }
 
-    &-warning {
+    &.admonition-warning {
       @apply border-warning bg-warning/10;
 
       .admonition-title {
@@ -261,7 +261,7 @@ article {
       }
     }
 
-    &-caution {
+    &.admonition-caution {
       @apply border-error bg-error/10;
 
       .admonition-title {
@@ -270,12 +270,12 @@ article {
     }
   }
 
-  // 折叠块样式
+  /* 折叠块样式 */
   details {
-    @apply w-full overflow-hidden rounded-xl border-2 border-base-300 duration-300;
+    @apply border-base-300 w-full overflow-hidden rounded-xl border-2 duration-300;
 
     summary {
-      @apply w-full px-3 py-1 text-start text-2xl duration-300 hover:bg-primary/50;
+      @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-2xl duration-300;
 
       &::marker {
         margin-right: 1.5rem;
@@ -289,20 +289,20 @@ article {
     }
   }
 
-  // 表格样式
+  /* 表格样式 */
   table {
     @apply relative w-full text-left text-sm;
 
     :where(thead tr, tbody tr:not(:last-child), tbody tr:first-child:last-child) {
-      @apply border-b-2 border-b-base-200;
+      @apply border-b-base-200 border-b-2;
     }
 
     :where(tfoot) {
-      @apply border-t-2 border-t-base-200;
+      @apply border-t-base-200 border-t-2;
     }
 
     :where(thead, tfoot) {
-      @apply whitespace-nowrap bg-base-300/15 text-xs font-bold text-base-content/90;
+      @apply bg-base-300/15 text-base-content/90 text-xs font-bold whitespace-nowrap;
     }
 
     :where(th, td) {
@@ -311,7 +311,7 @@ article {
     }
   }
 
-  // 数学样式
+  /* 数学样式 */
   mjx-container[display='true'] {
     overflow: auto;
   }

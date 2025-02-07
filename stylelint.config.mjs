@@ -1,16 +1,22 @@
 /** @type {import('stylelint').Config} */
 export default {
-  extends: ['stylelint-config-standard-scss', 'stylelint-config-html/astro'],
+  extends: ['stylelint-config-html/astro'],
   rules: {
-    'scss/at-rule-no-unknown': [
+    'at-rule-no-unknown': [
       true,
       {
         ignoreAtRules: [
           // Tailwind CSS
-          'tailwind',
+          'theme',
+          'source',
+          'utility',
+          'variant',
+          'custom-variant',
           'apply',
           'layer',
           'config',
+          'plugin',
+          'reference',
         ],
       },
     ],

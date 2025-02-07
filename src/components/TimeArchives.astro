@@ -25,7 +25,7 @@ const { group } = Astro.props;
           <Timeline items={group.months} class="ml-4">
             <fragment slot="title">
               {(monthGroup: MonthArchives) => (
-                <div class="mb-6 ml-6 mt-3 flex items-center justify-between">
+                <div class="mt-3 mb-6 ml-6 flex items-center justify-between">
                   <h2 class="text-2xl font-bold">{monthGroup.month}</h2>
                 </div>
               )}

@@ -4,9 +4,9 @@ import { footerConfig, profileConfig } from '@/config';
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="footer mt-auto flex-shrink-0"></footer>
+<footer class="footer mt-auto shrink-0"></footer>
 <footer
-  class="footer border-t border-base-300 bg-base-200 px-10 py-4 text-base text-base-content"
+  class="footer border-base-300 bg-base-200 text-base-content flex flex-col justify-between border-t px-10 py-4 text-lg md:flex-row"
 >
   <aside class="items-center">
     <p>
@@ -16,7 +16,7 @@ const currentYear = new Date().getFullYear();
       <a href="/about/" class="font-bold">{profileConfig.name}</a>
     </p>
   </aside>
-  <nav class="flex flex-row md:place-self-center md:justify-self-end">
+  <nav class="flex flex-row">
     {
       footerConfig.rightItems.map((item) => (
         <span>
@@ -36,12 +36,12 @@ const currentYear = new Date().getFullYear();
   </nav>
 </footer>
 
-<style lang="scss">
+<style>
   a {
     @apply duration-150;
 
     &:hover {
-      @apply text-primary;
+      color: var(--color-primary);
     }
   }
 </style>

@@ -1,10 +1,15 @@
 /* stylelint-disable no-descending-specificity */
 /* stylelint-disable selector-class-pattern */
-
-@use './globals.scss' as global;
+@reference './global.css';
 
 .twikoo {
   @apply relative flex h-fit w-full flex-col items-center;
+}
+
+input,
+textarea,
+select {
+  border: none;
 }
 
 .tk-comments {
@@ -18,7 +23,7 @@
     @apply flex w-full flex-col gap-2;
   }
 
-  // 回复框样式
+  /* 回复框样式 */
   .tk-submit {
     @apply relative w-full;
 
@@ -26,17 +31,17 @@
       display: none;
     }
 
-    // 输入框部分样式
+    /* 输入框部分样式 */
     .tk-col {
       @apply flex-col-reverse;
     }
 
-    // 文本框输入样式
+    /* 文本框输入样式 */
     .el-textarea {
-      @apply relative w-full overflow-hidden rounded-xl border-2 border-base-300 pb-9;
+      @apply border-base-300 relative w-full overflow-hidden rounded-xl border-2 pb-9;
 
       textarea {
-        @apply w-full bg-base-200/50 p-4;
+        @apply bg-base-200/50 w-full p-4;
 
         resize: none;
 
@@ -50,11 +55,11 @@
       }
 
       .el-input__count {
-        @apply absolute bottom-2 right-10 text-sm text-base-content/50;
+        @apply text-base-content/50 absolute right-10 bottom-2 text-sm;
       }
     }
 
-    // 个人信息输入框样式
+    /* 个人信息输入框样式 */
     .tk-meta-input {
       @apply flex w-[calc(100%-3.5rem)] flex-col items-center gap-2 md:w-[calc(100%-6.75rem)] md:flex-row;
     }
@@ -71,20 +76,20 @@
       }
 
       button {
-        @apply absolute border-base-300 bg-primary py-[0.95rem] md:py-[0.3rem];
+        @apply border-base-300 bg-primary absolute py-[0.95rem] md:py-[0.3rem];
 
         &.tk-preview {
-          @apply bottom-[3.7rem] right-0 md:bottom-0 md:right-[3.35rem];
+          @apply right-0 bottom-[3.7rem] md:right-[3.35rem] md:bottom-0;
         }
 
         &.tk-send {
-          @apply bottom-0 right-0;
+          @apply right-0 bottom-0;
         }
       }
     }
 
     .__markdown {
-      @apply absolute bottom-[7.75rem] right-3 md:bottom-[2.75rem];
+      @apply absolute right-3 bottom-[7.75rem] md:bottom-[2.75rem];
     }
 
     &:has(.tk-cancel) {
@@ -100,20 +105,20 @@
         }
 
         &.tk-cancel {
-          @apply bottom-[2.4rem] right-0 bg-error text-error-content md:bottom-0 md:right-[6.7rem];
+          @apply bg-error text-error-content right-0 bottom-[2.4rem] md:right-[6.7rem] md:bottom-0;
         }
       }
     }
 
     .tk-preview-container {
-      @apply mt-2 w-full rounded-xl border-2 border-base-300 bg-base-100 p-2;
+      @apply border-base-300 bg-base-100 mt-2 w-full rounded-xl border-2 p-2;
     }
   }
 
-  // 表情框样式
+  /* 表情框样式 */
   .OwO-body {
     /* stylelint-disable-next-line scss/operator-no-unspaced */
-    @apply absolute -left-3 top-9 z-20 hidden w-[calc(100vw-3rem)] max-w-[30rem] rounded-xl border-2 border-base-300 bg-base-200/50 duration-300;
+    @apply border-base-300 bg-base-200/50 absolute top-9 -left-3 z-20 hidden w-[calc(100vw-3rem)] max-w-[30rem] rounded-xl border-2 duration-300;
   }
 
   .OwO-open .OwO-body {
@@ -141,10 +146,10 @@
   }
 
   .OwO-packages {
-    @apply flex flex-wrap items-center text-nowrap px-4;
+    @apply flex flex-wrap items-center px-4 text-nowrap;
 
     > li {
-      @apply flex h-8 cursor-pointer items-center px-3 text-center duration-300 hover:bg-primary/50;
+      @apply hover:bg-primary/50 flex h-8 cursor-pointer items-center px-3 text-center duration-300;
 
       &.OwO-package-active {
         @apply bg-primary/50;
@@ -153,7 +158,7 @@
   }
 
   .tk-comments-container {
-    // 评论整体样式
+    /* 评论整体样式 */
     @apply mt-4 flex w-full flex-col gap-4;
 
     .tk-comments-title {
@@ -173,7 +178,7 @@
     }
 
     > .tk-comment {
-      @apply p-4 max-md:rounded-xl max-md:border-2 max-md:border-base-300 max-md:bg-base-200/50;
+      @apply max-md:border-base-300 max-md:bg-base-200/50 p-4 max-md:rounded-xl max-md:border-2;
 
       > .tk-avatar {
         @apply top-3;
@@ -181,16 +186,16 @@
     }
 
     .tk-replies {
-      @apply ml-6 mt-4 flex flex-col gap-2;
+      @apply mt-4 ml-6 flex flex-col gap-2;
 
       &:not(.tk-replies-expand) {
         @apply max-h-32 overflow-y-hidden;
       }
     }
 
-    // 详细样式
+    /* 详细样式 */
     .tk-avatar {
-      @apply absolute top-0 h-8 min-h-8 w-8 min-w-8 overflow-hidden rounded-full border-2 border-base-300;
+      @apply border-base-300 absolute top-0 h-8 min-h-8 w-8 min-w-8 overflow-hidden rounded-full border-2;
     }
 
     .tk-main > .tk-row {
@@ -199,7 +204,7 @@
 
     .tk-meta {
       a {
-        @apply duration-300 hover:text-primary;
+        @apply hover:text-primary duration-300;
       }
 
       small {
@@ -211,14 +216,14 @@
       }
     }
 
-    // 评论操作样式
+    /* 评论操作样式 */
     .tk-main:not(:has(.tk-replies:hover)):hover > .tk-row .tk-meta .tk-actions {
       @apply opacity-100;
     }
 
     .tk-action {
       .tk-action-link {
-        @apply relative flex items-center justify-center rounded-xl border-2 border-base-300 px-2 py-1 text-center duration-300;
+        @apply border-base-300 relative flex items-center justify-center rounded-xl border-2 px-2 py-1 text-center duration-300;
 
         .tk-action-icon-solid {
           @apply absolute left-2 opacity-0 duration-300;
@@ -254,7 +259,7 @@
       @apply flex flex-row gap-3;
 
       .tk-extra {
-        @apply flex flex-row items-center justify-center gap-2 rounded-md border-2 border-base-300 p-1 text-center text-xs text-base-content/50;
+        @apply border-base-300 text-base-content/50 flex flex-row items-center justify-center gap-2 rounded-md border-2 p-1 text-center text-xs;
       }
 
       .tk-icon {
@@ -263,8 +268,8 @@
     }
 
     .tk-replies .tk-content > span:first-child {
-      // 回复提示（回复：xxx）样式
-      @apply text-xs text-base-content/50;
+      /* 回复提示（回复：xxx）样式 */
+      @apply text-base-content/50 text-xs;
     }
 
     .tk-expand-wrap,
@@ -273,25 +278,25 @@
     }
 
     .tk-expand {
-      @apply w-full cursor-pointer rounded-md bg-base-200/50 py-1 text-sm duration-300 hover:bg-primary/50;
+      @apply bg-base-200/50 hover:bg-primary/50 w-full cursor-pointer rounded-md py-1 text-sm duration-300;
     }
   }
 
-  // 图标样式
+  /* 图标样式 */
   .tk-submit-action-icon {
-    @apply inline-block max-h-6 min-h-6 min-w-6 max-w-6 cursor-pointer fill-primary;
+    @apply fill-primary inline-block max-h-6 min-h-6 max-w-6 min-w-6 cursor-pointer;
   }
 
   .tk-action-icon {
-    @apply inline-block max-h-5 min-h-5 min-w-5 max-w-5 overflow-clip fill-primary;
+    @apply fill-primary inline-block max-h-5 min-h-5 max-w-5 min-w-5 overflow-clip;
   }
 
   .tk-icon {
-    @apply inline-block max-h-4 min-h-4 min-w-4 max-w-4 overflow-clip fill-primary;
+    @apply fill-primary inline-block max-h-4 min-h-4 max-w-4 min-w-4 overflow-clip;
   }
 
   .tk-tag {
-    @apply rounded-lg border-2 border-base-300 p-1 text-xs;
+    @apply border-base-300 rounded-lg border-2 p-1 text-xs;
   }
 }
 
@@ -314,7 +319,11 @@
     @apply relative flex h-full w-full items-center justify-center text-center;
 
     .tk-admin-close {
-      @apply absolute right-2 top-[0.65rem] z-50 h-8 w-8 fill-primary;
+      @apply fill-primary absolute top-[0.65rem] right-2 z-50 h-4 w-4;
+
+      @variant md {
+        @apply top-4 right-3 h-8 w-8;
+      }
     }
 
     > div {
@@ -334,26 +343,26 @@
     @apply h-full w-full overflow-y-scroll;
 
     .tk-panel-title {
-      @apply left-0 top-0 z-40 flex w-full flex-row items-center justify-between p-4;
+      @apply top-0 left-0 z-40 flex w-full flex-row items-center justify-between p-4;
 
-      // 管理面板标题
+      /* 管理面板标题 */
       div {
         @apply text-xl font-bold;
       }
 
       a {
-        @apply mx-6 rounded-xl border-2 border-base-300 bg-base-200/50 px-3 py-1 text-xs duration-300 hover:bg-primary;
+        @apply border-base-300 bg-base-200/50 hover:bg-primary mx-6 rounded-xl border-2 px-3 py-1 text-xs duration-300;
       }
     }
 
     .tk-tabs {
-      @apply flex flex-row items-center justify-between border-b-2 border-base-300 px-4 text-center text-lg;
+      @apply border-base-300 flex flex-row items-center justify-between border-b-2 px-4 text-center text-lg;
 
       .tk-tab {
-        @apply w-full cursor-pointer py-1 duration-300 hover:bg-primary;
+        @apply hover:bg-primary w-full min-w-fit cursor-pointer py-1 duration-300;
 
         &.__active {
-          @apply border-b-2 border-primary;
+          @apply border-primary border-b-2;
         }
       }
     }
@@ -366,7 +375,7 @@
       }
     }
 
-    // 评论管理样式
+    /* 评论管理样式 */
     .tk-admin-comment {
       @apply p-4;
     }
@@ -378,7 +387,7 @@
         @apply w-full;
 
         input {
-          @apply w-full rounded-xl border-2 border-base-300 bg-base-200/50 px-2 py-1;
+          @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 px-2 py-1;
 
           &:focus {
             outline: none;
@@ -387,7 +396,7 @@
       }
 
       select {
-        @apply w-1/4 rounded-xl border-2 border-base-300 bg-base-200/50 p-2;
+        @apply border-base-300 bg-base-200/50 w-1/4 rounded-xl border-2 p-2;
       }
     }
 
@@ -396,23 +405,23 @@
     }
 
     .tk-admin-comment-item {
-      @apply border-b-2 border-base-300 py-1;
+      @apply border-base-300 border-b-2 py-1;
     }
 
     .tk-admin-comment-meta {
       @apply flex flex-row flex-wrap items-center gap-2 text-start;
 
       .tk-avatar {
-        @apply h-8 w-8 overflow-hidden rounded-full border-2 border-base-300;
+        @apply border-base-300 h-8 w-8 overflow-hidden rounded-full border-2;
       }
 
       a {
-        @apply duration-300 hover:text-primary;
+        @apply hover:text-primary duration-300;
       }
 
       span:last-child,
       .tk-time {
-        @apply text-sm text-base-content/50;
+        @apply text-base-content/50 text-sm;
       }
     }
 
@@ -424,7 +433,7 @@
       }
 
       input {
-        @apply w-16 rounded-xl border-2 border-base-300 bg-base-200/50 px-2 py-1;
+        @apply border-base-300 bg-base-200/50 w-16 rounded-xl border-2 px-2 py-1;
 
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button {
@@ -442,14 +451,14 @@
     }
 
     .tk-pagination-pager {
-      @apply cursor-pointer rounded-md px-2 py-1 hover:bg-primary;
+      @apply hover:bg-primary cursor-pointer rounded-md px-2 py-1;
 
       &.__current {
         @apply bg-primary;
       }
     }
 
-    // 配置管理样式
+    /* 配置管理样式 */
     .tk-admin-config {
       @apply p-4;
     }
@@ -459,10 +468,10 @@
     }
 
     details {
-      @apply w-full overflow-hidden rounded-xl border-2 border-base-300 duration-300;
+      @apply border-base-300 w-full overflow-hidden rounded-xl border-2 duration-300;
 
       summary {
-        @apply w-full px-3 py-1 text-start text-2xl duration-300 hover:bg-primary/50;
+        @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-2xl duration-300;
 
         &::marker {
           margin-right: 1.5rem;
@@ -486,7 +495,7 @@
       }
 
       input {
-        @apply w-full rounded-xl border-2 border-base-300 bg-base-200/50 px-2 py-1;
+        @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 px-2 py-1;
 
         &:focus {
           outline: none;
@@ -494,11 +503,11 @@
       }
 
       .tk-admin-config-desc {
-        @apply whitespace-pre-wrap text-start text-sm text-base-content/50;
+        @apply text-base-content/50 text-start text-sm whitespace-pre-wrap;
       }
     }
 
-    // 导入样式
+    /* 导入样式 */
     .tk-admin-import {
       @apply flex flex-col items-start gap-4 p-4;
 
@@ -507,11 +516,11 @@
       }
 
       select {
-        @apply w-full rounded-xl border-2 border-base-300 bg-base-200/50 p-2;
+        @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 p-2;
       }
 
       input {
-        @apply w-full rounded-xl border-2 border-base-300 bg-base-200/50 px-2 py-1;
+        @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 px-2 py-1;
 
         &:focus {
           outline: none;
@@ -522,7 +531,7 @@
         @apply h-full w-full;
 
         textarea {
-          @apply h-full w-full rounded-xl border-2 border-base-300 bg-base-200/50 px-2 py-1;
+          @apply border-base-300 bg-base-200/50 h-full w-full rounded-xl border-2 px-2 py-1;
 
           &:focus {
             outline: none;
@@ -531,7 +540,7 @@
       }
     }
 
-    // 导出样式
+    /* 导出样式 */
     .tk-admin-export {
       @apply p-4;
     }
@@ -539,10 +548,10 @@
 }
 
 .el-input-group {
-  @apply flex w-full flex-row items-center overflow-hidden rounded-xl border-2 border-base-300 bg-base-200/50 text-sm;
+  @apply border-base-300 bg-base-200/50 flex w-full flex-row items-center overflow-hidden rounded-xl border-2 text-sm;
 
   div {
-    @apply w-fit whitespace-nowrap bg-primary/50 px-2 py-1;
+    @apply bg-primary/50 w-fit px-2 py-1 whitespace-nowrap;
   }
 
   input {
@@ -559,7 +568,7 @@
 }
 
 .el-button {
-  @apply text-nowrap rounded-xl border-2 border-base-300 bg-primary px-2 py-1 text-center text-sm duration-300;
+  @apply border-base-300 bg-primary rounded-xl border-2 px-2 py-1 text-center text-sm text-nowrap duration-300;
 
   &:not(.is-disabled) {
     @apply hover:scale-105 hover:brightness-110 active:scale-95 active:brightness-90;
@@ -570,10 +579,10 @@
   }
 }
 
-// Markdown 样式
+/* Markdown 样式 */
 .tk-content,
 .tk-preview-container {
-  // 标题通用样式
+  /* 标题通用样式 */
   h1,
   h2,
   h3,
@@ -586,7 +595,7 @@
     font-weight: bold;
   }
 
-  // 基础文本元素
+  /* 基础文本元素 */
   p {
     margin: 0.5rem 0;
   }
@@ -600,16 +609,16 @@
     }
   }
 
-  // 代码样式
+  /* 代码样式 */
   .code-toolbar {
     @apply relative w-full;
 
     .toolbar {
-      @apply absolute right-3 top-1 flex flex-row-reverse items-center justify-between gap-4 text-xs;
+      @apply absolute top-1 right-3 flex flex-row-reverse items-center justify-between gap-4 text-xs;
     }
 
     .copy-to-clipboard-button {
-      @apply rounded-md border-2 border-base-300 bg-primary px-2 py-1 opacity-0 duration-300;
+      @apply border-base-300 bg-primary rounded-md border-2 px-2 py-1 opacity-0 duration-300;
     }
 
     &:hover .copy-to-clipboard-button {
@@ -624,10 +633,10 @@
   code:not(pre code) {
     padding: 0 0.25rem;
 
-    @apply rounded-md bg-primary/10 text-primary;
+    @apply bg-primary/10 text-primary rounded-md;
   }
 
-  // 媒体元素
+  /* 媒体元素 */
   img:not(.tk-owo-emotion) {
     position: relative;
     margin: 1rem auto;
@@ -641,25 +650,25 @@
     @apply inline-block h-7 self-baseline;
   }
 
-  // 分割线样式
+  /* 分割线样式 */
   hr {
     margin: 1.5rem 0.25rem;
     border: 1px dashed;
   }
 
-  // 引用块样式
+  /* 引用块样式 */
   blockquote {
     padding: 0.25rem 0.25rem 0.25rem 0.75rem;
 
-    @apply my-2 rounded-sm border-l-4 border-primary bg-primary/10;
+    @apply border-primary bg-primary/10 my-2 rounded-sm border-l-4;
   }
 
-  // 折叠块样式
+  /* 折叠块样式 */
   details {
-    @apply w-full overflow-hidden rounded-xl border-2 border-base-300 duration-300;
+    @apply border-base-300 w-full overflow-hidden rounded-xl border-2 duration-300;
 
     summary {
-      @apply w-full px-3 py-1 text-start text-2xl duration-300 hover:bg-primary/50;
+      @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-2xl duration-300;
 
       &::marker {
         margin-right: 1.5rem;

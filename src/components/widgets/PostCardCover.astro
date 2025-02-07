@@ -11,23 +11,15 @@ interface Props {
 const { url, title, cover } = Astro.props;
 ---
 
-<a href={url} title={title} class="group">
-  <div class="cover-mask">
-    <Icon name="material-symbols:chevron-right-rounded" />
+<a
+  href={url}
+  title={title}
+  class="group relative flex min-h-48 w-full overflow-hidden duration-100 active:brightness-75"
+>
+  <div
+    class="absolute inset-0 z-10 flex h-full w-full items-center justify-center bg-black/60 opacity-0 duration-300 group-hover:opacity-100"
+  >
+    <Icon name="material-symbols:chevron-right-rounded" class="h-24 w-24 text-white" />
   </div>
   <ImageWrapper src={cover} alt={title} />
 </a>
-
-<style>
-  a {
-    @apply relative flex min-h-48 w-full overflow-hidden duration-100 active:brightness-75;
-  }
-
-  div.cover-mask {
-    @apply absolute inset-0 z-10 flex h-full w-full items-center justify-center bg-black/60 opacity-0 duration-300 group-hover:opacity-100;
-  }
-
-  svg {
-    @apply h-24 w-24 text-white;
-  }
-</style>

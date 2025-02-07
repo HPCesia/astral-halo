@@ -7,7 +7,7 @@ import Pagefind from './search/Pagefind.astro';
 <dialog id="search_modal" class="modal" transition:persist>
   <div class="modal-box border-base-200 bg-base-300">
     <form method="dialog">
-      <button class="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">✕</button>
+      <button class="btn btn-circle btn-ghost btn-sm absolute top-2 right-2">✕</button>
     </form>
     <div class="w-full p-4">
       {
@@ -21,7 +21,7 @@ import Pagefind from './search/Pagefind.astro';
         })()
       }
     </div>
-    <div class="relative mt-auto w-full flex-shrink-0 pt-4 text-center">
+    <div class="relative mt-auto w-full shrink-0 pt-4 text-center">
       Powered by {
         searchConfig.provider === 'pagefind' ? (
           <a href="https://pagefind.app" target="_blank" class="text-primary">

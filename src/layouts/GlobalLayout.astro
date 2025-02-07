@@ -1,5 +1,6 @@
 ---
 import { profileConfig, siteConfig } from '@/config';
+import '@/styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
@@ -46,7 +47,7 @@ const siteLang = lang.replace('_', '-');
 
     <slot name="head" />
   </head>
-  <body class="flex min-h-screen flex-col bg-base-100 text-base-content">
+  <body class="bg-base-100 text-base-content flex min-h-screen flex-col">
     <slot />
   </body>
 </html>
@@ -65,7 +66,3 @@ const siteLang = lang.replace('_', '-');
   document.addEventListener('astro:after-swap', applyDarkMode);
   applyDarkMode();
 </script>
-
-<style is:global lang="scss">
-  @use '../styles/globals';
-</style>

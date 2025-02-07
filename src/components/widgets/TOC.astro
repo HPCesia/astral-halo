@@ -13,7 +13,7 @@ const maxLevel = 3;
 
 <div
   id="toc"
-  class:list={['card card-bordered border-2 bg-base-100', className]}
+  class:list={['card card-bordered border-base-300 bg-base-100 border-2', className]}
   transition:name="toc-card"
 >
   <div class="card-body p-2">
@@ -29,21 +29,15 @@ const maxLevel = 3;
   </div>
 </div>
 
-<style lang="scss">
+<style>
   $max-level: 3;
 
   a {
     display: block;
     padding: 0.5rem 1rem;
 
-    @apply duration-200 ease-in-out;
+    @apply duration-200;
     @apply hover:scale-105;
     @apply active:scale-95;
-
-    @for $i from 1 through $max-level {
-      &.level-#{$i} {
-        padding-left: #{($i - 1) * 0.5 + 1}rem;
-      }
-    }
   }
 </style>

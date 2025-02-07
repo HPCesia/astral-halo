@@ -24,7 +24,7 @@ if (untaggedPosts.length > 0) tagPosts.set(i18n(I18nKey.untagged) as string, unt
 ---
 
 <MainLayout title={i18n(I18nKey.tags)}>
-  <div class="mx-auto flex max-w-screen-xl flex-col items-center">
+  <div class="mx-auto flex max-w-(--breakpoint-xl) flex-col items-center">
     <h1 class="my-8 text-3xl font-bold">{i18n(I18nKey.tags)}</h1>
     <Timeline items={Array.from(tagPosts.keys())}>
       <fragment slot="title">
@@ -35,7 +35,7 @@ if (untaggedPosts.length > 0) tagPosts.set(i18n(I18nKey.untagged) as string, unt
               <Button
                 href={`/archives/tags/${tag === i18n(I18nKey.untagged) ? I18nKey.untagged : tag.replaceAll(/[\\/]/g, '-')}/1/`}
                 title={tag}
-                class="!pl-3"
+                class="pl-3!"
               >
                 {i18n(I18nKey.more)}
                 <Icon name="material-symbols:chevron-right-rounded" class="text-2xl" />

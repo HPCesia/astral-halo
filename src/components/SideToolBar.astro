@@ -5,7 +5,7 @@ import Button from './widgets/Button.astro';
 import DarkModeButton from './widgets/DarkModeButton.astro';
 ---
 
-<div id="side-toolbar" class="fixed bottom-10 right-0 z-30 grid grid-cols-1 gap-2">
+<div id="side-toolbar" class="fixed right-0 bottom-10 z-30 grid grid-cols-1 gap-2">
   <div
     id="stb-hide"
     class="grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
@@ -24,7 +24,7 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     {
       articleConfig.toc && (
         <Fragment>
-          <Button id="stb-toc" class="btn-circle btn-primary btn-sm hidden xl:!hidden">
+          <Button id="stb-toc" class="btn-circle btn-primary btn-sm hidden xl:hidden!">
             <Icon name="material-symbols:toc-rounded" />
           </Button>
           <div

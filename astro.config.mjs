@@ -5,7 +5,7 @@ import { remarkExcerpt } from './src/plugins/remark-excerpt';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import pagefind from 'astro-pagefind';
 import { defineConfig } from 'astro/config';
@@ -21,7 +21,6 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'ignore',
   integrations: [
-    tailwind({ nesting: true, applyBaseStyles: false }),
     icon(),
     sitemap({ filter: (page) => !page.includes('/archives/') && !page.includes('/about/') }),
     pagefind(),
@@ -75,5 +74,8 @@ export default defineConfig({
       ],
       rehypeWrapTables,
     ],
+  },
+  vite: {
+    plugins: [tailwindcss()],
   },
 });

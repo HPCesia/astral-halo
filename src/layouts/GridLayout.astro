@@ -10,7 +10,7 @@ const { title, description, lang } = Astro.props;
 ---
 
 <MainLayout title={title} description={description} lang={lang}>
-  <div class="mx-auto flex max-w-screen-xl flex-col gap-4">
+  <div class="mx-auto flex max-w-(--breakpoint-xl) flex-col gap-4">
     <slot name="header-content" />
     <div class="flex gap-4">
       <div id="main-content" class="my-4 w-full">

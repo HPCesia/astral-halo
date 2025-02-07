@@ -36,7 +36,7 @@ const { tag } = Astro.params;
 ---
 
 <GridLayout title={tag}>
-  <div class="mx-auto flex max-w-screen-xl flex-col items-center">
+  <div class="mx-auto flex max-w-(--breakpoint-xl) flex-col items-center">
     <h1 class="my-8 text-3xl font-bold">{tag}</h1>
   </div>
   <PostPage posts={posts} currentPage={currentPage} baseUrl={`/archives/tags/${tag}`} />
