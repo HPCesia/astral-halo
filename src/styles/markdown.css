@@ -277,10 +277,10 @@ article {
 
   /* 折叠块样式 */
   details {
-    @apply border-base-300 w-full overflow-hidden rounded-xl border-2 duration-300;
+    @apply border-base-300 w-full overflow-hidden rounded-xl border-[1px] duration-300;
 
     summary {
-      @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-2xl duration-300;
+      @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-lg duration-300;
 
       &::marker {
         margin-right: 1.5rem;
@@ -291,6 +291,10 @@ article {
       summary {
         @apply bg-primary/50;
       }
+    }
+
+    > :not(summary) {
+      @apply p-3;
     }
   }
 
