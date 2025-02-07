@@ -45,7 +45,6 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
 <script>
   async function init() {
     prettierPreCode();
-    wrapTables();
   }
 
   function prettierPreCode() {
@@ -102,16 +101,6 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
 
     codeBlocks.forEach((pre) => {
       if (!isWrapped(pre as HTMLPreElement)) wrapPre(pre as HTMLPreElement);
-    });
-  }
-
-  function wrapTables() {
-    const tables = document.querySelectorAll('article table');
-    tables.forEach((table) => {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'overflow-auto';
-      table.parentNode?.insertBefore(wrapper, table);
-      wrapper.appendChild(table);
     });
   }
 

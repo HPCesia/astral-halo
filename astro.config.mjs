@@ -1,4 +1,5 @@
 // @ts-check
+import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.mjs';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
@@ -58,6 +59,7 @@ export default defineConfig({
           },
         },
       ],
+      rehypeWrapTables,
     ],
   },
 });
