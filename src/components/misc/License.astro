@@ -30,13 +30,13 @@ const infomations = [
 ---
 
 <div class="card card-bordered border-base-300 bg-primary/25 my-4 border-2">
-  <div class="card-body grid grid-cols-2 gap-x-4 p-4">
+  <div class="card-body grid grid-cols-2 gap-x-4 p-4 text-lg">
     {
       infomations.map((info) => (
         <Fragment>
           <span class="mr-4 text-right font-bold">{info.key}</span>
           {info.link ? (
-            <a href={info.link} class="theme-text-hl-contrast">
+            <a href={info.link} class="text-primary hover:underline">
               {info.value}
             </a>
           ) : (
