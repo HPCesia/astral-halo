@@ -52,8 +52,6 @@ export const navbarConfig: NavbarConfig = {
         text: I18nKey.subscribe,
         href: '/rss.xml',
       },
-    ],
-    always: [
       {
         icon: 'material-symbols:casino',
         text: I18nKey.randomPost,
@@ -62,6 +60,8 @@ export const navbarConfig: NavbarConfig = {
           function: getRandomPost,
         },
       },
+    ],
+    always: [
       {
         icon: 'material-symbols:search-rounded',
         text: I18nKey.search,
