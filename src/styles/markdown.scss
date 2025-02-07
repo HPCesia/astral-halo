@@ -140,7 +140,15 @@ article {
       transition: 300ms all ease;
 
       &:checked {
-        @apply bg-primary/50;
+        @apply bg-primary/75;
+
+        &::after {
+          content: '✓';
+          position: absolute;
+          font-size: 0.75em;
+          line-height: 0.75em;
+          color: theme('colors.primary-content');
+        }
       }
     }
   }
