@@ -9,12 +9,12 @@ Astral Halo is a static blog template developed with [Astro](https://astro.build
 
 ## Features
 
-- [x] Built with Astro and Tailwind CSS (using daisyUI)
+- [x] Built with Astro and Tailwind CSS (using [daisyUI](https://daisyui.com/?lang=en))
 - [x] Freely switchable light/dark themes
 - [x] Responsive design
 - [x] Search functionality (currently only supports [Pagefind](https://pagefind.app/))
 - [x] Article table of contents
-- [x] Comments system (currently only supports [Twikoo](https://twikoo.js.org/))
+- [x] Comments system (supports [Twikoo](https://twikoo.js.org/en/) and [Giscus](https://giscus.app/))
 - [ ] Smooth animations and page transitions
 
 ## Getting Started
