@@ -6,7 +6,8 @@ article {
   h2,
   h3,
   h4,
-  h5 {
+  h5,
+  h6 {
     display: inline-block;
     width: 100%;
     margin: 1rem 0 0.5rem;
@@ -31,19 +32,23 @@ article {
 
   /* 各级标题特殊样式 */
   h1 {
-    @apply text-2xl;
+    @apply text-3xl;
   }
 
   h2 {
-    @apply text-xl;
+    @apply text-2xl;
   }
 
   h3 {
+    @apply text-xl;
+  }
+
+  h4 {
     @apply text-lg;
   }
 
-  h4,
-  h5 {
+  h5,
+  h6 {
     @apply text-base;
   }
 
