@@ -1,6 +1,7 @@
 // @ts-check
 import { CDN } from './src/constants/cdn.mjs';
 import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.mjs';
+import { remarkExcerpt } from './src/plugins/remark-excerpt';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
@@ -36,6 +37,7 @@ export default defineConfig({
     remarkPlugins: [
       remarkMath,
       remarkReadingTime,
+      remarkExcerpt,
       // @ts-expect-error - types are not up to date
       [
         remarkGithubBlockQuote,

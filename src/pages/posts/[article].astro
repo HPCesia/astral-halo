@@ -19,9 +19,11 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(article);
+
+const description = article.data.description || remarkPluginFrontmatter.excerpt;
 ---
 
-<GridLayout title={article.data.title} description={article.data.description}>
+<GridLayout title={article.data.title} description={description}>
   <Fragment slot="header-content">
     <PostInfo
       title={article.data.title}
