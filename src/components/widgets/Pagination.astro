@@ -52,7 +52,7 @@ else {
     )
   }
   <div class="mx-auto flex items-center justify-center gap-2">
-    <div class="join rounded-xl">
+    <div class={pages.length > 1 ? 'join' : undefined}>
       {
         pages.map((p) => {
           return (
