@@ -13,7 +13,7 @@ const { class: className, showText, ...rest } = Astro.props;
 ---
 
 <Button
-  class:list={['darkmode-btn swap swap-rotate', className]}
+  class:list={['darkmode-btn swap', className]}
   {...rest}
   data-text-light={i18n(I18nKey.lightMode)}
   data-text-dark={i18n(I18nKey.darkMode)}
@@ -81,6 +81,7 @@ const { class: className, showText, ...rest } = Astro.props;
         } else if (!checkbox.checked) {
           checkbox.checked = true;
         } else {
+          checkbox.checked = false;
           checkbox.indeterminate = true;
         }
 
