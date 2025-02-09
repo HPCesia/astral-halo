@@ -18,6 +18,14 @@ export async function getSortedPosts(): Promise<{ body: string; data: BlogPostDa
   return sortedBlogPosts;
 }
 
+export async function getPostsCount(): Promise<number> {
+  const allBlogPosts = (await getCollection('posts')) as unknown as {
+    body: string;
+    data: BlogPostData;
+  }[];
+  return allBlogPosts.length;
+}
+
 export async function getCategories(): Promise<string[]> {
   const allBlogPosts = await getSortedPosts();
   const categories = [
@@ -32,37 +40,6 @@ export async function getTags(): Promise<string[]> {
   const allBlogPosts = await getSortedPosts();
   const tags = [...new Set(allBlogPosts.map((post) => post.data.tags || []).flat())];
   return tags;
-}
-
-export async function getTimeArchives() {
-  const allBlogPosts = await getSortedPosts();
-  const yearMap = new Map<number, Map<number, { body: string; data: BlogPostData }[]>>();
-  for (const post of allBlogPosts) {
-    const year = post.data.published.getFullYear();
-    const month = post.data.published.getMonth() + 1;
-    let monthMap = yearMap.get(year);
-    if (!monthMap) {
-      monthMap = new Map();
-      yearMap.set(year, monthMap);
-    }
-    let monthPosts = monthMap.get(month);
-    if (!monthPosts) {
-      monthPosts = [];
-      monthMap.set(month, monthPosts);
-    }
-    monthPosts.push(post);
-  }
-  return Array.from(yearMap.entries())
-    .map(([year, monthMap]) => ({
-      year,
-      months: Array.from(monthMap.entries())
-        .map(([month, posts]) => ({
-          month,
-          posts,
-        }))
-        .sort((a, b) => b.month - a.month),
-    }))
-    .sort((a, b) => b.year - a.year);
 }
 
 export function getCategoryUrl(category: string | undefined) {

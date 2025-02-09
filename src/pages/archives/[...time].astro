@@ -1,34 +1,226 @@
 ---
-import TimeArchives from '@components/TimeArchives.astro';
+import { siteConfig } from '@/config';
+import type { BlogPostData } from '@/types/data';
+import MetaIcon from '@components/widgets/MetaIcon.astro';
 import ProfileCard from '@components/widgets/ProfileCard.astro';
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
 import GridLayout from '@layouts/GridLayout.astro';
-import { getTimeArchives } from '@utils/content-utils';
-
-type AllTimeArchives = Awaited<ReturnType<typeof getTimeArchives>>;
-type YearArchives = AllTimeArchives[number];
+import { getCategoryUrl, getSortedPosts, getTagUrl } from '@utils/content-utils';
 
 export async function getStaticPaths() {
-  const timeReducedPosts = await getTimeArchives();
-  let paths: {
-    params: { time: string | undefined };
-    props: { group: AllTimeArchives | YearArchives };
-  }[] = [{ params: { time: undefined }, props: { group: timeReducedPosts } }];
-  paths = [
-    ...paths,
-    ...timeReducedPosts.map((group) => ({
-      params: { time: `${group.year}` },
-      props: { group: group },
+  const allBlogPosts = await getSortedPosts();
+  const yearMap = new Map<number, Map<number, { body: string; data: BlogPostData }[]>>();
+  for (const post of allBlogPosts) {
+    const year = post.data.published.getFullYear();
+    const month = post.data.published.getMonth() + 1;
+    let monthMap = yearMap.get(year);
+    if (!monthMap) {
+      monthMap = new Map();
+      yearMap.set(year, monthMap);
+    }
+    let monthPosts = monthMap.get(month);
+    if (!monthPosts) {
+      monthPosts = [];
+      monthMap.set(month, monthPosts);
+    }
+    monthPosts.push(post);
+  }
+  const data = Array.from(yearMap.entries()).map(([year, monthMap]) => ({
+    year,
+    data: Array.from(monthMap.entries()).map(([month, postData]) => ({
+      month,
+      data: postData,
     })),
+  }));
+  const paths = [
+    {
+      params: {
+        time: undefined,
+      },
+      props: {
+        data,
+      },
+    },
+    ...data.map(({ year }) => ({
+      params: {
+        time: year.toString(),
+      },
+      props: {
+        data: data,
+      },
+    })),
+    ...data.flatMap(({ year, data: monthData }) =>
+      monthData.map(({ month }) => ({
+        params: {
+          time: `${year}/${month}`,
+        },
+        props: {
+          data: data,
+        },
+      }))
+    ),
   ];
   return paths;
 }
 
-const { group } = Astro.props;
+const { data } = Astro.props;
+const slug = Astro.params.time;
 ---
 
 <GridLayout>
-  <div class="flex flex-col gap-4">
-    <TimeArchives group={group} />
+  <div class="card card-bordered border-base-300 border-2 px-6 py-4">
+    {
+      (() => {
+        function renderMonth(year: number, month: number) {
+          let monthData = data
+            .find((d) => d.year === year)
+            ?.data.find((d) => d.month === month)?.data;
+          if (!monthData) {
+            return <p>SHOULD NOT RENDER THIS, IS A BUG</p>;
+          }
+          return (
+            <ul class="list">
+              {monthData.map(({ data }) => (
+                <li class="list-row">
+                  <div class="list-col-grow">
+                    <a
+                      href={`/posts/${data.slug}`}
+                      title={data.title}
+                      class="text-lg font-bold"
+                    >
+                      {data.title}
+                    </a>
+                    <div class="text-base-content/60 mt-2 flex flex-wrap items-start gap-x-4 gap-y-2 text-sm">
+                      {[
+                        {
+                          icon: 'material-symbols:category-outline-rounded',
+                          text: data.category || i18n(I18nKey.uncategorized),
+                          link: getCategoryUrl(data.category),
+                        },
+                        ...data.tags.map((tag) => {
+                          return {
+                            icon: 'material-symbols:tag-rounded',
+                            text: tag,
+                            link: getTagUrl(tag),
+                          };
+                        }),
+                      ].map((meta) => (
+                        <div class="flex items-center gap-0">
+                          <MetaIcon name={meta.icon} />
+                          {meta.link ? (
+                            <a href={meta.link} class="meta-text" title={meta.text}>
+                              {meta.text}
+                            </a>
+                          ) : (
+                            <span class="meta-text">{meta.text}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <span class="text-base-content/60">
+                    {data.published.toLocaleDateString(siteConfig.lang)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          );
+        }
+
+        function renderYear(year: number) {
+          const yearData = data.find((d) => d.year === year)?.data;
+          if (!yearData) {
+            return <p>SHOULD NOT RENDER THIS, IS A BUG</p>;
+          }
+          return yearData.map(({ month }) => (
+            <>
+              <div class="divider mx-3 mt-8 text-xl font-bold">
+                <a
+                  href={`/archives/${year}/${month}`}
+                  title={`${year}/${month}`}
+                  class="hover:text-primary duration-200"
+                >
+                  {month}
+                </a>
+              </div>
+              <div class="mx-2">{renderMonth(year, month)}</div>
+            </>
+          ));
+        }
+
+        function renderAll() {
+          return data.map(({ year }) => (
+            <>
+              <div class="divider mt-12 text-2xl font-bold" id={`${year}`}>
+                <a
+                  href={`/archives/${year}`}
+                  title={`${year}`}
+                  class="hover:text-primary duration-200"
+                >
+                  {year}
+                </a>
+              </div>
+              <div class="px-4">{renderYear(year)}</div>
+            </>
+          ));
+        }
+
+        let archiveNav;
+        if (slug) {
+          const [year, month] = slug.split('/').map(Number);
+          if (month) {
+            archiveNav = (
+              <div class="breadcrumbs text-xl">
+                <ul>
+                  <li>
+                    <a href="/archives">{i18n(I18nKey.archive)}</a>
+                  </li>
+                  <li>
+                    <a href={`/archives/${year}`}>{year}</a>
+                  </li>
+                  <li>
+                    <a href={`/archives/${year}/${month}`}>{month}</a>
+                  </li>
+                </ul>
+              </div>
+            );
+            return (
+              <>
+                <>{archiveNav}</>
+                <>{renderMonth(year, month)}</>
+              </>
+            );
+          }
+          archiveNav = (
+            <div class="breadcrumbs text-xl">
+              <ul>
+                <li>
+                  <a href="/archives">{i18n(I18nKey.archive)}</a>
+                </li>
+                <li>
+                  <a href={`/archives/${year}`}>{year}</a>
+                </li>
+              </ul>
+            </div>
+          );
+          return (
+            <>
+              <>{archiveNav}</>
+              <>{renderYear(year)}</>
+            </>
+          );
+        } else {
+          archiveNav = <h1 class="text-center text-3xl font-bold">{i18n(I18nKey.archive)}</h1>;
+          return (
+            <>
+              <>{archiveNav}</>
+              <>{renderAll()}</>
+            </>
+          );
+        }
+      })()
+    }
   </div>
   <Fragment slot="aside-fixed">
     <ProfileCard />
