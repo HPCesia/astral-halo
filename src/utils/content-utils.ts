@@ -44,8 +44,8 @@ export async function getTags(): Promise<string[]> {
 
 export function getCategoryUrl(category: string | undefined) {
   return category
-    ? `/archives//categories/${category.replaceAll(/[\\/]/g, '-')}/1/`
-    : `/archives//categories/${I18nKey.uncategorized}/1/`;
+    ? `/archives/categories/${category.replaceAll(/[\\/]/g, '-')}/1/`
+    : `/archives/categories/${I18nKey.uncategorized}/1/`;
 }
 
 export function getTagUrl(tag: string) {
