@@ -283,13 +283,11 @@ export type SearchConfig = {
    */
   enable: boolean;
   /**
-   * `'pagefind'` | `'algolia'`.
+   * The provider of the search.
    *
-   * Algolia is not implemented yet, just a placeholder. Please use Pagefind.
-   *
-   * Algolia 尚未实现，只是一个占位符。请使用 Pagefind。
+   * 搜索的提供者。
    */
-  provider: 'pagefind' | 'algolia';
+  provider: 'pagefind';
 };
 
 export type CommentConfig = {
