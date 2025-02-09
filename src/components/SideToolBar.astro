@@ -117,8 +117,11 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
       const scrolledPercentage = getReadingProgress();
       if (stbReadPercent) stbReadPercent.textContent = `${scrolledPercentage}`;
       const bottomPos =
-        (document.getElementById('comment') || document.getElementById('footer'))?.offsetTop ||
-        document.documentElement.scrollHeight;
+        (
+          document.getElementById('page-comment') ||
+          document.getElementById('page-footer') ||
+          document.getElementById('footer')
+        )?.offsetTop || document.documentElement.scrollHeight;
       const isNearEnd = window.scrollY + document.documentElement.clientHeight >= bottomPos;
       if (isNearEnd) {
         stbReadPercent?.classList.add('opacity-0');
