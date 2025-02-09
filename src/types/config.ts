@@ -1,5 +1,20 @@
 import type I18nKey from '@i18n/I18nKey';
 
+export type Favicon = {
+  /**
+   * The URL of the favicon.
+   *
+   * favicon 的 URL。
+   */
+  src: string;
+  /**
+   * The sizes of the favicon.
+   *
+   * favicon 的尺寸。
+   */
+  sizes?: `${string}x${string}`;
+};
+
 export type ButtonSubConfig<T extends string> = T extends 'text'
   ? {
       /**
@@ -94,7 +109,7 @@ export type SiteConfig = {
    *
    * 站点的 favicon。
    */
-  favicon: string[];
+  favicon: Favicon[];
   /**
    * The number of posts displayed per page.
    *

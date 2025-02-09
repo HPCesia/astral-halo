@@ -16,7 +16,10 @@ export const siteConfig: SiteConfig = {
   title: 'Astral Halo',
   subtitle: '',
   lang: 'en', // "en" | "zh_CN" | "zh_TW"
-  favicon: [''],
+  favicon: [
+    // Leave this array empty to use the default favicon.
+    // 留空数组以使用默认的 favicon。
+  ],
   postsPerPage: 10,
 };
 
