@@ -165,7 +165,7 @@ const postCount = await getPostsCount();
           );
         }
 
-        function renderYear(year: number) {
+        function renderYear(year: number, reverse: boolean = false) {
           const yearData = data.find((d) => d.year === year)?.data;
           if (!yearData) {
             return <p>SHOULD NOT RENDER THIS, IS A BUG</p>;
@@ -178,10 +178,15 @@ const postCount = await getPostsCount();
                   <div class="timeline-middle">
                     <Icon name="material-symbols:add-circle-rounded" class="text-xl" />
                   </div>
-                  <div class:list={[`timeline-${index % 2 === 0 ? 'start' : 'end'}`, 'w-full']}>
+                  <div
+                    class:list={[
+                      `timeline-${(index % 2 === 0) !== reverse ? 'start' : 'end'}`,
+                      'w-full',
+                    ]}
+                  >
                     <div
                       class:list={[
-                        index % 2 === 0 && 'md:flex-row-reverse',
+                        (index % 2 === 0) !== reverse && 'md:flex-row-reverse',
                         'mx-4 flex scroll-mt-20 flex-row items-center justify-between',
                       ]}
                       id={`${year}-${month}`}
@@ -206,20 +211,25 @@ const postCount = await getPostsCount();
         }
 
         function renderAll() {
-          return data.map(({ year }) => (
-            <>
-              <div class="divider mt-12 scroll-mt-20 text-2xl font-bold" id={`${year}`}>
-                <a
-                  href={`/archives/${year}`}
-                  title={`${year}`}
-                  class="hover:text-primary duration-200"
-                >
-                  {year}
-                </a>
-              </div>
-              <div class="px-4">{renderYear(year)}</div>
-            </>
-          ));
+          let totalMonths = 0;
+          return data.map(({ year, data: yearData }) => {
+            const reverse = totalMonths % 2 !== 0;
+            totalMonths += yearData.length;
+            return (
+              <>
+                <div class="divider mt-12 scroll-mt-20 text-2xl font-bold" id={`${year}`}>
+                  <a
+                    href={`/archives/${year}`}
+                    title={`${year}`}
+                    class="hover:text-primary duration-200"
+                  >
+                    {year}
+                  </a>
+                </div>
+                <div class="px-4">{renderYear(year, reverse)}</div>
+              </>
+            );
+          });
         }
 
         if (slug) {
