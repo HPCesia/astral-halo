@@ -3,10 +3,11 @@ import { siteConfig } from '@/config';
 import type { BlogPostData } from '@/types/data';
 import MetaIcon from '@components/widgets/MetaIcon.astro';
 import ProfileCard from '@components/widgets/ProfileCard.astro';
+import TOC from '@components/widgets/TOC.astro';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
 import GridLayout from '@layouts/GridLayout.astro';
-import { getCategoryUrl, getSortedPosts, getTagUrl } from '@utils/content-utils';
+import { getCategoryUrl, getPostsCount, getSortedPosts, getTagUrl } from '@utils/content-utils';
 
 export async function getStaticPaths() {
   const allBlogPosts = await getSortedPosts();
@@ -66,10 +67,42 @@ export async function getStaticPaths() {
 
 const { data } = Astro.props;
 const slug = Astro.params.time;
+const postCount = await getPostsCount();
 ---
 
 <GridLayout>
+  <div class="card card-bordered border-base-300 mb-4 border-2">
+    <div class="breadcrumbs card-body text-md py-3">
+      <ul>
+        <li>
+          <a href="/archives">{i18n(I18nKey.archive)}</a>
+        </li>
+        {
+          slug &&
+            (() => {
+              const [year, month] = slug.split('/').map(Number);
+              return (
+                <>
+                  <li>
+                    <a href={`/archives/${year}`}>{year}</a>
+                  </li>
+                  {month && (
+                    <li>
+                      <a href={`/archives/${year}/${month}`}>{month}</a>
+                    </li>
+                  )}
+                </>
+              );
+            })()
+        }
+      </ul>
+    </div>
+  </div>
   <div class="card card-bordered border-base-300 border-2 px-6 py-4">
+    <h1 class="mb-2 text-center text-3xl font-bold">{i18n(I18nKey.archive)}</h1>
+    <div class="text-base-content/80 text-center">
+      {`${postCount} ${i18n(postCount > 1 ? I18nKey.postsCount : I18nKey.postCount)}`}
+    </div>
     {
       (() => {
         function renderMonth(year: number, month: number) {
@@ -135,7 +168,10 @@ const slug = Astro.params.time;
           }
           return yearData.map(({ month }) => (
             <>
-              <div class="divider mx-3 mt-8 text-xl font-bold">
+              <div
+                class="divider mx-3 mt-8 scroll-mt-20 text-xl font-bold"
+                id={`${year}/${month}`}
+              >
                 <a
                   href={`/archives/${year}/${month}`}
                   title={`${year}/${month}`}
@@ -152,7 +188,7 @@ const slug = Astro.params.time;
         function renderAll() {
           return data.map(({ year }) => (
             <>
-              <div class="divider mt-12 text-2xl font-bold" id={`${year}`}>
+              <div class="divider mt-12 scroll-mt-20 text-2xl font-bold" id={`${year}`}>
                 <a
                   href={`/archives/${year}`}
                   title={`${year}`}
@@ -166,63 +202,39 @@ const slug = Astro.params.time;
           ));
         }
 
-        let archiveNav;
         if (slug) {
           const [year, month] = slug.split('/').map(Number);
           if (month) {
-            archiveNav = (
-              <div class="breadcrumbs text-xl">
-                <ul>
-                  <li>
-                    <a href="/archives">{i18n(I18nKey.archive)}</a>
-                  </li>
-                  <li>
-                    <a href={`/archives/${year}`}>{year}</a>
-                  </li>
-                  <li>
-                    <a href={`/archives/${year}/${month}`}>{month}</a>
-                  </li>
-                </ul>
-              </div>
-            );
-            return (
-              <>
-                <>{archiveNav}</>
-                <>{renderMonth(year, month)}</>
-              </>
-            );
+            return renderMonth(year, month);
           }
-          archiveNav = (
-            <div class="breadcrumbs text-xl">
-              <ul>
-                <li>
-                  <a href="/archives">{i18n(I18nKey.archive)}</a>
-                </li>
-                <li>
-                  <a href={`/archives/${year}`}>{year}</a>
-                </li>
-              </ul>
-            </div>
-          );
-          return (
-            <>
-              <>{archiveNav}</>
-              <>{renderYear(year)}</>
-            </>
-          );
+          return renderYear(year);
         } else {
-          archiveNav = <h1 class="text-center text-3xl font-bold">{i18n(I18nKey.archive)}</h1>;
-          return (
-            <>
-              <>{archiveNav}</>
-              <>{renderAll()}</>
-            </>
-          );
+          return renderAll();
         }
       })()
     }
   </div>
   <Fragment slot="aside-fixed">
     <ProfileCard />
+  </Fragment>
+  <Fragment slot="aside-sticky">
+    {
+      !slug && (
+        <TOC
+          headings={data.flatMap(({ year, data }) => [
+            {
+              depth: 2,
+              text: year.toString(),
+              slug: `${year}`,
+            },
+            ...data.map(({ month }) => ({
+              depth: 3,
+              text: month.toString(),
+              slug: `${year}/${month}`,
+            })),
+          ])}
+        />
+      )
+    }
   </Fragment>
 </GridLayout>
