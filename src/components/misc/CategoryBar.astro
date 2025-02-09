@@ -15,7 +15,10 @@ const { categories, currentCategory } = Astro.props;
   <div class="card-body flex flex-row items-center gap-2 overflow-auto px-2 py-3">
     <a
       href={`/`}
-      class:list={['btn btn-ghost h-8 min-h-8 px-3 py-0', currentCategory ? '' : 'btn-active']}
+      class:list={[
+        'btn btn-ghost h-8 min-h-8 rounded-md px-3 py-0',
+        currentCategory ? '' : 'btn-active',
+      ]}
     >
       {i18n(I18nKey.recentPosts)}
     </a>
@@ -24,7 +27,7 @@ const { categories, currentCategory } = Astro.props;
         <a
           href={getCategoryUrl(category)}
           class:list={[
-            'btn btn-ghost h-8 min-h-8 px-3 py-0',
+            'btn btn-ghost h-8 min-h-8 rounded-md px-3 py-0',
             currentCategory === category ? 'btn-active' : '',
           ]}
         >
