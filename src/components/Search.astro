@@ -1,6 +1,5 @@
 ---
 import { searchConfig } from '@/config';
-import Algolia from './search/Algolia.astro';
 import Pagefind from './search/Pagefind.astro';
 ---
 
@@ -15,8 +14,6 @@ import Pagefind from './search/Pagefind.astro';
           switch (searchConfig.provider) {
             case 'pagefind':
               return <Pagefind />;
-            case 'algolia':
-              return <Algolia />;
           }
         })()
       }
