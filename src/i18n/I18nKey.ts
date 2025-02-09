@@ -22,6 +22,10 @@ enum I18nKey {
   minutesCount = 'minutesCount',
   postCount = 'postCount',
   postsCount = 'postsCount',
+  tagCount = 'tagCount',
+  tagsCount = 'tagsCount',
+  categoryCount = 'categoryCount',
+  categoriesCount = 'categoriesCount',
 
   lightMode = 'lightMode',
   darkMode = 'darkMode',

@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from '@/config';
 import type { BlogPostData } from '@/types/data';
+import Button from '@components/widgets/Button.astro';
 import MetaIcon from '@components/widgets/MetaIcon.astro';
 import ProfileCard from '@components/widgets/ProfileCard.astro';
 import TOC from '@components/widgets/TOC.astro';
@@ -8,6 +9,7 @@ import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
 import GridLayout from '@layouts/GridLayout.astro';
 import { getCategoryUrl, getPostsCount, getSortedPosts, getTagUrl } from '@utils/content-utils';
+import { Icon } from 'astro-icon/components';
 
 export async function getStaticPaths() {
   const allBlogPosts = await getSortedPosts();
@@ -99,9 +101,11 @@ const postCount = await getPostsCount();
     </div>
   </div>
   <div class="card card-bordered border-base-300 border-2 px-6 py-4">
-    <h1 class="mb-2 text-center text-3xl font-bold">{i18n(I18nKey.archive)}</h1>
-    <div class="text-base-content/80 text-center">
-      {`${postCount} ${i18n(postCount > 1 ? I18nKey.postsCount : I18nKey.postCount)}`}
+    <div class="tooltip tooltip-right mx-auto w-fit">
+      <h1 class="text-center text-3xl font-bold">{i18n(I18nKey.archive)}</h1>
+      <div class="tooltip-content">
+        {`${postCount} ${i18n(postCount > 1 ? I18nKey.postsCount : I18nKey.postCount)}`}
+      </div>
     </div>
     {
       (() => {
@@ -166,23 +170,39 @@ const postCount = await getPostsCount();
           if (!yearData) {
             return <p>SHOULD NOT RENDER THIS, IS A BUG</p>;
           }
-          return yearData.map(({ month }) => (
-            <>
-              <div
-                class="divider mx-3 mt-8 scroll-mt-20 text-xl font-bold"
-                id={`${year}/${month}`}
-              >
-                <a
-                  href={`/archives/${year}/${month}`}
-                  title={`${year}/${month}`}
-                  class="hover:text-primary duration-200"
-                >
-                  {month}
-                </a>
-              </div>
-              <div class="mx-2">{renderMonth(year, month)}</div>
-            </>
-          ));
+          return (
+            <ul class="timeline timeline-snap-icon timeline-vertical max-md:timeline-compact w-full">
+              {yearData.map(({ month }, index) => (
+                <li>
+                  {index > 0 && <hr />}
+                  <div class="timeline-middle">
+                    <Icon name="material-symbols:add-circle-rounded" class="text-xl" />
+                  </div>
+                  <div class:list={[`timeline-${index % 2 === 0 ? 'start' : 'end'}`, 'w-full']}>
+                    <div
+                      class:list={[
+                        index % 2 === 0 && 'md:flex-row-reverse',
+                        'mx-4 flex scroll-mt-20 flex-row items-center justify-between',
+                      ]}
+                      id={`${year}-${month}`}
+                    >
+                      <div class="text-2xl font-bold">{month}</div>
+                      <Button
+                        href={`/archives/${year}/${month}`}
+                        title={`${year}/${month}`}
+                        class="pl-3"
+                      >
+                        {i18n(I18nKey.more)}
+                        <Icon name="material-symbols:chevron-right-rounded" class="text-2xl" />
+                      </Button>
+                    </div>
+                    <div class="mx-2">{renderMonth(year, month)}</div>
+                  </div>
+                  <hr />
+                </li>
+              ))}
+            </ul>
+          );
         }
 
         function renderAll() {
@@ -230,7 +250,7 @@ const postCount = await getPostsCount();
             ...data.map(({ month }) => ({
               depth: 3,
               text: month.toString(),
-              slug: `${year}/${month}`,
+              slug: `${year}-${month}`,
             })),
           ])}
         />

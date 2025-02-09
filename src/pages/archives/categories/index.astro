@@ -1,12 +1,13 @@
 ---
 import type { BlogPostData } from '@/types/data';
 import { getCategories, getCategoryUrl, getSortedPosts } from '@/utils/content-utils';
-import Timeline from '@components/Timeline.astro';
 import Button from '@components/widgets/Button.astro';
-import PostCard from '@components/widgets/PostCard.astro';
+import MetaIcon from '@components/widgets/MetaIcon.astro';
+import ProfileCard from '@components/widgets/ProfileCard.astro';
+import TOC from '@components/widgets/TOC.astro';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
-import MainLayout from '@layouts/MainLayout.astro';
+import GridLayout from '@layouts/GridLayout.astro';
 import { Icon } from 'astro-icon/components';
 
 const categories = await getCategories();
@@ -22,42 +23,106 @@ if (uncategorizedPosts.length > 0)
   categoryPosts.set(i18n(I18nKey.uncategorized) as string, uncategorizedPosts);
 ---
 
-<MainLayout title={i18n(I18nKey.categories)}>
-  <div class="mx-auto flex max-w-(--breakpoint-xl) flex-col items-center">
-    <h1 class="my-8 text-3xl font-bold">{i18n(I18nKey.categories)}</h1>
-    <Timeline items={Array.from(categoryPosts.keys())}>
-      <fragment slot="title">
+<GridLayout title={i18n(I18nKey.categories)}>
+  <div
+    class="card card-border border-base-300 mx-auto flex flex-col items-center border-2 px-6 py-4"
+  >
+    <div class="tooltip tooltip-right mx-auto w-fit">
+      <h1 class="text-center text-3xl font-bold">{i18n(I18nKey.categories)}</h1>
+      <div class="tooltip-content">
         {
-          (category: string) => (
-            <div class="mb-6 flex items-center justify-between">
-              <h2 class="text-2xl font-bold">{category}</h2>
-              <Button href={getCategoryUrl(category)} title={category} class="pl-3">
-                {i18n(I18nKey.more)}
-                <Icon name="material-symbols:chevron-right-rounded" class="text-2xl" />
-              </Button>
-            </div>
-          )
+          [
+            `${allPosts.length} ${i18n(allPosts.length > 1 ? I18nKey.postsCount : I18nKey.postCount)}`,
+            ', ',
+            `${categories.length} ${i18n(categories.length > 1 ? I18nKey.categoriesCount : I18nKey.categoryCount)}`,
+          ]
         }
-      </fragment>
-      <fragment slot="body">
-        {
-          (category: string) => (
-            <div class="ml-4 flex flex-col gap-4">
-              {categoryPosts.get(category)?.map((post) => (
-                <PostCard
-                  title={post.data.title}
-                  url={`/posts/${post.data.slug}/`}
-                  published={post.data.published}
-                  tags={post.data.tags || []}
-                  category={post.data.category}
-                  cover={post.data.cover}
-                  description={post.data.description}
-                />
-              ))}
+      </div>
+    </div>
+    <ul
+      class="timeline timeline-snap-icon timeline-vertical max-md:timeline-compact w-full p-4"
+    >
+      {
+        Array.from(categoryPosts.entries()).map(([category, posts], index) => (
+          <li>
+            {index > 0 && <hr />}
+            <div class="timeline-middle">
+              <Icon name="material-symbols:add-circle-rounded" class="text-xl" />
             </div>
-          )
-        }
-      </fragment>
-    </Timeline>
+            <div class:list={[`timeline-${index % 2 === 0 ? 'start' : 'end'}`, 'w-full']}>
+              <div
+                class:list={[
+                  index % 2 === 0 && 'md:flex-row-reverse',
+                  'mx-4 flex flex-row items-center justify-between',
+                ]}
+              >
+                <h2 class="scroll-mt-20 text-2xl font-bold" id={`heading-${category}`}>
+                  {category}
+                </h2>
+                <Button href={getCategoryUrl(category)} title={category} class="pl-3">
+                  {i18n(I18nKey.more)}
+                  <Icon name="material-symbols:chevron-right-rounded" class="text-2xl" />
+                </Button>
+              </div>
+              <ul class="list">
+                {posts.map(({ data }) => (
+                  <li class="list-row">
+                    <div class="list-col-grow">
+                      <a
+                        href={`/posts/${data.slug}`}
+                        title={data.title}
+                        class="text-lg font-bold"
+                      >
+                        {data.title}
+                      </a>
+                      <div class="text-base-content/60 mt-2 flex flex-wrap items-start gap-x-4 gap-y-2 text-sm">
+                        {[
+                          {
+                            icon: 'material-symbols:category-outline-rounded',
+                            text: data.category || i18n(I18nKey.uncategorized),
+                            link: getCategoryUrl(data.category),
+                          },
+                          ...(data.tags?.map((tag) => {
+                            return {
+                              icon: 'material-symbols:tag-rounded',
+                              text: tag,
+                              link: getCategoryUrl(tag),
+                            };
+                          }) || []),
+                        ].map((meta) => (
+                          <div class="flex items-center gap-0">
+                            <MetaIcon name={meta.icon} />
+                            {meta.link ? (
+                              <a href={meta.link} class="meta-text" title={meta.text}>
+                                {meta.text}
+                              </a>
+                            ) : (
+                              <span class="meta-text">{meta.text}</span>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <hr />
+          </li>
+        ))
+      }
+    </ul>
   </div>
-</MainLayout>
+  <Fragment slot="aside-fixed">
+    <ProfileCard />
+  </Fragment>
+  <Fragment slot="aside-sticky">
+    <TOC
+      headings={categories.map((category) => ({
+        text: category,
+        slug: `heading-${category}`,
+        depth: 2,
+      }))}
+    />
+  </Fragment>
+</GridLayout>
