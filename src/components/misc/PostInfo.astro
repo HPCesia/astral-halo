@@ -3,6 +3,7 @@ import { articleConfig } from '@/config';
 import MetaIcon from '@components/widgets/MetaIcon.astro';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
+import { getCategoryUrl, getTagUrl } from '@utils/content-utils';
 
 interface Props {
   title: string;
@@ -45,14 +46,14 @@ const metas: ({ icon: string; text: string; link?: string } | undefined)[] = [
     ? {
         icon: 'material-symbols:category-outline-rounded',
         text: category,
-        link: `/archives/categories/${category.replaceAll(/[\\/]/g, '-')}/1/`,
+        link: getCategoryUrl(category),
       }
     : undefined,
   ...tags.map((tag) => {
     return {
       icon: 'material-symbols:tag-rounded',
       text: tag,
-      link: `/archives/tags/${tag.replaceAll(/[\\/]/g, '-')}/1/`,
+      link: getTagUrl(tag),
     };
   }),
 ];

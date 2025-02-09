@@ -1,6 +1,7 @@
 ---
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
+import { getCategoryUrl } from '@utils/content-utils';
 
 interface Props {
   categories: string[];
@@ -21,7 +22,7 @@ const { categories, currentCategory } = Astro.props;
     {
       categories.map((category) => (
         <a
-          href={`/archives/categories/${category}/1/`}
+          href={getCategoryUrl(category)}
           class:list={[
             'btn btn-ghost h-8 min-h-8 px-3 py-0',
             currentCategory === category ? 'btn-active' : '',

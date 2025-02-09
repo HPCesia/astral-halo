@@ -1,4 +1,5 @@
 ---
+import { getCategoryUrl, getTagUrl } from '@utils/content-utils';
 import MetaIcon from './MetaIcon.astro';
 import PostCardCover from './PostCardCover.astro';
 import ReadMoreButton from './ReadMoreButton.astro';
@@ -33,14 +34,14 @@ const metas: ({ icon: string; text: string; link?: string } | undefined)[] = [
     ? {
         icon: 'material-symbols:category-outline-rounded',
         text: category,
-        link: `/archives/categories/${category.replaceAll(/[\\/]/g, '-')}/1/`,
+        link: getCategoryUrl(category),
       }
     : undefined,
   ...tags.map((tag) => {
     return {
       icon: 'material-symbols:tag-rounded',
       text: tag,
-      link: `/archives/tags/${tag.replaceAll(/[\\/]/g, '-')}/1/`,
+      link: getTagUrl(tag),
     };
   }),
 ];

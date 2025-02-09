@@ -64,3 +64,15 @@ export async function getTimeArchives() {
     }))
     .sort((a, b) => b.year - a.year);
 }
+
+export function getCategoryUrl(category: string | undefined) {
+  return category
+    ? `/archives//categories/${category.replaceAll(/[\\/]/g, '-')}/1/`
+    : `/archives//categories/${I18nKey.uncategorized}/1/`;
+}
+
+export function getTagUrl(tag: string) {
+  return tag === i18n(I18nKey.untagged)
+    ? `/archives/tags/${I18nKey.untagged}/1`
+    : `/archives/tags/${tag.replaceAll(/[\\/]/g, '-')}/1`;
+}
