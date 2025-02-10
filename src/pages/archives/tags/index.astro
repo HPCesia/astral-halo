@@ -10,14 +10,14 @@ import { i18n } from '@i18n/translation';
 import GridLayout from '@layouts/GridLayout.astro';
 import { Icon } from 'astro-icon/components';
 
-const tags = await getTags();
+const tagsMap = await getTags();
 const allPosts = await getSortedPosts();
 
 const tagPosts = new Map<string, { body: string; data: BlogPostData }[]>();
-tags.forEach((tag) => {
+for (const [tag] of tagsMap) {
   const posts = allPosts.filter((post) => post.data.tags?.includes(tag)).slice(0, 3);
   tagPosts.set(tag, posts);
-});
+}
 const untaggedPosts = allPosts
   .filter((post) => !post.data.tags || post.data.tags.length === 0)
   .slice(0, 3);
@@ -40,7 +40,7 @@ if (untaggedPosts.length > 0) tagPosts.set(i18n(I18nKey.untagged) as string, unt
           }
         </div>
         <div>
-          {`${tags.length} ${i18n(tags.length > 1 ? I18nKey.tagsCount : I18nKey.tagCount)}`}
+          {`${tagsMap.size} ${i18n(tagsMap.size > 1 ? I18nKey.tagsCount : I18nKey.tagCount)}`}
         </div>
       </div>
     </div>
@@ -63,6 +63,9 @@ if (untaggedPosts.length > 0) tagPosts.set(i18n(I18nKey.untagged) as string, unt
               >
                 <h2 class="scroll-mt-20 text-2xl font-bold" id={`heading-${tag}`}>
                   {tag}
+                  <span class="text-base-content/60 ml-2 text-base">
+                    ({tagsMap.get(tag) || 0})
+                  </span>
                 </h2>
                 <Button href={getTagUrl(tag)} title={tag} class="pl-3">
                   {i18n(I18nKey.more)}
@@ -123,7 +126,7 @@ if (untaggedPosts.length > 0) tagPosts.set(i18n(I18nKey.untagged) as string, unt
   </Fragment>
   <Fragment slot="aside-sticky">
     <TOC
-      headings={tags.map((tag) => ({
+      headings={Array.from(tagsMap.keys()).map((tag) => ({
         text: tag,
         slug: `heading-${tag}`,
         depth: 2,

@@ -51,20 +51,30 @@ export async function getPostsCount(): Promise<number> {
   return allBlogPosts.length;
 }
 
-export async function getCategories(): Promise<string[]> {
+export async function getCategories(): Promise<Map<string, number>> {
   const allBlogPosts = await getSortedPosts();
-  const categories = [
-    ...new Set(
-      allBlogPosts.map((post) => post.data.category || (i18n(I18nKey.uncategorized) as string))
-    ),
-  ];
-  return categories;
+  const categoryMap = new Map<string, number>();
+
+  allBlogPosts.forEach((post) => {
+    const category = post.data.category || (i18n(I18nKey.uncategorized) as string);
+    categoryMap.set(category, (categoryMap.get(category) || 0) + 1);
+  });
+
+  return categoryMap;
 }
 
-export async function getTags(): Promise<string[]> {
+export async function getTags(): Promise<Map<string, number>> {
   const allBlogPosts = await getSortedPosts();
-  const tags = [...new Set(allBlogPosts.map((post) => post.data.tags || []).flat())];
-  return tags;
+  const tagMap = new Map<string, number>();
+
+  allBlogPosts.forEach((post) => {
+    const tags = post.data.tags || [];
+    tags.forEach((tag) => {
+      tagMap.set(tag, (tagMap.get(tag) || 0) + 1);
+    });
+  });
+
+  return tagMap;
 }
 
 export function getCategoryUrl(category: string | undefined) {

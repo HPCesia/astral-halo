@@ -23,7 +23,7 @@ const categories = await getCategories();
 ---
 
 <GridLayout>
-  <CategoryBar categories={categories} />
+  <CategoryBar categories={Array.from(categories.keys())} />
   <PostPage
     posts={articles}
     currentPage={page}

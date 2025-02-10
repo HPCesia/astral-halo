@@ -1,6 +1,11 @@
 ---
 import type { BlogPostData } from '@/types/data';
-import { getCategories, getCategoryUrl, getSortedPosts } from '@/utils/content-utils';
+import {
+  getCategories,
+  getCategoryUrl,
+  getSortedPosts,
+  getTagUrl,
+} from '@/utils/content-utils';
 import ProfileCard from '@components/aside/ProfileCard.astro';
 import TOC from '@components/aside/TOC.astro';
 import Button from '@components/widgets/Button.astro';
@@ -10,14 +15,14 @@ import { i18n } from '@i18n/translation';
 import GridLayout from '@layouts/GridLayout.astro';
 import { Icon } from 'astro-icon/components';
 
-const categories = await getCategories();
+const categoriesMap = await getCategories();
 const allPosts = await getSortedPosts();
 
 const categoryPosts = new Map<string, { body: string; data: BlogPostData }[]>();
-categories.forEach((category) => {
+for (const [category] of categoriesMap) {
   const posts = allPosts.filter((post) => post.data.category === category).slice(0, 3);
   categoryPosts.set(category, posts);
-});
+}
 const uncategorizedPosts = allPosts.filter((post) => !post.data.category).slice(0, 3);
 if (uncategorizedPosts.length > 0)
   categoryPosts.set(i18n(I18nKey.uncategorized) as string, uncategorizedPosts);
@@ -39,8 +44,8 @@ if (uncategorizedPosts.length > 0)
         </div>
         <div>
           {
-            `${categories.length} ${i18n(
-              categories.length > 1 ? I18nKey.categoriesCount : I18nKey.categoryCount
+            `${categoriesMap.size} ${i18n(
+              categoriesMap.size > 1 ? I18nKey.categoriesCount : I18nKey.categoryCount
             )}`
           }
         </div>
@@ -65,6 +70,9 @@ if (uncategorizedPosts.length > 0)
               >
                 <h2 class="scroll-mt-20 text-2xl font-bold" id={`heading-${category}`}>
                   {category}
+                  <span class="text-base-content/60 ml-2 text-base">
+                    ({categoriesMap.get(category) || 0})
+                  </span>
                 </h2>
                 <Button href={getCategoryUrl(category)} title={category} class="pl-3">
                   {i18n(I18nKey.more)}
@@ -93,7 +101,7 @@ if (uncategorizedPosts.length > 0)
                             return {
                               icon: 'material-symbols:tag-rounded',
                               text: tag,
-                              link: getCategoryUrl(tag),
+                              link: getTagUrl(tag),
                             };
                           }) || []),
                         ].map((meta) => (
@@ -125,7 +133,7 @@ if (uncategorizedPosts.length > 0)
   </Fragment>
   <Fragment slot="aside-sticky">
     <TOC
-      headings={categories.map((category) => ({
+      headings={Array.from(categoriesMap.keys()).map((category) => ({
         text: category,
         slug: `heading-${category}`,
         depth: 2,
