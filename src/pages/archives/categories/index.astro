@@ -27,16 +27,23 @@ if (uncategorizedPosts.length > 0)
   <div
     class="card card-border border-base-300 mx-auto flex flex-col items-center border-2 px-6 py-4"
   >
-    <div class="tooltip tooltip-right mx-auto w-fit">
+    <div class="tooltip md:tooltip-right tooltip-bottom mx-auto w-fit">
       <h1 class="text-center text-3xl font-bold">{i18n(I18nKey.categories)}</h1>
-      <div class="tooltip-content">
-        {
-          [
-            `${allPosts.length} ${i18n(allPosts.length > 1 ? I18nKey.postsCount : I18nKey.postCount)}`,
-            ', ',
-            `${categories.length} ${i18n(categories.length > 1 ? I18nKey.categoriesCount : I18nKey.categoryCount)}`,
-          ]
-        }
+      <div class="tooltip-content flex flex-col">
+        <div>
+          {
+            `${allPosts.length} ${i18n(
+              allPosts.length > 1 ? I18nKey.postsCount : I18nKey.postCount
+            )}, `
+          }
+        </div>
+        <div>
+          {
+            `${categories.length} ${i18n(
+              categories.length > 1 ? I18nKey.categoriesCount : I18nKey.categoryCount
+            )}`
+          }
+        </div>
       </div>
     </div>
     <ul

@@ -101,7 +101,7 @@ const postCount = await getPostsCount();
     </div>
   </div>
   <div class="card card-bordered border-base-300 border-2 px-6 py-4">
-    <div class="tooltip tooltip-right mx-auto w-fit">
+    <div class="tooltip md:tooltip-right tooltip-bottom mx-auto w-fit">
       <h1 class="text-center text-3xl font-bold">{i18n(I18nKey.archive)}</h1>
       <div class="tooltip-content">
         {`${postCount} ${i18n(postCount > 1 ? I18nKey.postsCount : I18nKey.postCount)}`}
