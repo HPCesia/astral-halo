@@ -156,9 +156,9 @@ const postCount = await getPostsCount();
                       ))}
                     </div>
                   </div>
-                  <span class="text-base-content/60">
+                  <time datetime={data.published.toISOString()} class="text-base-content/60">
                     {data.published.toLocaleDateString(siteConfig.lang)}
-                  </span>
+                  </time>
                 </li>
               ))}
             </ul>

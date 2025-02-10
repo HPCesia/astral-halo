@@ -21,10 +21,11 @@ const className = Astro.props.class;
 
 const hasCover = cover !== '' && cover !== undefined && cover !== null;
 
-const metas: ({ icon: string; text: string; link?: string } | undefined)[] = [
+const metas: ({ icon: string; text: string; link?: string; time?: Date } | undefined)[] = [
   {
     icon: 'material-symbols:calendar-clock-outline-rounded',
     text: published.toLocaleDateString(),
+    time: published,
   },
   updated && {
     icon: 'material-symbols:edit-calendar-outline-rounded',
@@ -62,13 +63,20 @@ const metas: ({ icon: string; text: string; link?: string } | undefined)[] = [
             meta && (
               <div class="flex items-center gap-1">
                 <MetaIcon name={meta.icon} />
-                {meta.link ? (
-                  <a href={meta.link} class="meta-text" title={meta.text}>
-                    {meta.text}
-                  </a>
-                ) : (
-                  <span class="meta-text">{meta.text}</span>
-                )}
+                {(() => {
+                  const text = meta.time ? (
+                    <time datetime={meta.time?.toISOString()}>{meta.text}</time>
+                  ) : (
+                    <span>{meta.text}</span>
+                  );
+                  return meta.link ? (
+                    <a href={meta.link} title={meta.text}>
+                      {text}
+                    </a>
+                  ) : (
+                    text
+                  );
+                })()}
               </div>
             )
           );

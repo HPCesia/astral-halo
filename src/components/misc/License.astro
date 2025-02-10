@@ -15,6 +15,7 @@ const infomations = [
   {
     key: i18n(I18nKey.publishedAt),
     value: time.toLocaleDateString(siteConfig.lang.replace('_', '-')),
+    time: time,
   },
   {
     key: i18n(I18nKey.author),
@@ -35,13 +36,20 @@ const infomations = [
       infomations.map((info) => (
         <Fragment>
           <span class="mr-4 text-right font-bold">{info.key}</span>
-          {info.link ? (
-            <a href={info.link} class="text-primary hover:underline">
-              {info.value}
-            </a>
-          ) : (
-            <span>{info.value}</span>
-          )}
+          {(() => {
+            const text = info.time ? (
+              <time datetime={info.time?.toISOString()}>{info.value}</time>
+            ) : (
+              <span>{info.value}</span>
+            );
+            return info.link ? (
+              <a href={info.link} title={info.value} class="text-primary hover:underline">
+                {text}
+              </a>
+            ) : (
+              text
+            );
+          })()}
         </Fragment>
       ))
     }
