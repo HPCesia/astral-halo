@@ -7,7 +7,8 @@ import Markdown from '@components/utils/Markdown.astro';
 import ProfileCard from '@components/widgets/ProfileCard.astro';
 import TOC from '@components/widgets/TOC.astro';
 import GridLayout from '@layouts/GridLayout.astro';
-import { getCollection, render } from 'astro:content';
+import { getOrCreateRenderResult } from '@utils/component-utils';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const articles = await getCollection('posts');
@@ -18,7 +19,7 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
-const { Content, headings, remarkPluginFrontmatter } = await render(article);
+const { Content, headings, remarkPluginFrontmatter } = await getOrCreateRenderResult(article);
 
 const description = article.data.description || remarkPluginFrontmatter.excerpt;
 ---
