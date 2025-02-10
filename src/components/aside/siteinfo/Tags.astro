@@ -12,7 +12,11 @@ const tagsMap = await getTags();
   >
     {
       Array.from(tagsMap.entries()).map(([tag, count]) => (
-        <Button href={getTagUrl(tag)} title={`${tag}`} class="btn-ghost btn-primary btn-sm">
+        <Button
+          href={getTagUrl(tag)}
+          title={`${tag}`}
+          class="btn-ghost btn-primary btn-sm gap-0"
+        >
           {tag}
           <sup>{count}</sup>
         </Button>
