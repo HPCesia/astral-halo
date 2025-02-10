@@ -10,7 +10,7 @@ const { class: className, ...rest } = Astro.props;
 ---
 
 <div class:list={['w-full', className]} {...rest}>
-  <label class="input input-bordered flex items-center gap-2">
+  <label class="input input-bordered flex w-full items-center gap-2">
     <input type="text" class="grow" placeholder={i18n(I18nKey.search)} />
     <Icon name="material-symbols:search-rounded" class="text-3xl" />
   </label>
