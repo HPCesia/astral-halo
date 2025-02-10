@@ -66,18 +66,14 @@ const metas: ({ icon: string; text: string; link?: string } | undefined)[] = [
       metas.map((meta) => {
         return (
           meta && (
-            <div class="flex items-center">
+            <div class="text-base-content/60 flex items-center text-sm">
               <MetaIcon name={meta.icon} />
               {meta.link ? (
-                <a
-                  href={meta.link}
-                  class="theme-text-second text-sm font-medium duration-100 hover:brightness-125"
-                  title={meta.text}
-                >
+                <a href={meta.link} title={meta.text}>
                   {meta.text}
                 </a>
               ) : (
-                <span class="theme-text-second text-sm font-medium">{meta.text}</span>
+                <span>{meta.text}</span>
               )}
             </div>
           )
