@@ -64,6 +64,13 @@ const favicons: Favicon[] =
       ))
     }
 
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={siteConfig.title}
+      href={new URL('rss.xml', Astro.site)}
+    />
+
     <slot name="head" />
   </head>
   <body class="bg-base-100 text-base-content flex min-h-screen flex-col">
