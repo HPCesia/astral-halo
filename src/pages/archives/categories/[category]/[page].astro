@@ -37,7 +37,7 @@ const categories = await getCategories();
 ---
 
 <GridLayout title={category}>
-  <CategoryBar categories={categories} currentCategory={category} />
+  <CategoryBar categories={Array.from(categories.keys())} currentCategory={category} />
   <PostPage
     posts={posts}
     currentPage={currentPage}
