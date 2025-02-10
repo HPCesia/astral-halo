@@ -16,7 +16,7 @@ const { categories, currentCategory } = Astro.props;
     <a
       href={`/`}
       class:list={[
-        'btn btn-ghost h-8 min-h-8 rounded-md px-3 py-0',
+        'btn btn-ghost btn-primary h-8 min-h-8 rounded-md px-3 py-0',
         currentCategory ? '' : 'btn-active',
       ]}
     >
@@ -27,7 +27,7 @@ const { categories, currentCategory } = Astro.props;
         <a
           href={getCategoryUrl(category)}
           class:list={[
-            'btn btn-ghost h-8 min-h-8 rounded-md px-3 py-0',
+            'btn btn-ghost btn-primary h-8 min-h-8 rounded-md px-3 py-0',
             currentCategory === category ? 'btn-active' : '',
           ]}
         >

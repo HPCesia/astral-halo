@@ -22,7 +22,7 @@ if (!title) title = 'Astral Halo';
       class="navbar bg-base-200/50 fixed z-20 flex h-16 w-full items-center backdrop-blur-md"
     >
       <div class="navbar-start">
-        <Button id="site-name" href="/" class="group btn-ghost">
+        <Button id="site-name" href="/" class="group btn-ghost btn-primary">
           <span class="text-xl font-bold duration-300 group-hover:opacity-0">{title}</span>
           <Icon
             name="material-symbols:home-rounded"
@@ -36,7 +36,7 @@ if (!title) title = 'Astral Halo';
             <Button
               {...('href' in item && item.href && { href: item.href })}
               title={i18n(item.text)}
-              class="btn-ghost join-item"
+              class="btn-ghost join-item btn-primary"
             >
               <span class="text-xl tracking-wide">{i18n(item.text)}</span>
             </Button>
@@ -48,7 +48,7 @@ if (!title) title = 'Astral Halo';
           {
             navbarConfig.navbarRightItems.onlyWide.map((item) => (
               <Button
-                class="nav-menu-item btn-circle btn-ghost"
+                class="nav-menu-item btn-circle btn-ghost btn-primary"
                 {...('href' in item && item.href && { href: item.href })}
                 title={i18n(item.text)}
                 {...('onclick' in item &&
@@ -66,7 +66,7 @@ if (!title) title = 'Astral Halo';
           {
             navbarConfig.navbarRightItems.always.map((item) => (
               <Button
-                class="nav-menu-item btn-circle btn-ghost"
+                class="nav-menu-item btn-circle btn-ghost btn-primary"
                 {...('href' in item && item.href && { href: item.href })}
                 title={i18n(item.text)}
                 {...('onclick' in item &&

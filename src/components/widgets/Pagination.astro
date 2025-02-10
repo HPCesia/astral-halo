@@ -46,7 +46,7 @@ else {
 <div id="pagination" class="flex w-full">
   {
     current > 1 && (
-      <Button id="prev-page-btn" class="mr-auto rounded-xl" href={getPageUrl(current - 1)}>
+      <Button id="prev-page-btn" class="btn-secondary mr-auto" href={getPageUrl(current - 1)}>
         <Icon name="material-symbols:keyboard-double-arrow-left-rounded" class="my-1" />
       </Button>
     )
@@ -58,7 +58,7 @@ else {
           return (
             <Button
               class:list={[
-                'join-item',
+                'join-item btn-secondary',
                 current === p.page && 'btn-active',
                 p.page === -1 && 'btn-disabled',
               ]}
@@ -94,7 +94,7 @@ else {
   </div>
   {
     current < total && (
-      <Button id="next-page-btn" class="ml-auto rounded-xl" href={getPageUrl(current + 1)}>
+      <Button id="next-page-btn" class="btn-secondary ml-auto" href={getPageUrl(current + 1)}>
         <Icon name="material-symbols:keyboard-double-arrow-right-rounded" class="my-1" />
       </Button>
     )
