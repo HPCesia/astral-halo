@@ -32,6 +32,7 @@ const description = article.data.description || remarkPluginFrontmatter.excerpt;
       tags={article.data.tags}
       wordsCount={remarkPluginFrontmatter.words}
       readingTime={remarkPluginFrontmatter.minutes}
+      lang={article.data.lang}
       class="mx-2 mt-4"
     />
   </Fragment>
@@ -39,7 +40,7 @@ const description = article.data.description || remarkPluginFrontmatter.excerpt;
     <Markdown>
       <Content />
     </Markdown>
-    <License time={article.data.published} />
+    <License time={article.data.published} lang={article.data.lang} />
     {article.data.comment && commentConfig.enable && <Comment />}
   </div>
   <Fragment slot="aside-fixed">

@@ -1,5 +1,5 @@
 ---
-import { articleConfig } from '@/config';
+import { articleConfig, siteConfig } from '@/config';
 import MetaIcon from '@components/widgets/MetaIcon.astro';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
@@ -12,6 +12,7 @@ interface Props {
   tags: string[];
   wordsCount: number;
   readingTime: number;
+  lang?: string;
   class?: string;
 }
 
@@ -22,13 +23,14 @@ const {
   tags,
   wordsCount: wordCount,
   readingTime,
+  lang,
   class: className,
 } = Astro.props;
 
 const metas: ({ icon: string; text: string; link?: string; time?: Date } | undefined)[] = [
   {
     icon: 'material-symbols:calendar-clock-outline-rounded',
-    text: publishedAt.toLocaleDateString(),
+    text: publishedAt.toLocaleDateString(lang || siteConfig.lang.replace('_', '-')),
     time: publishedAt,
   },
   articleConfig.wordCount

@@ -1,4 +1,5 @@
 ---
+import { siteConfig } from '@/config';
 import { getCategoryUrl, getTagUrl } from '@utils/content-utils';
 import MetaIcon from './MetaIcon.astro';
 import PostCardCover from './PostCardCover.astro';
@@ -24,12 +25,12 @@ const hasCover = cover !== '' && cover !== undefined && cover !== null;
 const metas: ({ icon: string; text: string; link?: string; time?: Date } | undefined)[] = [
   {
     icon: 'material-symbols:calendar-clock-outline-rounded',
-    text: published.toLocaleDateString(),
+    text: published.toLocaleDateString(siteConfig.lang.replace('_', '-')),
     time: published,
   },
   updated && {
     icon: 'material-symbols:edit-calendar-outline-rounded',
-    text: updated.toLocaleDateString(),
+    text: updated.toLocaleDateString(siteConfig.lang.replace('_', '-')),
   },
   category
     ? {

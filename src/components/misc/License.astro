@@ -5,16 +5,17 @@ import { i18n } from '@i18n/translation';
 
 interface Props {
   time: Date;
+  lang?: string;
   license?: string;
   licenseUrl?: string;
 }
 
-const { time, license, licenseUrl } = Astro.props;
+const { time, license, licenseUrl, lang } = Astro.props;
 
 const infomations = [
   {
     key: i18n(I18nKey.publishedAt),
-    value: time.toLocaleDateString(siteConfig.lang.replace('_', '-')),
+    value: time.toLocaleDateString(lang || siteConfig.lang.replace('_', '-')),
     time: time,
   },
   {
