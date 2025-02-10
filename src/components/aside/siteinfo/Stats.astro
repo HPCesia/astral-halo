@@ -1,0 +1,83 @@
+---
+import { asideConfig, siteConfig } from '@/config';
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
+import { getOrCreateRenderResult, getPostsCount } from '@utils/content-utils';
+import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
+---
+
+<div class="stats stats-vertical w-full">
+  {
+    asideConfig.siteInfo.stats.map(async (entry) => {
+      switch (entry) {
+        case 'post-count': {
+          const postCount = await getPostsCount();
+          return (
+            <div class="stat">
+              <div class="stat-title flex flex-row items-center gap-1">
+                <Icon name="material-symbols:folder-open-rounded" />
+                <span>{i18n(I18nKey.totalPosts)}</span>
+              </div>
+              <div class="stat-value text-base">{`${postCount} ${postCount > 1 ? i18n(I18nKey.postsCount) : i18n(I18nKey.postCount)}`}</div>
+            </div>
+          );
+        }
+        case 'last-updated':
+          return (
+            <div class="stat">
+              <div class="stat-title flex flex-row items-center gap-1">
+                <Icon name="material-symbols:refresh-rounded" />
+                <span>{i18n(I18nKey.lastUpdated)}</span>
+              </div>
+              <div class="stat-value text-base">
+                <time datetime={new Date().toISOString()}>
+                  {new Date().toLocaleDateString(siteConfig.lang.replace('_', '-'))}
+                </time>
+              </div>
+            </div>
+          );
+        case 'site-words-count':
+          return (
+            <div class="stat">
+              <div class="stat-title flex flex-row items-center gap-1">
+                <Icon name="material-symbols:docs-rounded" />
+                <span>{i18n(I18nKey.totalWords)}</span>
+              </div>
+              <div class="stat-value text-base">
+                {(async () => {
+                  const entries = await getCollection('posts');
+                  const words = await Promise.all(
+                    entries.map(async (entry) => {
+                      const { remarkPluginFrontmatter } = await getOrCreateRenderResult(entry);
+                      return remarkPluginFrontmatter.words as number;
+                    })
+                  );
+                  const total = words.reduce((acc, cur) => acc + cur, 0);
+                  return `${total} ${total > 1 ? i18n(I18nKey.wordsCount) : i18n(I18nKey.wordCount)}`;
+                })()}
+              </div>
+            </div>
+          );
+        case 'site-run-days':
+          return (
+            <div class="stat">
+              <div class="stat-title flex flex-row items-center gap-1">
+                <Icon name="material-symbols:calendar-clock-rounded" />
+                <span>{i18n(I18nKey.runTime)}</span>
+              </div>
+              <div class="stat-value text-base">
+                <time
+                  datetime={siteConfig.createAt.toISOString()}
+                  data-force-relative="true"
+                  data-no-ago="true"
+                >
+                  {siteConfig.createAt.toLocaleDateString(siteConfig.lang.replace('_', '-'))}
+                </time>
+              </div>
+            </div>
+          );
+      }
+    })
+  }
+</div>

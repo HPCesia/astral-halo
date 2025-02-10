@@ -16,6 +16,11 @@ enum I18nKey {
   uncategorized = 'uncategorized',
   untagged = 'untagged',
 
+  totalPosts = 'totalPosts',
+  totalWords = 'totalWords',
+  lastUpdated = 'lastUpdated',
+  runTime = 'runTime',
+
   wordCount = 'wordCount',
   wordsCount = 'wordsCount',
   minuteCount = 'minuteCount',

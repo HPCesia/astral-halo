@@ -19,6 +19,11 @@ export const en: Translation = {
   [Key.uncategorized]: 'Uncategorized',
   [Key.untagged]: 'No Tags',
 
+  [Key.totalPosts]: 'Total Posts',
+  [Key.totalWords]: 'Total Words',
+  [Key.lastUpdated]: 'Last Updated',
+  [Key.runTime]: 'Run Time',
+
   [Key.wordCount]: 'word',
   [Key.wordsCount]: 'words',
   [Key.minuteCount]: 'minute',

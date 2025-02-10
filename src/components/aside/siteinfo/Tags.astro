@@ -1,0 +1,49 @@
+---
+import Button from '@components/widgets/Button.astro';
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
+import { getTags, getTagUrl } from '@utils/content-utils';
+const tagsMap = await getTags();
+---
+
+<div id="aside-siteinfo-tags">
+  <div
+    class="relative flex max-h-40 flex-wrap gap-0 overflow-hidden after:pointer-events-none after:absolute after:bottom-0 after:hidden after:h-24 after:w-full after:content-end after:bg-gradient-to-b after:from-black/0 after:to-black/15"
+  >
+    {
+      Array.from(tagsMap.entries()).map(([tag, count]) => (
+        <Button href={getTagUrl(tag)} title={`${tag}`} class="btn-ghost btn-primary btn-sm">
+          {tag}
+          <sup>{count}</sup>
+        </Button>
+      ))
+    }
+  </div>
+  <div class="btn bg-base-200/50 btn-wide hidden rounded-sm hover:brightness-125">
+    {i18n(I18nKey.more)}
+  </div>
+</div>
+
+<script>
+  function initTags() {
+    const tags = document.getElementById('aside-siteinfo-tags');
+    const tagsList = tags?.children[0] as HTMLDivElement;
+    const moreBtn = tags?.children[1] as HTMLDivElement;
+
+    const clientHeight = tagsList.clientHeight;
+    const scrollHeight = tagsList.scrollHeight;
+
+    if (scrollHeight > clientHeight) {
+      tagsList.classList.remove('after:hidden');
+      moreBtn.classList.remove('hidden');
+    }
+
+    moreBtn.addEventListener('click', () => {
+      tagsList.classList.remove('max-h-40');
+      tagsList.classList.add('after:hidden');
+      moreBtn.classList.add('hidden');
+    });
+  }
+
+  document.addEventListener('astro:page-load', initTags);
+</script>

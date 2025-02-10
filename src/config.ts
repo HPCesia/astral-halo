@@ -1,5 +1,6 @@
 import type {
   ArticleConfig,
+  AsideConfig,
   CommentConfig,
   FooterConfig,
   LicenseConfig,
@@ -20,6 +21,7 @@ export const siteConfig: SiteConfig = {
     // Leave this array empty to use the default favicon.
     // 留空数组以使用默认的 favicon。
   ],
+  createAt: new Date('2025-01-01'),
   postsPerPage: 10,
 };
 
@@ -77,6 +79,13 @@ export const navbarConfig: NavbarConfig = {
 export const toolBarConfig: ToolBarConfig = {
   enable: true,
   items: [],
+};
+
+export const asideConfig: AsideConfig = {
+  siteInfo: {
+    contents: ['stats', 'tags'],
+    stats: ['post-count', 'last-updated', 'site-words-count', 'site-run-days'],
+  },
 };
 
 export const licenseConfig: LicenseConfig = {

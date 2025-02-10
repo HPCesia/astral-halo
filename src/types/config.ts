@@ -1,5 +1,6 @@
 import type I18nKey from '@i18n/I18nKey';
 
+// ============================================================================
 export type Favicon = {
   /**
    * The URL of the favicon.
@@ -85,6 +86,8 @@ export type ButtonSubConfig<T extends string> = T extends 'text'
       )
     : never;
 
+// ============================================================================
+
 export type SiteConfig = {
   /**
    * The title of the site.
@@ -110,6 +113,12 @@ export type SiteConfig = {
    * 站点的 favicon。
    */
   favicon: Favicon[];
+  /**
+   * The time when the site was created.
+   *
+   * 站点建立时间
+   */
+  createAt: Date;
   /**
    * The number of posts displayed per page.
    *
@@ -205,6 +214,23 @@ export type ToolBarConfig = {
    * 在侧边工具栏中显示的项目。
    */
   items: ButtonSubConfig<'icon'>[];
+};
+
+export type AsideConfig = {
+  siteInfo: {
+    /**
+     * The contents displayed in the site info.
+     *
+     * 在站点信息中显示的内容。
+     */
+    contents: ('stats' | 'tags')[];
+    /**
+     * The stats displayed in the site info.
+     *
+     * 在站点信息中显示的统计数据。
+     */
+    stats: ('post-count' | 'last-updated' | 'site-words-count' | 'site-run-days')[];
+  };
 };
 
 export type LicenseConfig = {

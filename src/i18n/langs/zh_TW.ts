@@ -19,6 +19,11 @@ export const zh_TW: Translation = {
   [Key.uncategorized]: '未分類',
   [Key.untagged]: '無標籤',
 
+  [Key.totalPosts]: '文章總數',
+  [Key.totalWords]: '字數總計',
+  [Key.lastUpdated]: '最後更新',
+  [Key.runTime]: '運行時間',
+
   [Key.wordCount]: '字',
   [Key.wordsCount]: '字',
   [Key.minuteCount]: '分鐘',
