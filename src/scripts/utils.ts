@@ -61,17 +61,20 @@ export function convertTimeToRelative(): void {
   const sevenDaysAgo = now.subtract(7, 'day');
 
   Array.from(timeElements).forEach((timeElement) => {
-    // 检查是否禁用相对时间转换
-    if (timeElement.dataset.noRelative) return;
-
     const datetime = timeElement.getAttribute('datetime');
     if (!datetime) return;
 
+    if (!timeElement.title)
+      timeElement.title = timeElement.textContent || dayjs(datetime).format('llll');
+
+    // 检查是否禁用相对时间转换
+    if (timeElement.dataset.noRelative) return;
+
     const date = dayjs(datetime);
     // 检查是否在7天内
-    if (date.isAfter(sevenDaysAgo)) {
+    if (date.isAfter(sevenDaysAgo) || timeElement.dataset.forceRelative) {
       // 转换为相对时间
-      timeElement.textContent = date.fromNow();
+      timeElement.textContent = date.fromNow(timeElement.dataset.noAgo === 'true');
     }
   });
 }
