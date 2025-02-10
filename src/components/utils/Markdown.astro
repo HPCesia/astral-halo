@@ -26,18 +26,18 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
       class="code-block-wrapper collapse-open collapse relative my-4"
     >
       <div class="bg-primary/60 text-primary-content z-10 flex items-center justify-between">
-        <Button class="toggle-btn btn-ghost rounded-bl-none">
+        <Button class="toggle-btn btn-ghost btn-primary rounded-bl-none">
           <Icon
             name="material-symbols:keyboard-arrow-down-rounded"
             class="h-5 w-5 duration-300"
           />
         </Button>
         <span class="language font-mono text-sm" />
-        <Button class="copy-btn btn-ghost rounded-br-none">
+        <Button class="copy-btn btn-ghost btn-primary rounded-br-none">
           <Icon name="material-symbols:file-copy-rounded" class="h-5 w-5 duration-300" />
         </Button>
       </div>
-      <div class="collapse-content p-0" />
+      <div class="collapse-content !p-0" />
     </template>
   )
 }
