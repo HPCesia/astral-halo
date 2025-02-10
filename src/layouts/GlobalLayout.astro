@@ -72,6 +72,8 @@ const favicons: Favicon[] =
 </html>
 
 <script>
+  import { convertTimeToRelative } from '@scripts/utils';
+
   // 深色模式切换
   function applyDarkMode() {
     if (
@@ -84,4 +86,7 @@ const favicons: Favicon[] =
   }
   document.addEventListener('astro:after-swap', applyDarkMode);
   applyDarkMode();
+
+  // 时间显示
+  document.addEventListener('astro:page-load', convertTimeToRelative);
 </script>
