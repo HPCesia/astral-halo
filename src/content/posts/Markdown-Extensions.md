@@ -24,7 +24,7 @@ And to create this:sup[:a[1]{#fake-footnote-here data-footnote-ref href="#fake-f
 And to create this:sup[:a[1]{#fake-footnote-here data-footnote-ref href="#fake-footnote-there"}], you can use the following markdown:
 
 ```markdown
-A infinite loop! So there is no need to write the markdown code again and again here.
+An infinite loop! So there is no need to write the markdown code again and again here.
 ```
 
 :a[1: fake footnote here.]{#fake-footnote-there data-footnote-backref href="#fake-footnote-here"}
@@ -50,9 +50,9 @@ Instead of using HTML comments:
 
 ## Components
 
-Using directives, you can write HTML with markdown inside. But to generate complex components, it's a bit tedious, not elegant, and not easy to maintain, it's another hell of HTML tags[^1]. Fortunately, with [rehype-components](https://github.com/marekweb/rehype-components), you can use pre-defined components in markdown files.
+Using directives, you can write HTML with markdown inside. But to generate complex components, it's a bit tedious, not elegant, and not easy to maintain. It's another hell of HTML tags[^1]. Fortunately, with [rehype-components](https://github.com/marekweb/rehype-components), you can use pre-defined components in markdown files.
 
-[^1]: If you want to know how hell it is, check the [source code](https://github.com/HPCesia/astral-halo/tree/master/src/content/posts/Markdown-Extensions.md) of this post.
+[^1]: If you want to know how hellish it is, check the [source code](https://github.com/HPCesia/astral-halo/tree/master/src/content/posts/Markdown-Extensions.md) of this post.
 
 ### Tabs
 

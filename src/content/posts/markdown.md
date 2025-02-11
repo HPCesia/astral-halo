@@ -11,7 +11,7 @@ tags:
 
 Here is an example of a Markdown blog post.
 
-# Heading Level 1 (I Suggest That DO NOT Use This Level)
+# Heading Level 1 (I suggest not to use this level)
 
 Heading Level 1 is reserved for the post title, so you should start with Heading Level 2.
 
@@ -28,7 +28,7 @@ You can use GitHub Flavored Markdown to format your blog posts. For example, you
 
 ![Example Image](../../assets/img/avatar.jpg)
 
-common Markdown features like:
+Common Markdown features like:
 
 - Lists
   - Nested lists

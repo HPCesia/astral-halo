@@ -1,5 +1,5 @@
 ---
-title: Maunal
+title: Manual
 slug: '12345678'
 published: 2025-01-16T22:01:22+08:00
 category: Guide
