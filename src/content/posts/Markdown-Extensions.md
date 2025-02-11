@@ -111,3 +111,28 @@ If no title, will automatically use `Tab [index]` as title.
 ```
 
 ::::
+
+### Inline
+
+:::tabs
+::tab[Component Syntax]
+
+```md
+:inline[content]
+```
+
+::tab[Parameter Description]
+
+- `content`: The content of the inline component, will add `inline` class to the rendered content.
+
+::tab[Component Examples]{active}
+
+This is an inline img example: :inline[![Inline Image](/favicon/favicon-192x192.png)].
+
+::tab[Code of Examples]
+
+```md
+This is an inline img example: :inline[![Inline Image](/favicon/favicon-192x192.png)].
+```
+
+:::

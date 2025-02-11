@@ -68,12 +68,20 @@ article {
 
   /* 媒体元素 */
   img {
-    position: relative;
-    margin: 1rem auto;
-    max-width: 75%;
-    max-height: 40rem;
+    &:not(.inline) {
+      position: relative;
+      margin: 1rem auto;
+      max-width: 75%;
+      max-height: 40rem;
 
-    @apply rounded-md;
+      @apply rounded-md;
+    }
+
+    &:is(.inline) {
+      max-height: 1.5em;
+      vertical-align: middle;
+      margin: 0 0.25em;
+    }
   }
 
   hr {

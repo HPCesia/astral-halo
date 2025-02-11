@@ -10,6 +10,10 @@ export function remarkImageProcess() {
       node.data = node.data || {};
       node.data.hProperties = node.data.hProperties || {};
       node.data.hProperties['data-zoom'] = '';
+      // lazyload
+      node.data.hProperties.loading = 'lazy';
+      // async decode
+      node.data.hProperties.decoding = 'async';
     });
   };
 }

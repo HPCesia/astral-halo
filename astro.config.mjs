@@ -1,5 +1,6 @@
 // @ts-check
 import { CDN } from './src/constants/cdn.mjs';
+import { componentInline } from './src/plugins/components/inline.mjs';
 import { componentTabs } from './src/plugins/components/tabs.mjs';
 import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.mjs';
 import { remarkExcerpt } from './src/plugins/remark-excerpt';
@@ -63,7 +64,7 @@ export default defineConfig({
       [
         rehypeComponents,
         {
-          components: { tabs: componentTabs },
+          components: { tabs: componentTabs, inline: componentInline },
         },
       ],
       [
