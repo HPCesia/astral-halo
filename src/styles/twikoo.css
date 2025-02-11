@@ -4,12 +4,12 @@
 
 .twikoo {
   @apply relative flex h-fit w-full flex-col items-center;
-}
 
-input,
-textarea,
-select {
-  border: none;
+  input,
+  textarea,
+  select {
+    border: none;
+  }
 }
 
 .tk-comments {

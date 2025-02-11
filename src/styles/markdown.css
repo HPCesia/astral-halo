@@ -277,7 +277,7 @@ article {
 
   /* 折叠块样式 */
   details {
-    @apply border-base-300 w-full overflow-hidden rounded-xl border-[1px] duration-300;
+    @apply border-base-300 relative w-full overflow-hidden rounded-xl border duration-300;
 
     summary {
       @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-lg duration-300;
@@ -294,7 +294,11 @@ article {
     }
 
     > :not(summary) {
-      @apply p-3;
+      @apply mx-8;
+    }
+
+    > :last-child {
+      @apply mb-4;
     }
   }
 

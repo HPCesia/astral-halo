@@ -23,9 +23,9 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
   firstHasPre && (
     <template
       id="code-toolbar-template"
-      class="code-block-wrapper collapse-open collapse relative my-4"
+      class="code-block-wrapper collapse-open collapse my-4 w-[initial]"
     >
-      <div class="bg-primary/60 text-primary-content z-10 flex items-center justify-between">
+      <div class="bg-primary/60 text-primary-content z-10 flex w-full items-center justify-between">
         <Button class="toggle-btn btn-ghost btn-primary rounded-bl-none">
           <Icon
             name="material-symbols:keyboard-arrow-down-rounded"
@@ -37,7 +37,7 @@ const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || impor
           <Icon name="material-symbols:file-copy-rounded" class="h-5 w-5 duration-300" />
         </Button>
       </div>
-      <div class="collapse-content !p-0" />
+      <div class="collapse-content w-full !p-0" />
     </template>
   )
 }
