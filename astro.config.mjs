@@ -1,7 +1,9 @@
 // @ts-check
 import { CDN } from './src/constants/cdn.mjs';
+import { componentTabs } from './src/plugins/components/tabs.mjs';
 import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.mjs';
 import { remarkExcerpt } from './src/plugins/remark-excerpt';
+import { parseDirectiveNodes } from './src/plugins/remark-prase-directive.mjs';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
@@ -10,7 +12,9 @@ import icon from 'astro-icon';
 import pagefind from 'astro-pagefind';
 import { defineConfig } from 'astro/config';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeComponents from 'rehype-components';
 import rehypeMathJaxCHtml from 'rehype-mathjax/chtml';
+import remarkDirective from 'remark-directive';
 import remarkGithubBlockQuote from 'remark-github-beta-blockquote-admonitions';
 import remarkMath from 'remark-math';
 
@@ -49,9 +53,17 @@ export default defineConfig({
           },
         },
       ],
+      remarkDirective,
+      parseDirectiveNodes,
     ],
     rehypePlugins: [
       rehypeHeadingIds,
+      [
+        rehypeComponents,
+        {
+          components: { tabs: componentTabs },
+        },
+      ],
       [
         rehypeAutolinkHeadings,
         {
