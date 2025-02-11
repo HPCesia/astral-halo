@@ -176,6 +176,7 @@ article {
         position: relative;
         display: block;
         padding-left: 2em;
+        min-height: 1.5em;
 
         &::before {
           position: absolute;
