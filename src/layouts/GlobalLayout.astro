@@ -80,6 +80,7 @@ const favicons: Favicon[] =
 
 <script>
   import { convertTimeToRelative } from '@scripts/utils';
+  import mediumZoom from 'medium-zoom';
 
   // 深色模式切换
   function applyDarkMode() {
@@ -96,4 +97,18 @@ const favicons: Favicon[] =
 
   // 时间显示
   document.addEventListener('astro:page-load', convertTimeToRelative);
+
+  // 图片缩放
+  document.addEventListener('astro:page-load', () => {
+    mediumZoom('[data-zoom]', {
+      background: 'rgba(0, 0, 0, 0.4)',
+    });
+  });
 </script>
+
+<style is:global>
+  .medium-zoom-overlay,
+  .medium-zoom-image--opened {
+    z-index: 999;
+  }
+</style>

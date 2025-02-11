@@ -3,6 +3,7 @@ import { CDN } from './src/constants/cdn.mjs';
 import { componentTabs } from './src/plugins/components/tabs.mjs';
 import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.mjs';
 import { remarkExcerpt } from './src/plugins/remark-excerpt';
+import { remarkImageProcess } from './src/plugins/remark-image-process.mjs';
 import { parseDirectiveNodes } from './src/plugins/remark-prase-directive.mjs';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
@@ -42,6 +43,7 @@ export default defineConfig({
       remarkMath,
       remarkReadingTime,
       remarkExcerpt,
+      remarkImageProcess,
       // @ts-expect-error - types are not up to date
       [
         remarkGithubBlockQuote,
