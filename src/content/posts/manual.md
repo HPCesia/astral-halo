@@ -1,7 +1,7 @@
 ---
 title: Maunal
 slug: '12345678'
-published: 2025-01-16 22:01:22
+published: 2025-01-16T22:01:22+08:00
 category: Guide
 tags:
   - guide
@@ -16,7 +16,7 @@ This blog template is built with [Astro](https://astro.build). For the things th
 ---
 title: Article Title
 slug: post-entry
-published: 1970-01-01T00:00:00.000Z
+published: 1970-01-01T00:00:00Z
 description: Article Description
 category: Lorem
 tags: [Foo, Bar]

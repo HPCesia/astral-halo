@@ -3,7 +3,10 @@ title: Markdown Example
 description: A simple example of a Markdown blog post.
 category: Example
 slug: '19981207'
-published: 2021-07-09 12:00:00
+published: 2025-01-01T12:00:00+08:00
+tags:
+  - markdown
+  - example
 ---
 
 Here is an example of a Markdown blog post.
