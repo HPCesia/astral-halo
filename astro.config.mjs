@@ -11,8 +11,8 @@ import { wrapCode } from './src/plugins/shiki-transformers.ts';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import { transformerNotationDiff } from '@shikijs/transformers';
-import { transformerNotationHighlight } from '@shikijs/transformers';
+// import { transformerNotationDiff } from '@shikijs/transformers';
+// import { transformerNotationHighlight } from '@shikijs/transformers';
 import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import pagefind from 'astro-pagefind';
@@ -40,7 +40,11 @@ export default defineConfig({
         dark: 'one-dark-pro',
       },
       defaultColor: false,
-      transformers: [transformerNotationDiff(), transformerNotationHighlight(), wrapCode()],
+      transformers: [
+        // transformerNotationDiff(),
+        // transformerNotationHighlight(),
+        wrapCode(),
+      ],
     },
     remarkPlugins: [
       // remarkHeadingShift,
