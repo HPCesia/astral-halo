@@ -1,9 +1,11 @@
 ---
-title: Markdown Components
+title: Components
 slug: q1k423y0
 category: Example
 tags:
   - markdown
+  - astro
+  - mdx
   - example
 published: 2025-02-10T21:23:23+08:00
 ---
@@ -11,7 +13,14 @@ published: 2025-02-10T21:23:23+08:00
 import TabItem from '@components/user/TabItem.astro';
 import Tabs from '@components/user/Tabs.astro';
 
-## Tabs
+Components let you easily reuse a piece of UI or styling consistently. You can use them not just in `.astro` files, but also in `.mdx` files.
+
+> [!TIP]
+> [MDX](https://mdxjs.com/) is a format that lets you write JSX embedded inside Markdown. And it has no difference with markdown files in other ways.
+
+## Containers
+
+### Tabs
 
 <Tabs>
   <TabItem label="Component Syntax">
