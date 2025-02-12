@@ -1,22 +1,18 @@
 // @ts-check
 import { CDN } from './src/constants/cdn.mjs';
-import { componentInline } from './src/plugins/components/inline.mjs';
-import { componentTabs } from './src/plugins/components/tabs.mjs';
 import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.mjs';
 import { remarkExcerpt } from './src/plugins/remark-excerpt';
 import { remarkImageProcess } from './src/plugins/remark-image-process.mjs';
-import { parseDirectiveNodes } from './src/plugins/remark-prase-directive.mjs';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
+import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import pagefind from 'astro-pagefind';
 import { defineConfig } from 'astro/config';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeComponents from 'rehype-components';
 import rehypeMathJaxCHtml from 'rehype-mathjax/chtml';
-import remarkDirective from 'remark-directive';
 import remarkGithubBlockQuote from 'remark-github-beta-blockquote-admonitions';
 import remarkMath from 'remark-math';
 
@@ -30,6 +26,7 @@ export default defineConfig({
     icon(),
     sitemap({ filter: (page) => !page.includes('/archives/') && !page.includes('/about/') }),
     pagefind(),
+    mdx(),
   ],
   markdown: {
     shikiConfig: {
@@ -56,17 +53,9 @@ export default defineConfig({
           },
         },
       ],
-      remarkDirective,
-      parseDirectiveNodes,
     ],
     rehypePlugins: [
       rehypeHeadingIds,
-      [
-        rehypeComponents,
-        {
-          components: { tabs: componentTabs, inline: componentInline },
-        },
-      ],
       [
         rehypeAutolinkHeadings,
         {

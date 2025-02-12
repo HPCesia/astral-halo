@@ -1,0 +1,110 @@
+---
+title: Markdown Components
+slug: q1k423y0
+category: Example
+tags:
+  - markdown
+  - example
+published: 2025-02-10T21:23:23+08:00
+---
+
+import TabItem from '@components/user/TabItem.astro';
+import Tabs from '@components/user/Tabs.astro';
+
+## Tabs
+
+<Tabs>
+  <TabItem label="Component Syntax">
+    ```jsx
+    <Tabs syncKey={syncKey}>
+      <TabItem label={tabsTitle} active={isActive}>
+        {content}
+      </TabItem>
+    </Tabs>
+    ```
+  </TabItem>
+  <TabItem label="Parameter Description">
+    - `syncKey`: The key to sync tabs.
+    - `tabsTitle`: The title of the tab.
+    - `isActive`: The active tab.
+    - `content`: The content of the tab.
+  </TabItem>
+  <TabItem label="Component Examples" active={true}>
+    <Tabs>
+      <TabItem label="Foo">
+        This is the content of common Tab 1
+      </TabItem>
+      <TabItem label="Bar" active={true}>
+        This is the content of common Tab 2
+      </TabItem>
+    </Tabs>
+    <Tabs>
+      <TabItem label="Lorem">
+        This is the content of spoiler Tab 1
+      </TabItem>
+      <TabItem label="Ipsum">
+        This is the content of spoiler Tab 2
+      </TabItem>
+    </Tabs>
+    <Tabs syncKey="test-tabs-sync">
+      <TabItem label="Tab 1" active={true}>
+        This is the content of sync Tab 1, sync with next Tabs.
+      </TabItem>
+      <TabItem label="Tab 2">
+        This is the content of sync Tab 2, sync with next Tabs.
+      </TabItem>
+    </Tabs>
+    <Tabs syncKey="test-tabs-sync">
+      <TabItem label="NPM" active={true}>
+        ```bash
+        npm install foo bar
+        ```
+      </TabItem>
+      <TabItem label="PNPM">
+        ```bash
+        pnpm add foo bar
+        ```
+      </TabItem>
+    </Tabs>
+  </TabItem>
+  <TabItem label='Code of Examples'>
+    ````jsx
+    <Tabs>
+      <TabItem label="Foo">
+        This is the content of common Tab 1
+      </TabItem>
+      <TabItem label="Bar" active={true}>
+        This is the content of common Tab 2
+      </TabItem>
+    </Tabs>
+    <Tabs>
+      <TabItem label="Lorem">
+        This is the content of spoiler Tab 1
+      </TabItem>
+      <TabItem label="Ipsum">
+        This is the content of spoiler Tab 2
+      </TabItem>
+    </Tabs>
+    <Tabs syncKey="test-tabs-sync">
+      <TabItem label="Tab 1" active={true}>
+        This is the content of sync Tab 1, sync with next Tabs.
+      </TabItem>
+      <TabItem label="Tab 2">
+        This is the content of sync Tab 2, sync with next Tabs.
+      </TabItem>
+    </Tabs>
+    <Tabs syncKey="test-tabs-sync">
+      <TabItem label="NPM" active={true}>
+        ```bash
+        npm install foo bar
+        ```
+      </TabItem>
+      <TabItem label="PNPM">
+        ```bash
+        pnpm add foo bar
+        ```
+      </TabItem>
+    </Tabs>
+    ````
+  </TabItem>
+</Tabs>

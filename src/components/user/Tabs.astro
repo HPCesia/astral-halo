@@ -1,0 +1,62 @@
+---
+interface Props {
+  syncKey?: string;
+}
+
+const syncKey = Astro.props.syncKey;
+const tabsName = `tabs-${Math.random().toString(36).substring(2, 9)}`;
+
+const html = (await Astro.slots.render('default')).replaceAll(/{{{tabs-name}}}/g, tabsName);
+---
+
+<div
+  class="tabs tabs-box bg-base-200/15 my-4 shadow"
+  {...syncKey ? { 'data-sync-key': syncKey } : {}}
+>
+  <Fragment set:html={html} />
+</div>
+
+<script>
+  import { syncTabs } from '@scripts/stores';
+  import { listenKeys } from 'nanostores';
+
+  function init() {
+    const tabsNeedSync = document.querySelectorAll('.tabs[data-sync-key]');
+    tabsNeedSync.forEach((tab) => {
+      const syncKey = tab.getAttribute('data-sync-key')!;
+      const tabItems: NodeListOf<HTMLInputElement> = tab.querySelectorAll(
+        ':scope > input[type="radio"]'
+      );
+      if (syncKey in syncTabs.get()) {
+        const activeTabIndex = syncTabs.get()[syncKey];
+        if (activeTabIndex === -1) {
+          tabItems.forEach((tab) => tab.removeAttribute('checked'));
+        } else {
+          tabItems[activeTabIndex].setAttribute('checked', 'checked');
+        }
+      } else {
+        const activeTabIndex = Array.from(tabItems).findIndex((tab) => tab.checked);
+        console.log(syncKey, 'init', activeTabIndex);
+        syncTabs.setKey(syncKey, activeTabIndex);
+      }
+      tabItems.forEach((tab, index) => {
+        tab.addEventListener('change', () => {
+          if (tab.checked) {
+            syncTabs.setKey(syncKey, index);
+          }
+        });
+      });
+      listenKeys(syncTabs, [syncKey], (curr) => {
+        const activeTabIndex = curr[syncKey];
+        if (activeTabIndex === -1) {
+          tabItems.forEach((tab) => (tab.checked = false));
+        } else {
+          tabItems[activeTabIndex].checked = true;
+        }
+      });
+    });
+  }
+
+  document.addEventListener('astro:after-swap', init);
+  init();
+</script>
