@@ -3,10 +3,11 @@
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[mdx]": {
+    "editor.defaultFormatter": "unifiedjs.vscode-mdx"
+  },
   "css.validate": false,
-  "scss.validate": false,
-  "less.validate": false,
-  "stylelint.validate": ["css", "postcss", "scss", "astro"],
+  "stylelint.validate": ["css", "astro"],
   "eslint.validate": [
     "javascript",
     "javascriptreact",
