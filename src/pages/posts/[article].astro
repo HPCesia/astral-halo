@@ -1,12 +1,8 @@
 ---
-import { articleConfig, commentConfig } from '@/config';
-import ProfileCard from '@components/aside/ProfileCard.astro';
-import TOC from '@components/aside/TOC.astro';
-import Comment from '@components/Comment.astro';
 import License from '@components/misc/License.astro';
 import PostInfo from '@components/misc/PostInfo.astro';
 import Markdown from '@components/utils/Markdown.astro';
-import GridLayout from '@layouts/GridLayout.astro';
+import PostPageLayout from '@layouts/PostPageLayout.astro';
 import { getOrCreateRenderResult } from '@utils/content-utils';
 import { getCollection } from 'astro:content';
 
@@ -24,7 +20,13 @@ const { Content, headings, remarkPluginFrontmatter } = await getOrCreateRenderRe
 const description = article.data.description || remarkPluginFrontmatter.excerpt;
 ---
 
-<GridLayout title={article.data.title} description={description}>
+<PostPageLayout
+  title={article.data.title}
+  description={description}
+  headings={headings}
+  comment={article.data.comment}
+  lang={article.data.lang}
+>
   <Fragment slot="header-content">
     <PostInfo
       title={article.data.title}
@@ -37,17 +39,8 @@ const description = article.data.description || remarkPluginFrontmatter.excerpt;
       class="mx-2 mt-4"
     />
   </Fragment>
-  <div class="card border-base-300 border-2 px-6 py-4">
-    <Markdown>
-      <Content />
-    </Markdown>
-    <License time={article.data.published} lang={article.data.lang} />
-    {article.data.comment && commentConfig.enable && <Comment />}
-  </div>
-  <Fragment slot="aside-fixed">
-    <ProfileCard />
-  </Fragment>
-  <Fragment slot="aside-sticky">
-    {articleConfig.toc && <TOC headings={headings} />}
-  </Fragment>
-</GridLayout>
+  <Markdown>
+    <Content />
+  </Markdown>
+  <License time={article.data.published} lang={article.data.lang} />
+</PostPageLayout>

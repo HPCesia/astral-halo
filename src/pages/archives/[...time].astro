@@ -7,7 +7,7 @@ import Button from '@components/widgets/Button.astro';
 import MetaIcon from '@components/widgets/MetaIcon.astro';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
-import GridLayout from '@layouts/GridLayout.astro';
+import MainLayout from '@layouts/MainLayout.astro';
 import { getCategoryUrl, getPostsCount, getSortedPosts, getTagUrl } from '@utils/content-utils';
 import { Icon } from 'astro-icon/components';
 
@@ -72,7 +72,7 @@ const slug = Astro.params.time;
 const postCount = await getPostsCount();
 ---
 
-<GridLayout>
+<MainLayout>
   <div class="card border-base-300 mb-4 border-2">
     <div class="breadcrumbs card-body text-md py-3">
       <ul>
@@ -271,4 +271,4 @@ const postCount = await getPostsCount();
       )
     }
   </Fragment>
-</GridLayout>
+</MainLayout>

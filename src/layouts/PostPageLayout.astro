@@ -1,0 +1,35 @@
+---
+import { articleConfig, commentConfig } from '@/config';
+import ProfileCard from '@components/aside/ProfileCard.astro';
+import TOC from '@components/aside/TOC.astro';
+import Comment from '@components/Comment.astro';
+import type { MarkdownHeading } from 'astro';
+import MainLayout from './MainLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: string;
+  headings?: MarkdownHeading[];
+  comment?: boolean;
+}
+
+const { title, description, lang, headings, comment } = Astro.props;
+---
+
+<MainLayout title={title} description={description} lang={lang}>
+  <slot slot="head" name="head" />
+  <slot slot="header-content" name="header-content" />
+  <div class="card border-base-300 border-2 px-6 py-4">
+    <slot />
+    {comment && commentConfig.enable && <Comment />}
+  </div>
+  <Fragment slot="aside-fixed">
+    <ProfileCard />
+    <slot name="aside-fixed" />
+  </Fragment>
+  <Fragment slot="aside-sticky">
+    {articleConfig.toc && headings && <TOC headings={headings} />}
+    <slot name="aside-sticky" />
+  </Fragment>
+</MainLayout>

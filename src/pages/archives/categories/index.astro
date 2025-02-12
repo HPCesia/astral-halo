@@ -12,7 +12,7 @@ import Button from '@components/widgets/Button.astro';
 import MetaIcon from '@components/widgets/MetaIcon.astro';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
-import GridLayout from '@layouts/GridLayout.astro';
+import MainLayout from '@layouts/MainLayout.astro';
 import { Icon } from 'astro-icon/components';
 
 const categoriesMap = await getCategories();
@@ -28,7 +28,7 @@ if (uncategorizedPosts.length > 0)
   categoryPosts.set(i18n(I18nKey.uncategorized) as string, uncategorizedPosts);
 ---
 
-<GridLayout title={i18n(I18nKey.categories)}>
+<MainLayout title={i18n(I18nKey.categories)}>
   <div
     class="card card-border border-base-300 mx-auto flex flex-col items-center border-2 px-6 py-4"
   >
@@ -140,4 +140,4 @@ if (uncategorizedPosts.length > 0)
       }))}
     />
   </Fragment>
-</GridLayout>
+</MainLayout>

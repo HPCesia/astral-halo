@@ -5,7 +5,12 @@ import Button from './widgets/Button.astro';
 import DarkModeButton from './widgets/DarkModeButton.astro';
 ---
 
-<div id="side-toolbar" class="fixed right-0 bottom-10 z-30 grid grid-cols-1 gap-2">
+<div
+  id="side-toolbar"
+  class="fixed right-0 bottom-10 z-30 grid grid-cols-1 gap-2"
+  transition:name="side-toolbar"
+  transition:persist
+>
   <div
     id="stb-hide"
     class="grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
@@ -133,5 +138,6 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     });
   }
 
-  document.addEventListener('astro:page-load', initSideToolBar);
+  document.addEventListener('astro:after-swap', initSideToolBar);
+  initSideToolBar();
 </script>

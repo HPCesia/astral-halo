@@ -3,8 +3,8 @@ import { siteConfig } from '@/config';
 import ProfileCard from '@components/aside/ProfileCard.astro';
 import SiteInfoCard from '@components/aside/SiteInfoCard.astro';
 import CategoryBar from '@components/misc/CategoryBar.astro';
-import PostPage from '@components/PostPage.astro';
-import GridLayout from '@layouts/GridLayout.astro';
+import PostsPage from '@components/PostsPage.astro';
+import MainLayout from '@layouts/MainLayout.astro';
 import { getCategories, getSortedPosts } from '@utils/content-utils';
 
 export async function getStaticPaths() {
@@ -22,9 +22,9 @@ const articles = await getSortedPosts();
 const categories = await getCategories();
 ---
 
-<GridLayout>
+<MainLayout>
   <CategoryBar categories={Array.from(categories.keys())} />
-  <PostPage
+  <PostsPage
     posts={articles}
     currentPage={page}
     baseUrl={`/page`}
@@ -34,4 +34,4 @@ const categories = await getCategories();
     <ProfileCard />
     <SiteInfoCard />
   </Fragment>
-</GridLayout>
+</MainLayout>
