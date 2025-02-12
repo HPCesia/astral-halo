@@ -1,108 +1,12 @@
 ---
 import '@/styles/markdown.css';
-import Button from '@components/widgets/Button.astro';
-import { isFirstInstance } from '@utils/component-utils';
-import { Icon } from 'astro-icon/components';
 import type { HTMLAttributes } from 'astro/types';
 
 type Props = HTMLAttributes<'article'>;
 
 const { class: className, ...rest } = Astro.props;
-
-const html = await Astro.slots.render('default');
-const hasPre = /<pre[\s>]/i.test(html);
-// 开发环境下，保存文件后 isFirstInstance 会返回 false，所以需要强制显示工具栏
-const firstHasPre = hasPre && (isFirstInstance('md-has-pre', Astro.url) || import.meta.env.DEV);
 ---
 
 <article class={className} {...rest}>
-  <Fragment set:html={html} />
+  <slot />
 </article>
-
-{
-  firstHasPre && (
-    <template
-      id="code-toolbar-template"
-      class="code-block-wrapper collapse-open collapse my-4 w-[initial]"
-    >
-      <div class="bg-primary/60 text-primary-content z-10 flex w-full items-center justify-between">
-        <Button class="toggle-btn btn-ghost btn-primary rounded-bl-none">
-          <Icon
-            name="material-symbols:keyboard-arrow-down-rounded"
-            class="h-5 w-5 duration-300"
-          />
-        </Button>
-        <span class="language font-mono text-sm" />
-        <Button class="copy-btn btn-ghost btn-primary rounded-br-none">
-          <Icon name="material-symbols:file-copy-rounded" class="h-5 w-5 duration-300" />
-        </Button>
-      </div>
-      <div class="collapse-content w-full !p-0" />
-    </template>
-  )
-}
-
-<script>
-  async function init() {
-    prettierPreCode();
-  }
-
-  function prettierPreCode() {
-    const codeBlocks = document.querySelectorAll('article pre');
-    const template = document.getElementById('code-toolbar-template') as HTMLTemplateElement;
-    if (!template) return;
-
-    const wrapPre = (pre: HTMLPreElement) => {
-      const language = (pre?.getAttribute('data-language') || 'plaintext').toLocaleUpperCase();
-
-      const wrapper = document.createElement('div');
-      wrapper.className = template.className;
-
-      const toolbar = template.content.cloneNode(true) as DocumentFragment;
-      const langLabel = toolbar.querySelector('.language');
-      if (langLabel) {
-        langLabel.textContent = language;
-      }
-
-      pre.parentNode?.insertBefore(wrapper, pre);
-      wrapper.appendChild(toolbar);
-      wrapper.querySelector('.collapse-content')?.appendChild(pre);
-
-      const toggleBtn = wrapper.querySelector('.toggle-btn');
-      const copyBtn = wrapper.querySelector('.copy-btn');
-
-      toggleBtn?.addEventListener('click', () => {
-        toggleBtn.querySelector('svg')?.classList.toggle('-rotate-90');
-        wrapper.classList.toggle('collapse-open');
-      });
-
-      const code = pre.querySelector('code');
-      copyBtn?.addEventListener('click', async () => {
-        try {
-          const text = code?.textContent || '';
-          await navigator.clipboard.writeText(text);
-          copyBtn?.classList.add('text-success');
-          setTimeout(() => {
-            copyBtn?.classList.remove('text-success');
-          }, 600);
-        } catch (err) {
-          console.error('Failed to copy:', err);
-          copyBtn?.classList.add('text-error');
-          setTimeout(() => {
-            copyBtn?.classList.remove('text-error');
-          }, 600);
-        }
-      });
-    };
-
-    const isWrapped = (pre: HTMLPreElement) => {
-      return pre.parentElement?.classList.contains('collapse-content');
-    };
-
-    codeBlocks.forEach((pre) => {
-      if (!isWrapped(pre as HTMLPreElement)) wrapPre(pre as HTMLPreElement);
-    });
-  }
-
-  document.addEventListener('astro:page-load', init);
-</script>

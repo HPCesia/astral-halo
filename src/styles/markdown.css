@@ -168,14 +168,12 @@ article {
 
   /* 代码样式 */
   pre {
-    padding: 0.5rem;
+    padding: 1rem 2rem 1rem 0.5rem;
     counter-reset: line;
     transition: 300ms all ease;
+    overflow-x: scroll;
 
     code {
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      word-break: break-all;
       display: flex;
       flex-direction: column;
       gap: 0.125em;
@@ -198,6 +196,14 @@ article {
           transform: translateY(0.15em);
         }
       }
+    }
+  }
+
+  div:has(> pre) {
+    @apply relative rounded-md;
+
+    > :last-child > span {
+      @apply bg-base-content/60!;
     }
   }
 
