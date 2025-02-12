@@ -9,7 +9,7 @@ export const rehypeWrapTables: RehypePlugin = function () {
         const wrapper = {
           type: 'element',
           tagName: 'div',
-          properties: { className: ['overflow-auto'] },
+          properties: { class: 'overflow-auto' },
           children: [node],
         };
         parent.children[index] = wrapper as ElementContent;
