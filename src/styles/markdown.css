@@ -240,7 +240,7 @@ article {
     @apply my-4 rounded-sm border-l-4;
 
     .admonition-title {
-      font-weight: bold;
+      @apply inline-flex items-center gap-1 text-lg font-bold;
     }
 
     &.admonition-note {
