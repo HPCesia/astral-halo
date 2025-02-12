@@ -10,7 +10,7 @@ tags:
 published: 2025-02-10T21:23:23+08:00
 ---
 
-import { Tabs, TabItem, Repl } from '@components/user';
+import { Tabs, TabItem, Repl, Collapse } from '@components/user';
 
 Components let you easily reuse a piece of UI or styling consistently. You can use them not just in `.astro` files, but also in `.mdx` files.
 
@@ -18,6 +18,27 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
 > [MDX](https://mdxjs.com/) is a format that lets you write JSX embedded inside Markdown. And it has no difference with markdown files in other ways.
 
 ## Containers
+
+### Collapse
+
+<Repl>
+  <Collapse title='Click me'>
+    This is the content of the collapse.
+  </Collapse>
+  <Collapse title='Default open!' open>
+    Hey there, I'm opened by default!
+  </Collapse>
+  <Fragment slot="desc">
+    ```jsx
+    <Collapse title='Click me'>
+      This is the content of the collapse.
+    </Collapse>
+    <Collapse title='Default open!' open>
+      Hey there, I'm opened by default!
+    </Collapse>
+    ```
+  </Fragment>
+</Repl>
 
 ### Tabs
 

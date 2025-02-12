@@ -290,33 +290,6 @@ article {
     }
   }
 
-  /* 折叠块样式 */
-  details {
-    @apply border-base-300 relative w-full overflow-hidden rounded-xl border duration-300;
-
-    summary {
-      @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-lg duration-300;
-
-      &::marker {
-        margin-right: 1.5rem;
-      }
-    }
-
-    &[open] {
-      summary {
-        @apply bg-primary/50;
-      }
-    }
-
-    > :not(summary) {
-      @apply mx-8;
-    }
-
-    > :last-child {
-      @apply mb-4;
-    }
-  }
-
   /* 表格样式 */
   table {
     @apply relative w-full text-left text-sm;

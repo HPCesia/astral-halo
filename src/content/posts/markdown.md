@@ -13,14 +13,7 @@ Here is an example of a Markdown blog post.
 
 # Heading Level 1 (I suggest not to use this level)
 
-Heading Level 1 is reserved for the post title, so you should start with Heading Level 2.
-
-<details>
-  <summary>Or</summary>
-  <p>
-    Add <code>import remarkHeadingShift from './src/plugins/remark-heading-shift.mjs';</code> to the top of <code>astro.config.mjs</code> and uncomment the first line of the <code>remarkPlugins</code> array, then you can use Heading Level 1 as a regular heading in your blog posts.
-  </p>
-</details>
+Heading Level 1 is reserved for the post title, so you should start with Heading Level 2. Or you can uncomment `import remarkHeadingShift from './src/plugins/remark-heading-shift.mjs';` to the top of `astro.config.mjs` and then uncomment the first line of the `remarkPlugins` array. After that, you can use Heading Level 1 as a regular heading in your blog posts.
 
 ## Heading Level 2
 
