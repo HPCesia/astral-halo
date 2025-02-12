@@ -10,7 +10,7 @@ tags:
 published: 2025-02-10T21:23:23+08:00
 ---
 
-import { Tabs, TabItem } from '@components/user';
+import { Tabs, TabItem, Repl } from '@components/user';
 
 Components let you easily reuse a piece of UI or styling consistently. You can use them not just in `.astro` files, but also in `.mdx` files.
 
@@ -21,61 +21,44 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
 
 ### Tabs
 
-<Tabs>
-  <TabItem label="Component Syntax">
-    ```jsx
-    <Tabs syncKey={syncKey}>
-      <TabItem label={tabsTitle} active={isActive}>
-        {content}
-      </TabItem>
-    </Tabs>
-    ```
-  </TabItem>
-  <TabItem label="Parameter Description">
-    - `syncKey`: The key to sync tabs.
-    - `tabsTitle`: The title of the tab.
-    - `isActive`: The active tab.
-    - `content`: The content of the tab.
-  </TabItem>
-  <TabItem label="Component Examples" active={true}>
-    <Tabs>
-      <TabItem label="Foo">
-        This is the content of common Tab 1
-      </TabItem>
-      <TabItem label="Bar" active={true}>
-        This is the content of common Tab 2
-      </TabItem>
-    </Tabs>
-    <Tabs>
-      <TabItem label="Lorem">
-        This is the content of spoiler Tab 1
-      </TabItem>
-      <TabItem label="Ipsum">
-        This is the content of spoiler Tab 2
-      </TabItem>
-    </Tabs>
-    <Tabs syncKey="test-tabs-sync">
-      <TabItem label="Tab 1" active={true}>
-        This is the content of sync Tab 1, sync with next Tabs.
-      </TabItem>
-      <TabItem label="Tab 2">
-        This is the content of sync Tab 2, sync with next Tabs.
-      </TabItem>
-    </Tabs>
-    <Tabs syncKey="test-tabs-sync">
-      <TabItem label="NPM" active={true}>
-        ```bash
-        npm install foo bar
-        ```
-      </TabItem>
-      <TabItem label="PNPM">
-        ```bash
-        pnpm add foo bar
-        ```
-      </TabItem>
-    </Tabs>
-  </TabItem>
-  <TabItem label='Code of Examples'>
+<Repl>
+  <Tabs>
+    <TabItem label="Foo">
+      This is the content of common Tab 1
+    </TabItem>
+    <TabItem label="Bar" active={true}>
+      This is the content of common Tab 2
+    </TabItem>
+  </Tabs>
+  <Tabs>
+    <TabItem label="Lorem">
+      This is the content of spoiler Tab 1
+    </TabItem>
+    <TabItem label="Ipsum">
+      This is the content of spoiler Tab 2
+    </TabItem>
+  </Tabs>
+  <Tabs syncKey="test-tabs-sync">
+    <TabItem label="Tab 1" active={true}>
+      This is the content of sync Tab 1, sync with next Tabs.
+    </TabItem>
+    <TabItem label="Tab 2">
+      This is the content of sync Tab 2, sync with next Tabs.
+    </TabItem>
+  </Tabs>
+  <Tabs syncKey="test-tabs-sync">
+    <TabItem label="NPM" active={true}>
+      ```bash
+      npm install foo bar
+      ```
+    </TabItem>
+    <TabItem label="PNPM">
+      ```bash
+      pnpm add foo bar
+      ```
+    </TabItem>
+  </Tabs>
+  <Fragment slot="desc">
     ````jsx
     <Tabs>
       <TabItem label="Foo">
@@ -114,5 +97,30 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
       </TabItem>
     </Tabs>
     ````
-  </TabItem>
-</Tabs>
+  </Fragment>
+</Repl>
+
+### Repl
+
+<Repl>
+  <Repl>
+    <div>Hello</div>
+    <Fragment slot="desc">
+      ```jsx
+      <div>Hello</div>
+      ```
+    </Fragment>
+  </Repl>
+  <Fragment slot="desc">
+    ````jsx
+    <Repl>
+      <div class='text-center'>Hello</div>
+      <Fragment>
+        ```jsx
+        <div class='text-center'>Hello</div>
+        ```
+      </Fragment>
+    </Repl>
+    ````
+  </Fragment>
+</Repl>
