@@ -1,9 +1,7 @@
+import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import { visit } from 'unist-util-visit';
 
-/**
- * Remark plugin to add data-zoom attribute to all images
- */
-export function remarkImageProcess() {
+export const remarkImageProcess: RemarkPlugin = function () {
   return (tree) => {
     visit(tree, 'image', (node) => {
       // 添加 data-zoom 属性到图片节点
@@ -16,4 +14,4 @@ export function remarkImageProcess() {
       node.data.hProperties.decoding = 'async';
     });
   };
-}
+};

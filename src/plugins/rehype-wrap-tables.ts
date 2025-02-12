@@ -1,13 +1,8 @@
+import type { RehypePlugin } from '@astrojs/markdown-remark';
+import type { ElementContent } from 'hast';
 import { visit } from 'unist-util-visit';
 
-/**
- * Rehype plugin to wrap tables with a div for overflow auto
- *
- * Rehype 插件，为表格包裹一个带有 overflow auto 样式的 div
- *
- * @returns {import('unified').Plugin}
- */
-export function rehypeWrapTables() {
+export const rehypeWrapTables: RehypePlugin = function () {
   return (tree) => {
     visit(tree, 'element', (node, index, parent) => {
       if (node.tagName === 'table' && parent && typeof index === 'number') {
@@ -17,8 +12,8 @@ export function rehypeWrapTables() {
           properties: { className: ['overflow-auto'] },
           children: [node],
         };
-        parent.children[index] = wrapper;
+        parent.children[index] = wrapper as ElementContent;
       }
     });
   };
-}
+};

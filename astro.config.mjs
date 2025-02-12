@@ -1,9 +1,10 @@
 // @ts-check
 import { CDN } from './src/constants/cdn.mjs';
-import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.mjs';
-import { remarkExcerpt } from './src/plugins/remark-excerpt';
-import { remarkImageProcess } from './src/plugins/remark-image-process.mjs';
-import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
+import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.ts';
+import { remarkExcerpt } from './src/plugins/remark-excerpt.ts';
+// import { remarkHeadingShift } from './src/plugins/remark-heading-shift.ts';
+import { remarkImageProcess } from './src/plugins/remark-image-process.ts';
+import { remarkReadingTime } from './src/plugins/remark-reading-time.ts';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
