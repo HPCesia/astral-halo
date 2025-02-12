@@ -33,8 +33,8 @@ Astral Halo is a static blog template developed with [Astro](https://astro.build
 ```yaml
 ---
 title: Article Title
-slug: post-entry
-published: 1970-01-01T00:00:00.000Z
+slug: post-entry # The article will be generated at the path [BASE_URL]/posts/post-entry/
+published: 1970-01-01T00:00:00Z
 description: Article Description
 category: Lorem
 tags: [Foo, Bar]
@@ -62,5 +62,6 @@ All commands need to be run from the project root directory:
 
 ## Acknowledgments
 
-- This project is inspired by [Fuwari](https://github.com/saicaca/fuwari) and uses some of its code and design elements.
+- This project is inspired by [Fuwari](https://github.com/saicaca/fuwari) and references some of its code and design elements.
+- This project is inspired by [Pure](https://github.com/cworld1/astro-theme-pure) and references some of its code and design elements.
 - This project is inspired by [Solitude](https://github.com/everfu/hexo-theme-solitude) and references some of its design elements.

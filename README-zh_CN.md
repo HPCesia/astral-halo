@@ -33,8 +33,8 @@ Astral Halo 是一个基于 [Astro](https://astro.build) 开发的静态博客�
 ```yaml
 ---
 title: 文章标题
-slug: post-entry
-published: 1970-01-01T00:00:00.000Z
+slug: post-entry # 文章将生成至 [BASE_URL]/posts/post-entry/ 路径下
+published: 1970-01-01T00:00:00Z
 description: 文章描述
 category: Lorem
 tags: [Foo, Bar]
@@ -62,5 +62,6 @@ comment: true # 是否启用评论，需要在 `config.ts` 中启用并配置评
 
 ## 致谢
 
-- 项目受 [Fuwari](https://github.com/saicaca/fuwari) 启发，使用了其中的部分代码和设计元素。
+- 项目受 [Fuwari](https://github.com/saicaca/fuwari) 启发，参考了其中的部分代码和设计元素。
+- 项目受 [Pure](https://github.com/cworld1/astro-theme-pure) 启发，参考了其中的部分代码和设计元素。
 - 项目受 [Solitude](https://github.com/everfu/hexo-theme-solitude) 启发，参考了其中的部分设计元素。
