@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from '@/config';
+import { Icon } from 'astro-icon/components';
 import ImageWrapper from './utils/ImageWrapper.astro';
 
 interface Props {
@@ -19,7 +20,14 @@ const customBanner = Boolean(Astro.props.src !== undefined);
   data-custom-banner={customBanner}
 >
   <ImageWrapper src={src} class="h-full object-cover" />
-  <div class="from-base-100 to-base-100/0 absolute bottom-0 h-1/2 min-h-48 w-full bg-linear-0">
+  <div
+    id="banner-mask"
+    class="from-base-100 to-base-100/0 absolute bottom-0 grid h-1/2 min-h-48 w-full bg-linear-0"
+  >
+    <Icon
+      name="material-symbols:keyboard-arrow-down-rounded"
+      class="text-base-content/60 relative mx-auto hidden h-24 w-24 translate-y-8 scale-x-110 animate-bounce place-self-end"
+    />
   </div>
 </div>
 
@@ -50,6 +58,9 @@ const customBanner = Boolean(Astro.props.src !== undefined);
     const banner = document.getElementById('banner');
     banner?.classList.remove('opacity-0', 'scale-105');
     banner!.style.height = getBannerHeight(window.location.pathname) as string;
+    const bannerMask = document.getElementById('banner-mask');
+    const icon = bannerMask?.querySelector('svg');
+    if (pathsEqual('/', window.location.pathname)) icon?.classList.remove('hidden');
   }
 
   document.addEventListener('astro:after-swap', setupBanner);
