@@ -50,23 +50,13 @@ const customBanner = Boolean(Astro.props.src !== undefined);
     const banner = document.getElementById('banner');
     banner?.classList.remove('opacity-0', 'scale-105');
     banner!.style.height = getBannerHeight(window.location.pathname) as string;
-    banner!.style.translate = '0';
   }
 
   document.addEventListener('astro:after-swap', setupBanner);
   setupBanner();
 
   function swupSetupBanner() {
-    window.swup?.hooks.before('visit:start', (visit) => {
-      const banner = document.getElementById('banner');
-      if (!banner) {
-        console.error('Banner not found');
-        return;
-      }
-      const height = getBannerHeight(visit.to.url) as string;
-      banner.style.height = height;
-      banner.style.translate = `0 ${height}`;
-
+    window.swup?.hooks.before('visit:start', () => {
       const heightExtend = document.getElementById('page-height-extend');
       if (!heightExtend) {
         console.error('Height extend not found');
@@ -75,14 +65,7 @@ const customBanner = Boolean(Astro.props.src !== undefined);
       heightExtend.classList.remove('hidden');
     });
 
-    window.swup?.hooks.before('content:replace', (visit) => {
-      const banner = document.getElementById('banner');
-      if (!banner) {
-        console.error('Banner not found');
-        return;
-      }
-      const height = getBannerHeight(visit.to.url) as string;
-      banner.style.translate = `0 ${height}`;
+    window.swup?.hooks.before('content:replace', () => {
       const heightExtend = document.getElementById('page-height-extend');
       if (!heightExtend) {
         console.error('Height extend not found');
