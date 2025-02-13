@@ -125,6 +125,58 @@ export type SiteConfig = {
    * 每页显示的文章数量。
    */
   postsPerPage: number;
+  /**
+   * The configuration of the banner.
+   *
+   * 横幅的配置。
+   */
+  banner:
+    | false
+    | {
+        /**
+         * The URL of the banner.
+         *
+         * 横幅的 URL。
+         */
+        src: string;
+        /**
+         * The height of the banner in homepage.
+         *
+         * 主页中横幅的高度。
+         */
+        homepageHeight: `${number}${'vh' | 'rem' | 'px'}`;
+        /**
+         * The height of the banner in post page.
+         *
+         * 文章页面中横幅的高度。
+         */
+        postHeight: `${number}${'vh' | 'rem' | 'px'}`;
+        /**
+         * The height of the banner in pages.
+         *
+         * 页面中横幅的高度。
+         */
+        pagesHeight: {
+          /**
+           * The regular expression of the page path.
+           *
+           * 页面路径的正则表达式。
+           */
+          pagePathRegex: RegExp;
+          /**
+           * The height of the banner.
+           *
+           * 横幅的高度。
+           */
+          height: `${number}${'vh' | 'rem' | 'px'}`;
+        }[];
+        /**
+         * The default height of the banner.
+         *
+         * 横幅的默认高度。
+         */
+        defaultHeight: `${number}${'vh' | 'rem' | 'px'}`;
+      };
 };
 
 export type ProfileConfig = {

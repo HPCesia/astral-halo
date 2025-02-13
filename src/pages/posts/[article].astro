@@ -1,6 +1,8 @@
 ---
+import { siteConfig } from '@/config';
 import License from '@components/misc/License.astro';
 import PostInfo from '@components/misc/PostInfo.astro';
+import ImageWrapper from '@components/utils/ImageWrapper.astro';
 import Markdown from '@components/utils/Markdown.astro';
 import PostPageLayout from '@layouts/PostPageLayout.astro';
 import { getOrCreateRenderResult } from '@utils/content-utils';
@@ -16,6 +18,8 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await getOrCreateRenderResult(article);
+const hasCover =
+  article.data.cover !== '' && article.data.cover !== undefined && article.data.cover !== null;
 
 const description = article.data.description || remarkPluginFrontmatter.excerpt;
 ---
@@ -39,6 +43,15 @@ const description = article.data.description || remarkPluginFrontmatter.excerpt;
       class="mx-2 mt-4"
     />
   </Fragment>
+  {
+    siteConfig.banner === false && hasCover && (
+      <ImageWrapper
+        src={article.data.cover}
+        class="mb-6 rounded-xl shadow"
+        alt={article.data.title}
+      />
+    )
+  }
   <Markdown>
     <Content />
   </Markdown>

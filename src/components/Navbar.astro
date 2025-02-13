@@ -1,5 +1,5 @@
 ---
-import { navbarConfig } from '@/config';
+import { navbarConfig, siteConfig } from '@/config';
 import { i18n } from '@i18n/translation';
 import { Icon } from 'astro-icon/components';
 import Button from './widgets/Button.astro';
@@ -87,7 +87,7 @@ if (!title) title = 'Astral Halo';
         </div>
       </div>
     </div>
-    <div id="navbar-placeholder" class="pt-20"></div>
+    {siteConfig.banner === false && <div id="navbar-placeholder" class="pt-20" />}
     <!-- Page Content -->
     <slot />
   </div>

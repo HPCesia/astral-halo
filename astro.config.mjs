@@ -37,6 +37,8 @@ export default defineConfig({
       containers: ['main'],
       animationClass: 'swup-transition-',
       globalInstance: true,
+      smoothScrolling: true,
+      progress: true,
     }),
   ],
   markdown: {

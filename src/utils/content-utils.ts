@@ -2,7 +2,7 @@ import type { BlogPostData } from '@/types/data';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
 import type { MarkdownHeading } from 'astro';
-import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.d.ts';
 import { getCollection } from 'astro:content';
 import { type CollectionEntry, render } from 'astro:content';
 

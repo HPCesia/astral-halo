@@ -2,6 +2,7 @@
 import { profileConfig, searchConfig, siteConfig } from '@/config';
 import '@/styles/global.css';
 import type { Favicon } from '@/types/config';
+import Banner from '@components/Banner.astro';
 import Navbar from '@components/Navbar.astro';
 import PageFooter from '@components/PageFooter.astro';
 import Search from '@components/Search.astro';
@@ -14,7 +15,8 @@ interface Props {
   lang?: string;
 }
 
-let { title, lang, description } = Astro.props;
+let { title, lang } = Astro.props;
+const { description } = Astro.props;
 
 let pageTitle: string;
 if (title) pageTitle = `${title} - ${siteConfig.title}`;
@@ -78,12 +80,14 @@ const favicons: Favicon[] =
     <SideToolBar />
     <Navbar>
       <slot name="header" />
+      {siteConfig.banner !== false && <Banner />}
       <div id="body-wrap" class="w-full items-center md:px-4">
         <slot />
       </div>
     </Navbar>
     {searchConfig.enable && <Search />}
     <PageFooter />
+    {siteConfig.banner !== false && <div id="page-height-extend" class="hidden" />}
   </body>
 </html>
 

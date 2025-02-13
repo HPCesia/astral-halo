@@ -1,0 +1,105 @@
+---
+import { siteConfig } from '@/config';
+import ImageWrapper from './utils/ImageWrapper.astro';
+
+interface Props {
+  src?: string;
+}
+
+const siteBanner = siteConfig.banner;
+if (siteBanner === false) throw Error('Should not show this error');
+
+const src = Astro.props.src || (siteBanner.src as string);
+const customBanner = Boolean(Astro.props.src !== undefined);
+---
+
+<div
+  id="banner"
+  class="relative max-h-screen scale-105 overflow-hidden opacity-0 duration-1000"
+  data-custom-banner={customBanner}
+>
+  <ImageWrapper src={src} class="h-full object-cover" />
+  <div class="from-base-100 to-base-100/0 absolute bottom-0 h-1/2 min-h-48 w-full bg-linear-0">
+  </div>
+</div>
+
+<script>
+  import { siteConfig } from '@/config';
+  import { pathMatch, pathsEqual, url } from '@utils/url-utils';
+
+  function getBannerHeight(path: string) {
+    if (siteConfig.banner === false) {
+      console.error('Banner is disabled. Should not show this error, must be a bug');
+      return null;
+    }
+    if (pathsEqual(url('/'), path)) {
+      return siteConfig.banner.homepageHeight;
+    }
+    if (pathMatch(/\/posts\/.*/, path)) {
+      return siteConfig.banner.postHeight;
+    }
+    for (const { pagePathRegex, height } of siteConfig.banner.pagesHeight) {
+      if (pathMatch(pagePathRegex, path)) {
+        return height;
+      }
+    }
+    return siteConfig.banner.defaultHeight;
+  }
+
+  function setupBanner() {
+    const banner = document.getElementById('banner');
+    banner?.classList.remove('opacity-0', 'scale-105');
+    banner!.style.height = getBannerHeight(window.location.pathname) as string;
+    banner!.style.translate = '0';
+  }
+
+  document.addEventListener('astro:after-swap', setupBanner);
+  setupBanner();
+
+  function swupSetupBanner() {
+    window.swup?.hooks.before('visit:start', (visit) => {
+      const banner = document.getElementById('banner');
+      if (!banner) {
+        console.error('Banner not found');
+        return;
+      }
+      const height = getBannerHeight(visit.to.url) as string;
+      banner.style.height = height;
+      banner.style.translate = `0 ${height}`;
+
+      const heightExtend = document.getElementById('page-height-extend');
+      if (!heightExtend) {
+        console.error('Height extend not found');
+        return;
+      }
+      heightExtend.classList.remove('hidden');
+    });
+
+    window.swup?.hooks.before('content:replace', (visit) => {
+      const banner = document.getElementById('banner');
+      if (!banner) {
+        console.error('Banner not found');
+        return;
+      }
+      const height = getBannerHeight(visit.to.url) as string;
+      banner.style.translate = `0 ${height}`;
+      const heightExtend = document.getElementById('page-height-extend');
+      if (!heightExtend) {
+        console.error('Height extend not found');
+        return;
+      }
+      heightExtend.classList.remove('hidden');
+    });
+
+    window.swup?.hooks.on('visit:end', () => {
+      const heightExtend = document.getElementById('page-height-extend');
+      heightExtend?.classList.add('hidden');
+    });
+  }
+
+  if (window.swup) {
+    swupSetupBanner();
+  } else {
+    document.addEventListener('swup:enable', swupSetupBanner);
+  }
+</script>

@@ -23,6 +23,18 @@ export const siteConfig: SiteConfig = {
   ],
   createAt: new Date('2025-01-01'),
   postsPerPage: 10,
+  banner: {
+    src: 'assets/img/demo_banner.jpg',
+    homepageHeight: '100vh',
+    postHeight: '40vh',
+    pagesHeight: [
+      // {
+      //   pagePathRegex: /\/about\//,
+      //   height: '50vh',
+      // },
+    ],
+    defaultHeight: '40vh',
+  },
 };
 
 export const profileConfig: ProfileConfig = {
@@ -135,7 +147,7 @@ export const commentConfig: CommentConfig = {
   enable: false,
   provider: 'twikoo',
   twikoo: {
-    envId: 'your-env-id',
+    envId: 'https://comment.hpcesia.com/.netlify/functions/twikoo',
   },
   giscus: {
     repo: 'your/repo',
