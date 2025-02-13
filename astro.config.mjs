@@ -34,6 +34,7 @@ export default defineConfig({
     pagefind(),
     mdx(),
     swup({
+      theme: false,
       containers: ['main'],
       animationClass: 'swup-transition-',
       globalInstance: true,

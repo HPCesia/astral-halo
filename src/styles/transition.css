@@ -1,0 +1,29 @@
+@reference './global.css';
+
+html.is-changing .swup-transition-fade {
+  @apply transition-all duration-200;
+}
+html.is-animating .swup-transition-fade {
+  @apply translate-y-4 opacity-0;
+}
+
+html.is-changing .swup-transition-slide {
+  @apply transition-all duration-300;
+}
+html.is-animating .swup-transition-slide {
+  @apply -translate-x-20 opacity-0;
+}
+
+.onload-animation {
+  opacity: 0;
+  animation: 300ms fade-in-up;
+  animation-fill-mode: forwards;
+}
+
+#header-content {
+  animation-delay: 400ms;
+}
+
+#main-content {
+  animation-delay: 300ms;
+}

@@ -15,7 +15,12 @@ const { title, description, lang } = Astro.props;
   <slot slot="header" name="header" />
   <!-- Main content -->
   <main class="relative mx-auto flex max-w-(--breakpoint-xl) flex-col gap-4">
-    <div class:list={[siteConfig.banner !== false && 'absolute top-0 -translate-y-full']}>
+    <div
+      id="header-content"
+      class:list={[
+        siteConfig.banner !== false && 'swup-transition-slide absolute top-0 -translate-y-full',
+      ]}
+    >
       <slot name="header-content" />
     </div>
     <div class="flex gap-4">

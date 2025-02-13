@@ -20,7 +20,7 @@ const { title, description, lang, headings, comment } = Astro.props;
 <MainLayout title={title} description={description} lang={lang}>
   <slot slot="head" name="head" />
   <slot slot="header-content" name="header-content" />
-  <div class="card border-base-300 border-2 px-6 py-4">
+  <div class="card border-base-300 swup-transition-fade border-2 px-6 py-4">
     <slot />
     {comment && commentConfig.enable && <Comment />}
   </div>

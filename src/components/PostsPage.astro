@@ -23,7 +23,7 @@ const totalPages = Math.ceil(posts.length / postsPerPage);
 posts = posts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
 ---
 
-<div id="post-page" class="flex flex-col gap-4">
+<div id="post-page" class="swup-transition-slide flex flex-col gap-4">
   {
     posts.map((post) => {
       const data = post.data;

@@ -10,12 +10,7 @@ export function pathsEqual(path1: string, path2: string) {
 }
 
 export function pathMatch(regex: RegExp, path: string) {
-  const normalizedPath = path
-    .split('?')[0]
-    .split('#')[0]
-    .replace(/^\/|\/$/g, '')
-    .toLowerCase();
-  return regex.test(normalizedPath) || regex.test(getRelativeUrl(normalizedPath));
+  return regex.test(path) || regex.test(getRelativeUrl(path));
 }
 
 export function getRelativeUrl(path: string) {
