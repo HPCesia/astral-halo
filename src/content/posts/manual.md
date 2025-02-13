@@ -28,7 +28,7 @@ comment: true # Enable comments, requires comment system to be enabled and confi
 
 ## Where to Place the Post Files
 
-Your post files should be placed in `src/content/posts/` directory. You can also create sub-directories to better organize your posts and assets. To automatically generate a new post file, run `pnpm new [draft|post] [title] [--dir]` in the terminal at the root of the project.
+Your post files should be placed in `src/content/posts/` directory. You need to create sub-directories if you want to use local assets. To automatically generate a new post file, run `pnpm new [draft|post] [title] [--dir]` in the terminal at the root of the project.
 
 ```
 src/content/posts/
