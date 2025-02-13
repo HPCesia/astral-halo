@@ -26,7 +26,7 @@ const customBanner = Boolean(Astro.props.src !== undefined);
   >
     <Icon
       name="material-symbols:keyboard-arrow-down-rounded"
-      class="text-base-content/60 relative mx-auto hidden h-24 w-24 translate-y-8 scale-x-110 animate-bounce place-self-end"
+      class="text-base-content/60 relative mx-auto hidden h-24 w-24 translate-y-6 scale-x-110 animate-bounce place-self-end opacity-0 duration-300"
     />
   </div>
 </div>
@@ -60,7 +60,19 @@ const customBanner = Boolean(Astro.props.src !== undefined);
     banner!.style.height = getBannerHeight(window.location.pathname) as string;
     const bannerMask = document.getElementById('banner-mask');
     const icon = bannerMask?.querySelector('svg');
-    if (pathsEqual('/', window.location.pathname)) icon?.classList.remove('hidden');
+    if (pathsEqual('/', window.location.pathname)) {
+      icon?.classList.remove('hidden');
+      window.addEventListener('scroll', () => {
+        const bannerHeight = banner!.clientHeight;
+        if (window.scrollY > bannerHeight / 2) {
+          icon?.classList.add('opacity-0');
+        } else {
+          icon?.classList.remove('opacity-0');
+        }
+      });
+    } else {
+      icon?.classList.add('hidden');
+    }
   }
 
   document.addEventListener('astro:after-swap', setupBanner);
