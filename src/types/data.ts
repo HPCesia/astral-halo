@@ -1,3 +1,5 @@
+import type { RenderedContent } from 'astro:content';
+
 export type BlogPostData = {
   body: string;
   title: string;
@@ -9,4 +11,11 @@ export type BlogPostData = {
   cover?: string;
   category?: string;
   comment?: boolean;
+};
+
+export type BlogPost = {
+  id: string;
+  rendered: RenderedContent;
+  body: string;
+  data: BlogPostData;
 };

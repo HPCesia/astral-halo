@@ -14,10 +14,14 @@ interface Props {
   title?: string;
   description?: string;
   lang?: string;
+  banner?: {
+    src: string;
+    basePath?: string;
+  };
 }
 
 let { title, lang } = Astro.props;
-const { description } = Astro.props;
+const { description, banner } = Astro.props;
 
 let pageTitle: string;
 if (title) pageTitle = `${title} - ${siteConfig.title}`;
@@ -81,7 +85,7 @@ const favicons: Favicon[] =
     <SideToolBar />
     <Navbar>
       <slot name="header" />
-      {siteConfig.banner !== false && <Banner />}
+      {siteConfig.banner !== false && <Banner src={banner?.src} basePath={banner?.basePath} />}
       <div id="body-wrap" class="w-full items-center md:px-4">
         <slot />
       </div>

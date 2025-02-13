@@ -5,8 +5,8 @@ import PostInfo from '@components/misc/PostInfo.astro';
 import ImageWrapper from '@components/utils/ImageWrapper.astro';
 import Markdown from '@components/utils/Markdown.astro';
 import PostPageLayout from '@layouts/PostPageLayout.astro';
-import { getOrCreateRenderResult } from '@utils/content-utils';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
+import path from 'path';
 
 export async function getStaticPaths() {
   const articles = await getCollection('posts');
@@ -17,11 +17,12 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
-const { Content, headings, remarkPluginFrontmatter } = await getOrCreateRenderResult(article);
+const { Content, headings, remarkPluginFrontmatter } = await render(article);
 const hasCover =
   article.data.cover !== '' && article.data.cover !== undefined && article.data.cover !== null;
 
 const description = article.data.description || remarkPluginFrontmatter.excerpt;
+const basePath = path.join('content/posts/', article.id);
 ---
 
 <PostPageLayout
@@ -30,6 +31,7 @@ const description = article.data.description || remarkPluginFrontmatter.excerpt;
   headings={headings}
   comment={article.data.comment}
   lang={article.data.lang}
+  banner={hasCover ? { src: article.data.cover, basePath: basePath } : undefined}
 >
   <Fragment slot="header-content">
     <PostInfo
@@ -49,6 +51,7 @@ const description = article.data.description || remarkPluginFrontmatter.excerpt;
         src={article.data.cover}
         class="mb-6 rounded-xl shadow"
         alt={article.data.title}
+        basePath={basePath}
       />
     )
   }

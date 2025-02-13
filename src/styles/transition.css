@@ -14,6 +14,16 @@ html.is-animating .swup-transition-slide {
   @apply -translate-x-20 opacity-0;
 }
 
+html.is-changing .swup-transition-parallel {
+  @apply transition-all duration-500 ease-linear;
+}
+html.is-changing .swup-transition-parallel.is-previous-container {
+  @apply -translate-x-full;
+}
+html.is-changing .swup-transition-parallel.is-next-container {
+  @apply translate-x-full;
+}
+
 .onload-animation {
   opacity: 0;
   animation: 300ms fade-in-up;

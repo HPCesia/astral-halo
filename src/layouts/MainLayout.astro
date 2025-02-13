@@ -6,11 +6,15 @@ interface Props {
   title?: string;
   description?: string;
   lang?: string;
+  banner?: {
+    src: string;
+    basePath?: string;
+  };
 }
-const { title, description, lang } = Astro.props;
+const { title, description, lang, banner } = Astro.props;
 ---
 
-<GlobalLayout title={title} description={description} lang={lang}>
+<GlobalLayout title={title} description={description} lang={lang} banner={banner}>
   <slot slot="head" name="head" />
   <slot slot="header" name="header" />
   <!-- Main content -->

@@ -15,9 +15,10 @@ interface Props {
   category?: string;
   cover?: string;
   description: string;
+  basePath: string;
 }
 
-const { title, url, published, updated, tags, category, cover } = Astro.props;
+const { title, url, published, updated, tags, category, cover, basePath } = Astro.props;
 const className = Astro.props.class;
 
 const hasCover = cover !== '' && cover !== undefined && cover !== null;
@@ -88,7 +89,7 @@ const metas: ({ icon: string; text: string; link?: string; time?: Date } | undef
   {
     hasCover ? (
       <figure class="md:w-3/4 md:max-w-96">
-        <PostCardCover url={url} title={title} cover={cover} />
+        <PostCardCover url={url} title={title} cover={cover} basePath={basePath} />
       </figure>
     ) : (
       <figure>

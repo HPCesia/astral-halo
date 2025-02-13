@@ -35,11 +35,12 @@ export default defineConfig({
     mdx(),
     swup({
       theme: false,
-      containers: ['main'],
+      containers: ['main', '#banner-img'],
       animationClass: 'swup-transition-',
       globalInstance: true,
       smoothScrolling: true,
       progress: true,
+      parallel: ['#banner-img'],
     }),
   ],
   markdown: {

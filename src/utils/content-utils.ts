@@ -1,38 +1,11 @@
 import type { BlogPostData } from '@/types/data';
+import type { BlogPost } from '@/types/data';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
-import type { MarkdownHeading } from 'astro';
-import type { AstroComponentFactory } from 'astro/runtime/server/index.d.ts';
 import { getCollection } from 'astro:content';
-import { type CollectionEntry, render } from 'astro:content';
 
-interface RenderResult {
-  Content: AstroComponentFactory;
-  headings: MarkdownHeading[];
-  remarkPluginFrontmatter: Record<string, unknown>;
-}
-
-const renderCache = new Map<string, RenderResult>();
-
-export async function getOrCreateRenderResult(article: CollectionEntry<'posts'>) {
-  const cacheKey = article.id;
-
-  if (renderCache.has(cacheKey)) {
-    return renderCache.get(cacheKey)!;
-  }
-
-  const { Content, headings, remarkPluginFrontmatter } = await render(article);
-  const result = { Content, headings, remarkPluginFrontmatter };
-
-  renderCache.set(cacheKey, result);
-  return result;
-}
-
-export async function getSortedPosts(): Promise<{ body: string; data: BlogPostData }[]> {
-  const allBlogPosts = (await getCollection('posts')) as unknown as {
-    body: string;
-    data: BlogPostData;
-  }[];
+export async function getSortedPosts(): Promise<BlogPost[]> {
+  const allBlogPosts = (await getCollection('posts')) as unknown as BlogPost[];
   const sortedBlogPosts = allBlogPosts.sort(
     (a: { data: BlogPostData }, b: { data: BlogPostData }) => {
       const dateA = new Date(a.data.published);

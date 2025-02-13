@@ -1,14 +1,12 @@
 ---
 import { siteConfig } from '@/config';
-import type { BlogPostData } from '@/types/data';
+import type { BlogPost } from '@/types/data';
+import path from 'path';
 import Pagination from './widgets/Pagination.astro';
 import PostCard from './widgets/PostCard.astro';
 
 interface Props {
-  posts: {
-    body: string;
-    data: BlogPostData;
-  }[];
+  posts: BlogPost[];
   currentPage: number;
   postsPerPage?: number;
   baseUrl: string;
@@ -36,6 +34,7 @@ posts = posts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage
           category={data.category}
           cover={data.cover}
           description={data.description}
+          basePath={path.join('content/posts/', post.id)}
         />
       );
     })

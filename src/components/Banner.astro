@@ -5,21 +5,24 @@ import ImageWrapper from './utils/ImageWrapper.astro';
 
 interface Props {
   src?: string;
+  basePath?: string;
 }
 
 const siteBanner = siteConfig.banner;
 if (siteBanner === false) throw Error('Should not show this error');
 
 const src = Astro.props.src || (siteBanner.src as string);
-const customBanner = Boolean(Astro.props.src !== undefined);
 ---
 
-<div
-  id="banner"
-  class="relative max-h-screen scale-105 overflow-hidden opacity-0 duration-1000"
-  data-custom-banner={customBanner}
->
-  <ImageWrapper id="banner-img" src={src} class="h-full object-cover" />
+<div id="banner" class="relative max-h-screen scale-105 opacity-0 duration-1000">
+  <div class="h-full w-full">
+    <ImageWrapper
+      id="banner-img"
+      src={src}
+      class="swup-transition-parallel absolute! h-full w-full overflow-hidden"
+      basePath={Astro.props.basePath}
+    />
+  </div>
   <div
     id="banner-mask"
     class="from-base-100 to-base-100/0 absolute bottom-0 grid h-1/2 min-h-48 w-full bg-linear-0"
@@ -102,6 +105,21 @@ const customBanner = Boolean(Astro.props.src !== undefined);
     window.swup?.hooks.on('visit:end', () => {
       const heightExtend = document.getElementById('page-height-extend');
       heightExtend?.classList.add('hidden');
+    });
+
+    // 处理 Banner 图片切换
+    window.swup?.hooks.before('content:insert', (_, { containers }) => {
+      for (const container of containers) {
+        if (container.selector !== '#banner-img') continue;
+        const prevWrapper = container.previous;
+        const nextWrapper = container.next;
+        const prevImg = prevWrapper.querySelector('img') as HTMLImageElement;
+        const nextImg = nextWrapper.querySelector('img') as HTMLImageElement;
+        if (prevImg.src !== nextImg.src) continue;
+        prevWrapper.classList.add('hidden');
+        prevWrapper.classList.remove('swup-transition-parallel');
+        nextWrapper.classList.remove('swup-transition-parallel');
+      }
     });
   }
 

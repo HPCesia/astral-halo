@@ -12,12 +12,16 @@ interface Props {
   lang?: string;
   headings?: MarkdownHeading[];
   comment?: boolean;
+  banner?: {
+    src: string;
+    basePath?: string;
+  };
 }
 
-const { title, description, lang, headings, comment } = Astro.props;
+const { title, description, lang, headings, comment, banner } = Astro.props;
 ---
 
-<MainLayout title={title} description={description} lang={lang}>
+<MainLayout title={title} description={description} lang={lang} banner={banner}>
   <slot slot="head" name="head" />
   <slot slot="header-content" name="header-content" />
   <div class="card border-base-300 swup-transition-fade border-2 px-6 py-4">
