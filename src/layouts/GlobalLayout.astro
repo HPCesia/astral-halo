@@ -1,7 +1,11 @@
 ---
-import { profileConfig, siteConfig } from '@/config';
+import { profileConfig, searchConfig, siteConfig } from '@/config';
 import '@/styles/global.css';
 import type { Favicon } from '@/types/config';
+import Navbar from '@components/Navbar.astro';
+import PageFooter from '@components/PageFooter.astro';
+import Search from '@components/Search.astro';
+import SideToolBar from '@components/SideToolBar.astro';
 import { defaultFavicons } from '@constants/icon';
 
 interface Props {
@@ -71,7 +75,15 @@ const favicons: Favicon[] =
     <slot name="head" />
   </head>
   <body class="bg-base-100 text-base-content flex min-h-screen flex-col">
-    <slot />
+    <SideToolBar />
+    <Navbar>
+      <slot name="header" />
+      <div id="body-wrap" class="w-full items-center md:px-4">
+        <slot />
+      </div>
+    </Navbar>
+    {searchConfig.enable && <Search />}
+    <PageFooter />
   </body>
 </html>
 

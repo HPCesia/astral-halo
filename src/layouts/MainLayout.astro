@@ -1,9 +1,4 @@
 ---
-import { searchConfig } from '@/config';
-import Navbar from '@components/Navbar.astro';
-import PageFooter from '@components/PageFooter.astro';
-import Search from '@components/Search.astro';
-import SideToolBar from '@components/SideToolBar.astro';
 import GlobalLayout from './GlobalLayout.astro';
 
 interface Props {
@@ -16,27 +11,20 @@ const { title, description, lang } = Astro.props;
 
 <GlobalLayout title={title} description={description} lang={lang}>
   <slot slot="head" name="head" />
-  <SideToolBar />
-  <Navbar>
-    <slot name="header" />
-    <div id="body-wrap" class="w-full items-center md:px-4">
-      <!-- Main content -->
-      <main class="mx-auto flex max-w-(--breakpoint-xl) flex-col gap-4">
-        <slot name="header-content" />
-        <div class="flex gap-4">
-          <div id="main-content" class="my-4 w-full">
-            <slot />
-          </div>
-          <div id="aside-content" class="my-4 flex w-96 flex-col gap-4 max-xl:hidden">
-            <slot name="aside-fixed" />
-            <div class="sticky top-20 flex flex-col gap-4">
-              <slot name="aside-sticky" />
-            </div>
-          </div>
+  <slot slot="header" name="header" />
+  <!-- Main content -->
+  <main class="mx-auto flex max-w-(--breakpoint-xl) flex-col gap-4">
+    <slot name="header-content" />
+    <div class="flex gap-4">
+      <div id="main-content" class="my-4 w-full">
+        <slot />
+      </div>
+      <div id="aside-content" class="my-4 flex w-96 flex-col gap-4 max-xl:hidden">
+        <slot name="aside-fixed" />
+        <div class="sticky top-20 flex flex-col gap-4">
+          <slot name="aside-sticky" />
         </div>
-      </main>
+      </div>
     </div>
-  </Navbar>
-  {searchConfig.enable && <Search />}
-  <PageFooter />
+  </main>
 </GlobalLayout>
