@@ -1,4 +1,3 @@
-import { navigate } from 'astro:transitions/client';
 import dayjs from 'dayjs';
 import 'dayjs/locale/en';
 import 'dayjs/locale/zh-cn';
@@ -37,7 +36,7 @@ export async function getRandomPost() {
 
     if (links.length > 0) {
       const randomLink = links[Math.floor(Math.random() * links.length)].replace(site, '/');
-      navigate(randomLink);
+      window.swup?.navigate(randomLink);
     }
   } catch (error) {
     console.error('Failed to get random post:', error);
