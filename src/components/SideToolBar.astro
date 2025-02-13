@@ -5,25 +5,17 @@ import Button from './widgets/Button.astro';
 import DarkModeButton from './widgets/DarkModeButton.astro';
 ---
 
-<div
-  id="side-toolbar"
-  class="fixed right-0 bottom-10 z-30 grid grid-cols-1 gap-2"
-  transition:name="side-toolbar"
-  transition:persist
->
-  <div
-    id="stb-hide"
-    class="grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
-    inert
-  >
-    <DarkModeButton id="stb-dark-mode" class="btn-circle btn-primary btn-sm" />
-  </div>
+<div id="side-toolbar" class="fixed right-0 bottom-10 z-30 grid grid-cols-1 gap-2">
   <div
     id="stb-show"
-    class="grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
-    inert
+    class="peer order-2 grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
   >
     <Button id="stb-show-more" class="btn-circle btn-primary btn-sm">
+      <input
+        type="checkbox"
+        class="absolute z-10 h-8 w-8 cursor-pointer appearance-none border-0"
+        checked
+      />
       <Icon name="material-symbols:settings-rounded" class="animate-spin" />
     </Button>
     {
@@ -50,13 +42,18 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
       />
     </Button>
   </div>
+  <div
+    id="stb-hide"
+    class="order-1 grid grid-cols-1 gap-2 pr-4 duration-500 ease-in-out peer-[:first-child:has(:checked)]:translate-x-full"
+  >
+    <DarkModeButton id="stb-dark-mode" class="btn-circle btn-primary btn-sm" />
+  </div>
 </div>
 
 <script>
   import { getReadingProgress } from '@scripts/utils';
 
   function initSideToolBar() {
-    const stbHide = document.getElementById('stb-hide');
     const stbShow = document.getElementById('stb-show');
     const stbShowMore = document.getElementById('stb-show-more');
     const stbBackToTop = document.getElementById('stb-back-to-top');
@@ -64,11 +61,6 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     const stbReadPercent = document.getElementById('stb-read-percentage');
     const stbToc = document.getElementById('stb-toc');
     const stbTocWrapper = document.getElementById('stb-toc-wrapper');
-
-    stbShowMore?.addEventListener('click', () => {
-      stbHide?.classList.toggle('translate-x-full');
-      stbHide?.toggleAttribute('inert');
-    });
 
     stbBackToTop?.addEventListener('click', () => {
       window.scrollTo({
@@ -81,6 +73,12 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
       stbTocWrapper?.classList.toggle('scale-0');
       stbTocWrapper?.classList.toggle('-translate-x-full');
     });
+
+    // 清理可能存在的旧目录
+    stbTocWrapper!.innerHTML = '';
+    stbToc?.classList.add('hidden');
+    stbTocWrapper?.classList.add('hidden');
+    stbTocWrapper?.classList.add('-translate-x-full');
 
     const toc = document.getElementById('toc');
     if (toc && stbTocWrapper) {
@@ -108,13 +106,9 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
       // 控制工具栏显隐
       if (window.scrollY > 0) {
         stbShow?.classList.remove('translate-x-full');
-        stbShow?.removeAttribute('inert');
       } else {
         stbShow?.classList.add('translate-x-full');
-        stbHide?.classList.add('translate-x-full');
-        stbShow?.setAttribute('inert', '');
-        stbHide?.setAttribute('inert', '');
-
+        stbShowMore!.querySelector('input')!.checked = true;
         stbTocWrapper?.classList.add('scale-0');
         stbTocWrapper?.classList.remove('-translate-x-full');
       }
@@ -138,6 +132,8 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     });
   }
 
-  document.addEventListener('astro:after-swap', initSideToolBar);
+  document.addEventListener('astro:page-load', () => {
+    initSideToolBar();
+  });
   initSideToolBar();
 </script>

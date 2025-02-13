@@ -3,7 +3,6 @@ import { profileConfig, siteConfig } from '@/config';
 import '@/styles/global.css';
 import type { Favicon } from '@/types/config';
 import { defaultFavicons } from '@constants/icon';
-import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title?: string;
@@ -32,8 +31,6 @@ const favicons: Favicon[] =
 
     <meta charset="UTF-8" />
     <meta name="author" content={profileConfig.name} />
-
-    <ClientRouter />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:site_name" content={siteConfig.title} />
@@ -80,7 +77,7 @@ const favicons: Favicon[] =
 
 <script>
   import { convertTimeToRelative } from '@scripts/utils';
-  import mediumZoom from 'medium-zoom';
+  import mediumZoom from 'medium-zoom/dist/pure';
 
   // 深色模式切换
   function applyDarkMode() {
@@ -107,6 +104,7 @@ const favicons: Favicon[] =
 </script>
 
 <style is:global>
+  @import 'medium-zoom/dist/style.css';
   .medium-zoom-overlay,
   .medium-zoom-image--opened {
     z-index: 999;
