@@ -29,7 +29,7 @@ const { title, description, lang, headings, comment } = Astro.props;
     <slot name="aside-fixed" />
   </Fragment>
   <Fragment slot="aside-sticky">
-    {articleConfig.toc && headings && <TOC headings={headings} />}
+    {articleConfig.toc && headings && headings.length > 0 && <TOC headings={headings} />}
     <slot name="aside-sticky" />
   </Fragment>
 </MainLayout>
