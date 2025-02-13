@@ -19,7 +19,7 @@ const customBanner = Boolean(Astro.props.src !== undefined);
   class="relative max-h-screen scale-105 overflow-hidden opacity-0 duration-1000"
   data-custom-banner={customBanner}
 >
-  <ImageWrapper src={src} class="h-full object-cover" />
+  <ImageWrapper id="banner-img" src={src} class="h-full object-cover" />
   <div
     id="banner-mask"
     class="from-base-100 to-base-100/0 absolute bottom-0 grid h-1/2 min-h-48 w-full bg-linear-0"
@@ -60,8 +60,9 @@ const customBanner = Boolean(Astro.props.src !== undefined);
     banner!.style.height = getBannerHeight(window.location.pathname) as string;
     const bannerMask = document.getElementById('banner-mask');
     const icon = bannerMask?.querySelector('svg');
-    if (pathsEqual('/', window.location.pathname)) {
+    if (pathsEqual(url('/'), window.location.pathname)) {
       icon?.classList.remove('hidden');
+      icon?.classList.remove('opacity-0');
       window.addEventListener('scroll', () => {
         const bannerHeight = banner!.clientHeight;
         if (window.scrollY > bannerHeight / 2) {
@@ -79,6 +80,7 @@ const customBanner = Boolean(Astro.props.src !== undefined);
   setupBanner();
 
   function swupSetupBanner() {
+    // 为页面添加额外高度，避免页面切换时出现跳跃式滚动
     window.swup?.hooks.before('visit:start', () => {
       const heightExtend = document.getElementById('page-height-extend');
       if (!heightExtend) {
