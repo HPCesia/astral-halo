@@ -11,9 +11,9 @@ import { CDN } from '@constants/cdn.mjs';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   declare const twikoo: any;
 
-  function initTwikoo() {
+  function setup() {
     if (typeof twikoo === 'undefined') {
-      setTimeout(initTwikoo, 100);
+      setTimeout(setup, 100);
     } else {
       twikoo.init({
         el: '#twikoo-wrap',
@@ -22,5 +22,6 @@ import { CDN } from '@constants/cdn.mjs';
     }
   }
 
-  document.addEventListener('astro:page-load', initTwikoo);
+  document.addEventListener('astro:page-load', setup);
+  setup();
 </script>

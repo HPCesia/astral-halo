@@ -30,7 +30,7 @@ const { class: className, showText, ...rest } = Astro.props;
 </Button>
 
 <script>
-  function initDarkmodeButtons() {
+  function setup() {
     const darkmodeBtns = document.querySelectorAll('button.darkmode-btn');
 
     darkmodeBtns.forEach((btn) => {
@@ -94,5 +94,6 @@ const { class: className, showText, ...rest } = Astro.props;
     });
   }
 
-  document.addEventListener('astro:page-load', initDarkmodeButtons);
+  document.addEventListener('astro:page-load', setup);
+  setup();
 </script>

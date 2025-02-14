@@ -110,18 +110,17 @@ const favicons: Favicon[] =
       document.documentElement.setAttribute('data-theme', 'dark');
     } else document.documentElement.setAttribute('data-theme', 'light');
   }
-  document.addEventListener('astro:after-swap', applyDarkMode);
-  applyDarkMode();
 
-  // 时间显示
-  document.addEventListener('astro:page-load', convertTimeToRelative);
-
-  // 图片缩放
-  document.addEventListener('astro:page-load', () => {
+  function setup() {
+    applyDarkMode();
+    convertTimeToRelative();
     mediumZoom('[data-zoom]', {
       background: 'rgba(0, 0, 0, 0.4)',
     });
-  });
+  }
+
+  document.addEventListener('astro:after-swap', setup);
+  setup();
 </script>
 
 <style is:global>

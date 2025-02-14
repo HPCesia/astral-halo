@@ -53,7 +53,7 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 <script>
   import { getReadingProgress } from '@scripts/utils';
 
-  function initSideToolBar() {
+  function setup() {
     const stbShow = document.getElementById('stb-show');
     const stbShowMore = document.getElementById('stb-show-more');
     const stbBackToTop = document.getElementById('stb-back-to-top');
@@ -132,8 +132,6 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     });
   }
 
-  document.addEventListener('astro:page-load', () => {
-    initSideToolBar();
-  });
-  initSideToolBar();
+  document.addEventListener('astro:page-load', setup);
+  setup();
 </script>

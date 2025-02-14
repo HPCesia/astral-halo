@@ -24,7 +24,7 @@ const bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
 </template>
 
 <script is:inline>
-  async function initPageFind() {
+  async function setup() {
     for (const el of document.querySelectorAll('[data-pagefind-ui]')) {
       const bundlePath = el.getAttribute('data-bundle-path');
       const baseUrl = el.getAttribute('data-base-url');
@@ -72,7 +72,8 @@ const bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
     }
   }
 
-  document.addEventListener('astro:page-load', initPageFind);
+  document.addEventListener('astro:page-load', setup);
+  setup();
 </script>
 
 <style is:global>

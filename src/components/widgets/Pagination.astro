@@ -119,7 +119,7 @@ else {
 
 <script>
   import { navigate } from 'astro:transitions/client';
-  function initPagination() {
+  function setup() {
     const pageJumper = document.getElementById('page-jumper');
     const pageJumperInput = document.getElementById(
       'page-jumper-input'
@@ -170,5 +170,6 @@ else {
     });
     pageJumperButton?.addEventListener('click', pageJumperExecHandler);
   }
-  document.addEventListener('astro:page-load', initPagination);
+  document.addEventListener('astro:page-load', setup);
+  setup();
 </script>

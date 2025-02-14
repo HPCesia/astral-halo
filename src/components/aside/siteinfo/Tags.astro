@@ -29,7 +29,7 @@ const tagsMap = await getTags();
 </div>
 
 <script>
-  function initTags() {
+  function setup() {
     const tags = document.getElementById('aside-siteinfo-tags');
     const tagsList = tags?.children[0] as HTMLDivElement;
     const moreBtn = tags?.children[1] as HTMLDivElement;
@@ -49,5 +49,6 @@ const tagsMap = await getTags();
     });
   }
 
-  document.addEventListener('astro:page-load', initTags);
+  document.addEventListener('astro:page-load', setup);
+  setup();
 </script>
