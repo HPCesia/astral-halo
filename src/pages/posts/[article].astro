@@ -20,9 +20,12 @@ const { article } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(article);
 const hasCover =
   article.data.cover !== '' && article.data.cover !== undefined && article.data.cover !== null;
-
+const coverSrc = hasCover
+  ? article.data.cover.startsWith('.')
+    ? path.join('content/posts', article.id, article.data.cover)
+    : article.data.cover
+  : undefined;
 const description = article.data.description || remarkPluginFrontmatter.excerpt;
-const basePath = path.join('content/posts/', article.id);
 ---
 
 <PostPageLayout
@@ -31,7 +34,7 @@ const basePath = path.join('content/posts/', article.id);
   headings={headings}
   comment={article.data.comment}
   lang={article.data.lang}
-  banner={hasCover ? { src: article.data.cover, basePath: basePath } : undefined}
+  banner={coverSrc}
 >
   <Fragment slot="header-content">
     <PostInfo
@@ -47,12 +50,7 @@ const basePath = path.join('content/posts/', article.id);
   </Fragment>
   {
     siteConfig.banner === false && hasCover && (
-      <ImageWrapper
-        src={article.data.cover}
-        class="mb-6 rounded-xl shadow"
-        alt={article.data.title}
-        basePath={basePath}
-      />
+      <ImageWrapper src={coverSrc!} class="mb-6 rounded-xl shadow" alt={article.data.title} />
     )
   }
   <Markdown>

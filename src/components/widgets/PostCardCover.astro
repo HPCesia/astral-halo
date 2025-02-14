@@ -6,10 +6,9 @@ interface Props {
   url: string;
   title: string;
   cover: string;
-  basePath?: string;
 }
 
-const { url, title, cover, basePath } = Astro.props;
+const { url, title, cover } = Astro.props;
 ---
 
 <a
@@ -22,5 +21,5 @@ const { url, title, cover, basePath } = Astro.props;
   >
     <Icon name="material-symbols:chevron-right-rounded" class="h-24 w-24 text-white" />
   </div>
-  <ImageWrapper src={cover} alt={title} basePath={basePath} />
+  <ImageWrapper src={cover} alt={title} />
 </a>

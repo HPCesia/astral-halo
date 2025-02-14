@@ -3,6 +3,7 @@ import type { BlogPost } from '@/types/data';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
 import { getCollection } from 'astro:content';
+import path from 'path';
 
 export async function getSortedPosts(): Promise<BlogPost[]> {
   const allBlogPosts = (await getCollection('posts')) as unknown as BlogPost[];
@@ -13,6 +14,12 @@ export async function getSortedPosts(): Promise<BlogPost[]> {
       return dateA > dateB ? -1 : 1;
     }
   );
+  sortedBlogPosts.forEach((post) => {
+    const coverPath = post.data.cover;
+    if (coverPath?.startsWith('.')) {
+      post.data.cover = path.join('content/posts', post.id, coverPath);
+    }
+  });
   return sortedBlogPosts;
 }
 
