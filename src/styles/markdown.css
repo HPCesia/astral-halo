@@ -54,7 +54,7 @@ article {
 
   /* 基础文本元素 */
   p {
-    margin: 0.5rem 0;
+    margin: 0.75rem 0;
   }
 
   a {
@@ -68,19 +68,21 @@ article {
 
   /* 媒体元素 */
   img {
-    &:not(.inline) {
-      position: relative;
-      margin: 1rem auto;
+    &:where(:not(inline img)) {
       max-width: 75%;
       max-height: 40rem;
 
-      @apply rounded-md;
+      @apply relative mx-auto mt-4 mb-6 rounded-md;
     }
 
-    &:is(.inline) {
-      max-height: 1.5em;
+    &:where(inline img) {
+      display: inline;
+      max-height: 2em;
       vertical-align: middle;
       margin: 0 0.25em;
+      object-fit: contain;
+      width: auto;
+      border-radius: 0.25rem;
     }
   }
 
@@ -198,21 +200,17 @@ article {
       }
     }
   }
-
-  div:has(> pre) {
+  .astro-code {
     @apply relative rounded-md;
 
     > :last-child > span {
       @apply bg-base-content/60!;
     }
+    /* 避免 Repl 组件中出现上下间隙 */
+    &:where(:not(.card-body :only-child)) {
+      @apply my-4;
+    }
   }
-
-  code:not(pre code) {
-    padding: 0 0.25rem;
-
-    @apply bg-primary/10 text-primary rounded-md;
-  }
-
   .astro-code,
   .astro-code span {
     &:where([data-theme='light'], [data-theme='light'] *) {
@@ -230,6 +228,12 @@ article {
       font-weight: var(--shiki-dark-font-weight);
       text-decoration: var(--shiki-dark-text-decoration);
     }
+  }
+
+  code:not(pre code) {
+    padding: 0 0.25rem;
+
+    @apply bg-primary/10 text-primary rounded-md;
   }
 
   /* 引用块样式 */
