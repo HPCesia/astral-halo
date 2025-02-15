@@ -32,15 +32,41 @@ if (!title) title = 'Astral Halo';
       </div>
       <nav class="join navbar-center max-md:hidden">
         {
-          navbarConfig.navbarCenterItems.map((item) => (
-            <Button
-              {...('href' in item && item.href && { href: item.href })}
-              title={i18n(item.text)}
-              class="btn-ghost join-item btn-primary"
-            >
-              <span class="text-xl tracking-wide">{i18n(item.text)}</span>
-            </Button>
-          ))
+          navbarConfig.navbarCenterItems.map((item) => {
+            if ('items' in item) {
+              return (
+                <Button
+                  title={i18n(item.title)}
+                  class="btn-ghost join-item btn-primary group flex flex-col gap-0"
+                >
+                  <span class="text-xl tracking-wide">{i18n(item.title)}</span>
+                  <div class="hidden h-0 w-0 self-center group-hover:block">
+                    <ul class="menu bg-base-200/50 absolute -translate-x-[50%] translate-y-1.5 rounded-xl shadow backdrop-blur-md">
+                      {item.items.map((subItem) => (
+                        <Button
+                          {...('href' in subItem && subItem.href && { href: subItem.href })}
+                          title={i18n(subItem.text)}
+                          class="btn-ghost"
+                        >
+                          <span class="text-xl tracking-wide">{i18n(subItem.text)}</span>
+                        </Button>
+                      ))}
+                    </ul>
+                  </div>
+                </Button>
+              );
+            } else {
+              return (
+                <Button
+                  {...('href' in item && item.href && { href: item.href })}
+                  title={i18n(item.text)}
+                  class="btn-ghost join-item btn-primary"
+                >
+                  <span class="text-xl tracking-wide">{i18n(item.text)}</span>
+                </Button>
+              );
+            }
+          })
         }
       </nav>
       <div class="navbar-end">
@@ -97,17 +123,42 @@ if (!title) title = 'Astral Halo';
     <ul class="menu bg-base-200 min-h-full w-[min(calc(100%-3rem),20rem)] p-4">
       <li><DarkModeButton class="btn-ghost text-xl" showText={true} /></li>
       {
-        navbarConfig.navbarCenterItems.map((item) => (
-          <li>
-            <Button
-              {...('href' in item && item.href && { href: item.href })}
-              title={i18n(item.text)}
-              class="btn-ghost"
-            >
-              <span class="text-xl">{i18n(item.text)}</span>
-            </Button>
-          </li>
-        ))
+        navbarConfig.navbarCenterItems.map((item) => {
+          if ('items' in item) {
+            return (
+              <li>
+                <details>
+                  <summary class="justify-center text-xl font-bold">{item.title}</summary>
+                  <ul>
+                    {item.items.map((subItem) => (
+                      <li>
+                        <Button
+                          {...('href' in subItem && subItem.href && { href: subItem.href })}
+                          title={i18n(subItem.text)}
+                          class="btn-ghost"
+                        >
+                          <span class="text-xl">{i18n(subItem.text)}</span>
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </li>
+            );
+          } else {
+            return (
+              <li>
+                <Button
+                  {...('href' in item && item.href && { href: item.href })}
+                  title={i18n(item.text)}
+                  class="btn-ghost"
+                >
+                  <span class="text-xl">{i18n(item.text)}</span>
+                </Button>
+              </li>
+            );
+          }
+        })
       }
       {
         navbarConfig.navbarRightItems.onlyWide.map((item) => (

@@ -231,7 +231,23 @@ export type NavbarConfig = {
    *
    * 在导航栏中间显示的项目。
    */
-  navbarCenterItems: ButtonSubConfig<'text'>[];
+  navbarCenterItems: (
+    | ButtonSubConfig<'text'>
+    | {
+        /**
+         * The title of the group.
+         *
+         * 组的标题。
+         */
+        title: string | I18nKey;
+        /**
+         * The items displayed in the group.
+         *
+         * 在组中显示的项目。
+         */
+        items: ButtonSubConfig<'text'>[];
+      }
+  )[];
   /**
    * The items displayed in the right of the navbar.
    *
