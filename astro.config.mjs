@@ -23,7 +23,7 @@ import remarkMath from 'remark-math';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://astral-halo.netilify.app/',
+  site: 'https://astral-halo.netlify.app/',
   base: '/',
   output: 'static',
   trailingSlash: 'ignore',
