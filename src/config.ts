@@ -129,13 +129,7 @@ export const footerConfig: FooterConfig = {
 export const articleConfig: ArticleConfig = {
   toc: true,
   wordCount: true,
-  readingTime: {
-    enable: true,
-    wordsPerMinute: {
-      cjk: 300,
-      nonCjk: 160,
-    },
-  },
+  readingTime: true,
 };
 
 export const searchConfig: SearchConfig = {

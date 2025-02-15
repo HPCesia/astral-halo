@@ -339,33 +339,7 @@ export type ArticleConfig = {
    *
    * 阅读时间的配置。
    */
-  readingTime: {
-    /**
-     * Whether to enable the reading time.
-     *
-     * 是否启用阅读时间。
-     */
-    enable: boolean;
-    /**
-     * The words per minute of the reading time.
-     *
-     * 阅读时间的每分钟字数。
-     */
-    wordsPerMinute: {
-      /**
-       * The words per minute of CJK characters.
-       *
-       * CJK 字符的每分钟阅读字数。
-       */
-      cjk: number;
-      /**
-       * The words per minute of non-CJK words.
-       *
-       * 非 CJK 单词的每分钟阅读字数。
-       */
-      nonCjk: number;
-    };
-  };
+  readingTime: boolean;
 };
 
 export type SearchConfig = {
