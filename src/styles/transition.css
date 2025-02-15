@@ -14,13 +14,13 @@ html.is-animating .swup-transition-slide {
   @apply -translate-x-20 opacity-0;
 }
 
-html.is-changing .swup-transition-parallel {
+html.is-changing .swup-transition-parallel-slide {
   @apply transition-all duration-500 ease-linear;
 }
-html.is-changing .swup-transition-parallel.is-previous-container {
+html.is-changing .swup-transition-parallel-slide.is-previous-container {
   @apply -translate-x-full;
 }
-html.is-changing .swup-transition-parallel.is-next-container {
+html.is-changing .swup-transition-parallel-slide.is-next-container {
   @apply translate-x-full;
 }
 

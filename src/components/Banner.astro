@@ -19,7 +19,7 @@ const src = Astro.props.src || (siteBanner.src as string);
     <ImageWrapper
       id="banner-img"
       src={src}
-      class="swup-transition-parallel absolute! h-full w-full overflow-hidden"
+      class="swup-transition-parallel-slide absolute! h-full w-full overflow-hidden"
       basePath={Astro.props.basePath}
     />
   </div>
@@ -117,8 +117,8 @@ const src = Astro.props.src || (siteBanner.src as string);
         const nextImg = nextWrapper.querySelector('img') as HTMLImageElement;
         if (prevImg.src !== nextImg.src) continue;
         prevWrapper.classList.add('hidden');
-        prevWrapper.classList.remove('swup-transition-parallel');
-        nextWrapper.classList.remove('swup-transition-parallel');
+        prevWrapper.classList.remove('swup-transition-parallel-slide');
+        nextWrapper.classList.remove('swup-transition-parallel-slide');
       }
     });
   }
