@@ -13,7 +13,7 @@ export async function GET(context: AstroGlobal) {
     title: siteConfig.title,
     description: siteConfig.subtitle,
     site: context.site || '',
-    stylesheet: '/rss/styles.xsl',
+    stylesheet: '/rss/pretty-feed-v3.xsl',
     items: posts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.published,
