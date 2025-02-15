@@ -7,11 +7,11 @@ import { getCategoryUrl, getTagUrl } from '@utils/content-utils';
 
 interface Props {
   title: string;
-  publishedAt: Date;
-  category: string;
-  tags: string[];
-  wordsCount: number;
-  readingTime: number;
+  publishedAt?: Date;
+  category?: string;
+  tags?: string[];
+  wordCount?: number;
+  readingTime?: number;
   lang?: string;
   class?: string;
 }
@@ -21,25 +21,25 @@ const {
   publishedAt,
   category,
   tags,
-  wordsCount: wordCount,
+  wordCount,
   readingTime,
   lang,
   class: className,
 } = Astro.props;
 
 const metas: ({ icon: string; text: string; link?: string; time?: Date } | undefined)[] = [
-  {
+  publishedAt && {
     icon: 'material-symbols:calendar-clock-outline-rounded',
     text: publishedAt.toLocaleDateString(lang || siteConfig.lang.replace('_', '-')),
     time: publishedAt,
   },
-  articleConfig.wordCount
+  articleConfig.wordCount && typeof wordCount === 'number'
     ? {
         icon: 'material-symbols:docs-rounded',
         text: `${wordCount} ${wordCount === 1 ? i18n(I18nKey.wordCount) : i18n(I18nKey.wordsCount)}`,
       }
     : undefined,
-  articleConfig.readingTime
+  articleConfig.readingTime && typeof readingTime === 'number'
     ? {
         icon: 'material-symbols:nest-clock-farsight-analog-rounded',
         text: `${readingTime} ${readingTime === 1 ? i18n(I18nKey.minuteCount) : i18n(I18nKey.minutesCount)}`,
@@ -52,43 +52,45 @@ const metas: ({ icon: string; text: string; link?: string; time?: Date } | undef
         link: getCategoryUrl(category),
       }
     : undefined,
-  ...tags.map((tag) => {
+  ...(tags?.map((tag) => {
     return {
       icon: 'material-symbols:tag-rounded',
       text: tag,
       link: getTagUrl(tag),
     };
-  }),
+  }) || []),
 ];
 ---
 
 <div id="post-info" class:list={['flex flex-col', className]}>
   <h1 class="text-3xl font-bold">{title}</h1>
-  <div id="post-meta" class="mt-4 flex flex-wrap gap-3">
-    {
-      metas.map((meta) => {
-        return (
-          meta && (
-            <div class="text-base-content/60 flex items-center text-sm">
-              <MetaIcon name={meta.icon} />
-              {(() => {
-                const text = meta.time ? (
-                  <time datetime={meta.time?.toISOString()}>{meta.text}</time>
-                ) : (
-                  <span>{meta.text}</span>
-                );
-                return meta.link ? (
-                  <a href={meta.link} title={meta.text}>
-                    {text}
-                  </a>
-                ) : (
-                  text
-                );
-              })()}
-            </div>
-          )
-        );
-      })
-    }
-  </div>
+  {
+    metas.filter((item) => item === undefined).length > 0 && (
+      <div id="post-meta" class="mt-4 flex flex-wrap gap-3">
+        {metas.map((meta) => {
+          return (
+            meta && (
+              <div class="text-base-content/60 flex items-center text-sm">
+                <MetaIcon name={meta.icon} />
+                {(() => {
+                  const text = meta.time ? (
+                    <time datetime={meta.time?.toISOString()}>{meta.text}</time>
+                  ) : (
+                    <span>{meta.text}</span>
+                  );
+                  return meta.link ? (
+                    <a href={meta.link} title={meta.text}>
+                      {text}
+                    </a>
+                  ) : (
+                    text
+                  );
+                })()}
+              </div>
+            )
+          );
+        })}
+      </div>
+    )
+  }
 </div>

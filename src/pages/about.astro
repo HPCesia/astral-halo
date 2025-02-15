@@ -1,4 +1,5 @@
 ---
+import PostInfo from '@components/misc/PostInfo.astro';
 import Markdown from '@components/utils/Markdown.astro';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
@@ -10,6 +11,9 @@ const { Content } = aboutMd ? await render(aboutMd) : Fragment;
 ---
 
 <PostPageLayout title={i18n(I18nKey.about) as string} comment={aboutMd?.data.comment}>
+  <Fragment slot="header-content">
+    <PostInfo title={i18n(I18nKey.about) as string} />
+  </Fragment>
   <Markdown>
     <Content />
   </Markdown>
