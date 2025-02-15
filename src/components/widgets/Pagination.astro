@@ -44,13 +44,15 @@ else {
 ---
 
 <div id="pagination" class="flex w-full">
-  {
-    current > 1 && (
-      <Button id="prev-page-btn" class="btn-secondary mr-auto" href={getPageUrl(current - 1)}>
-        <Icon name="material-symbols:keyboard-double-arrow-left-rounded" class="my-1" />
-      </Button>
-    )
-  }
+  <div>
+    {
+      current > 1 && (
+        <Button id="prev-page-btn" class="btn-primary mr-auto" href={getPageUrl(current - 1)}>
+          <Icon name="material-symbols:keyboard-double-arrow-left-rounded" class="my-1" />
+        </Button>
+      )
+    }
+  </div>
   <div class="mx-auto flex items-center justify-center gap-2">
     <div class={pages.length > 1 ? 'join' : undefined}>
       {
@@ -58,7 +60,7 @@ else {
           return (
             <Button
               class:list={[
-                'join-item btn-secondary',
+                'join-item btn-primary btn-soft',
                 current === p.page && 'btn-active',
                 p.page === -1 && 'btn-disabled',
               ]}
@@ -74,7 +76,7 @@ else {
       total > 1 && (
         <label
           id="page-jumper"
-          class="input input-bordered mx-2 flex flex-row items-center overflow-hidden rounded-xl px-0"
+          class="input input-bordered mx-2 flex flex-row items-center gap-0 overflow-hidden px-0"
           data-base-url={baseUrl}
           data-special-pages={specialPages?.map((p) => `${p.page}:${p.url}`).join(',')}
         >
@@ -83,22 +85,25 @@ else {
             type="number"
             min="1"
             max={total}
-            class="pl-4 duration-300"
+            class="pr-2 pl-4 duration-300"
+            inert
           />
-          <Button id="page-jumper-button" class="relative right-0 m-0 rounded-xl duration-300">
+          <Button id="page-jumper-button" class="btn-primary relative right-0 m-0 duration-300">
             <Icon name="material-symbols:keyboard-double-arrow-right-rounded" class="my-1" />
           </Button>
         </label>
       )
     }
   </div>
-  {
-    current < total && (
-      <Button id="next-page-btn" class="btn-secondary ml-auto" href={getPageUrl(current + 1)}>
-        <Icon name="material-symbols:keyboard-double-arrow-right-rounded" class="my-1" />
-      </Button>
-    )
-  }
+  <div>
+    {
+      current < total && (
+        <Button id="next-page-btn" class="btn-primary ml-auto" href={getPageUrl(current + 1)}>
+          <Icon name="material-symbols:keyboard-double-arrow-right-rounded" class="my-1" />
+        </Button>
+      )
+    }
+  </div>
 </div>
 
 <style>
@@ -118,7 +123,6 @@ else {
 </style>
 
 <script>
-  import { navigate } from 'astro:transitions/client';
   function setup() {
     const pageJumper = document.getElementById('page-jumper');
     const pageJumperInput = document.getElementById(
@@ -128,15 +132,17 @@ else {
 
     function pageJumperMouseEnterCallback() {
       if (pageJumperInput) pageJumperInput.style.width = '4rem';
-      pageJumperInput?.classList.remove('inert');
+      pageJumperInput?.removeAttribute('inert');
       pageJumperInput?.classList.add('pl-4');
+      pageJumperInput?.classList.add('pr-2');
       pageJumperInput?.focus();
     }
 
     function pageJumperMouseLeaveCallback() {
       if (pageJumperInput) pageJumperInput.style.width = '0px';
-      pageJumperInput?.classList.add('inert');
+      pageJumperInput?.setAttribute('inert', '');
       pageJumperInput?.classList.remove('pl-4');
+      pageJumperInput?.classList.remove('pr-2');
       pageJumperInput?.blur();
     }
 
@@ -155,7 +161,7 @@ else {
       const page = pageJumperInput?.value;
       if (page) {
         const pageUrl = getPageUrl(Number(page));
-        navigate(pageUrl);
+        window.swup?.navigate(pageUrl);
       }
     }
 
