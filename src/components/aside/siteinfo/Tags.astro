@@ -31,8 +31,9 @@ const tagsMap = await getTags();
 <script>
   function setup() {
     const tags = document.getElementById('aside-siteinfo-tags');
-    const tagsList = tags?.children[0] as HTMLDivElement;
-    const moreBtn = tags?.children[1] as HTMLDivElement;
+    if (!tags) return;
+    const tagsList = tags.children[0] as HTMLDivElement;
+    const moreBtn = tags.children[1] as HTMLDivElement;
 
     const clientHeight = tagsList.clientHeight;
     const scrollHeight = tagsList.scrollHeight;
