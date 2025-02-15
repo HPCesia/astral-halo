@@ -10,7 +10,10 @@ const aboutMd = await getEntry('spec', 'about');
 const { Content } = aboutMd ? await render(aboutMd) : Fragment;
 ---
 
-<PostPageLayout title={i18n(I18nKey.about) as string} comment={aboutMd?.data.comment}>
+<PostPageLayout
+  title={aboutMd?.data.title || (i18n(I18nKey.about) as string)}
+  comment={aboutMd?.data.comment}
+>
   <Fragment slot="header-content">
     <PostInfo title={i18n(I18nKey.about) as string} />
   </Fragment>
