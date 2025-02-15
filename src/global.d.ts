@@ -1,4 +1,4 @@
-import type { Swup } from '@swup/astro/client';
+import type { Swup } from 'swup';
 
 declare global {
   interface Window {

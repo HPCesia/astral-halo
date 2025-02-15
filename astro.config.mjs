@@ -11,7 +11,6 @@ import { wrapCode } from './src/plugins/shiki-transformers.ts';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import swup from '@swup/astro';
 // import { transformerNotationDiff } from '@shikijs/transformers';
 // import { transformerNotationHighlight } from '@shikijs/transformers';
 import tailwindcss from '@tailwindcss/vite';
@@ -33,15 +32,6 @@ export default defineConfig({
     sitemap({ filter: (page) => !page.includes('/archives/') && !page.includes('/about/') }),
     pagefind(),
     mdx(),
-    swup({
-      theme: false,
-      containers: ['main', '#banner-img'],
-      animationClass: 'swup-transition-',
-      globalInstance: true,
-      smoothScrolling: true,
-      progress: true,
-      parallel: ['#banner-img'],
-    }),
   ],
   markdown: {
     shikiConfig: {

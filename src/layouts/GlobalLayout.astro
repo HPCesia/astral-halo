@@ -96,6 +96,41 @@ const favicons: Favicon[] =
   </body>
 </html>
 
+{/* 初始化 Swup */}
+<script>
+  import SwupHeadPlugin from '@swup/head-plugin';
+  import SwupParallelPlugin from '@swup/parallel-plugin';
+  import SwupPreloadPlugin from '@swup/preload-plugin';
+  import SwupProgressPlugin from '@swup/progress-plugin';
+  import SwupScriptsPlugin from '@swup/scripts-plugin';
+  import SwupScrollPlugin from '@swup/scroll-plugin';
+  import Swup from 'swup';
+
+  import { siteConfig } from '@/config';
+
+  window.swup = new Swup({
+    containers: ['main', ...(siteConfig.banner === false ? [] : ['#banner-img'])],
+    animationSelector: '[class*="swup-transition-"]',
+    plugins: [
+      new SwupHeadPlugin(),
+      new SwupParallelPlugin({
+        containers: [...(siteConfig.banner === false ? [] : ['#banner-img'])],
+      }),
+      new SwupPreloadPlugin(),
+      new SwupProgressPlugin({
+        delay: 2000,
+      }),
+      new SwupScriptsPlugin(),
+      new SwupScrollPlugin(),
+    ],
+  });
+
+  const dispatch = (name: string) => document.dispatchEvent(new Event(name));
+  window.swup.hooks.before('content:replace', () => dispatch('astro:before-swap'));
+  window.swup.hooks.on('content:replace', () => dispatch('astro:after-swap'));
+  window.swup.hooks.on('page:view', () => dispatch('astro:page-load'));
+</script>
+
 <script>
   import { convertTimeToRelative } from '@scripts/utils';
   import mediumZoom from 'medium-zoom/dist/pure';
