@@ -65,7 +65,7 @@ const metas: ({ icon: string; text: string; link?: string; time?: Date } | undef
 <div id="post-info" class:list={['flex flex-col', className]}>
   <h1 class="text-3xl font-bold">{title}</h1>
   {
-    metas.filter((item) => item === undefined).length > 0 && (
+    metas.filter((item) => Boolean(item)).length > 0 && (
       <div id="post-meta" class="mt-4 flex flex-wrap gap-3">
         {metas.map((meta) => {
           return (
