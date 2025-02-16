@@ -18,7 +18,7 @@ import { Icon } from 'astro-icon/components';
     <div>{profileConfig.bio}</div>
     <div class="flex flex-row flex-wrap items-center justify-center gap-2">
       {
-        profileConfig.links.map((link) => (
+        profileConfig.socialLinks.map((link) => (
           <Button href={link.url} title={link.name} class="btn-circle btn-ghost text-2xl">
             <Icon name={link.icon} />
           </Button>

@@ -199,11 +199,11 @@ export type ProfileConfig = {
    */
   bio?: string;
   /**
-   * The links of the profile.
+   * The social links of the profile.
    *
-   * 链接。
+   * 社交链接。
    */
-  links: {
+  socialLinks: {
     /**
      * The title of the link.
      *
