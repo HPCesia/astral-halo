@@ -4,6 +4,7 @@ import type {
   CommentConfig,
   FooterConfig,
   LicenseConfig,
+  LinksConfig,
   NavbarConfig,
   ProfileConfig,
   SearchConfig,
@@ -41,7 +42,7 @@ export const profileConfig: ProfileConfig = {
   avatar: 'assets/img/avatar.jpg',
   name: 'Lorem Ipsum',
   bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  links: [
+  socialLinks: [
     {
       name: 'GitHub',
       url: 'https://github.com/example',
@@ -55,11 +56,31 @@ export const profileConfig: ProfileConfig = {
   ],
 };
 
+export const linksConfig: LinksConfig = {
+  items: [
+    {
+      groupName: 'Lorem Ipsum',
+      groupDescription: 'Lorem ipsum dolor sit amet.',
+      groupItems: [
+        { name: 'Item 1', url: 'https://example.com', avatar: 'assets/img/avatar.jpg' },
+        {
+          name: 'Item 2',
+          url: 'https://example.com',
+          avatar: 'assets/img/avatar.jpg',
+          description: 'Lorem ipsum dolor sit amet.',
+        },
+        { name: 'Item 3', url: 'https://example.com', avatar: 'assets/img/avatar.jpg' },
+      ],
+    },
+  ],
+};
+
 export const navbarConfig: NavbarConfig = {
   navbarCenterItems: [
     { text: I18nKey.archive, href: '/archives/' },
     { text: I18nKey.categories, href: '/archives/categories/' },
     { text: I18nKey.tags, href: '/archives/tags/' },
+    { text: I18nKey.links, href: '/links/' },
     { text: I18nKey.about, href: '/about/' },
   ],
   navbarRightItems: {

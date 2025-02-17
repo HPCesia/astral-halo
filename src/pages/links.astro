@@ -1,0 +1,83 @@
+---
+import { linksConfig } from '@/config';
+import PostInfo from '@components/misc/PostInfo.astro';
+import ImageWrapper from '@components/utils/ImageWrapper.astro';
+import Markdown from '@components/utils/Markdown.astro';
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
+import PostPageLayout from '@layouts/PostPageLayout.astro';
+import { getEntry, render } from 'astro:content';
+
+const linksMd = await getEntry('spec', 'links');
+const groupHeadings = linksConfig.items.map((item) => ({
+  depth: 2,
+  slug: `links-group-${item.groupName.toLowerCase().replace(/\s/g, '-')}`,
+  text: item.groupName,
+}));
+const { Content, headings } = linksMd
+  ? await render(linksMd)
+  : { Content: Fragment, headings: [] };
+---
+
+<PostPageLayout
+  title={i18n(I18nKey.links) as string}
+  comment={linksMd?.data.comment}
+  headings={[...groupHeadings, ...headings]}
+>
+  <Fragment slot="header-content">
+    <PostInfo title={i18n(I18nKey.links) as string} />
+  </Fragment>
+  {
+    linksConfig.items.map((item) => (
+      <Fragment>
+        <h2
+          class="mt-4 mb-1 flex items-baseline justify-between gap-4 text-2xl font-bold"
+          id={`links-group-${item.groupName.toLowerCase().replace(/\s/g, '-')}`}
+        >
+          {item.groupName}
+          {item.groupDescription && (
+            <span class="text-base-content/60 line-clamp-1 text-sm font-medium">
+              {item.groupDescription}
+            </span>
+          )}
+        </h2>
+        <hr class="text-base-content/25 my-1" />
+        <div class="flex flex-wrap">
+          {item.groupItems.map((item) => (
+            <div class="card bg-base-200 max-md:card-side m-1 w-full md:w-[calc(25%-calc(var(--spacing)*2))] lg:w-[calc(20%-calc(var(--spacing)*2))]">
+              <figure class="min-w-23">
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-fit"
+                  title={item.name}
+                >
+                  <ImageWrapper src={item.avatar} class="max-md:w-23" />
+                </a>
+              </figure>
+              <div class="card-body px-4 py-2">
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-fit"
+                  title={item.name}
+                >
+                  <h3 class="card-title line-clamp-1">{item.name}</h3>
+                </a>
+                {item.description && (
+                  <p class="text-base-content/60 line-clamp-2 text-sm">{item.description}</p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Fragment>
+    ))
+  }
+  <hr class="text-base-content/25 mt-8" />
+  <Markdown>
+    <Content />
+  </Markdown>
+</PostPageLayout>

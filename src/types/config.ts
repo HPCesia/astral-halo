@@ -225,6 +225,59 @@ export type ProfileConfig = {
   }[];
 };
 
+export type LinksConfig = {
+  /**
+   * The items displayed in the links.
+   *
+   * 在友情链接中显示的项目。
+   */
+  items: {
+    /**
+     * The name of the group.
+     *
+     * 组的名称。
+     */
+    groupName: string;
+    /**
+     * The description of the group.
+     *
+     * 组的描述。
+     */
+    groupDescription?: string;
+    /**
+     * The items displayed in the group.
+     *
+     * 在组中显示的项目。
+     */
+    groupItems: {
+      /**
+       * The name of the link.
+       *
+       * 链接的名称。
+       */
+      name: string;
+      /**
+       * The URL of the link.
+       *
+       * 链接的 URL。
+       */
+      url: string;
+      /**
+       * The avatar of the link.
+       *
+       * 链接的头像。
+       */
+      avatar: string;
+      /**
+       * The description of the link.
+       *
+       * 链接的描述。
+       */
+      description?: string;
+    }[];
+  }[];
+};
+
 export type NavbarConfig = {
   /**
    * The items displayed in the center of the navbar.
