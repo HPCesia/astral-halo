@@ -62,7 +62,7 @@ const metas: ({ icon: string; text: string; link?: string; time?: Date } | undef
 ];
 ---
 
-<div id="post-info" class:list={['flex flex-col', className]}>
+<div id="post-info" class:list={['flex flex-col max-md:px-3', className]}>
   <h1 class="text-3xl font-bold">{title}</h1>
   {
     metas.filter((item) => Boolean(item)).length > 0 && (
