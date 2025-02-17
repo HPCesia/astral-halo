@@ -77,9 +77,14 @@ export const linksConfig: LinksConfig = {
 
 export const navbarConfig: NavbarConfig = {
   navbarCenterItems: [
-    { text: I18nKey.archive, href: '/archives/' },
-    { text: I18nKey.categories, href: '/archives/categories/' },
-    { text: I18nKey.tags, href: '/archives/tags/' },
+    {
+      title: I18nKey.archive,
+      items: [
+        { text: I18nKey.time, href: '/archives/' },
+        { text: I18nKey.categories, href: '/archives/categories/' },
+        { text: I18nKey.tags, href: '/archives/tags/' },
+      ],
+    },
     { text: I18nKey.links, href: '/links/' },
     { text: I18nKey.about, href: '/about/' },
   ],
