@@ -44,8 +44,8 @@ const { Content, headings } = linksMd
         <hr class="text-base-content/25 my-1" />
         <div class="flex flex-wrap">
           {item.groupItems.map((item) => (
-            <div class="card bg-base-200 max-md:card-side m-1 w-full md:w-[calc(25%-calc(var(--spacing)*2))] lg:w-[calc(20%-calc(var(--spacing)*2))]">
-              <figure class="min-w-23">
+            <div class="card max-md:card-side link-card">
+              <figure>
                 <a
                   href={item.url}
                   target="_blank"
@@ -56,7 +56,7 @@ const { Content, headings } = linksMd
                   <ImageWrapper src={item.avatar} class="max-md:w-23" />
                 </a>
               </figure>
-              <div class="card-body px-4 py-2">
+              <div class="card-body from-base-300 to-base-100 bg-linear-330 px-4 py-2">
                 <a
                   href={item.url}
                   target="_blank"
@@ -81,3 +81,16 @@ const { Content, headings } = linksMd
     <Content />
   </Markdown>
 </PostPageLayout>
+
+<style>
+  @reference '@/styles/global.css';
+
+  .link-card {
+    @apply border-base-300 m-1 overflow-hidden border;
+    @apply w-full md:w-[calc(25%-calc(var(--spacing)*2))] lg:w-[calc(20%-calc(var(--spacing)*2))];
+
+    figure {
+      @apply min-w-23;
+    }
+  }
+</style>
