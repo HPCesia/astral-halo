@@ -10,7 +10,7 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     id="stb-show"
     class="peer order-2 grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
   >
-    <Button id="stb-show-more" class="btn-circle btn-primary btn-sm">
+    <Button id="stb-show-more" class="btn-circle btn-secondary btn-sm">
       <input
         type="checkbox"
         class="absolute z-10 h-8 w-8 cursor-pointer appearance-none border-0"
@@ -21,7 +21,7 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     {
       articleConfig.toc && (
         <Fragment>
-          <Button id="stb-toc" class="btn-circle btn-primary btn-sm hidden xl:hidden!">
+          <Button id="stb-toc" class="btn-circle btn-secondary btn-sm hidden xl:hidden!">
             <Icon name="material-symbols:toc-rounded" />
           </Button>
           <div
@@ -31,7 +31,7 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
         </Fragment>
       )
     }
-    <Button id="stb-back-to-top" class="group btn-circle btn-primary btn-sm">
+    <Button id="stb-back-to-top" class="group btn-circle btn-secondary btn-sm">
       <span
         id="stb-read-percentage"
         class="absolute text-sm opacity-0 duration-300 group-hover:opacity-0"></span>
@@ -46,7 +46,7 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     id="stb-hide"
     class="order-1 grid grid-cols-1 gap-2 pr-4 duration-500 ease-in-out peer-[:first-child:has(:checked)]:translate-x-full"
   >
-    <DarkModeButton id="stb-dark-mode" class="btn-circle btn-primary btn-sm" />
+    <DarkModeButton id="stb-dark-mode" class="btn-circle btn-secondary btn-sm" />
   </div>
 </div>
 
