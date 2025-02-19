@@ -35,13 +35,12 @@ if (!title) title = 'Astral Halo';
           navbarConfig.navbarCenterItems.map((item) => {
             if ('items' in item) {
               return (
-                <Button
-                  title={i18n(item.title)}
-                  class="btn-ghost join-item btn-primary group flex flex-col gap-0"
-                >
-                  <span class="text-xl tracking-wide">{i18n(item.title)}</span>
+                <div class="group flex flex-col gap-0">
+                  <Button title={i18n(item.title)} class="btn-ghost join-item btn-primary">
+                    <span class="text-xl tracking-wide">{i18n(item.title)}</span>
+                  </Button>
                   <div class="hidden h-0 w-0 self-center group-hover:block">
-                    <ul class="menu bg-base-200/50 absolute -translate-x-[50%] translate-y-1.5 rounded-xl shadow backdrop-blur-md">
+                    <ul class="menu bg-base-200/50 absolute -translate-x-[50%] rounded-xl shadow backdrop-blur-md">
                       {item.items.map((subItem) => (
                         <Button
                           {...('href' in subItem && subItem.href && { href: subItem.href })}
@@ -53,7 +52,7 @@ if (!title) title = 'Astral Halo';
                       ))}
                     </ul>
                   </div>
-                </Button>
+                </div>
               );
             } else {
               return (
