@@ -73,36 +73,6 @@ const postCount = await getPostsCount();
 ---
 
 <MainLayout>
-  <div
-    id="time-archive-nav"
-    class="card border-base-300 bg-base-200/25 swup-transition-fade mb-4 border"
-  >
-    <div class="breadcrumbs card-body text-md py-3">
-      <ul>
-        <li>
-          <a href="/archives">{i18n(I18nKey.archive)}</a>
-        </li>
-        {
-          slug &&
-            (() => {
-              const [year, month] = slug.split('/').map(Number);
-              return (
-                <>
-                  <li>
-                    <a href={`/archives/${year}`}>{year}</a>
-                  </li>
-                  {month && (
-                    <li>
-                      <a href={`/archives/${year}/${month}`}>{month}</a>
-                    </li>
-                  )}
-                </>
-              );
-            })()
-        }
-      </ul>
-    </div>
-  </div>
   <div class="card border-base-300 bg-base-200/25 swup-transition-fade border px-6 py-4">
     <div class="tooltip md:tooltip-right tooltip-bottom mx-auto w-fit">
       <h1 class="text-center text-3xl font-bold">{i18n(I18nKey.archive)}</h1>
@@ -275,36 +245,3 @@ const postCount = await getPostsCount();
     }
   </Fragment>
 </MainLayout>
-
-<script>
-  import { pathMatch } from '@utils/url-utils';
-
-  function setup() {
-    const hasArchiveNav = (url: string) => pathMatch(/\/archives(\/\d{4}(\/\d{1,2})?)?$/, url);
-
-    window.swup?.hooks.before('visit:start', (visit) => {
-      if (hasArchiveNav(visit.to.url)) {
-        const archiveNav = document.getElementById('time-archive-nav');
-        archiveNav?.classList.remove('swup-transition-fade');
-      }
-    });
-    window.swup?.hooks.on('content:replace', (visit) => {
-      if (hasArchiveNav(visit.from.url)) {
-        const archiveNav = document.getElementById('time-archive-nav');
-        archiveNav?.classList.remove('swup-transition-fade');
-      }
-    });
-    window.swup?.hooks.on('animation:in:end', (visit) => {
-      if (hasArchiveNav(visit.from.url)) {
-        const archiveNav = document.getElementById('time-archive-nav');
-        archiveNav?.classList.add('swup-transition-fade');
-      }
-    });
-  }
-
-  if (window.swup) {
-    setup();
-  } else {
-    document.addEventListener('swup:enable', setup);
-  }
-</script>
