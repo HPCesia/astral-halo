@@ -26,7 +26,7 @@ const { title, description, lang, headings, comment, banner } = Astro.props;
 >
   <slot slot="head" name="head" />
   <slot slot="header-content" name="header-content" />
-  <div class="card border-base-300 bg-base-200 swup-transition-fade border-2 px-6 py-4">
+  <div class="card border-base-300 bg-base-200/50 swup-transition-fade border-2 px-6 py-4">
     <slot />
     {comment && commentConfig.enable && <Comment />}
   </div>
