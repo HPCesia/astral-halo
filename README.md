@@ -3,19 +3,23 @@
 > [!WARNING]
 > This project is still under development and may contain bugs and breaking changes. Use with caution.
 
-[Live Demo (Netlify)](https://astral-halo.netlify.app/) | English | [简体中文](README-zh_CN.md)
+[**Live Demo** (Netlify)](https://astral-halo.netlify.app/) | English | [简体中文](README-zh_CN.md)
 
 Astral Halo is a static blog template developed with [Astro](https://astro.build).
 
-## Features
+## Features/TODO
 
 - [x] Built with Astro and Tailwind CSS (using [daisyUI](https://daisyui.com/?lang=en))
 - [x] Freely switchable light/dark themes
 - [x] Responsive design
 - [x] Search functionality (currently only supports [Pagefind](https://pagefind.app/))
-- [x] Article table of contents
+- [x] Responsive article table of contents
 - [x] Comments system (supports [Twikoo](https://twikoo.js.org/en/) and [Giscus](https://giscus.app/))
 - [ ] Smooth animations and page transitions
+- [ ] Useful JS script tools
+- [ ] Various components that can be used in articles
+- [ ] Music player capsule
+- [ ] Typst format article support (experimental)
 
 ## Getting Started
 

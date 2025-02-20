@@ -3,19 +3,23 @@
 > [!WARNING]
 > 该项目仍在开发中，可能存在 bug，且会有破坏性变更。请谨慎使用。
 
-[在线预览（Netlify）](https://astral-halo.netlify.app/) | [English](README.md) | 简体中文
+[**在线预览**（Netlify）](https://astral-halo.netlify.app/) | [English](README.md) | 简体中文
 
 Astral Halo 是一个基于 [Astro](https://astro.build) 开发的静态博客模板。
 
-## 功能特性
+## 功能特性/TODO
 
 - [x] 基于 Astro 和 Tailwind CSS（使用 [daisyUI](https://daisyui.com/?lang=zh_hans)）开发
 - [x] 可自由切换的明亮/暗黑主题
 - [x] 响应式设计
 - [x] 搜索（目前仅支持 [Pagefind](https://pagefind.app/)）
-- [x] 文章目录显示
+- [x] 响应式的文章目录显示
 - [x] 评论（支持 [Twikoo](https://twikoo.js.org/) 与 [Giscus](https://giscus.app/zh-CN/)）
 - [ ] 流畅的动画和页面过渡
+- [ ] 实用 JS 脚本工具
+- [ ] 各种各样可在文章中使用的组件
+- [ ] 音乐播放胶囊
+- [ ] Typst 格式文章支持（实验性）
 
 ## 使用方法
 
