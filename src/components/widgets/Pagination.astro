@@ -47,8 +47,8 @@ else {
   <div>
     {
       current > 1 && (
-        <Button id="prev-page-btn" class="mr-auto" href={getPageUrl(current - 1)}>
-          <Icon name="material-symbols:keyboard-double-arrow-left-rounded" class="my-1" />
+        <Button id="prev-page-btn" class="btn-primary mr-auto" href={getPageUrl(current - 1)}>
+          <Icon name="material-symbols:chevron-left-rounded" class="my-1 text-2xl" />
         </Button>
       )
     }
@@ -60,7 +60,7 @@ else {
           return (
             <Button
               class:list={[
-                'join-item btn-soft',
+                'join-item btn-soft btn-primary',
                 current === p.page && 'btn-active',
                 p.page === -1 && 'btn-disabled',
               ]}
@@ -89,7 +89,10 @@ else {
             inert
           />
           <Button id="page-jumper-button" class="relative right-0 m-0 duration-300">
-            <Icon name="material-symbols:keyboard-double-arrow-right-rounded" class="my-1" />
+            <Icon
+              name="material-symbols:keyboard-double-arrow-right-rounded"
+              class="my-1 text-xl"
+            />
           </Button>
         </label>
       )
@@ -98,8 +101,8 @@ else {
   <div>
     {
       current < total && (
-        <Button id="next-page-btn" class="ml-auto" href={getPageUrl(current + 1)}>
-          <Icon name="material-symbols:keyboard-double-arrow-right-rounded" class="my-1" />
+        <Button id="next-page-btn" class="btn-primary ml-auto" href={getPageUrl(current + 1)}>
+          <Icon name="material-symbols:chevron-right-rounded" class="my-1 text-2xl" />
         </Button>
       )
     }
