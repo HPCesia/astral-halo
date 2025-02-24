@@ -2,3 +2,6 @@ dist
 node_modules
 .github
 .changeset
+
+# Ignore mdx files because Prettier doesn't support them well.
+*.mdx
