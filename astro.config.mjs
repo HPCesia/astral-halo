@@ -1,5 +1,6 @@
 // @ts-check
 import { CDN } from './src/constants/cdn.mjs';
+import { rehypeComponentsList } from './src/plugins/rehype-components-list.ts';
 import { rehypePrettierCodes } from './src/plugins/rehype-prettier-codes.ts';
 import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.ts';
 import { remarkExcerpt } from './src/plugins/remark-excerpt.ts';
@@ -18,7 +19,10 @@ import icon from 'astro-icon';
 import pagefind from 'astro-pagefind';
 import { defineConfig } from 'astro/config';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeComponents from 'rehype-components';
 import rehypeMathJaxCHtml from 'rehype-mathjax/chtml';
+import remarkDirective from 'remark-directive';
+import remarkDirectiveRehype from 'remark-directive-rehype';
 import remarkMath from 'remark-math';
 
 // https://astro.build/config
@@ -43,12 +47,16 @@ export default defineConfig({
       transformers: [
         // transformerNotationDiff(),
         // transformerNotationHighlight(),
+        // @ts-expect-error Type of shiki transformer in astro is not up to date.
         wrapCode(),
       ],
     },
     remarkPlugins: [
       // remarkHeadingShift,
       remarkMath,
+      remarkDirective,
+      // @ts-expect-error Types of the plugin are not correct
+      remarkDirectiveRehype,
       remarkReadingTime,
       remarkExcerpt,
       remarkImageProcess,
@@ -79,6 +87,7 @@ export default defineConfig({
       ],
       rehypeWrapTables,
       rehypePrettierCodes,
+      [rehypeComponents, { components: rehypeComponentsList }],
     ],
   },
   vite: {
