@@ -13,7 +13,11 @@ Here is an example of a Markdown blog post.
 
 # Heading Level 1 (I suggest not to use this level)
 
-Heading Level 1 is reserved for the post title, so you should start with Heading Level 2. Or you can uncomment `import remarkHeadingShift from './src/plugins/remark-heading-shift.mjs';` to the top of `astro.config.mjs` and then uncomment the first line of the `remarkPlugins` array. After that, you can use Heading Level 1 as a regular heading in your blog posts.
+Heading Level 1 is reserved for the post title, so you should start with Heading Level 2.
+
+:::collapse{title="Or"}
+You can uncomment `import remarkHeadingShift from './src/plugins/remark-heading-shift.mjs';` to the top of `astro.config.mjs` and then uncomment the first line of the `remarkPlugins` array. After that, you can use Heading Level 1 as a regular heading in your blog posts.
+:::
 
 ## Heading Level 2
 
@@ -70,11 +74,11 @@ And tables:
 | A looooooooooong row | A looooooooooong row |
 | A very loooooooooooooooooooooooooooooooooooooooooooooooooong row | |
 
-You can also add footnotes[^1] or [reference links][1].
+You can also add footnotes[^1] or [reference links][refer].
 
 [^1]: This is a footnote.
 
-[1]: https://example.com
+[refer]: https://example.com
 
 [GitHub blockquote alerts](https://github.com/orgs/community/discussions/16925) is also supported:
 
@@ -96,6 +100,10 @@ You can also add footnotes[^1] or [reference links][1].
 And that's it!
 
 #### I Think You Want to Have a Look at Heading Level 4
+
+Bidirectional article links are also supported, you can use `[[slug]]` to create a link to another article.
+
+[[q1k423y0]]
 
 ##### Too Many Nested Headings is Not a Good Idea, but Here is Heading Level 5
 
