@@ -10,7 +10,7 @@ const html = (await Astro.slots.render('default')).replaceAll(/{{{tabs-name}}}/g
 ---
 
 <div
-  class="tabs bg-base-200 tabs-box border-base-content/25 my-4 rounded-xl border"
+  class="tabs bg-base-200 tabs-box border-base-content/25 rounded-none not-[.card-body>:only-child]:my-4 not-[.card-body>:only-child]:rounded-xl not-[.card-body>:only-child]:border"
   {...syncKey ? { 'data-sync-key': syncKey } : {}}
 >
   <Fragment set:html={html} />
