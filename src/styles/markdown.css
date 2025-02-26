@@ -256,6 +256,8 @@ article {
     &.admonition-note {
       @apply border-info bg-info/10;
 
+      --color-primary: var(--color-info);
+
       .admonition-title {
         @apply text-info;
       }
@@ -263,6 +265,8 @@ article {
 
     &.admonition-tip {
       @apply border-success bg-success/10;
+
+      --color-primary: var(--color-success);
 
       .admonition-title {
         @apply text-success;
@@ -272,6 +276,8 @@ article {
     &.admonition-important {
       @apply border-accent bg-accent/10;
 
+      --color-primary: var(--color-accent);
+
       .admonition-title {
         @apply text-accent;
       }
@@ -280,6 +286,8 @@ article {
     &.admonition-warning {
       @apply border-warning bg-warning/10;
 
+      --color-primary: var(--color-warning);
+
       .admonition-title {
         @apply text-warning;
       }
@@ -287,6 +295,8 @@ article {
 
     &.admonition-caution {
       @apply border-error bg-error/10;
+
+      --color-primary: var(--color-error);
 
       .admonition-title {
         @apply text-error;
