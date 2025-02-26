@@ -3,40 +3,52 @@ title: Components
 slug: q1k423y0
 category: Example
 tags:
-  - markdown
   - astro
   - mdx
   - example
 published: 2025-02-10T21:23:23+08:00
 ---
 
-import { Tabs, TabItem, Repl, Collapse } from '@components/user';
+import { Collapse, Repl, TabItem, Tabs } from '@components/user';
 
 Components let you easily reuse a piece of UI or styling consistently. You can use them not just in `.astro` files, but also in `.mdx` files.
 
 > [!TIP]
 > [MDX](https://mdxjs.com/) is a format that lets you write JSX embedded inside Markdown. And it has no difference with markdown files in other ways.
 
+> [!TIP]
+> Some components are both available in `.md` and `.mdx` files, but some are only available in `.mdx` files. In `.md` files, you can use components with [remark-directive](https://github.com/remarkjs/remark-directive). Components that available in `.md` files will have a `md` tab in the example.
+
 ## Containers
 
 ### Collapse
 
 <Repl>
-  <Collapse title='Click me'>
-    This is the content of the collapse.
-  </Collapse>
-  <Collapse title='Default open!' open>
+  <Collapse title="Click me">This is the content of the collapse.</Collapse>
+  <Collapse title="Default open!" open>
     Hey there, I'm opened by default!
   </Collapse>
   <Fragment slot="desc">
-    ```jsx
-    <Collapse title='Click me'>
+  <Tabs>
+    <TabItem label="mdx" active>
+      ```jsx
+      <Collapse title="Click me">This is the content of the collapse.</Collapse>
+      <Collapse title="Default open!" open>
+        Hey there, I'm opened by default!
+      </Collapse>
+      ```
+    </TabItem>
+    <TabItem label="md">
+      ```md
+      :::collapse{title="Click me"}
       This is the content of the collapse.
-    </Collapse>
-    <Collapse title='Default open!' open>
+      :::
+      :::collapse{title="Default open!" open}
       Hey there, I'm opened by default!
-    </Collapse>
-    ```
+      :::
+      ```
+    </TabItem>
+  </Tabs>
   </Fragment>
 </Repl>
 
@@ -44,31 +56,23 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
 
 <Repl>
   <Tabs>
-    <TabItem label="Foo">
-      This is the content of common Tab 1
-    </TabItem>
-    <TabItem label="Bar" active={true}>
+    <TabItem label="Foo">This is the content of common Tab 1</TabItem>
+    <TabItem label="Bar" active>
       This is the content of common Tab 2
     </TabItem>
   </Tabs>
   <Tabs>
-    <TabItem label="Lorem">
-      This is the content of spoiler Tab 1
-    </TabItem>
-    <TabItem label="Ipsum">
-      This is the content of spoiler Tab 2
-    </TabItem>
+    <TabItem label="Lorem">This is the content of spoiler Tab 1</TabItem>
+    <TabItem label="Ipsum">This is the content of spoiler Tab 2</TabItem>
   </Tabs>
   <Tabs syncKey="test-tabs-sync">
-    <TabItem label="Tab 1" active={true}>
+    <TabItem label="Tab 1" active>
       This is the content of sync Tab 1, sync with next Tabs.
     </TabItem>
-    <TabItem label="Tab 2">
-      This is the content of sync Tab 2, sync with next Tabs.
-    </TabItem>
+    <TabItem label="Tab 2">This is the content of sync Tab 2, sync with next Tabs.</TabItem>
   </Tabs>
   <Tabs syncKey="test-tabs-sync">
-    <TabItem label="NPM" active={true}>
+    <TabItem label="NPM" active>
       ```bash
       npm install foo bar
       ```
@@ -82,31 +86,23 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
   <Fragment slot="desc">
     ````jsx
     <Tabs>
-      <TabItem label="Foo">
-        This is the content of common Tab 1
-      </TabItem>
-      <TabItem label="Bar" active={true}>
+      <TabItem label="Foo">This is the content of common Tab 1</TabItem>
+      <TabItem label="Bar" active>
         This is the content of common Tab 2
       </TabItem>
     </Tabs>
     <Tabs>
-      <TabItem label="Lorem">
-        This is the content of spoiler Tab 1
-      </TabItem>
-      <TabItem label="Ipsum">
-        This is the content of spoiler Tab 2
-      </TabItem>
+      <TabItem label="Lorem">This is the content of spoiler Tab 1</TabItem>
+      <TabItem label="Ipsum">This is the content of spoiler Tab 2</TabItem>
     </Tabs>
     <Tabs syncKey="test-tabs-sync">
-      <TabItem label="Tab 1" active={true}>
+      <TabItem label="Tab 1" active>
         This is the content of sync Tab 1, sync with next Tabs.
       </TabItem>
-      <TabItem label="Tab 2">
-        This is the content of sync Tab 2, sync with next Tabs.
-      </TabItem>
+      <TabItem label="Tab 2">This is the content of sync Tab 2, sync with next Tabs.</TabItem>
     </Tabs>
     <Tabs syncKey="test-tabs-sync">
-      <TabItem label="NPM" active={true}>
+      <TabItem label="NPM" active>
         ```bash
         npm install foo bar
         ```
@@ -135,10 +131,10 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
   <Fragment slot="desc">
     ````jsx
     <Repl>
-      <div class='text-center'>Hello</div>
+      <div class="text-center">Hello</div>
       <Fragment>
         ```jsx
-        <div class='text-center'>Hello</div>
+        <div class="text-center">Hello</div>
         ```
       </Fragment>
     </Repl>
