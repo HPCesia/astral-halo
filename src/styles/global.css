@@ -6,8 +6,6 @@
     dark --prefersdark;
 }
 
-@plugin "@iconify/tailwind4";
-
 @plugin 'daisyui/theme' {
   name: 'light';
 

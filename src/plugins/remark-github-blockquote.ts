@@ -1,4 +1,9 @@
 import type { RemarkPlugin } from '@astrojs/markdown-remark';
+import { icons as IC } from '@iconify-json/ic';
+import { icons as MaterialSymbols } from '@iconify-json/material-symbols';
+import { icons as MDI } from '@iconify-json/mdi';
+import type { ExtendedIconifyIcon } from '@iconify/types';
+import { getIconData, iconToHTML, iconToSVG } from '@iconify/utils';
 import type { BlockContent, Data, DefinitionContent } from 'mdast';
 import type { Node } from 'unist';
 import { visit } from 'unist-util-visit';
@@ -33,35 +38,41 @@ const defaultConfig: Config = {
   ],
   titleTextMap: (title) => {
     const [type, text] = title.substring(2, title.length - 1).split(':');
-    let icon: string;
+    let iconData: ExtendedIconifyIcon | null;
     switch (type) {
       case 'NOTE':
-        icon = 'material-symbols--info-outline-rounded';
+        iconData = getIconData(MaterialSymbols, 'info-outline-rounded');
         break;
       case 'TIP':
-        icon = 'ic--outline-tips-and-updates';
+        iconData = getIconData(IC, 'outline-tips-and-updates');
         break;
       case 'IMPORTANT':
-        icon = 'material-symbols--chat-info-outline-rounded';
+        iconData = getIconData(MaterialSymbols, 'chat-info-outline-rounded');
         break;
       case 'CAUTION':
-        icon = 'mdi--alert-octagon-outline';
+        iconData = getIconData(MDI, 'alert-octagon-outline');
         break;
       case 'WARNING':
-        icon = 'material-symbols--warning-rounded';
+        iconData = getIconData(MaterialSymbols, 'warning-rounded');
         break;
       default:
-        icon = 'material-symbols--info-outline-rounded';
+        iconData = getIconData(MaterialSymbols, 'info-outline-rounded');
         break;
     }
+    if (!iconData) {
+      console.error(`GitHub blockquote icon not found: ${type}`);
+      return {
+        displayTitle: [text || type],
+        checkedTitle: type,
+      };
+    }
+    const { attributes, body } = iconToSVG(iconData);
+    const icon = {
+      type: 'html',
+      value: iconToHTML(body, attributes),
+    } as Node;
     return {
-      displayTitle: [
-        {
-          type: 'element',
-          data: { hName: 'span', hProperties: { className: `icon-[${icon}]` } },
-        } as Node,
-        text || type,
-      ],
+      displayTitle: [icon, text || type],
       checkedTitle: type,
     };
   },
