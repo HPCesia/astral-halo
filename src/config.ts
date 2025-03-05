@@ -145,7 +145,7 @@ export const footerConfig: FooterConfig = {
     [
       {
         text: 'Astral Halo',
-        link: 'https://github.com/HPCesia/astral-halo/',
+        link: 'https://github.com/Astral-Halo/astral-halo',
         class: 'font-bold',
       },
     ],
