@@ -1,0 +1,44 @@
+:root {
+  /* 字体大小 */
+  --waline-font-size: 1rem;
+
+  /* 常规颜色 */
+  --waline-white: #fff;
+  --waline-light-grey: #999;
+  --waline-dark-grey: #666;
+
+  /* 主题色 */
+  --waline-theme-color: var(--color-primary);
+  --waline-active-color: var(--color-secondary);
+
+  /* 布局颜色 */
+  --waline-color: var(--color-base-content);
+  --waline-bg-color: var(--color-base-100);
+  --waline-bg-color-light: var(--color-base-200);
+  --waline-bg-color-hover: var(--color-base-200);
+  --waline-border-color: var(--color-base-200);
+  --waline-disable-bg-color: color-mix(in oklab, var(--color-base-200) 25%, transparent);
+  --waline-disable-color: color-mix(in oklab, var(--color-base-content) 75%, transparent);
+  --waline-code-bg-color: var(--color-base-100);
+
+  /* 特殊颜色 */
+  --waline-bq-color: #f0f0f0;
+
+  /* 头像 */
+  --waline-avatar-size: 3.25rem;
+  --waline-m-avatar-size: calc(var(--waline-avatar-size) * 9 / 13);
+
+  /* 徽章 */
+  --waline-badge-color: var(--color-accent);
+  --waline-badge-font-size: 0.775em;
+
+  /* 信息 */
+  --waline-info-bg-color: color-mix(in oklab, var(--color-base-content) 15%, transparent);
+  --waline-info-color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
+  --waline-info-font-size: 0.625em;
+
+  /* 渲染选择 */
+  --waline-border: 1px solid var(--waline-border-color);
+  --waline-avatar-radius: 50%;
+  --waline-box-shadow: none;
+}
