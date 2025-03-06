@@ -583,6 +583,17 @@ export type CommentConfig = {
      */
     serverURL: string;
     /**
+     * The path processor of the page.
+     * The parameter is `Astro.url.pathname`, and the return value will be passed to Waline as `path`.
+     *
+     * 页面路径处理器。传入参数为 `Astro.url.pathname`，返回值将传入 Waline 作为 `path`。
+     *
+     * @default (path) => path
+     * @see https://docs.astro.build/reference/api-reference/#url
+     * @see https://waline.js.org/reference/client/props.html#path
+     */
+    path?: (path: string) => string;
+    /**
      * Reviewer attributes of Waline.
      *
      * Waline 的评论者相关属性。
