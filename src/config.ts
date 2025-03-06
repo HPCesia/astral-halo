@@ -164,8 +164,8 @@ export const searchConfig: SearchConfig = {
 };
 
 export const commentConfig: CommentConfig = {
-  enable: false,
-  provider: 'twikoo',
+  enable: true,
+  provider: 'waline',
   twikoo: {
     envId: 'your-env-id',
   },
@@ -175,5 +175,11 @@ export const commentConfig: CommentConfig = {
     category: 'your-category',
     categoryId: 'your-category-id',
     mapping: 'og:title',
+  },
+  waline: {
+    serverURL: 'https://astral-halo-comment.netlify.app/.netlify/functions/comment',
+    wordLimit: 100, // Set a lower limit for demo site, to prevent abuse and save free database space cost.
+    pageSize: 10,
+    reaction: false,
   },
 };

@@ -12,6 +12,7 @@ import { wrapCode } from './src/plugins/shiki-transformers.ts';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import vue from '@astrojs/vue';
 // import { transformerNotationDiff } from '@shikijs/transformers';
 // import { transformerNotationHighlight } from '@shikijs/transformers';
 import tailwindcss from '@tailwindcss/vite';
@@ -36,6 +37,7 @@ export default defineConfig({
     sitemap({ filter: (page) => !page.includes('/archives/') && !page.includes('/about/') }),
     pagefind(),
     mdx(),
+    vue(),
   ],
   markdown: {
     shikiConfig: {
