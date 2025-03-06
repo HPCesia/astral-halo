@@ -17,6 +17,7 @@
     "@astrojs/mdx": "^4.1.0",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/vue": "^5.0.7",
     "@iconify-json/ic": "^1.2.2",
     "@iconify-json/material-symbols": "^1.2.14",
     "@iconify-json/mdi": "^1.2.3",
@@ -29,6 +30,7 @@
     "@swup/scripts-plugin": "^2.1.0",
     "@swup/scroll-plugin": "^3.3.2",
     "@tailwindcss/vite": "^4.0.9",
+    "@waline/client": "^3.5.5",
     "astro": "^5.4.1",
     "astro-compress": "2.3.5",
     "astro-icon": "^1.1.5",
@@ -56,7 +58,8 @@
     "swup": "^4.8.1",
     "tailwindcss": "^4.0.9",
     "typescript": "^5.7.3",
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "^5.0.0",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

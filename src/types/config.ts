@@ -438,7 +438,7 @@ export type CommentConfig = {
    *
    * 评论的提供者。
    */
-  provider: 'twikoo' | 'giscus';
+  provider: 'twikoo' | 'giscus' | 'waline';
   /**
    * The configuration of Twikoo.
    *
@@ -565,5 +565,87 @@ export type CommentConfig = {
      * @default true
      */
     lazyLoad?: boolean;
+  };
+  /**
+   * The configuration of Waline.
+   *
+   * Waline 的配置。
+   *
+   * @see https://waline.js.org/
+   */
+  waline?: {
+    /**
+     * The server URL of Waline.
+     *
+     * Waline 的服务端地址。
+     *
+     * @see https://waline.js.org/reference/client/props.html#serverurl
+     */
+    serverURL: string;
+    /**
+     * The path processor of the page.
+     * The parameter is `Astro.url.pathname`, and the return value will be passed to Waline as `path`.
+     *
+     * 页面路径处理器。传入参数为 `Astro.url.pathname`，返回值将传入 Waline 作为 `path`。
+     *
+     * @default (path) => path
+     * @see https://docs.astro.build/reference/api-reference/#url
+     * @see https://waline.js.org/reference/client/props.html#path
+     */
+    path?: (path: string) => string;
+    /**
+     * Reviewer attributes of Waline.
+     *
+     * Waline 的评论者相关属性。
+     *
+     * @default ['nick', 'mail', 'link']
+     * @see https://waline.js.org/reference/client/props.html#meta
+     */
+    meta?: ('nick' | 'mail' | 'link')[];
+    /**
+     * Required reviewer attributes of Waline.
+     *
+     * Waline 的评论者必填属性。
+     *
+     * @default []
+     * @see https://waline.js.org/reference/client/props.html#requiredmeta
+     */
+    requiredMeta?: [] | ['nick'] | ['nick', 'mail'];
+    /**
+     * Whether to enable or force to login.
+     *
+     * 是否启用或强制登录。
+     *
+     * @default 'enable'
+     * @see https://waline.js.org/reference/client/props.html#login
+     */
+    login?: 'enable' | 'disable' | 'force';
+    /**
+     * The word limit of the comment.
+     *
+     * 评论的字数限制。
+     *
+     * @default 500
+     * @see https://waline.js.org/reference/client/props.html#wordlimit
+     */
+    wordLimit?: number;
+    /**
+     * The page size of the comments.
+     *
+     * 评论的分页大小。
+     *
+     * @default 10
+     * @see https://waline.js.org/reference/client/props.html#pagesize
+     */
+    pageSize?: number;
+    /**
+     * Whether to enable reactions.
+     *
+     * 是否启用表情。
+     *
+     * @default false
+     * @see https://waline.js.org/reference/client/props.html#reaction
+     */
+    reaction?: boolean | string[];
   };
 };

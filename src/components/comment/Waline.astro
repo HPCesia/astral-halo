@@ -1,0 +1,24 @@
+---
+import { commentConfig } from '@/config';
+import { Waline as WalineComponent } from '@waline/client/component';
+import '@waline/client/meta';
+import '@waline/client/style';
+// Need to be separated to avoid being sorted before `@waline/client/style` when formatting
+import '@/styles/waline.css';
+
+const walineConfig = commentConfig.waline!;
+const pathName = walineConfig.path ? walineConfig.path(Astro.url.pathname) : Astro.url.pathname;
+---
+
+<WalineComponent
+  client:visible
+  serverURL={walineConfig.serverURL}
+  path={pathName}
+  dark={false}
+  meta={walineConfig.meta || ['nick', 'mail', 'link']}
+  requiredMeta={walineConfig.requiredMeta || []}
+  login={walineConfig.login || 'enable'}
+  wordLimit={walineConfig.wordLimit || 500}
+  pageSize={walineConfig.pageSize || 10}
+  reaction={walineConfig.reaction || false}
+/>
