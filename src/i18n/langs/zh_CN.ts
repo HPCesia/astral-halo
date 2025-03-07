@@ -46,4 +46,7 @@ export const zh_CN: Translation = {
   [Key.author]: '作者',
   [Key.publishedAt]: '发布于',
   [Key.license]: '许可协议',
+
+  [Key.draftDevNote]:
+    '这是一篇草稿，只会在 `DEV` 模式下显示。关闭草稿预览，请修改 `src/config.ts` 中的 `buildConfig.showDraftsOnDev` 为 `false`。',
 };

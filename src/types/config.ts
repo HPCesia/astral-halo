@@ -179,6 +179,15 @@ export type SiteConfig = {
       };
 };
 
+export type BuildConfig = {
+  /**
+   * Whether to show drafts on development mode.
+   *
+   * 是否在开发模式下显示草稿。
+   */
+  showDraftsOnDev: boolean;
+};
+
 export type ProfileConfig = {
   /**
    * The avatar of the profile.

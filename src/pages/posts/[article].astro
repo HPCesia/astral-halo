@@ -1,22 +1,36 @@
 ---
-import { siteConfig } from '@/config';
+import { buildConfig, siteConfig } from '@/config';
 import License from '@components/misc/License.astro';
 import PostInfo from '@components/misc/PostInfo.astro';
 import ImageWrapper from '@components/utils/ImageWrapper.astro';
 import Markdown from '@components/utils/Markdown.astro';
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
 import PostPageLayout from '@layouts/PostPageLayout.astro';
+import { Icon } from 'astro-icon/components';
 import { getCollection, render } from 'astro:content';
+import dayjs from 'dayjs';
+import MarkdownIt from 'markdown-it';
 import path from 'path';
 
 export async function getStaticPaths() {
-  const articles = await getCollection('posts');
+  const posts = (await getCollection('posts')).map((post) => ({
+    article: post,
+    isDraft: false,
+  }));
+  const drafts = (await getCollection('drafts')).map((post) => ({
+    article: post,
+    isDraft: true,
+  }));
+  const onDev = import.meta.env.DEV;
+  const articles = onDev && buildConfig.showDraftsOnDev ? [...posts, ...drafts] : posts;
   return articles.map((article) => ({
-    params: { article: article.data.slug },
-    props: { article },
+    params: { article: article.article.data.slug },
+    props: { article: article.article, isDraft: article.isDraft },
   }));
 }
 
-const { article } = Astro.props;
+const { article, isDraft } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(article);
 const hasCover =
   article.data.cover !== '' && article.data.cover !== undefined && article.data.cover !== null;
@@ -26,6 +40,10 @@ const coverSrc = hasCover
     : article.data.cover
   : undefined;
 const description = article.data.description || remarkPluginFrontmatter.excerpt;
+const publishTime =
+  'published' in article.data
+    ? article.data.published
+    : dayjs(remarkPluginFrontmatter.createAt).toDate();
 ---
 
 <PostPageLayout
@@ -39,7 +57,7 @@ const description = article.data.description || remarkPluginFrontmatter.excerpt;
   <Fragment slot="header-content">
     <PostInfo
       title={article.data.title}
-      publishedAt={article.data.published}
+      publishedAt={publishTime}
       category={article.data.category}
       tags={article.data.tags}
       wordCount={remarkPluginFrontmatter.words}
@@ -54,7 +72,18 @@ const description = article.data.description || remarkPluginFrontmatter.excerpt;
     )
   }
   <Markdown>
+    {
+      isDraft && (
+        <div class="admonition admonition-note">
+          <p class="admonition-title">
+            <Icon name="material-symbols:info-outline-rounded" />
+            NOTE
+          </p>
+          <Fragment set:html={new MarkdownIt().render(i18n(I18nKey.draftDevNote)!)} />
+        </div>
+      )
+    }
     <Content />
   </Markdown>
-  <License time={article.data.published} lang={article.data.lang} />
+  <License time={publishTime} lang={article.data.lang} />
 </PostPageLayout>

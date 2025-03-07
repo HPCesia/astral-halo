@@ -46,4 +46,7 @@ export const en: Translation = {
   [Key.author]: 'Author',
   [Key.publishedAt]: 'Published at',
   [Key.license]: 'License',
+
+  [Key.draftDevNote]:
+    'This is a draft and will only be displayed in `DEV` mode. To disable draft preview, please modify `buildConfig.showDraftsOnDev` to `false` in `src/config.ts`.',
 };

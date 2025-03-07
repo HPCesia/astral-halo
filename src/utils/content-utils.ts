@@ -1,12 +1,31 @@
+import { buildConfig } from '@/config';
 import type { BlogPostData } from '@/types/data';
 import type { BlogPost } from '@/types/data';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
+import dayjs from 'dayjs';
 import path from 'path';
 
 export async function getSortedPosts(): Promise<BlogPost[]> {
-  const allBlogPosts = (await getCollection('posts')) as unknown as BlogPost[];
+  let allBlogPosts;
+  const posts = (await getCollection('posts')) as unknown as BlogPost[];
+  const onDev = import.meta.env.DEV;
+
+  if (onDev && buildConfig.showDraftsOnDev) {
+    const draftEntries = await getCollection('drafts');
+    const drafts = await Promise.all(
+      draftEntries.map(async (draft) => {
+        const { remarkPluginFrontmatter } = await render(draft);
+        const published = dayjs(remarkPluginFrontmatter.createAt as string).toDate();
+        const data = Object.assign(draft.data, { published });
+        return Object.assign(draft, { data }) as unknown as BlogPost;
+      })
+    );
+    allBlogPosts = [...posts, ...drafts];
+  } else {
+    allBlogPosts = posts;
+  }
   const sortedBlogPosts = allBlogPosts.sort(
     (a: { data: BlogPostData }, b: { data: BlogPostData }) => {
       const dateA = new Date(a.data.published);

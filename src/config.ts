@@ -1,6 +1,7 @@
 import type {
   ArticleConfig,
   AsideConfig,
+  BuildConfig,
   CommentConfig,
   FooterConfig,
   LicenseConfig,
@@ -36,6 +37,10 @@ export const siteConfig: SiteConfig = {
     ],
     defaultHeight: '40vh',
   },
+};
+
+export const buildConfig: BuildConfig = {
+  showDraftsOnDev: true,
 };
 
 export const profileConfig: ProfileConfig = {

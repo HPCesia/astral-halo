@@ -43,6 +43,9 @@ enum I18nKey {
   author = 'author',
   publishedAt = 'publishedAt',
   license = 'license',
+
+  /** Note in the top of drafts content in dev mode. This key supports markdown syntax, using `markdown-it`. */
+  draftDevNote = 'draftDevNote',
 }
 
 export default I18nKey;
