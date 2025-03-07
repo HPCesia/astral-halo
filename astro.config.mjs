@@ -3,6 +3,7 @@ import { CDN } from './src/constants/cdn.mjs';
 import { rehypeComponentsList } from './src/plugins/rehype-components-list.ts';
 import { rehypePrettierCodes } from './src/plugins/rehype-prettier-codes.ts';
 import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.ts';
+import { remarkCreateTime } from './src/plugins/remark-create-time.ts';
 import { remarkExcerpt } from './src/plugins/remark-excerpt.ts';
 import { remarkGithubBlockquote } from './src/plugins/remark-github-blockquote.ts';
 // import { remarkHeadingShift } from './src/plugins/remark-heading-shift.ts';
@@ -59,6 +60,7 @@ export default defineConfig({
       remarkDirective,
       // @ts-expect-error Types of the plugin are not correct
       remarkDirectiveRehype,
+      remarkCreateTime,
       remarkReadingTime,
       remarkExcerpt,
       remarkImageProcess,
