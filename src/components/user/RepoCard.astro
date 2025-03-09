@@ -90,7 +90,7 @@ switch (platform) {
           });
           description = meta.data.description;
           language = meta.data.language;
-          license = meta.data.license?.spdx_id ?? null;
+          license = meta.data.license?.name || null;
           forks = meta.data.forks_count;
           stars = meta.data.stargazers_count;
         }
