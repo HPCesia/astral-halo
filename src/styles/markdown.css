@@ -57,7 +57,7 @@ article {
     margin: 0.75rem 0;
   }
 
-  a {
+  a:not(.card) {
     @apply text-primary underline decoration-dashed;
 
     &[data-footnote-ref],

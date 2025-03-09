@@ -1,0 +1,130 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  repo:
+    | {
+        owner: string;
+        name: string;
+      }
+    | `${string}/${string}`;
+  platform: 'github';
+}
+
+const { repo, platform } = Astro.props as Props;
+const repoName = typeof repo === 'string' ? repo : `${repo.owner}/${repo.name}`;
+
+let url: string;
+let platformIconName: string;
+
+switch (platform) {
+  case 'github': {
+    url = `https://github.com/${repoName}/`;
+    platformIconName = 'mdi:github';
+  }
+}
+---
+
+<a
+  href={url}
+  class="card border-base-content/25 my-4 overflow-hidden border"
+  data-repo={repoName}
+  data-platform={platform}
+>
+  <div class="card-body p-4">
+    <div class="card-title mb-4 justify-between">
+      <span class="text-xl">{repoName}</span>
+      <Icon name={platformIconName} class="text-5xl" />
+    </div>
+    <div class="repo-card-desc flex flex-col gap-2">
+      <div class="skeleton h-4 w-full"></div>
+      <div class="skeleton h-4 w-2/3"></div>
+    </div>
+    <div class="card-actions">
+      <div class="repo-card-star flex items-center justify-center gap-1.5">
+        <Icon name="material-symbols:star-outline-rounded" class="text-xl" />
+        <span class="skeleton h-4 w-6"></span>
+      </div>
+      <div class="repo-card-fork flex items-center justify-center gap-1.5">
+        <Icon name="material-symbols:fork-right-rounded" class="text-xl" />
+        <span class="skeleton h-4 w-6"></span>
+      </div>
+      <div class="repo-card-license hidden items-center justify-center gap-1.5">
+        <Icon name="material-symbols:balance-rounded" class="text-xl" />
+        <span></span>
+      </div>
+      <div class="repo-card-lang hidden items-center justify-center gap-1.5">
+        <Icon name="mingcute:code-line" class="text-xl" />
+        <span></span>
+      </div>
+    </div>
+  </div>
+</a>
+
+<script>
+  import { request as githubApiRequest } from '@octokit/request';
+
+  type Platform = 'github';
+
+  function init() {
+    const repoCards = document.querySelectorAll('.card[data-repo]');
+    repoCards.forEach(async (card) => {
+      const repoName = card.getAttribute('data-repo')!;
+      const platform = card.getAttribute('data-platform')! as Platform;
+
+      let description: string | null;
+      let language: string | null;
+      let license: string | null;
+      let stars: number;
+      let forks: number;
+
+      switch (platform) {
+        case 'github': {
+          const [owner, repo] = repoName.split('/');
+          const meta = await githubApiRequest('GET /repos/{owner}/{repo}', {
+            owner,
+            repo,
+            headers: {
+              'X-GitHub-Api-Version': '2022-11-28',
+            },
+          });
+          description = meta.data.description;
+          language = meta.data.language;
+          license = meta.data.license?.spdx_id ?? null;
+          forks = meta.data.forks_count;
+          stars = meta.data.stargazers_count;
+        }
+      }
+
+      const descriptionNode = card.querySelector('.repo-card-desc')!;
+      console.log(descriptionNode);
+      const languageNode = card.querySelector('.repo-card-lang')!;
+      const licenseNode = card.querySelector('.repo-card-license')!;
+      const forksNode = card.querySelector('.repo-card-fork')!.querySelector('span')!;
+      const starsNode = card.querySelector('.repo-card-star')!.querySelector('span')!;
+
+      descriptionNode.innerHTML = description || '';
+
+      if (language) {
+        languageNode.classList.remove('hidden');
+        languageNode.classList.add('flex');
+        languageNode.querySelector('span')!.innerText = language;
+      }
+
+      if (license) {
+        licenseNode.classList.remove('hidden');
+        licenseNode.classList.add('flex');
+        licenseNode.querySelector('span')!.innerText = license;
+      }
+
+      forksNode.classList.remove('skeleton', 'h-4', 'w-6');
+      forksNode.innerText = forks.toString();
+
+      starsNode.classList.remove('skeleton', 'h-4', 'w-6');
+      starsNode.innerText = stars.toString();
+    });
+  }
+
+  document.addEventListener('astro:after-swap', init);
+  init();
+</script>

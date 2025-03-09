@@ -9,7 +9,7 @@ tags:
 published: 2025-02-10T21:23:23+08:00
 ---
 
-import { Collapse, Repl, TabItem, Tabs } from '@components/user';
+import { Collapse, Repl, RepoCard, TabItem, Tabs } from '@components/user';
 
 Components let you easily reuse a piece of UI or styling consistently. You can use them not just in `.astro` files, but also in `.mdx` files.
 
@@ -139,5 +139,20 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
       </Fragment>
     </Repl>
     ````
+  </Fragment>
+</Repl>
+
+## Web Contents
+
+### RepoCard
+
+<Repl>
+  <RepoCard repo="Astral-Halo/astral-halo" platform='github' />
+  <RepoCard repo="withastro/astro" platform='github' />
+  <Fragment slot="desc">
+    ```jsx
+    <RepoCard repo="Astral-Halo/astral-halo" platform='github' />
+    <RepoCard repo="withastro/astro" platform='github' />
+    ```
   </Fragment>
 </Repl>
