@@ -1,6 +1,9 @@
 import { wrapperTagName } from './shiki-transformers';
 import type { RehypePlugin } from '@astrojs/markdown-remark';
+import { icons as MaterialSymbols } from '@iconify-json/material-symbols';
+import { getIconData, iconToHTML, iconToSVG } from '@iconify/utils';
 import type { ElementContent } from 'hast';
+import { fromHtml } from 'hast-util-from-html';
 import { visit } from 'unist-util-visit';
 
 export const rehypePrettierCodes: RehypePlugin = function () {
@@ -29,14 +32,12 @@ export const rehypePrettierCodes: RehypePlugin = function () {
         ],
       };
 
-      const copyIcon: ElementContent = {
-        type: 'element',
-        tagName: 'span',
-        properties: {
-          class: 'icon-[material-symbols--file-copy-rounded]',
-        },
-        children: [],
-      };
+      const { attributes, body } = iconToSVG(
+        getIconData(MaterialSymbols, 'file-copy-rounded')!
+      );
+      const copyIcon: ElementContent = fromHtml(iconToHTML(body, attributes), {
+        fragment: true,
+      }).children[0] as ElementContent;
       const copyBtn: ElementContent = {
         type: 'element',
         tagName: 'button',
