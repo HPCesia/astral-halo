@@ -1,10 +1,10 @@
 ---
-import { asideConfig, buildConfig, siteConfig } from '@/config';
+import { asideConfig, siteConfig } from '@/config';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
-import { getPostsCount } from '@utils/content-utils';
+import { getPosts, getPostsCount } from '@utils/content-utils';
 import { Icon } from 'astro-icon/components';
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 ---
 
 <div class="stats stats-vertical w-full">
@@ -46,14 +46,10 @@ import { getCollection, render } from 'astro:content';
               </div>
               <div class="stat-value text-base">
                 {(async () => {
-                  const posts = await getCollection('posts');
-                  const drafts = await getCollection('drafts');
-                  const onDev = import.meta.env.DEV;
-                  const entries =
-                    onDev && buildConfig.showDraftsOnDev ? [...posts, ...drafts] : posts;
+                  const posts = await getPosts();
                   const words = await Promise.all(
-                    entries.map(async (entry) => {
-                      const { remarkPluginFrontmatter } = await render(entry);
+                    posts.map(async (post) => {
+                      const { remarkPluginFrontmatter } = await render(post);
                       return remarkPluginFrontmatter.words as number;
                     })
                   );
