@@ -1,0 +1,26 @@
+---
+interface Props {
+  tip: string;
+  position?: 'top' | 'bottom' | 'left' | 'right';
+}
+
+const { tip, position } = Astro.props;
+const tooltipClass = (() => {
+  switch (position) {
+    case 'top':
+      return 'tooltip tooltip-top';
+    case 'bottom':
+      return 'tooltip tooltip-bottom';
+    case 'left':
+      return 'tooltip tooltip-left';
+    case 'right':
+      return 'tooltip tooltip-right';
+    default:
+      return 'tooltip tooltip-top';
+  }
+})();
+---
+
+<div class={tooltipClass} data-tip={tip}>
+  <slot />
+</div>

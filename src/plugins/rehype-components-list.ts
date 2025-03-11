@@ -26,4 +26,16 @@ const Collapse = function (
   return h('div', { class: wrapperClassName }, [inputNode, titleNode, contentNode]);
 };
 
-export const rehypeComponentsList = { collapse: Collapse };
+const Tooltip = function (
+  props: {
+    tip: string;
+    position?: 'top' | 'bottom' | 'left' | 'right';
+  },
+  children: Child
+) {
+  const { tip, position } = props;
+  const wrapperClassName = 'tooltip tooltip-' + (position || 'top');
+  return h('div', { class: wrapperClassName, 'data-tip': tip }, children);
+};
+
+export const rehypeComponentsList = { collapse: Collapse, tooltip: Tooltip };

@@ -9,7 +9,7 @@ tags:
 published: 2025-02-10T21:23:23+08:00
 ---
 
-import { Collapse, Repl, RepoCard, TabItem, Tabs } from '@components/user';
+import { Collapse, Repl, RepoCard, TabItem, Tabs, Tooltip } from '@components/user';
 
 Components let you easily reuse a piece of UI or styling consistently. You can use them not just in `.astro` files, but also in `.mdx` files.
 
@@ -139,6 +139,54 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
       </Fragment>
     </Repl>
     ````
+  </Fragment>
+</Repl>
+
+## Inline Containers
+
+### Tooltip
+<Repl>
+  <div class="flex flex-col gap-2 w-fit mx-auto">
+    <Tooltip tip="I'm here!" position="top">
+      Hover me
+    </Tooltip>
+    <Tooltip tip="I'm here!" position="bottom">
+      Hover me
+    </Tooltip>
+    <Tooltip tip="I'm here!" position="left">
+      Hover me
+    </Tooltip>
+    <Tooltip tip="I'm here!" position="right">
+      Hover me
+    </Tooltip>
+  </div>
+  <Fragment slot="desc">
+  <Tabs>
+    <TabItem label="mdx" active>
+      ```jsx
+      <Tooltip tip="I'm here!" position="top">
+        Hover me
+      </Tooltip>
+      <Tooltip tip="I'm here!" position="bottom">
+        Hover me
+      </Tooltip>
+      <Tooltip tip="I'm here!" position="left">
+        Hover me
+      </Tooltip>
+      <Tooltip tip="I'm here!" position="right">
+        Hover me
+      </Tooltip>
+      ```
+    </TabItem>
+    <TabItem label="md">
+      ```md
+      ::tooltip[Hover me]{tip="I'm here!" position="top"}
+      ::tooltip[Hover me]{tip="I'm here!" position="bottom"}
+      ::tooltip[Hover me]{tip="I'm here!" position="left"}
+      ::tooltip[Hover me]{tip="I'm here!" position="right"}
+      ```
+    </TabItem>
+  </Tabs>
   </Fragment>
 </Repl>
 
