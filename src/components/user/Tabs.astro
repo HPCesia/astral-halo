@@ -36,7 +36,6 @@ const html = (await Astro.slots.render('default')).replaceAll(/{{{tabs-name}}}/g
         }
       } else {
         const activeTabIndex = Array.from(tabItems).findIndex((tab) => tab.checked);
-        console.log(syncKey, 'init', activeTabIndex);
         syncTabs.setKey(syncKey, activeTabIndex);
       }
       tabItems.forEach((tab, index) => {
