@@ -1,4 +1,5 @@
 export { default as Collapse } from './Collapse.astro';
+export { default as LinkCard } from './LinkCard.astro';
 export { default as Repl } from './Repl.astro';
 export { default as RepoCard } from './RepoCard.astro';
 export { default as Tabs } from './Tabs.astro';

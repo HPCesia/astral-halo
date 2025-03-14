@@ -9,7 +9,7 @@ tags:
 published: 2025-02-10T21:23:23+08:00
 ---
 
-import { Collapse, Repl, RepoCard, TabItem, Tabs, Tooltip } from '@components/user';
+import { Collapse, LinkCard, Repl, RepoCard, TabItem, Tabs, Tooltip } from '@components/user';
 
 Components let you easily reuse a piece of UI or styling consistently. You can use them not just in `.astro` files, but also in `.mdx` files.
 
@@ -202,5 +202,43 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
     <RepoCard repo="HPCesia/astral-halo" platform='github' />
     <RepoCard repo="withastro/astro" platform='github' />
     ```
+  </Fragment>
+</Repl>
+
+### LinkCard
+<Repl>
+  <LinkCard
+    title="Astral Halo"
+    description="A static blog template developed with Astro"
+    url="https://github.com/HPCesia/astral-halo"
+  />
+  <LinkCard
+    title="Astro"
+    description="The all-in-one web framework designed for speed."
+    url="https://astro.build/"
+  />
+  <Fragment slot="desc">
+    <Tabs>
+      <TabItem label="mdx" active>
+        ```jsx
+        <LinkCard
+          title="Astral Halo"
+          description="A static blog template developed with Astro"
+          url="https://github.com/HPCesia/astral-halo"
+        />
+        <LinkCard
+          title="Astro"
+          description="The all-in-one web framework designed for speed."
+          url="https://astro.build/"
+        />
+        ```
+      </TabItem>
+      <TabItem label="md">
+        ```md
+        ::linkcard{title="Astral Halo" description="A static blog template developed with Astro" url="https://github.com/HPCesia/astral-halo"}
+        ::linkcard{title="Astro" description="The all-in-one web framework designed for speed." url="https://astro.build/"}
+        ```
+      </TabItem>
+    </Tabs>
   </Fragment>
 </Repl>

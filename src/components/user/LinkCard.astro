@@ -1,0 +1,23 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+}
+
+let { title, description, url } = Astro.props;
+---
+
+<a href={url} title={title} class="card border-base-content/25 my-4 overflow-hidden border">
+  <div class="card-body flex flex-row items-center justify-between p-4">
+    <div>
+      <div class="card-title">
+        {title}
+      </div>
+      <div class="card-desc text-base-content/50">{description}</div>
+    </div>
+    <Icon name="material-symbols:arrow-right-alt-rounded" class="text-3xl" />
+  </div>
+</a>
