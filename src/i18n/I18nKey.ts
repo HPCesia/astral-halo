@@ -13,6 +13,7 @@ enum I18nKey {
 
   comments = 'comments',
   subscribe = 'subscribe',
+  backLinks = 'backLinks',
 
   untitled = 'untitled',
   uncategorized = 'uncategorized',

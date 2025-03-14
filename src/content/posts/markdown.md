@@ -101,9 +101,7 @@ And that's it!
 
 #### I Think You Want to Have a Look at Heading Level 4
 
-Bidirectional article links are also supported, you can use `[[slug]]` to create a link to another article.
-
-[[q1k423y0]]
+Bidirectional article links are also supported, you can use `[[slug]]` to create a link to another article like [[posts/create-custom-page/index|create custom page]] or [[manual]]
 
 ##### Too Many Nested Headings is Not a Good Idea, but Here is Heading Level 5
 

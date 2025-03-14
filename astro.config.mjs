@@ -3,6 +3,7 @@ import { CDN } from './src/constants/cdn.mjs';
 import { rehypeComponentsList } from './src/plugins/rehype-components-list.ts';
 import { rehypePrettierCodes } from './src/plugins/rehype-prettier-codes.ts';
 import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.ts';
+import { remarkArticleReferences } from './src/plugins/remark-article-references';
 import { remarkCreateTime } from './src/plugins/remark-create-time.ts';
 import { remarkExcerpt } from './src/plugins/remark-excerpt.ts';
 import { remarkGithubBlockquote } from './src/plugins/remark-github-blockquote.ts';
@@ -65,6 +66,7 @@ export default defineConfig({
       remarkExcerpt,
       remarkImageProcess,
       remarkGithubBlockquote,
+      remarkArticleReferences,
     ],
     rehypePlugins: [
       rehypeHeadingIds,

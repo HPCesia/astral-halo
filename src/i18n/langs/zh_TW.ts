@@ -16,6 +16,7 @@ export const zh_TW: Translation = {
 
   [Key.comments]: '評論',
   [Key.subscribe]: '訂閱',
+  [Key.backLinks]: '反向連結',
 
   [Key.untitled]: '無標題',
   [Key.uncategorized]: '未分類',

@@ -15,7 +15,8 @@ export type BlogPostData = {
 
 export type BlogPost = {
   id: string;
-  rendered: RenderedContent;
   body: string;
   data: BlogPostData;
+  rendered?: RenderedContent;
+  filePath?: string;
 };

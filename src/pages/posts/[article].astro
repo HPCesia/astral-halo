@@ -1,5 +1,7 @@
 ---
-import { siteConfig } from '@/config';
+import { buildConfig, siteConfig } from '@/config';
+import { getContainerRenderer as mdxContainerRenderer } from '@astrojs/mdx';
+import BackLinks from '@components/misc/BackLinks.astro';
 import License from '@components/misc/License.astro';
 import PostInfo from '@components/misc/PostInfo.astro';
 import ImageWrapper from '@components/utils/ImageWrapper.astro';
@@ -9,7 +11,9 @@ import { i18n } from '@i18n/translation';
 import PostPageLayout from '@layouts/PostPageLayout.astro';
 import { getPosts } from '@utils/content-utils';
 import { Icon } from 'astro-icon/components';
-import { render } from 'astro:content';
+import { experimental_AstroContainer } from 'astro/container';
+import { loadRenderers } from 'astro:container';
+import { render, type CollectionEntry } from 'astro:content';
 import MarkdownIt from 'markdown-it';
 import path from 'path';
 
@@ -32,6 +36,85 @@ const coverSrc = hasCover
   : undefined;
 const description = article.data.description || remarkPluginFrontmatter.excerpt;
 const isDraft = article.data.draft === true;
+
+const container = await experimental_AstroContainer.create({
+  renderers: await loadRenderers([mdxContainerRenderer()]),
+});
+let contentString = await container.renderToString(Content);
+
+const referencePattern = /%%%%(.*?)(?:%%(.*?))?%%%%/g;
+const allPosts = await getPosts();
+const pathIdMap = allPosts.reduce(
+  (acc, post) => {
+    const slug = post.id;
+    const path = post.filePath!.replace('src/content/', '').split('.').slice(0, -1).join('.');
+    acc[path] = slug;
+    return acc;
+  },
+  {} as Record<string, string>
+);
+const getArticle = (refPath: string) => {
+  let collection = refPath.split('/')[0];
+  if (!['posts', 'drafts', 'spec'].includes(collection)) {
+    collection = 'posts';
+    refPath = `posts/${refPath}`;
+  }
+  const id = pathIdMap[refPath];
+  if (id) {
+    return allPosts.find((post) => post.id === id);
+  }
+};
+const references: {
+  reference: string;
+  context: string;
+  id: string;
+}[] = remarkPluginFrontmatter.references || [];
+contentString = contentString.replaceAll(referencePattern, (match, reference, alias) => {
+  const refArticle = getArticle(reference);
+  if (
+    refArticle &&
+    (refArticle.data.draft === false || (buildConfig.showDraftsOnDev && import.meta.env.DEV))
+  ) {
+    const url = `/posts/${refArticle.id}`;
+    const id = references.find((item) => item.reference === reference)?.id;
+    return `<a href="${url}" id="wiki-${id}">${alias || reference}</a>`;
+  } else {
+    return '';
+  }
+});
+
+const backLinks: {
+  reference: CollectionEntry<'posts'>;
+  context: string;
+  offset: [number, number];
+  id: string;
+}[] = (
+  await Promise.all(
+    allPosts.map(async (post) => {
+      const { remarkPluginFrontmatter } = await render(post);
+      const references: {
+        reference: string;
+        context: string;
+        offset: [number, number];
+        id: string;
+      }[] = remarkPluginFrontmatter.references || [];
+      return references
+        .map((reference) => {
+          const refArticle = getArticle(reference.reference);
+          if (refArticle && refArticle.id === article.id) {
+            return {
+              reference: post,
+              context: reference.context,
+              offset: reference.offset,
+              id: reference.id,
+            };
+          }
+          return undefined;
+        })
+        .filter((item) => item !== undefined);
+    })
+  )
+).flat();
 ---
 
 <PostPageLayout
@@ -71,7 +154,8 @@ const isDraft = article.data.draft === true;
         </div>
       )
     }
-    <Content />
+    <Fragment set:html={contentString} />
   </Markdown>
   <License time={article.data.published} lang={article.data.lang} />
+  {backLinks.length > 0 && <BackLinks backLinks={backLinks} />}
 </PostPageLayout>

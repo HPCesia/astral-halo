@@ -16,6 +16,7 @@ export const en: Translation = {
 
   [Key.comments]: 'Comments',
   [Key.subscribe]: 'Subscribe',
+  [Key.backLinks]: 'Back Links',
 
   [Key.untitled]: 'Untitled',
   [Key.uncategorized]: 'Uncategorized',
