@@ -83,7 +83,7 @@ const favicons: Favicon[] =
   </head>
   <body class="bg-base-100 text-base-content flex min-h-screen flex-col">
     <SideToolBar />
-    <Navbar>
+    <Navbar title={siteConfig.title}>
       <slot name="header" />
       {siteConfig.banner !== false && <Banner src={banner?.src} basePath={banner?.basePath} />}
       <div id="body-wrap" class="w-full items-center md:px-4">
