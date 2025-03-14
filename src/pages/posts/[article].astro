@@ -69,7 +69,7 @@ const references: {
   context: string;
   id: string;
 }[] = remarkPluginFrontmatter.references || [];
-contentString = contentString.replaceAll(referencePattern, (match, reference, alias) => {
+contentString = contentString.replaceAll(referencePattern, (_, reference, alias) => {
   const refArticle = getArticle(reference);
   if (
     refArticle &&

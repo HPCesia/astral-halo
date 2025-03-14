@@ -2,7 +2,7 @@ import type { RemarkPlugin } from '@astrojs/markdown-remark';
 import { statSync } from 'fs';
 
 export const remarkCreateTime: RemarkPlugin = function () {
-  return function (tree, file) {
+  return function (_, file) {
     const filepath = file.history[0];
     const result = statSync(filepath);
     file.data!.astro!.frontmatter!.createAt = result.birthtime.toISOString();
