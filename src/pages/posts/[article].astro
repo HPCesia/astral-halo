@@ -1,18 +1,16 @@
 ---
 import { buildConfig, siteConfig } from '@/config';
-import { getContainerRenderer as mdxContainerRenderer } from '@astrojs/mdx';
 import BackLinks from '@components/misc/BackLinks.astro';
 import License from '@components/misc/License.astro';
 import PostInfo from '@components/misc/PostInfo.astro';
 import ImageWrapper from '@components/utils/ImageWrapper.astro';
 import Markdown from '@components/utils/Markdown.astro';
+import Replacer from '@components/utils/Replacer.astro';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
 import PostPageLayout from '@layouts/PostPageLayout.astro';
 import { getPosts } from '@utils/content-utils';
 import { Icon } from 'astro-icon/components';
-import { experimental_AstroContainer } from 'astro/container';
-import { loadRenderers } from 'astro:container';
 import { render, type CollectionEntry } from 'astro:content';
 import MarkdownIt from 'markdown-it';
 import path from 'path';
@@ -36,11 +34,6 @@ const coverSrc = hasCover
   : undefined;
 const description = article.data.description || remarkPluginFrontmatter.excerpt;
 const isDraft = article.data.draft === true;
-
-const container = await experimental_AstroContainer.create({
-  renderers: await loadRenderers([mdxContainerRenderer()]),
-});
-let contentString = await container.renderToString(Content);
 
 const referencePattern = /%%%%(.*?)(?:%%(.*?))?%%%%/g;
 const allPosts = await getPosts();
@@ -69,7 +62,7 @@ const references: {
   context: string;
   id: string;
 }[] = remarkPluginFrontmatter.references || [];
-contentString = contentString.replaceAll(referencePattern, (_, reference, alias) => {
+const replacer = (_: string, reference: string, alias: string) => {
   const refArticle = getArticle(reference);
   if (
     refArticle &&
@@ -81,7 +74,7 @@ contentString = contentString.replaceAll(referencePattern, (_, reference, alias)
   } else {
     return '';
   }
-});
+};
 
 const backLinks: {
   reference: CollectionEntry<'posts'>;
@@ -154,7 +147,9 @@ const backLinks: {
         </div>
       )
     }
-    <Fragment set:html={contentString} />
+    <Replacer pattern={referencePattern} replacer={replacer}>
+      <Content />
+    </Replacer>
   </Markdown>
   <License time={article.data.published} lang={article.data.lang} />
   {backLinks.length > 0 && <BackLinks backLinks={backLinks} />}

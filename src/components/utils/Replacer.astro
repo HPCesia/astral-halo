@@ -1,0 +1,24 @@
+---
+export type Props = {
+  pattern: string | RegExp;
+  replaceValue?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  replacer?: (match: string, ...args: any[]) => string;
+};
+
+const { pattern, replaceValue, replacer } = Astro.props;
+
+if (replaceValue && replacer) {
+  throw new Error('You can only use one of `replaceValue` or `replacer. Please choose one.');
+}
+if (replaceValue === undefined && replacer === undefined) {
+  throw new Error('You must provide either `replaceValue` or `replacer`.');
+}
+
+const raw = await Astro.slots.render('default');
+const html = replacer
+  ? raw.replaceAll(pattern, replacer)
+  : raw.replaceAll(pattern, replaceValue!);
+---
+
+<Fragment set:html={html} />
