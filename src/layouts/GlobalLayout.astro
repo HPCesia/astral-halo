@@ -122,7 +122,9 @@ const favicons: Favicon[] =
         delay: 2000,
       }),
       new SwupScriptsPlugin(),
-      new SwupScrollPlugin(),
+      new SwupScrollPlugin({
+        offset: () => (document.querySelector('#navbar') as HTMLDivElement).offsetHeight,
+      }),
     ],
   });
 

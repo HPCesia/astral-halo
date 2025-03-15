@@ -11,7 +11,6 @@ article {
     display: inline-block;
     width: 100%;
     margin: 1rem 0 0.5rem;
-    scroll-margin-top: 4rem;
     font-weight: bold;
     position: relative;
 
@@ -59,11 +58,6 @@ article {
 
   a:not(.card) {
     @apply text-primary underline decoration-dashed;
-
-    &[data-footnote-ref],
-    &[data-footnote-backref] {
-      scroll-margin-top: 4rem;
-    }
   }
 
   /* 媒体元素 */
