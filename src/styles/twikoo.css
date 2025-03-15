@@ -25,7 +25,7 @@
 
   /* 回复框样式 */
   .tk-submit {
-    @apply relative w-full;
+    @apply relative my-2 w-full;
 
     .tk-avatar {
       display: none;
@@ -38,7 +38,7 @@
 
     /* 文本框输入样式 */
     .el-textarea {
-      @apply border-base-300 relative w-full overflow-hidden rounded-xl border-2 pb-9;
+      @apply border-base-300 relative w-full overflow-hidden rounded-xl border pb-9;
 
       textarea {
         @apply bg-base-200/50 w-full p-4;
@@ -111,14 +111,14 @@
     }
 
     .tk-preview-container {
-      @apply border-base-300 bg-base-100 mt-2 w-full rounded-xl border-2 p-2;
+      @apply border-base-300 bg-base-100 mt-2 w-full rounded-xl border p-2;
     }
   }
 
   /* 表情框样式 */
   .OwO-body {
     /* stylelint-disable-next-line scss/operator-no-unspaced */
-    @apply border-base-300 bg-base-200/50 absolute top-9 -left-3 z-20 hidden w-[calc(100vw-3rem)] max-w-[30rem] rounded-xl border-2 duration-300;
+    @apply border-base-300 bg-base-200/50 absolute top-9 -left-3 z-20 hidden w-[calc(100vw-3rem)] max-w-[30rem] rounded-xl border duration-300;
   }
 
   .OwO-open .OwO-body {
@@ -178,7 +178,7 @@
     }
 
     > .tk-comment {
-      @apply max-md:border-base-300 max-md:bg-base-200/50 p-4 max-md:rounded-xl max-md:border-2;
+      @apply max-md:border-base-300 max-md:bg-base-200/50 p-4 max-md:rounded-xl max-md:border;
 
       > .tk-avatar {
         @apply top-3;
@@ -195,7 +195,7 @@
 
     /* 详细样式 */
     .tk-avatar {
-      @apply border-base-300 absolute top-0 h-8 min-h-8 w-8 min-w-8 overflow-hidden rounded-full border-2;
+      @apply border-base-300 absolute top-0 h-8 min-h-8 w-8 min-w-8 overflow-hidden rounded-full border;
     }
 
     .tk-main > .tk-row {
@@ -223,7 +223,7 @@
 
     .tk-action {
       .tk-action-link {
-        @apply border-base-300 relative flex items-center justify-center rounded-xl border-2 px-2 py-1 text-center duration-300;
+        @apply border-base-300 relative flex items-center justify-center rounded-xl border px-2 py-1 text-center duration-300;
 
         .tk-action-icon-solid {
           @apply absolute left-2 opacity-0 duration-300;
@@ -259,7 +259,7 @@
       @apply flex flex-row gap-3;
 
       .tk-extra {
-        @apply border-base-300 text-base-content/50 flex flex-row items-center justify-center gap-2 rounded-md border-2 p-1 text-center text-xs;
+        @apply border-base-300 text-base-content/50 flex flex-row items-center justify-center gap-2 rounded-md border p-1 text-center text-xs;
       }
 
       .tk-icon {
@@ -296,7 +296,7 @@
   }
 
   .tk-tag {
-    @apply border-base-300 rounded-lg border-2 p-1 text-xs;
+    @apply border-base-300 rounded-lg border p-1 text-xs;
   }
 }
 
@@ -351,7 +351,7 @@
       }
 
       a {
-        @apply border-base-300 bg-base-200/50 hover:bg-primary mx-6 rounded-xl border-2 px-3 py-1 text-xs duration-300;
+        @apply border-base-300 bg-base-200/50 hover:bg-primary mx-6 rounded-xl border px-3 py-1 text-xs duration-300;
       }
     }
 
@@ -387,7 +387,7 @@
         @apply w-full;
 
         input {
-          @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 px-2 py-1;
+          @apply border-base-300 bg-base-200/50 w-full rounded-xl border px-2 py-1;
 
           &:focus {
             outline: none;
@@ -396,7 +396,7 @@
       }
 
       select {
-        @apply border-base-300 bg-base-200/50 w-1/4 rounded-xl border-2 p-2;
+        @apply border-base-300 bg-base-200/50 w-1/4 rounded-xl border p-2;
       }
     }
 
@@ -412,7 +412,7 @@
       @apply flex flex-row flex-wrap items-center gap-2 text-start;
 
       .tk-avatar {
-        @apply border-base-300 h-8 w-8 overflow-hidden rounded-full border-2;
+        @apply border-base-300 h-8 w-8 overflow-hidden rounded-full border;
       }
 
       a {
@@ -433,7 +433,7 @@
       }
 
       input {
-        @apply border-base-300 bg-base-200/50 w-16 rounded-xl border-2 px-2 py-1;
+        @apply border-base-300 bg-base-200/50 w-16 rounded-xl border px-2 py-1;
 
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button {
@@ -468,7 +468,7 @@
     }
 
     details {
-      @apply border-base-300 w-full overflow-hidden rounded-xl border-2 duration-300;
+      @apply border-base-300 w-full overflow-hidden rounded-xl border duration-300;
 
       summary {
         @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-2xl duration-300;
@@ -495,7 +495,7 @@
       }
 
       input {
-        @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 px-2 py-1;
+        @apply border-base-300 bg-base-200/50 w-full rounded-xl border px-2 py-1;
 
         &:focus {
           outline: none;
@@ -516,11 +516,11 @@
       }
 
       select {
-        @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 p-2;
+        @apply border-base-300 bg-base-200/50 w-full rounded-xl border p-2;
       }
 
       input {
-        @apply border-base-300 bg-base-200/50 w-full rounded-xl border-2 px-2 py-1;
+        @apply border-base-300 bg-base-200/50 w-full rounded-xl border px-2 py-1;
 
         &:focus {
           outline: none;
@@ -531,7 +531,7 @@
         @apply h-full w-full;
 
         textarea {
-          @apply border-base-300 bg-base-200/50 h-full w-full rounded-xl border-2 px-2 py-1;
+          @apply border-base-300 bg-base-200/50 h-full w-full rounded-xl border px-2 py-1;
 
           &:focus {
             outline: none;
@@ -548,7 +548,7 @@
 }
 
 .el-input-group {
-  @apply border-base-300 bg-base-200/50 flex w-full flex-row items-center overflow-hidden rounded-xl border-2 text-sm;
+  @apply border-base-300 bg-base-200/50 flex w-full flex-row items-center overflow-hidden rounded-xl border text-sm;
 
   div {
     @apply bg-primary/50 w-fit px-2 py-1 whitespace-nowrap;
@@ -568,7 +568,7 @@
 }
 
 .el-button {
-  @apply border-base-300 bg-primary rounded-xl border-2 px-2 py-1 text-center text-sm text-nowrap duration-300;
+  @apply border-base-300 bg-primary rounded-xl border px-2 py-1 text-center text-sm text-nowrap duration-300;
 
   &:not(.is-disabled) {
     @apply hover:scale-105 hover:brightness-110 active:scale-95 active:brightness-90;
@@ -618,7 +618,7 @@
     }
 
     .copy-to-clipboard-button {
-      @apply border-base-300 bg-primary rounded-md border-2 px-2 py-1 opacity-0 duration-300;
+      @apply border-base-300 bg-primary rounded-md border px-2 py-1 opacity-0 duration-300;
     }
 
     &:hover .copy-to-clipboard-button {
@@ -665,7 +665,7 @@
 
   /* 折叠块样式 */
   details {
-    @apply border-base-300 w-full overflow-hidden rounded-xl border-2 duration-300;
+    @apply border-base-300 w-full overflow-hidden rounded-xl border duration-300;
 
     summary {
       @apply hover:bg-primary/50 w-full px-3 py-1 text-start text-2xl duration-300;
