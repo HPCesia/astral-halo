@@ -128,7 +128,7 @@
   .OwO-items {
     @apply hidden max-h-48 overflow-y-auto p-2;
 
-    &-show {
+    &.OwO-items-show {
       @apply block;
     }
   }
