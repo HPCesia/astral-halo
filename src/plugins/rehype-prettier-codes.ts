@@ -19,7 +19,7 @@ export const rehypePrettierCodes: RehypePlugin = function () {
       const language = node.properties?.dataLanguage as string;
       const languageTag: ElementContent = {
         type: 'element',
-        tagName: 'span',
+        tagName: 'div',
         properties: {
           class:
             'badge badge-outline absolute top-2 right-2 group-hover:opacity-0 duration-200',
@@ -43,7 +43,7 @@ export const rehypePrettierCodes: RehypePlugin = function () {
         tagName: 'button',
         properties: {
           class:
-            'badge badge-outline tooltip tooltip-left absolute top-2 right-3 group-hover:opacity-100 duration-200 opacity-0',
+            'badge badge-outline tooltip tooltip-left absolute top-2 right-2 group-hover:opacity-100 duration-200 opacity-0',
           onclick: `navigator.clipboard.writeText(this.parentElement.children[0].textContent);
           this.dataset.tip = 'Copied!'; setTimeout(() => this.dataset.tip = 'Copy', 1000);`,
           'data-tip': 'Copy',
