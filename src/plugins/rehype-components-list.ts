@@ -17,7 +17,7 @@ const Collapse = function (
   const wrapperClassName =
     'bg-base-100 border-base-content/25 collapse-arrow collapse my-4 border';
   const titleClassName = 'collapse-title font-semibold';
-  const contentClassName = 'collapse-content';
+  const contentClassName = 'collapse-content min-w-0';
 
   const inputNode = h('input', {
     type: 'checkbox',
