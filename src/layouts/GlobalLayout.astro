@@ -111,6 +111,7 @@ const favicons: Favicon[] =
   window.swup = new Swup({
     containers: ['main', ...(siteConfig.banner === false ? [] : ['#banner-img'])],
     animationSelector: '[class*="swup-transition-"]',
+    linkSelector: 'a:not([href="#"])[href]',
     plugins: [
       new SwupHeadPlugin(),
       new SwupParallelPlugin({
