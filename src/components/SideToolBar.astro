@@ -22,12 +22,16 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
       articleConfig.toc && (
         <Fragment>
           <Button id="stb-toc" class="btn-circle btn-secondary btn-sm hidden xl:hidden!">
+            <input
+              type="checkbox"
+              class="peer absolute z-10 h-8 w-8 cursor-pointer appearance-none border-0"
+            />
             <Icon name="material-symbols:toc-rounded" />
+            <div
+              id="stb-toc-wrapper"
+              class="rounded-box absolute w-[calc(100vw-4rem)] max-w-72 backdrop-blur-md duration-300 peer-checked:-translate-x-[calc(50%+1.5rem)] peer-[:not(:checked)]:scale-0"
+            />
           </Button>
-          <div
-            id="stb-toc-wrapper"
-            class="rounded-box absolute bottom-10 hidden w-[calc(100vw-4rem)] max-w-72 -translate-x-full scale-0 backdrop-blur-md duration-300"
-          />
         </Fragment>
       )
     }
@@ -69,16 +73,9 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
       });
     });
 
-    stbToc?.addEventListener('click', () => {
-      stbTocWrapper?.classList.toggle('scale-0');
-      stbTocWrapper?.classList.toggle('-translate-x-full');
-    });
-
     // 清理可能存在的旧目录
     stbTocWrapper!.innerHTML = '';
     stbToc?.classList.add('hidden');
-    stbTocWrapper?.classList.add('hidden');
-    stbTocWrapper?.classList.add('-translate-x-full');
 
     const toc = document.getElementById('toc');
     if (toc && stbTocWrapper) {
@@ -91,14 +88,11 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
         }
       });
       stbToc?.classList.remove('hidden');
-      stbTocWrapper.classList.remove('hidden');
-      stbTocWrapper?.classList.remove('-translate-x-full');
     }
 
     window.addEventListener('resize', () => {
       if (window.innerWidth > 1280) {
-        stbTocWrapper?.classList.add('scale-0');
-        stbTocWrapper?.classList.remove('-translate-x-full');
+        (stbToc?.children[0] as HTMLInputElement).checked = false;
       }
     });
 
