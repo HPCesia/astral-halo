@@ -118,7 +118,7 @@
   /* 表情框样式 */
   .OwO-body {
     /* stylelint-disable-next-line scss/operator-no-unspaced */
-    @apply border-base-300 bg-base-200/50 absolute top-9 -left-3 z-20 hidden w-[calc(100vw-3rem)] max-w-[30rem] rounded-xl border duration-300;
+    @apply border-base-300 bg-base-200/90 absolute top-9 -left-3 z-20 hidden w-[calc(100vw-3rem)] max-w-[30rem] rounded-xl border duration-300;
   }
 
   .OwO-open .OwO-body {
@@ -134,10 +134,14 @@
   }
 
   .OwO-item {
-    @apply inline-block cursor-pointer rounded-md px-2 py-1 text-center text-xs duration-300 hover:backdrop-brightness-110;
+    @apply inline-block cursor-pointer rounded-md px-2 py-1 text-center text-xs duration-300;
 
     img {
       @apply inline-block max-h-8;
+    }
+
+    &:hover {
+      @apply backdrop-brightness-150;
     }
   }
 
@@ -647,7 +651,7 @@
   }
 
   img.tk-owo-emotion {
-    @apply inline-block h-7 self-baseline;
+    @apply inline-block h-[2em] self-baseline;
   }
 
   /* 分割线样式 */
