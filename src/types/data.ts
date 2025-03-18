@@ -1,3 +1,4 @@
+import type { ImageMetadata } from 'astro';
 import type { RenderedContent } from 'astro:content';
 
 export type BlogPostData = {
@@ -8,7 +9,7 @@ export type BlogPostData = {
   description: string;
   tags: string[];
   draft?: boolean;
-  cover?: string;
+  cover?: ImageMetadata;
   category?: string;
   comment?: boolean;
 };

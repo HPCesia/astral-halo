@@ -5,7 +5,6 @@ import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import dayjs from 'dayjs';
-import path from 'path';
 
 export async function getPosts() {
   const posts = await getCollection('posts');
@@ -33,12 +32,6 @@ export async function getSortedPosts(): Promise<BlogPost[]> {
       return dateA > dateB ? -1 : 1;
     }
   );
-  sortedBlogPosts.forEach((post) => {
-    const coverPath = post.data.cover;
-    if (coverPath?.startsWith('.')) {
-      post.data.cover = path.join('content/posts', post.id, coverPath);
-    }
-  });
   return sortedBlogPosts;
 }
 

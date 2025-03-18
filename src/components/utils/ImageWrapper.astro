@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import path from 'path';
 interface Props {
   id?: string;
-  src: string;
+  src: ImageMetadata | string;
   class?: string;
   alt?: string;
   position?: string;
@@ -14,30 +14,36 @@ interface Props {
 const { id, src, alt, position = 'center', basePath = '/' } = Astro.props;
 const className = Astro.props.class;
 
-const isLocal = !(
-  src.startsWith('/') ||
-  src.startsWith('http') ||
-  src.startsWith('https') ||
-  src.startsWith('data:')
-);
-const isPublic = src.startsWith('/');
-
-let img;
-if (isLocal) {
-  const files = import.meta.glob<ImageMetadata>(
-    '../../**/*.{png,jpg,jpeg,tiff,webp,gif,svg,avif,jfif,pjpeg,pjp,ico}',
-    {
-      import: 'default',
-    }
+const isLocal =
+  typeof src !== 'string' ||
+  !(
+    src.startsWith('/') ||
+    src.startsWith('http') ||
+    src.startsWith('https') ||
+    src.startsWith('data:')
   );
-  let normalizedPath = path.normalize(path.join('../../', basePath, src)).replace(/\\/g, '/');
-  const file = files[normalizedPath];
-  if (!file) {
-    console.error(
-      `\n[ERROR] Image file not found: ${normalizedPath.replace('../../', 'src/')}`
+const isPublic = typeof src === 'string' && src.startsWith('/');
+
+let img: ImageMetadata | undefined;
+if (isLocal) {
+  if (typeof src === 'string') {
+    const files = import.meta.glob<ImageMetadata>(
+      '../../**/*.{png,jpg,jpeg,tiff,webp,gif,svg,avif,jfif,pjpeg,pjp,ico}',
+      {
+        import: 'default',
+      }
     );
+    let normalizedPath = path.normalize(path.join('../../', basePath, src)).replace(/\\/g, '/');
+    const file = files[normalizedPath];
+    if (!file) {
+      console.error(
+        `\n[ERROR] Image file not found: ${normalizedPath.replace('../../', 'src/')}`
+      );
+    }
+    img = await file();
+  } else {
+    img = src;
   }
-  img = await file();
 }
 
 const imageClass = 'w-full h-full object-cover';
@@ -47,9 +53,20 @@ const imageStyle = `object-position: ${position}`;
 <div id={id} class:list={[className, 'relative overflow-hidden']}>
   {isLocal && img && <Image src={img} alt={alt || ''} class={imageClass} style={imageStyle} />}
   {
-    !isLocal && (
+    !isLocal && !isPublic && (
+      <Image
+        src={src as string}
+        alt={alt || ''}
+        class={imageClass}
+        style={imageStyle}
+        inferSize
+      />
+    )
+  }
+  {
+    !isLocal && isPublic && (
       <img
-        src={isPublic ? (new URL(src, Astro.site) as unknown as string) : src}
+        src={new URL(src, Astro.site) as unknown as string}
         alt={alt || ''}
         class={imageClass}
         style={imageStyle}
