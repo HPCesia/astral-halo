@@ -1,6 +1,6 @@
 ---
 import type { ImageMetadata } from 'astro';
-import { Image } from 'astro:assets';
+import { Image, inferRemoteSize } from 'astro:assets';
 import path from 'path';
 interface Props {
   id?: string;
@@ -23,6 +23,7 @@ const isLocal =
     src.startsWith('data:')
   );
 const isPublic = typeof src === 'string' && src.startsWith('/');
+const isRemote = !isLocal && !isPublic;
 
 let img: ImageMetadata | undefined;
 if (isLocal) {
@@ -46,6 +47,19 @@ if (isLocal) {
   }
 }
 
+let w, h;
+if (isRemote) {
+  try {
+    const { width, height } = await inferRemoteSize(src as string);
+    w = width;
+    h = height;
+  } catch {
+    console.error(`\n[ERROR] Infer remote image size faild: ${src}`);
+    w = 128;
+    h = 128;
+  }
+}
+
 const imageClass = 'w-full h-full object-cover';
 const imageStyle = `object-position: ${position}`;
 ---
@@ -53,13 +67,14 @@ const imageStyle = `object-position: ${position}`;
 <div id={id} class:list={[className, 'relative overflow-hidden']}>
   {isLocal && img && <Image src={img} alt={alt || ''} class={imageClass} style={imageStyle} />}
   {
-    !isLocal && !isPublic && (
+    isRemote && (
       <Image
         src={src as string}
         alt={alt || ''}
         class={imageClass}
         style={imageStyle}
-        inferSize
+        width={w!}
+        height={h!}
       />
     )
   }
@@ -70,6 +85,10 @@ const imageStyle = `object-position: ${position}`;
         alt={alt || ''}
         class={imageClass}
         style={imageStyle}
+        width={w}
+        height={h}
+        loading="lazy"
+        decoding="async"
       />
     )
   }
