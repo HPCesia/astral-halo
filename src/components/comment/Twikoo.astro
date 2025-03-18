@@ -8,8 +8,6 @@ import { CDN } from '@constants/cdn.mjs';
 <script>
   import { commentConfig } from '@/config';
   const twikooConfig = commentConfig.twikoo;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  declare const twikoo: any;
 
   function setup() {
     if (typeof twikoo === 'undefined') {
@@ -17,7 +15,7 @@ import { CDN } from '@constants/cdn.mjs';
     } else {
       twikoo.init({
         el: '#twikoo-wrap',
-        ...twikooConfig,
+        ...twikooConfig!,
       });
     }
   }
