@@ -6,18 +6,19 @@ const postsCollection = defineCollection({
     pattern: ['**/*.{md,mdx}', '!**/_*', '!**/_*/**'],
     base: 'src/content/posts',
   }),
-  schema: z.object({
-    title: z.string(),
-    slug: z.string(),
-    published: z.date(),
-    draft: z.boolean().optional().default(false),
-    description: z.string().optional().default(''),
-    cover: z.string().optional().default(''),
-    tags: z.array(z.string()).optional().default([]),
-    category: z.string().optional().default(''),
-    lang: z.string().optional().default(''),
-    comment: z.boolean().optional().default(true),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      slug: z.string(),
+      published: z.date(),
+      draft: z.boolean().optional().default(false),
+      description: z.string().optional().default(''),
+      cover: image().optional(),
+      tags: z.array(z.string()).optional().default([]),
+      category: z.string().optional().default(''),
+      lang: z.string().optional().default(''),
+      comment: z.boolean().optional().default(true),
+    }),
 });
 
 const draftsCollection = defineCollection({
@@ -25,16 +26,17 @@ const draftsCollection = defineCollection({
     pattern: ['**/*.{md,mdx}', '!**/_*', '!**/_*/**'],
     base: 'src/content/drafts',
   }),
-  schema: z.object({
-    title: z.string(),
-    slug: z.string(),
-    description: z.string().optional().default(''),
-    cover: z.string().optional().default(''),
-    tags: z.array(z.string()).optional().default([]),
-    category: z.string().optional().default(''),
-    lang: z.string().optional().default(''),
-    comment: z.boolean().optional().default(true),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      slug: z.string(),
+      description: z.string().optional().default(''),
+      cover: image().optional(),
+      tags: z.array(z.string()).optional().default([]),
+      category: z.string().optional().default(''),
+      lang: z.string().optional().default(''),
+      comment: z.boolean().optional().default(true),
+    }),
 });
 
 const specCollection = defineCollection({
