@@ -12,6 +12,7 @@ enum I18nKey {
   randomPost = 'randomPost',
 
   comments = 'comments',
+  recentComments = 'recentComments',
   subscribe = 'subscribe',
   backLinks = 'backLinks',
 
@@ -44,6 +45,11 @@ enum I18nKey {
   author = 'author',
   publishedAt = 'publishedAt',
   license = 'license',
+
+  /** The replace text for the comment content, used in Recent Comments. */
+  commentReplaceLink = 'commentReplaceLink',
+  commentReplaceImage = 'commentReplaceImage',
+  commentReplaceCode = 'commentReplaceCode',
 
   /** Note in the top of drafts content in dev mode. This key supports markdown syntax, using `markdown-it`. */
   draftDevNote = 'draftDevNote',

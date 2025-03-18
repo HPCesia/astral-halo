@@ -1,0 +1,104 @@
+---
+import { commentConfig, siteConfig } from '@/config';
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
+import TwikooRecentCommentScript from './recent-comments/Twikoo.astro';
+import WalineRecentCommentScript from './recent-comments/Waline.astro';
+
+export function getTemplate() {
+  const recentCommentsCard = document.getElementById('recent-comments-card');
+  if (!recentCommentsCard) {
+    console.error('Recent comments card not found');
+    return;
+  }
+  const recentCommentsList = recentCommentsCard.querySelector('ul')!;
+  const recentCommentTemplate = recentCommentsList.querySelector('template');
+  return {
+    container: recentCommentsList,
+    template: recentCommentTemplate,
+  };
+}
+
+export function cleanCommentHtml(htmlString: string) {
+  return htmlString
+    .replaceAll(/<img.*?src="(.*?)"?[^>]+>/gi, i18n(I18nKey.commentReplaceImage)!)
+    .replaceAll(
+      /<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi,
+      i18n(I18nKey.commentReplaceLink)!
+    )
+    .replaceAll(/<pre><code[^>]+?>.*?<\/pre>/gis, i18n(I18nKey.commentReplaceCode)!)
+    .replaceAll(/<[^>]+>/g, '');
+}
+
+export function createCommentItem(
+  container: HTMLUListElement,
+  template: HTMLTemplateElement,
+  data: {
+    avatarUrl: string;
+    commentContent: string;
+    commentUrl: string;
+    author: string;
+    time: Date;
+  }
+) {
+  const item = template.content.firstElementChild!.cloneNode(true) as HTMLLIElement;
+  const avatarLinkEl = item.querySelector('a.avatar')!;
+  const avatarWrapper = avatarLinkEl.querySelector('div')!;
+  const avatarImg = new Image();
+  const comment = item.querySelector('a.line-clamp-2')!;
+  const time = item.querySelector('time')!;
+
+  avatarLinkEl.setAttribute('href', data.commentUrl);
+  comment.setAttribute('href', data.commentUrl);
+
+  avatarImg.src = data.avatarUrl;
+  avatarImg.alt = data.author;
+  avatarWrapper.appendChild(avatarImg);
+
+  comment.innerHTML = data.commentContent;
+  time.setAttribute('datetime', data.time.toISOString());
+  time.innerText = data.time.toLocaleDateString(siteConfig.lang.replace('_', '-'), {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+
+  container.appendChild(item);
+}
+---
+
+<div id="recent-comments-card" class="card border-base-300 bg-base-200/25 border">
+  <div class="card-body px-4 py-2">
+    <div class="card-title">
+      {i18n(I18nKey.recentComments)}
+    </div>
+    <ul class="list">
+      <template>
+        <li class="list-row px-0">
+          <a class="avatar">
+            <div class="w-16 min-w-16 rounded-md"></div>
+          </a>
+          <div class="flex w-full flex-col justify-between">
+            <a class="hover:text-primary line-clamp-2 w-full overflow-clip"></a>
+            <time class="text-base-content/60 text-xs"></time>
+          </div>
+        </li>
+      </template>
+    </ul>
+  </div>
+</div>
+
+{
+  (() => {
+    switch (commentConfig.provider) {
+      case 'twikoo':
+        return <TwikooRecentCommentScript />;
+      case 'waline':
+        return <WalineRecentCommentScript />;
+      default:
+        throw new Error(
+          `Unsupported comment provider: '${commentConfig.provider}' for recent comments`
+        );
+    }
+  })()
+}

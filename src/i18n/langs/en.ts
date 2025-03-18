@@ -15,6 +15,7 @@ export const en: Translation = {
   [Key.randomPost]: 'Random Post',
 
   [Key.comments]: 'Comments',
+  [Key.recentComments]: 'Recent Comments',
   [Key.subscribe]: 'Subscribe',
   [Key.backLinks]: 'Back Links',
 
@@ -47,6 +48,10 @@ export const en: Translation = {
   [Key.author]: 'Author',
   [Key.publishedAt]: 'Published at',
   [Key.license]: 'License',
+
+  [Key.commentReplaceLink]: '[Link]',
+  [Key.commentReplaceImage]: '[Image]',
+  [Key.commentReplaceCode]: '[Code]',
 
   [Key.draftDevNote]:
     'This is a draft and will only be displayed in `DEV` mode. To disable draft preview, please modify `buildConfig.showDraftsOnDev` to `false` in `src/config.ts`.',

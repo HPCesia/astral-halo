@@ -15,6 +15,7 @@ export const zh_TW: Translation = {
   [Key.randomPost]: '隨機文章',
 
   [Key.comments]: '評論',
+  [Key.recentComments]: '最新評論',
   [Key.subscribe]: '訂閱',
   [Key.backLinks]: '反向連結',
 
@@ -47,6 +48,10 @@ export const zh_TW: Translation = {
   [Key.author]: '作者',
   [Key.publishedAt]: '發佈於',
   [Key.license]: '許可協議',
+
+  [Key.commentReplaceLink]: '[連結]',
+  [Key.commentReplaceImage]: '[圖片]',
+  [Key.commentReplaceCode]: '[程式碼]',
 
   [Key.draftDevNote]:
     '這是一篇草稿，只會在 `DEV` 模式下顯示。關閉草稿預覽，請修改 `src/config.ts` 中的 `buildConfig.showDraftsOnDev` 為 `false`。',

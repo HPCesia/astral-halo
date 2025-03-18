@@ -129,6 +129,11 @@ export const asideConfig: AsideConfig = {
     contents: ['stats', 'tags'],
     stats: ['post-count', 'last-updated', 'site-words-count', 'site-run-days'],
   },
+  recentComment: {
+    enable: true,
+    count: 5,
+    showAvatar: true,
+  },
 };
 
 export const licenseConfig: LicenseConfig = {

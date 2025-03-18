@@ -1,6 +1,7 @@
 ---
-import { siteConfig } from '@/config';
+import { commentConfig, siteConfig } from '@/config';
 import ProfileCard from '@components/aside/ProfileCard.astro';
+import ResentCommentsCard from '@components/aside/ResentCommentsCard.astro';
 import SiteInfoCard from '@components/aside/SiteInfoCard.astro';
 import CategoryBar from '@components/misc/CategoryBar.astro';
 import PostsPage from '@components/PostsPage.astro';
@@ -33,5 +34,8 @@ const categories = await getCategories();
   <Fragment slot="aside-fixed">
     <ProfileCard />
     <SiteInfoCard />
+  </Fragment>
+  <Fragment slot="aside-sticky">
+    {commentConfig.enable && commentConfig.provider !== 'giscus' && <ResentCommentsCard />}
   </Fragment>
 </MainLayout>

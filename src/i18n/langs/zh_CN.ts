@@ -15,6 +15,7 @@ export const zh_CN: Translation = {
   [Key.randomPost]: '随机文章',
 
   [Key.comments]: '评论',
+  [Key.recentComments]: '最新评论',
   [Key.subscribe]: '订阅',
   [Key.backLinks]: '反向链接',
 
@@ -47,6 +48,10 @@ export const zh_CN: Translation = {
   [Key.author]: '作者',
   [Key.publishedAt]: '发布于',
   [Key.license]: '许可协议',
+
+  [Key.commentReplaceLink]: '[链接]',
+  [Key.commentReplaceImage]: '[图片]',
+  [Key.commentReplaceCode]: '[代码]',
 
   [Key.draftDevNote]:
     '这是一篇草稿，只会在 `DEV` 模式下显示。关闭草稿预览，请修改 `src/config.ts` 中的 `buildConfig.showDraftsOnDev` 为 `false`。',

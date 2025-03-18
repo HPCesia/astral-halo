@@ -361,6 +361,31 @@ export type AsideConfig = {
      */
     stats: ('post-count' | 'last-updated' | 'site-words-count' | 'site-run-days')[];
   };
+  /**
+   * Recent comments card.
+   *
+   * 最近评论卡片
+   */
+  recentComment: {
+    /**
+     * Whether to enable the recent comments card.
+     *
+     * 是否启用最近评论卡片。
+     */
+    enable: boolean;
+    /**
+     * The number of recent comments displayed.
+     *
+     * 显示的最近评论数量。
+     */
+    count: number;
+    /**
+     * Whether to show the avatar of the commenter.
+     *
+     * 是否显示评论者的头像。
+     */
+    showAvatar: boolean;
+  };
 };
 
 export type LicenseConfig = {
