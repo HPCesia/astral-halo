@@ -1,11 +1,7 @@
 <script>
   import { asideConfig, commentConfig } from '@/config';
   import { joinUrl } from '@utils/url-utils';
-  import {
-    cleanCommentHtml,
-    createCommentItem,
-    getTemplate,
-  } from '../ResentCommentsCard.astro';
+  import { cleanCommentHtml, createCommentItem, getTemplate } from './utils.ts';
 
   async function setup() {
     const walineConfig = commentConfig.waline!;

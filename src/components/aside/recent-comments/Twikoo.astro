@@ -2,11 +2,7 @@
   import { asideConfig, commentConfig } from '@/config';
   import { loadScript } from '@/scripts/utils';
   import { CDN } from '@constants/cdn.mjs';
-  import {
-    cleanCommentHtml,
-    createCommentItem,
-    getTemplate,
-  } from '../ResentCommentsCard.astro';
+  import { cleanCommentHtml, createCommentItem, getTemplate } from './utils.ts';
 
   const twikooConfig = commentConfig.twikoo!;
 
