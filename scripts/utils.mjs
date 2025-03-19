@@ -53,13 +53,13 @@ export function parseTimezoneOffset(timezone) {
 /**
  * 将标题转换为合法的文件名
  * @param {string} title - 原始标题
- * @returns {string} 转换后的合法文件名，只包含小写字母、数字和连字符
+ * @returns {string} 转换后的合法文件名，不包含特殊字符
  */
 export function sanitizeTitle(title) {
   return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
+    .replace(/[/\\:*?"<>|]/g, '-') // 替换文件系统不允许的字符
+    .replace(/[. ]+/g, '-') // 将一个或多个点号/空格替换为单个连字符
+    .replace(/^-+|-+$/g, ''); // 移除首尾的连字符
 }
 
 /**
