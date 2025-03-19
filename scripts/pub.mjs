@@ -1,6 +1,7 @@
 import { t } from './locale/index.js';
 import { checkFileExists, getFilePath } from './utils.mjs';
 import { Command } from 'commander';
+import dayjs from 'dayjs';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { createInterface } from 'readline/promises';
@@ -10,9 +11,33 @@ const rl = createInterface({
   input: process.stdin,
   output: process.stdout,
 });
-
 const DRAFTS_DIR = 'src/content/drafts';
 const POSTS_DIR = 'src/content/posts';
+
+// 格式化时间
+function formatDateTime() {
+  return dayjs().format('YYYY-MM-DDTHH:mm:ssZ');
+}
+
+// 更新文章内容，添加发布时间
+async function updateArticleContent(filePath) {
+  const content = await fs.readFile(filePath, 'utf-8');
+  const now = formatDateTime();
+
+  // 如果内容中已经包含 published 字段，则不修改
+  if (content.includes('published:')) {
+    return content;
+  }
+
+  // 在 frontmatter 的末尾（第一个 --- 之后，第二个 --- 之前）添加 published 字段
+  const parts = content.split('---');
+  if (parts.length < 3) {
+    return content; // 如果文件格式不正确，返回原内容
+  }
+
+  const [, frontmatter, ...bodyParts] = parts;
+  return `---${frontmatter.trimEnd()}\npublished: ${now}\n---${bodyParts.join('---')}`;
+}
 
 // 列出文件并分页显示
 async function listDraftsWithPagination(drafts, page = 1, pageSize = 10) {
@@ -117,14 +142,22 @@ async function publishDraft(draftPath) {
       for (const file of files) {
         const srcFile = path.join(draftDir, file);
         const destFile = path.join(destDir, file);
-        await fs.copyFile(srcFile, destFile);
+
+        if (file === 'index.md') {
+          // 更新并写入文章内容
+          const updatedContent = await updateArticleContent(srcFile);
+          await fs.writeFile(destFile, updatedContent);
+        } else {
+          await fs.copyFile(srcFile, destFile);
+        }
       }
 
       // 删除源目录
       await fs.rm(draftDir, { recursive: true });
     } else {
-      // 移动单个文件
-      await fs.copyFile(fullDraftPath, destPath);
+      // 更新并写入文章内容
+      const updatedContent = await updateArticleContent(fullDraftPath);
+      await fs.writeFile(destPath, updatedContent);
       await fs.unlink(fullDraftPath);
     }
 
