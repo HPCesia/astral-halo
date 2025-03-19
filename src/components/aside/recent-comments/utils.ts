@@ -62,3 +62,11 @@ export function createCommentItem(
 
   container.appendChild(item);
 }
+
+export function cleanPlaceholders(container: HTMLUListElement, template: HTMLTemplateElement) {
+  template.remove();
+  const placeholders = container.querySelectorAll('.comment-placeholder');
+  placeholders.forEach((placeholder) => {
+    placeholder.remove();
+  });
+}

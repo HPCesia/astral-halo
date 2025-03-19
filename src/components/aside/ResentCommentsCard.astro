@@ -1,5 +1,5 @@
 ---
-import { commentConfig } from '@/config';
+import { asideConfig, commentConfig } from '@/config';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
 import TwikooRecentCommentScript from './recent-comments/Twikoo.astro';
@@ -23,6 +23,22 @@ import WalineRecentCommentScript from './recent-comments/Waline.astro';
           </div>
         </li>
       </template>
+      {
+        Array.from({ length: asideConfig.recentComment.count }).map(() => (
+          <li class="list-row comment-placeholder px-0">
+            <a class="avatar">
+              <div class="skeleton w-16 min-w-16 rounded-md" />
+            </a>
+            <div class="flex w-full flex-col justify-between">
+              <div class="flex flex-col gap-2">
+                <div class="skeleton h-4 w-full" />
+                <div class="skeleton h-4 w-[100%-2rem]" />
+              </div>
+              <div class="skeleton h-4 w-10" />
+            </div>
+          </li>
+        ))
+      }
     </ul>
   </div>
 </div>

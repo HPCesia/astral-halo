@@ -2,7 +2,12 @@
   import { asideConfig, commentConfig } from '@/config';
   import { loadScript } from '@/scripts/utils';
   import { CDN } from '@constants/cdn.mjs';
-  import { cleanCommentHtml, createCommentItem, getTemplate } from './utils.ts';
+  import {
+    cleanCommentHtml,
+    cleanPlaceholders,
+    createCommentItem,
+    getTemplate,
+  } from './utils.ts';
 
   const twikooConfig = commentConfig.twikoo!;
 
@@ -42,7 +47,7 @@
       })
     );
 
-    container.removeChild(template!);
+    cleanPlaceholders(container, template!);
   }
 
   document.addEventListener('astro:page-load', setup);

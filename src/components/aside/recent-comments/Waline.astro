@@ -1,6 +1,11 @@
 <script>
   import { asideConfig, commentConfig } from '@/config';
-  import { cleanCommentHtml, createCommentItem, getTemplate } from './utils.ts';
+  import {
+    cleanCommentHtml,
+    cleanPlaceholders,
+    createCommentItem,
+    getTemplate,
+  } from './utils.ts';
 
   async function setup() {
     const walineConfig = commentConfig.waline!;
@@ -51,7 +56,7 @@
       })
     );
 
-    container.removeChild(template!);
+    cleanPlaceholders(container, template!);
   }
 
   document.addEventListener('astro:page-load', setup);
