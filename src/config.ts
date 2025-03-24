@@ -41,6 +41,13 @@ export const siteConfig: SiteConfig = {
 
 export const buildConfig: BuildConfig = {
   showDraftsOnDev: true,
+  inferRemoteImageSize: {
+    enable: true,
+    defaultSize: {
+      width: 800,
+      height: 600,
+    },
+  },
 };
 
 export const profileConfig: ProfileConfig = {

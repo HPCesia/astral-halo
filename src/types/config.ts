@@ -186,6 +186,32 @@ export type BuildConfig = {
    * 是否在开发模式下显示草稿。
    */
   showDraftsOnDev: boolean;
+  /**
+   * Fetch the size data of remote images during build.\
+   * This feature **CAN NOT** fetch images in `.md` files.
+   * To fetch images in `.md` files, see https://docs.astro.build/en/reference/configuration-reference/#imageservice
+   *
+   * 在构建时获取远程图像的大小数据。\
+   * 需要注意，本功能**不能**获取 `.md` 中的图像。
+   * 获取 `.md` 中的图像，请参考 https://docs.astro.build/zh-cn/reference/configuration-reference/#imageservice
+   */
+  inferRemoteImageSize: {
+    /**
+     * Whether to enable the feature. Enabling this can reduce cumulative layout shift, but will increase build time.
+     *
+     * 是否开启此功能。开启后，能够减少累计布局位移，但是会增加构建时间。
+     */
+    enable: boolean;
+    /**
+     * The default size of the image. This will be used when the size of the image cannot be fetched or the feature is disabled.
+     *
+     * 图像的默认大小。当无法获取图像的大小或功能被禁用时，将使用此值。
+     */
+    defaultSize: {
+      width: number;
+      height: number;
+    };
+  };
 };
 
 export type ProfileConfig = {

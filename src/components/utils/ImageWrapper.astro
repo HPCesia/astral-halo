@@ -1,7 +1,9 @@
 ---
+import { buildConfig } from '@/config';
 import type { ImageMetadata } from 'astro';
 import { Image, inferRemoteSize } from 'astro:assets';
 import path from 'path';
+
 interface Props {
   id?: string;
   src: ImageMetadata | string;
@@ -48,16 +50,19 @@ if (isLocal) {
 }
 
 let w, h;
-if (isRemote) {
+if (isRemote && buildConfig.inferRemoteImageSize.enable) {
   try {
     const { width, height } = await inferRemoteSize(src as string);
     w = width;
     h = height;
   } catch {
     console.error(`\n[ERROR] Infer remote image size faild: ${src}`);
-    w = 128;
-    h = 128;
+    w = buildConfig.inferRemoteImageSize.defaultSize.width;
+    h = buildConfig.inferRemoteImageSize.defaultSize.height;
   }
+} else {
+  w = buildConfig.inferRemoteImageSize.defaultSize.width;
+  h = buildConfig.inferRemoteImageSize.defaultSize.height;
 }
 
 const imageClass = 'w-full h-full object-cover';
@@ -73,8 +78,8 @@ const imageStyle = `object-position: ${position}`;
         alt={alt || ''}
         class={imageClass}
         style={imageStyle}
-        width={w!}
-        height={h!}
+        width={w}
+        height={h}
       />
     )
   }
