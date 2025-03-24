@@ -89,5 +89,12 @@
     "stylelint": "^16.16.0",
     "stylelint-config-html": "^1.1.0",
     "typescript-eslint": "^8.27.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "swup"
+    ]
   }
 }
