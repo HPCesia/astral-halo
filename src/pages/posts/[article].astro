@@ -24,7 +24,8 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(article);
-const coverSrc = article.data.cover?.src;
+const coverSrc =
+  typeof article.data.cover === 'string' ? article.data.cover : article.data.cover?.src;
 const description = article.data.description || remarkPluginFrontmatter.excerpt;
 const isDraft = article.data.draft === true;
 
