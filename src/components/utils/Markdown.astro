@@ -1,12 +1,52 @@
 ---
 import '@/styles/markdown.css';
 import type { HTMLAttributes } from 'astro/types';
+import Replacer from './Replacer.astro';
 
-type Props = HTMLAttributes<'article'>;
+interface Props extends HTMLAttributes<'article'> {
+  'bidirectional-references'?: {
+    references: {
+      reference: string;
+      context: string;
+      id: string;
+    }[];
+    allRefByCurrent: {
+      refTo: {
+        title: string;
+        collection: 'posts' | 'spec';
+        id: string;
+      };
+      context: string;
+      offset: [number, number];
+      id: string;
+    }[];
+  };
+}
 
-const { class: className, ...rest } = Astro.props;
+const {
+  class: className,
+  'bidirectional-references': bidirectionalReferences,
+  ...rest
+} = Astro.props;
+
+const references = bidirectionalReferences?.references;
+const allRefByCurrent = bidirectionalReferences?.allRefByCurrent;
+const replacer = (_: string, reference: string, alias: string) => {
+  const id = references?.find((item) => item.reference === reference)?.id;
+  if (!id) return '';
+  const refTo = allRefByCurrent?.find((it) => it.id === id);
+  if (!refTo) return '';
+  const url =
+    refTo.refTo.collection === 'posts' ? `/posts/${refTo.refTo.id}/` : `/${refTo.refTo.id}/`;
+  return `<a href="${url}" id="wiki-${id}">${alias || reference}</a>`;
+};
+const referencePattern = /%%%%(.*?)(?:%%(.*?))?%%%%/g;
+
+const Fragment = bidirectionalReferences ? Replacer : 'Fragment';
 ---
 
 <article class={className} {...rest}>
-  <slot />
+  <Fragment pattern={referencePattern} replacer={replacer}>
+    <slot />
+  </Fragment>
 </article>

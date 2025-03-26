@@ -6,22 +6,41 @@ import Markdown from '@components/utils/Markdown.astro';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
 import PostPageLayout from '@layouts/PostPageLayout.astro';
+import { getAllReferences } from '@utils/content-utils';
 import { getEntry, render } from 'astro:content';
 
-const linksMd = await getEntry('spec', 'links');
+const md = await getEntry('spec', 'links');
+
+const { Content, headings, remarkPluginFrontmatter } = md
+  ? await render(md)
+  : {
+      Content: Fragment,
+      headings: [],
+      remarkPluginFrontmatter: { references: [] },
+    };
+
+const allReferences = await getAllReferences();
+let allRefByCurrent: typeof allReferences = [];
+let references: {
+  reference: string;
+  context: string;
+  id: string;
+}[] = [];
+if (md) {
+  allRefByCurrent = allReferences.filter((it) => it.refBy.id === md.id);
+  references = remarkPluginFrontmatter.references || [];
+}
+
 const groupHeadings = linksConfig.items.map((item) => ({
   depth: 2,
   slug: `links-group-${item.groupName.toLowerCase().replace(/\s/g, '-')}`,
   text: item.groupName,
 }));
-const { Content, headings } = linksMd
-  ? await render(linksMd)
-  : { Content: Fragment, headings: [] };
 ---
 
 <PostPageLayout
   title={i18n(I18nKey.links) as string}
-  comment={linksMd?.data.comment}
+  comment={md?.data.comment}
   headings={[...groupHeadings, ...headings]}
 >
   <Fragment slot="header-content">
@@ -77,7 +96,14 @@ const { Content, headings } = linksMd
     ))
   }
   <hr class="text-base-content/25 mt-8" />
-  <Markdown>
+  <Markdown
+    bidirectional-references={md
+      ? {
+          references,
+          allRefByCurrent,
+        }
+      : undefined}
+  >
     <Content />
   </Markdown>
 </PostPageLayout>

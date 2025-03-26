@@ -1,17 +1,16 @@
 ---
-import { buildConfig, siteConfig } from '@/config';
+import { siteConfig } from '@/config';
 import BackLinks from '@components/misc/BackLinks.astro';
 import License from '@components/misc/License.astro';
 import PostInfo from '@components/misc/PostInfo.astro';
 import ImageWrapper from '@components/utils/ImageWrapper.astro';
 import Markdown from '@components/utils/Markdown.astro';
-import Replacer from '@components/utils/Replacer.astro';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
 import PostPageLayout from '@layouts/PostPageLayout.astro';
-import { getPosts } from '@utils/content-utils';
+import { getAllReferences, getPosts } from '@utils/content-utils';
 import { Icon } from 'astro-icon/components';
-import { render, type CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
 import MarkdownIt from 'markdown-it';
 
 export async function getStaticPaths() {
@@ -29,79 +28,26 @@ const coverSrc =
 const description = article.data.description || remarkPluginFrontmatter.excerpt;
 const isDraft = article.data.draft === true;
 
-const referencePattern = /%%%%(.*?)(?:%%(.*?))?%%%%/g;
-const allPosts = await getPosts();
-const pathIdMap = allPosts.reduce(
-  (acc, post) => {
-    const slug = post.id;
-    const path = post.filePath!.replace('src/content/', '').split('.').slice(0, -1).join('.');
-    acc[path] = slug;
-    return acc;
-  },
-  {} as Record<string, string>
-);
-const getArticle = (refPath: string) => {
-  let collection = refPath.split('/')[0];
-  if (!['posts', 'drafts', 'spec'].includes(collection)) {
-    collection = 'posts';
-    refPath = `posts/${refPath}`;
-  }
-  const id = pathIdMap[refPath];
-  if (id) {
-    return allPosts.find((post) => post.id === id);
-  }
-};
+const allReferences = await getAllReferences();
+const allRefByCurrent = allReferences.filter((it) => it.refBy.id === article.id);
+const allRefToCurrent = allReferences.filter((it) => it.refTo.id === article.id);
+
 const references: {
   reference: string;
   context: string;
   id: string;
 }[] = remarkPluginFrontmatter.references || [];
-const replacer = (_: string, reference: string, alias: string) => {
-  const refArticle = getArticle(reference);
-  if (
-    refArticle &&
-    (refArticle.data.draft === false || (buildConfig.showDraftsOnDev && import.meta.env.DEV))
-  ) {
-    const url = `/posts/${refArticle.id}`;
-    const id = references.find((item) => item.reference === reference)?.id;
-    return `<a href="${url}" id="wiki-${id}">${alias || reference}</a>`;
-  } else {
-    return '';
-  }
-};
 
 const backLinks: {
-  reference: CollectionEntry<'posts'>;
+  refBy: {
+    title: string;
+    collection: 'posts' | 'spec';
+    id: string;
+  };
   context: string;
   offset: [number, number];
   id: string;
-}[] = (
-  await Promise.all(
-    allPosts.map(async (post) => {
-      const { remarkPluginFrontmatter } = await render(post);
-      const references: {
-        reference: string;
-        context: string;
-        offset: [number, number];
-        id: string;
-      }[] = remarkPluginFrontmatter.references || [];
-      return references
-        .map((reference) => {
-          const refArticle = getArticle(reference.reference);
-          if (refArticle && refArticle.id === article.id) {
-            return {
-              reference: post,
-              context: reference.context,
-              offset: reference.offset,
-              id: reference.id,
-            };
-          }
-          return undefined;
-        })
-        .filter((item) => item !== undefined);
-    })
-  )
-).flat();
+}[] = allRefToCurrent;
 ---
 
 <PostPageLayout
@@ -129,7 +75,12 @@ const backLinks: {
       <ImageWrapper src={coverSrc!} class="mb-6 rounded-xl shadow" alt={article.data.title} />
     )
   }
-  <Markdown>
+  <Markdown
+    bidirectional-references={{
+      references,
+      allRefByCurrent,
+    }}
+  >
     {
       isDraft && (
         <div class="admonition admonition-note">
@@ -141,9 +92,7 @@ const backLinks: {
         </div>
       )
     }
-    <Replacer pattern={referencePattern} replacer={replacer}>
-      <Content />
-    </Replacer>
+    <Content />
   </Markdown>
   <License time={article.data.published} lang={article.data.lang} />
   {backLinks.length > 0 && <BackLinks backLinks={backLinks} />}

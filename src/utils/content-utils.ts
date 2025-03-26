@@ -80,3 +80,146 @@ export function getTagUrl(tag: string) {
     ? `/archives/tags/${I18nKey.untagged}/1`
     : `/archives/tags/${tag.replaceAll(/[\\/]/g, '-')}/1`;
 }
+
+/**
+ * 获取所有的引用，返回一个数组
+ */
+export async function getAllReferences() {
+  type frontmatterRef = {
+    /** 引用的文章，即 [[ref|alias]] 中的 ref 部分 */
+    reference: string;
+    /** 引用的上下文，即整个 xxxx[[ref|alias]]xxxx 的内容，截取前后 20 个字符 */
+    context: string;
+    /** 引用的偏移量，即 [[ref|alias]] 在上下文字符串中的起始和结束位置 */
+    offset: [number, number];
+    /** 引用应该被分配的 id，用于通过 #id 跳转 */
+    id: string;
+  };
+  type Article = {
+    /** 文章的标题 */
+    title: string;
+    /** 文章的集合，posts 或 spec，drafts 会被处理为 posts */
+    collection: 'posts' | 'spec';
+    /** 文章的 id，对 posts 来说是 slug 参数，对 spec 来说是文件名 */
+    id: string;
+  };
+
+  const posts = await getPosts();
+  const specs = await getCollection('spec');
+
+  const pathMap = [
+    ...posts.map((it) => ({
+      id: it.id,
+      title: it.data.title,
+      collection: it.collection,
+      filePath: it.filePath,
+    })),
+    ...specs.map((it) => ({
+      id: it.id,
+      title: it.data.title,
+      collection: it.collection,
+      filePath: it.filePath,
+    })),
+  ].reduce(
+    (acc, it) => {
+      const path = it.filePath!.replace('src/content/', '').split('.').slice(0, -1).join('.');
+      acc[path] = {
+        id: it.id,
+        title: it.title || path.split('/').slice(-1)[-1],
+        collection: it.collection,
+      };
+      return acc;
+    },
+    {} as Record<
+      string,
+      {
+        id: string;
+        title: string;
+        collection: 'posts' | 'spec';
+      }
+    >
+  );
+
+  const postsRefData = posts.map(async (post) => {
+    const { remarkPluginFrontmatter } = await render(post);
+    const references: frontmatterRef[] = remarkPluginFrontmatter.references || [];
+    return {
+      title: post.data.title,
+      colletion: 'posts',
+      id: post.id,
+      references,
+    };
+  });
+  const specRefData = specs.map(async (spec) => {
+    const { remarkPluginFrontmatter } = await render(spec);
+    const references: frontmatterRef[] = remarkPluginFrontmatter.references || [];
+    return {
+      title: spec.data.title || spec.filePath?.split('/').slice(-1)[0],
+      colletion: 'spec',
+      id: spec.id,
+      references,
+    };
+  });
+
+  const getArticle = (refPath: string): Article | null => {
+    let collection = refPath.split('/')[0];
+    if (!['posts', 'drafts', 'spec'].includes(collection)) {
+      collection = 'posts';
+      refPath = `posts/${refPath}`;
+    }
+    const { id, title } = pathMap[refPath];
+    if (id) {
+      if (collection === 'spec') {
+        const article = specs.find((it) => it.id === id);
+        if (article) return { title, collection, id };
+      } else {
+        const article = posts.find((it) => it.id === id);
+        if (article) return { title, collection: 'posts', id };
+      }
+    }
+    return null;
+  };
+
+  const references: {
+    refBy: Article;
+    refTo: Article;
+    /** 引用的上下文，即整个 xxxx[[ref|alias]]xxxx 的内容，截取前后 20 个字符 */
+    context: string;
+    /** 引用的偏移量，即 [[ref|alias]] 在上下文字符串中的起始和结束位置 */
+    offset: [number, number];
+    /** 引用应该被分配的 id，用于通过 #id 跳转 */
+    id: string;
+  }[] = [
+    ...(await Promise.all(postsRefData)).flatMap((data) => {
+      const article: Article = {
+        title: data.title,
+        collection: data.colletion as 'posts' | 'spec',
+        id: data.id,
+      };
+      return data.references
+        .map((ref) => {
+          const { reference, context, offset, id } = ref;
+          const refTo = getArticle(reference);
+          if (refTo) return { refBy: article, refTo, context, offset, id };
+          return null;
+        })
+        .filter((it) => it !== null);
+    }),
+    ...(await Promise.all(specRefData)).flatMap((data) => {
+      const article: Article = {
+        title: data.title || data.id,
+        collection: data.colletion as 'posts' | 'spec',
+        id: data.id,
+      };
+      return data.references
+        .map((ref) => {
+          const { reference, context, offset, id } = ref;
+          const refTo = getArticle(reference);
+          if (refTo) return { refBy: article, refTo, context, offset, id };
+          return null;
+        })
+        .filter((it) => it !== null);
+    }),
+  ];
+  return references;
+}

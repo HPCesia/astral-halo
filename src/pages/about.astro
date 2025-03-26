@@ -4,20 +4,48 @@ import Markdown from '@components/utils/Markdown.astro';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
 import PostPageLayout from '@layouts/PostPageLayout.astro';
+import { getAllReferences } from '@utils/content-utils';
 import { getEntry, render } from 'astro:content';
 
-const aboutMd = await getEntry('spec', 'about');
-const { Content } = aboutMd ? await render(aboutMd) : Fragment;
+const md = await getEntry('spec', 'about');
+
+const { Content, headings, remarkPluginFrontmatter } = md
+  ? await render(md)
+  : {
+      Content: Fragment,
+      headings: [],
+      remarkPluginFrontmatter: { references: [] },
+    };
+
+const allReferences = await getAllReferences();
+let allRefByCurrent: typeof allReferences = [];
+let references: {
+  reference: string;
+  context: string;
+  id: string;
+}[] = [];
+if (md) {
+  allRefByCurrent = allReferences.filter((it) => it.refBy.id === md.id);
+  references = remarkPluginFrontmatter.references || [];
+}
 ---
 
 <PostPageLayout
-  title={aboutMd?.data.title || (i18n(I18nKey.about) as string)}
-  comment={aboutMd?.data.comment}
+  title={md?.data.title || (i18n(I18nKey.about) as string)}
+  headings={headings}
+  comment={md?.data.comment}
 >
   <Fragment slot="header-content">
-    <PostInfo title={i18n(I18nKey.about) as string} />
+    <PostInfo title={md?.data.title || (i18n(I18nKey.about) as string)} />
   </Fragment>
-  <Markdown>
+  <Markdown
+    bidirectional-references={md
+      ? {
+          references,
+          allRefByCurrent,
+        }
+      : undefined}
+  >
     <Content />
   </Markdown>
 </PostPageLayout>

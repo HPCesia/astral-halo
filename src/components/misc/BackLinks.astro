@@ -1,11 +1,14 @@
 ---
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
-import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   backLinks: {
-    reference: CollectionEntry<'posts'>;
+    refBy: {
+      title: string;
+      collection: 'posts' | 'spec';
+      id: string;
+    };
     context: string;
     offset: [number, number];
     id: string;
@@ -21,20 +24,23 @@ const { backLinks } = Astro.props;
   <div class="collapse-content">
     <ul class="list">
       {
-        backLinks.map(({ reference: { data }, context, id, offset }) => (
-          <li class="list-row">
-            <a href={`/posts/${data.slug}#wiki-${id}`} title={data.title} class="list-col-grow">
-              <span class="text-base font-bold">{data.title}</span>
-              <div class="text-base-content/60 mt-2 flex flex-wrap items-start gap-x-4 gap-y-2 text-sm">
-                <span>
-                  {context.slice(0, offset[0])}
-                  <strong class="text-primary">{context.slice(offset[0], offset[1])}</strong>
-                  {context.slice(offset[1])}
-                </span>
-              </div>
-            </a>
-          </li>
-        ))
+        backLinks.map(({ refBy, context, id, offset }) => {
+          const url = refBy.collection === 'posts' ? `/posts/${refBy.id}` : `/${refBy.id}`;
+          return (
+            <li class="list-row">
+              <a href={`${url}#wiki-${id}`} title={refBy.title} class="list-col-grow">
+                <span class="text-base font-bold">{refBy.title}</span>
+                <div class="text-base-content/60 mt-2 flex flex-wrap items-start gap-x-4 gap-y-2 text-sm">
+                  <span>
+                    {context.slice(0, offset[0])}
+                    <strong class="text-primary">{context.slice(offset[0], offset[1])}</strong>
+                    {context.slice(offset[1])}
+                  </span>
+                </div>
+              </a>
+            </li>
+          );
+        })
       }
     </ul>
   </div>
