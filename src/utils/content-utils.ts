@@ -167,15 +167,15 @@ export async function getAllReferences() {
       collection = 'posts';
       refPath = `posts/${refPath}`;
     }
-    const { id, title } = pathMap[refPath];
-    if (id) {
-      if (collection === 'spec') {
-        const article = specs.find((it) => it.id === id);
-        if (article) return { title, collection, id };
-      } else {
-        const article = posts.find((it) => it.id === id);
-        if (article) return { title, collection: 'posts', id };
-      }
+    const data = pathMap[refPath];
+    if (!data) return null;
+    const { id, title } = data;
+    if (collection === 'spec') {
+      const article = specs.find((it) => it.id === id);
+      if (article) return { title, collection, id };
+    } else {
+      const article = posts.find((it) => it.id === id);
+      if (article) return { title, collection: 'posts', id };
     }
     return null;
   };
