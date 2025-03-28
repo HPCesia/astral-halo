@@ -91,7 +91,7 @@ const Icon = function (props: {
       height = size.height;
     }
   }
-  const className = 'inline align-middle';
+  const className = 'inline align-text-bottom';
 
   const { prefix, name: iconName } = stringToIcon(name, true)!;
   const collection = collections[prefix];
@@ -107,10 +107,10 @@ const Icon = function (props: {
   const { attributes, body } = iconToSVG(iconData);
   attributes.width = width;
   attributes.height = height;
-  const iconHtml = iconToHTML(body, attributes);
+  const iconHtml = iconToHTML(body, { class: className, ...attributes });
   return h(
     'span',
-    { class: className },
+    {},
     {
       type: 'raw',
       value: iconHtml,
