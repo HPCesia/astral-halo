@@ -52,7 +52,7 @@ article {
   }
 
   /* 基础文本元素 */
-  p {
+  p:not(:first-child, :last-child) {
     margin: 0.75rem 0;
   }
 
