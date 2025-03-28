@@ -51,7 +51,6 @@ export default defineConfig({
       transformers: [
         // transformerNotationDiff(),
         // transformerNotationHighlight(),
-        // @ts-expect-error Type of shiki transformer in astro is not up to date.
         wrapCode(),
       ],
     },
