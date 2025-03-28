@@ -9,7 +9,7 @@ tags:
 published: 2025-02-10T21:23:23+08:00
 ---
 
-import { Collapse, LinkCard, Repl, RepoCard, TabItem, Tabs, Tooltip } from '@components/user';
+import { Collapse, Icon, LinkCard, Repl, RepoCard, TabItem, Tabs, Tooltip } from '@components/user';
 
 Components let you easily reuse a piece of UI or styling consistently. You can use them not just in `.astro` files, but also in `.mdx` files.
 
@@ -145,6 +145,7 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
 ## Inline Containers
 
 ### Tooltip
+
 <Repl>
   <div class="flex flex-col gap-2 w-fit mx-auto">
     <Tooltip tip="I'm here!" position="top">
@@ -184,6 +185,34 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
       ::tooltip[Hover me]{tip="I'm here!" position="bottom"}
       ::tooltip[Hover me]{tip="I'm here!" position="left"}
       ::tooltip[Hover me]{tip="I'm here!" position="right"}
+      ```
+    </TabItem>
+  </Tabs>
+  </Fragment>
+</Repl>
+
+### Icon
+
+<Repl>
+  <div class="flex flex-col gap-2 w-fit mx-auto">
+    <span>You can get this template in <Icon name="mdi:github" />[GitHub](https://github.com/HPCesia/astral-halo)</span>
+    <span>This is an open source project <Icon name="mdi:open-source-initiative" /></span>
+    <span>A huge icon is here: <Icon name="mdi:alert-octagon" size="5em" /></span>
+  </div>
+  <Fragment slot="desc">
+  <Tabs>
+    <TabItem label="mdx" active>
+      ```jsx
+      <span>You can get this template in <Icon name="mdi:github" />[GitHub](https://github.com/HPCesia/astral-halo)</span>
+      <span>This is an open source project <Icon name="mdi:open-source-initiative" /></span>
+      <span>A huge icon is here: <Icon name="mdi:alert-octagon" size="5em" /></span>
+      ```
+    </TabItem>
+    <TabItem label="md">
+      ```md
+      :icon{name="mdi:github"}
+      :icon{name="mdi:open-source-initiative"}
+      :icon{name="mdi:alert-octagon" size="5em"}
       ```
     </TabItem>
   </Tabs>

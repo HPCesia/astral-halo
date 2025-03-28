@@ -1,10 +1,52 @@
 /**
  * All components in this file should sync with the components in `src/components/user`
  */
-import { icons as MaterialSymbols } from '@iconify-json/material-symbols';
-import { getIconData, iconToHTML, iconToSVG } from '@iconify/utils';
+import type { IconifyJSON } from '@iconify/types';
+import { getIconData, iconToHTML, iconToSVG, stringToIcon } from '@iconify/utils';
 import { h } from 'hastscript';
 import type { Child } from 'hastscript';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+
+async function detectInstalledCollections(root: string) {
+  try {
+    const packages = [];
+    const text = await readFile(path.resolve(root, './package.json'), {
+      encoding: 'utf8',
+    });
+    const { dependencies = {}, devDependencies = {} } = JSON.parse(text);
+    packages.push(...Object.keys(dependencies));
+    packages.push(...Object.keys(devDependencies));
+    const collections = packages
+      .filter((name) => name.startsWith('@iconify-json/'))
+      .map((name) => name.replace('@iconify-json/', ''));
+    return collections;
+  } catch (err) {
+    console.error(err);
+  }
+  return [];
+}
+
+const iconSets = await detectInstalledCollections(process.cwd());
+
+async function loadCollection(name: string) {
+  if (!iconSets.find((it) => it === name)) return;
+  const icons: IconifyJSON = JSON.parse(
+    await readFile(
+      path.resolve(process.cwd(), `./node_modules/@iconify-json/${name}/icons.json`),
+      {
+        encoding: 'utf8',
+      }
+    )
+  );
+  return icons;
+}
+
+const collections: Record<string, IconifyJSON> = {};
+iconSets.forEach(async (set) => {
+  const icons = await loadCollection(set);
+  if (icons) collections[set] = icons;
+});
 
 const Collapse = function (
   props: {
@@ -28,6 +70,54 @@ const Collapse = function (
   return h('div', { class: wrapperClassName }, [inputNode, titleNode, contentNode]);
 };
 
+const Icon = function (props: {
+  name: string;
+  size?:
+    | string
+    | {
+        width: string;
+        height: string;
+      };
+}) {
+  const { name, size } = props;
+  let width = '1.25em';
+  let height = '1.25em';
+  if (size) {
+    if (typeof size === 'string') {
+      width = size;
+      height = size;
+    } else {
+      width = size.width;
+      height = size.height;
+    }
+  }
+  const className = 'inline align-middle';
+
+  const { prefix, name: iconName } = stringToIcon(name, true)!;
+  const collection = collections[prefix];
+  if (!collection) {
+    console.error(`'Icon set not found: '${prefix}'`);
+    return h('span', `'Icon set not found: '${prefix}'`);
+  }
+  const iconData = getIconData(collection, iconName);
+  if (!iconData) {
+    console.error(`Icon "${iconName}" not found in icon set '${prefix}'`);
+    return h('span', `Icon "${iconName}" not found in icon set '${prefix}'`);
+  }
+  const { attributes, body } = iconToSVG(iconData);
+  attributes.width = width;
+  attributes.height = height;
+  const iconHtml = iconToHTML(body, attributes);
+  return h(
+    'span',
+    { class: className },
+    {
+      type: 'raw',
+      value: iconHtml,
+    }
+  );
+};
+
 const LinkCard = function (props: { title: string; description: string; url: string }) {
   const { title, description, url } = props;
   const wrapperClassName = 'card border-base-content/25 my-4 overflow-hidden border';
@@ -39,7 +129,12 @@ const LinkCard = function (props: { title: string; description: string; url: str
   const descNode = h('div', { class: descClassName }, description);
   const contentNode = h('div', null, [titleNode, descNode]);
 
-  const iconData = getIconData(MaterialSymbols, 'arrow-right-alt-rounded');
+  const collection = collections['material-symbols'];
+  if (!collection) {
+    console.error('LinkCard icon set found: material-symbols');
+    return h('a', { class: wrapperClassName, href: url, title }, 'Link card error');
+  }
+  const iconData = getIconData(collection, 'arrow-right-alt-rounded');
   if (!iconData) {
     console.error('LinkCard icon not found: material-symbols:arrow-right-alt-rounded');
     return h('a', { class: wrapperClassName, href: url, title }, 'Link card error');
@@ -75,6 +170,7 @@ const Tooltip = function (
 
 export const rehypeComponentsList = {
   collapse: Collapse,
+  icon: Icon,
   linkcard: LinkCard,
   tooltip: Tooltip,
 };
