@@ -137,7 +137,7 @@
     @apply inline-block cursor-pointer rounded-md px-2 py-1 text-center text-xs duration-300;
 
     img {
-      @apply inline-block max-h-8;
+      @apply inline-block h-14 w-14;
     }
 
     &:hover {
