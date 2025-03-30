@@ -586,6 +586,9 @@
 /* Markdown 样式 */
 .tk-content,
 .tk-preview-container {
+  /* 文本样式 */
+  @apply break-normal hyphens-auto whitespace-pre-wrap md:break-words md:hyphens-manual;
+
   /* 标题通用样式 */
   h1,
   h2,
