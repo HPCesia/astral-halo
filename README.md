@@ -16,11 +16,10 @@ Astral Halo is a static blog template developed with [Astro](https://astro.build
 - [x] Responsive article table of contents
 - [x] Bidirectional references in articles
 - [x] Comments system (supports [Twikoo](https://twikoo.js.org/en/), [Giscus](https://giscus.app/) and [Waline](https://waline.js.org/en/))
+- [x] Various components that can be used in articles
 - [ ] Smooth animations and page transitions
 - [ ] Useful JS script tools
-- [ ] Various components that can be used in articles
-- [ ] Music player capsule
-- [ ] Typst format article support (experimental)
+- [ ] PWA supports
 
 ## Getting Started
 
@@ -60,7 +59,7 @@ All commands need to be run from the project root directory:
 | `pnpm build`                     | Build static site to `./dist/`       |
 | `pnpm preview`                   | Preview built site locally           |
 | `pnpm new [draft\|post] [title]` | Create new article                   |
-| `pnpm pub [title]`               | Publish draft                        |
+| `pnpm pub`                       | Publish draft                        |
 | `pnpm lint`                      | Check code                           |
 | `pnpm format`                    | Format code                          |
 | `pnpm astro ...`                 | Run Astro CLI                        |
