@@ -1,5 +1,5 @@
 ---
-import { articleConfig } from '@/config';
+import { articleConfig, toolBarConfig } from '@/config';
 import { Icon } from 'astro-icon/components';
 import Button from './widgets/Button.astro';
 import DarkModeButton from './widgets/DarkModeButton.astro';
@@ -41,12 +41,44 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
     id="stb-hide"
     class="order-1 grid grid-cols-1 gap-2 pr-4 duration-500 ease-in-out peer-[:first-child:has(:checked)]:translate-x-full"
   >
+    {
+      toolBarConfig.items.map((item) => {
+        const { icon, text } = item;
+        if ('href' in item)
+          return (
+            <Button href={item.href} title={text}>
+              <Icon name={icon} slot="icon" />
+            </Button>
+          );
+        if ('onclick' in item) {
+          if (typeof item.onclick === 'string')
+            return (
+              <Button onclick={item.onclick}>
+                <Icon name={icon} slot="icon" />
+              </Button>
+            );
+          return (
+            <Button id={`stb-${item.onclick!.id}`} title={text}>
+              <Icon name={icon} slot="icon" />
+            </Button>
+          );
+        }
+        return (
+          <Button title={text}>
+            <Icon name={icon} slot="icon" />
+          </Button>
+        );
+      })
+    }
     <DarkModeButton id="stb-dark-mode" class="btn-circle btn-secondary btn-sm" />
   </div>
 </div>
 
 <script>
+  import { toolBarConfig } from '@/config';
   import { getReadingProgress } from '@scripts/utils';
+
+  const stbItems = toolBarConfig.items;
 
   function setup() {
     const stbShow = document.getElementById('stb-show');
@@ -86,6 +118,13 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
       } else {
         stbReadPercent?.classList.remove('opacity-0');
         stbBackToTopIcon?.classList.add('opacity-0');
+      }
+    });
+
+    stbItems.forEach((item) => {
+      if ('onclick' in item && item.onclick && typeof item.onclick !== 'string') {
+        const stbEl = document.getElementById('stb-' + item.onclick.id);
+        if (stbEl) stbEl.addEventListener('click', item.onclick.function);
       }
     });
   }
