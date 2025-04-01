@@ -3,6 +3,7 @@ import { articleConfig } from '@/config';
 import { Icon } from 'astro-icon/components';
 import Button from './widgets/Button.astro';
 import DarkModeButton from './widgets/DarkModeButton.astro';
+import TocButton from './widgets/SideToolBar/TocButton.vue';
 ---
 
 <div id="side-toolbar" class="fixed right-0 bottom-10 z-30 grid grid-cols-1 gap-2">
@@ -20,19 +21,9 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     </Button>
     {
       articleConfig.toc && (
-        <Fragment>
-          <Button id="stb-toc" class="btn-circle btn-secondary btn-sm hidden xl:hidden!">
-            <input
-              type="checkbox"
-              class="peer absolute z-10 h-8 w-8 cursor-pointer appearance-none border-0"
-            />
-            <Icon name="material-symbols:toc-rounded" />
-            <div
-              id="stb-toc-wrapper"
-              class="rounded-box absolute w-[calc(100vw-4rem)] max-w-72 backdrop-blur-md duration-300 peer-checked:-translate-x-[calc(50%+1.5rem)] peer-[:not(:checked)]:scale-0"
-            />
-          </Button>
-        </Fragment>
+        <TocButton client:media="(width <= 80rem)">
+          <Icon name="material-symbols:toc-rounded" slot="icon" />
+        </TocButton>
       )
     }
     <Button id="stb-back-to-top" class="group btn-circle btn-secondary btn-sm">
@@ -63,37 +54,12 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
     const stbBackToTop = document.getElementById('stb-back-to-top');
     const stbBackToTopIcon = document.getElementById('stb-back-to-top-icon');
     const stbReadPercent = document.getElementById('stb-read-percentage');
-    const stbToc = document.getElementById('stb-toc');
-    const stbTocWrapper = document.getElementById('stb-toc-wrapper');
 
     stbBackToTop?.addEventListener('click', () => {
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
       });
-    });
-
-    // 清理可能存在的旧目录
-    stbTocWrapper!.innerHTML = '';
-    stbToc?.classList.add('hidden');
-
-    const toc = document.getElementById('toc');
-    if (toc && stbTocWrapper) {
-      const remainAttrs = ['class', 'style'];
-      stbTocWrapper.appendChild(toc.cloneNode(true));
-      stbTocWrapper.children[0].id = 'stb-toc-content';
-      Array.from(stbTocWrapper.children[0].attributes).forEach((attr) => {
-        if (!remainAttrs.includes(attr.name)) {
-          stbTocWrapper.children[0].removeAttribute(attr.name);
-        }
-      });
-      stbToc?.classList.remove('hidden');
-    }
-
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 1280) {
-        (stbToc?.children[0] as HTMLInputElement).checked = false;
-      }
     });
 
     window.addEventListener('scroll', () => {
@@ -103,8 +69,6 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
       } else {
         stbShow?.classList.add('translate-x-full');
         stbShowMore!.querySelector('input')!.checked = true;
-        stbTocWrapper?.classList.add('scale-0');
-        stbTocWrapper?.classList.remove('-translate-x-full');
       }
       // 控制进度条
       const scrolledPercentage = getReadingProgress();
