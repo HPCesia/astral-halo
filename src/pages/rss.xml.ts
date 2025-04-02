@@ -13,7 +13,6 @@ export const GET: APIRoute = async function (context) {
     title: siteConfig.title,
     description: siteConfig.subtitle,
     site: context.site || '',
-    stylesheet: '/rss/pretty-feed-v3.xsl',
     items: posts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.published,
