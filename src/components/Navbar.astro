@@ -48,6 +48,11 @@ if (!title) title = 'Astral Halo';
                               href: subItem.href,
                               target: subItem.blank ? '_blank' : undefined,
                             })}
+                          {...('onclick' in subItem &&
+                            subItem.onclick &&
+                            (typeof subItem.onclick === 'string'
+                              ? { onclick: subItem.onclick }
+                              : { id: 'side-' + subItem.onclick.id }))}
                           title={i18n(subItem.text)}
                           class="btn-ghost btn-primary rounded-field"
                         >
@@ -66,6 +71,11 @@ if (!title) title = 'Astral Halo';
                       href: item.href,
                       target: item.blank ? '_blank' : undefined,
                     })}
+                  {...('onclick' in item &&
+                    item.onclick &&
+                    (typeof item.onclick === 'string'
+                      ? { onclick: item.onclick }
+                      : { id: 'side-' + item.onclick.id }))}
                   title={i18n(item.text)}
                   class="btn-ghost join-item btn-primary"
                 >
@@ -145,6 +155,11 @@ if (!title) title = 'Astral Halo';
                               href: subItem.href,
                               target: subItem.blank ? '_blank' : undefined,
                             })}
+                          {...('onclick' in subItem &&
+                            subItem.onclick &&
+                            (typeof subItem.onclick === 'string'
+                              ? { onclick: subItem.onclick }
+                              : { id: 'side-' + subItem.onclick.id }))}
                           title={i18n(subItem.text)}
                           class="btn-ghost"
                         >
@@ -165,6 +180,11 @@ if (!title) title = 'Astral Halo';
                       href: item.href,
                       target: item.blank ? '_blank' : undefined,
                     })}
+                  {...('onclick' in item &&
+                    item.onclick &&
+                    (typeof item.onclick === 'string'
+                      ? { onclick: item.onclick }
+                      : { id: 'side-' + item.onclick.id }))}
                   title={i18n(item.text)}
                   class="btn-ghost"
                 >
