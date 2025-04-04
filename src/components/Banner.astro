@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from '@/config';
+import { pathMatch, pathsEqual, url } from '@utils/url-utils';
 import { Icon } from 'astro-icon/components';
 import ImageWrapper from './utils/ImageWrapper.astro';
 
@@ -12,9 +13,34 @@ const siteBanner = siteConfig.banner;
 if (siteBanner === false) throw Error('Should not show this error');
 
 const src = Astro.props.src || (siteBanner.src as string);
+
+function getBannerHeight(path: string) {
+  if (siteConfig.banner === false) {
+    console.error('Banner is disabled. Should not show this error, must be a bug');
+    return null;
+  }
+  if (pathsEqual(url('/'), path)) {
+    return siteConfig.banner.homepageHeight;
+  }
+  if (pathMatch(/\/posts\/.*/, path)) {
+    return siteConfig.banner.postHeight;
+  }
+  for (const { pagePathRegex, height } of siteConfig.banner.pagesHeight) {
+    if (pathMatch(pagePathRegex, path)) {
+      return height;
+    }
+  }
+  return siteConfig.banner.defaultHeight;
+}
+const path = Astro.url;
+const bannerHeight = getBannerHeight(path.pathname);
 ---
 
-<div id="banner" class="relative max-h-screen scale-105 opacity-0 duration-1000">
+<div
+  id="banner"
+  class="relative max-h-screen scale-105 opacity-0 duration-1000"
+  style=`height: ${bannerHeight}`
+>
   <div class="h-full w-full">
     <ImageWrapper
       id="banner-img"
