@@ -100,7 +100,7 @@ if (!title) title = 'Astral Halo';
                     ? { onclick: item.onclick }
                     : { id: 'nav-' + item.onclick.id }))}
               >
-                <Icon name={item.icon} class="text-2xl" />
+                <Icon name={item.icon} height="1.5rem" width="1.5rem" />
               </Button>
             ))
           }
@@ -118,14 +118,14 @@ if (!title) title = 'Astral Halo';
                     ? { onclick: item.onclick }
                     : { id: 'nav-' + item.onclick.id }))}
               >
-                <Icon name={item.icon} class="text-2xl" />
+                <Icon name={item.icon} height="1.5rem" width="1.5rem" />
               </Button>
             ))
           }
         </div>
         <div class="md:hidden">
           <label for="sidebar-drawer" class="btn btn-circle btn-ghost btn-primary">
-            <Icon name="material-symbols:menu-rounded" class="text-2xl" />
+            <Icon name="material-symbols:menu-rounded" height="1.5rem" width="1.5rem" />
           </label>
         </div>
       </div>
@@ -208,7 +208,7 @@ if (!title) title = 'Astral Halo';
                   : { id: 'side-' + item.onclick.id }))}
               class="btn-ghost"
             >
-              <Icon name={item.icon} class="text-2xl" />
+              <Icon name={item.icon} height="1.5rem" width="1.5rem" />
               <span class="text-xl">{i18n(item.text)}</span>
             </Button>
           </li>

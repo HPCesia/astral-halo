@@ -12,7 +12,7 @@ const { class: className, ...rest } = Astro.props;
 <div class:list={['w-full', className]} {...rest}>
   <label class="input input-bordered flex w-full items-center gap-2">
     <input type="text" class="grow" placeholder={i18n(I18nKey.search)} />
-    <Icon name="material-symbols:search-rounded" class="text-3xl" />
+    <Icon name="material-symbols:search-rounded" height="1.875rem" width="1.875rem" />
   </label>
   <div
     class="search-result mt-4 flex h-fit max-h-[calc(60vh-8rem)] flex-col items-center gap-2 overflow-y-auto text-center"

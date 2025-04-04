@@ -52,7 +52,11 @@ if (untaggedPosts.length > 0) tagPosts.set(i18n(I18nKey.untagged) as string, unt
           <li>
             {index > 0 && <hr />}
             <div class="timeline-middle">
-              <Icon name="material-symbols:add-circle-rounded" class="text-xl" />
+              <Icon
+                name="material-symbols:add-circle-rounded"
+                height="1.25rem"
+                width="1.25rem"
+              />
             </div>
             <div class:list={[`timeline-${index % 2 === 0 ? 'start' : 'end'}`, 'w-full']}>
               <div
@@ -69,7 +73,11 @@ if (untaggedPosts.length > 0) tagPosts.set(i18n(I18nKey.untagged) as string, unt
                 </h2>
                 <Button href={getTagUrl(tag)} title={tag} class="pl-3">
                   {i18n(I18nKey.more)}
-                  <Icon name="material-symbols:chevron-right-rounded" class="text-2xl" />
+                  <Icon
+                    name="material-symbols:chevron-right-rounded"
+                    height="1.5rem"
+                    width="1.5rem"
+                  />
                 </Button>
               </div>
               <ul class="list">

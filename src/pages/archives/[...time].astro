@@ -153,7 +153,11 @@ const postCount = await getPostsCount();
                 <li>
                   {index > 0 && <hr />}
                   <div class="timeline-middle">
-                    <Icon name="material-symbols:add-circle-rounded" class="text-xl" />
+                    <Icon
+                      name="material-symbols:add-circle-rounded"
+                      height="1.25rem"
+                      width="1.25rem"
+                    />
                   </div>
                   <div
                     class:list={[
@@ -175,7 +179,11 @@ const postCount = await getPostsCount();
                         class="pl-3"
                       >
                         {i18n(I18nKey.more)}
-                        <Icon name="material-symbols:chevron-right-rounded" class="text-2xl" />
+                        <Icon
+                          name="material-symbols:chevron-right-rounded"
+                          height="1.5rem"
+                          width="1.5rem"
+                        />
                       </Button>
                     </div>
                     <div class="mx-2">{renderMonth(year, month)}</div>
