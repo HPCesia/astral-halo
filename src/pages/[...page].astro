@@ -1,5 +1,5 @@
 ---
-import { commentConfig, siteConfig } from '@/config';
+import { asideConfig, commentConfig, siteConfig } from '@/config';
 import ProfileCard from '@components/aside/ProfileCard.astro';
 import ResentCommentsCard from '@components/aside/ResentCommentsCard.astro';
 import SiteInfoCard from '@components/aside/SiteInfoCard.astro';
@@ -36,6 +36,6 @@ const categories = await getCategories();
     <SiteInfoCard />
   </Fragment>
   <Fragment slot="aside-sticky">
-    {commentConfig.enable && commentConfig.provider !== 'giscus' && <ResentCommentsCard />}
+    {commentConfig.enable && asideConfig.recentComment.enable && <ResentCommentsCard />}
   </Fragment>
 </MainLayout>
