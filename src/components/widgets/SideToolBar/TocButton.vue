@@ -44,6 +44,13 @@ onMounted(() => {
   setup();
   document.addEventListener('astro:before-swap', cleanup);
 });
+
+onUnmounted(() => {
+  if (tocWrapper.value) tocWrapper.value.innerHTML = '';
+  hasToc.value = false;
+  window.removeEventListener('resize', handleResize);
+  isWideScreen.value = false;
+});
 </script>
 
 <template>
