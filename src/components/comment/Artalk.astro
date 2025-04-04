@@ -1,0 +1,42 @@
+---
+import 'artalk/Artalk.css';
+---
+
+<div id="artalk-wrapper" class="mt-6"></div>
+
+<script>
+  import { commentConfig, siteConfig } from '@/config';
+  import Artalk from 'artalk';
+
+  function setup() {
+    function getCurrentMode(): boolean {
+      if (!('darkMode' in localStorage)) {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+      return localStorage.darkMode === 'true';
+    }
+
+    const artalk = Artalk.init({
+      el: '#artalk-wrapper',
+      darkMode: getCurrentMode(),
+      pageKey: window.location.pathname,
+      pageTitle: document.title,
+      server: commentConfig.artalk?.serverURL,
+      site: siteConfig.title,
+      locale: commentConfig.artalk?.locale || siteConfig.lang,
+    });
+
+    document.addEventListener('blog:darkmode-change', (e) => {
+      // @ts-expect-error CustomEvent.detail is not defined in TypeScript
+      const { isDark } = e.detail;
+      artalk.setDarkMode(isDark);
+    });
+
+    document.addEventListener('astro:before-swap', () => {
+      artalk.destroy();
+    });
+  }
+
+  document.addEventListener('astro:page-load', setup);
+  setup();
+</script>

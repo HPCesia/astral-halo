@@ -199,4 +199,8 @@ export const commentConfig: CommentConfig = {
     pageSize: 10,
     reaction: false,
   },
+  artalk: {
+    serverURL: 'https://artalk.yourdomain.com',
+    // locale: 'en', // Optional, default is site language.
+  },
 };

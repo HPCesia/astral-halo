@@ -2,6 +2,7 @@
 import { asideConfig, commentConfig } from '@/config';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
+import ArtalkRecentCommentScript from './recent-comments/Artalk.astro';
 import TwikooRecentCommentScript from './recent-comments/Twikoo.astro';
 import WalineRecentCommentScript from './recent-comments/Waline.astro';
 ---
@@ -50,6 +51,8 @@ import WalineRecentCommentScript from './recent-comments/Waline.astro';
         return <TwikooRecentCommentScript />;
       case 'waline':
         return <WalineRecentCommentScript />;
+      case 'artalk':
+        return <ArtalkRecentCommentScript />;
       default:
         throw new Error(
           `Unsupported comment provider: '${commentConfig.provider}' for recent comments`

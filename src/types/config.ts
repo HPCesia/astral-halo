@@ -498,7 +498,7 @@ export type CommentConfig = {
    *
    * 评论的提供者。
    */
-  provider: 'twikoo' | 'giscus' | 'waline';
+  provider: 'twikoo' | 'giscus' | 'waline' | 'artalk';
   /**
    * The configuration of Twikoo.
    *
@@ -707,5 +707,33 @@ export type CommentConfig = {
      * @see https://waline.js.org/reference/client/props.html#reaction
      */
     reaction?: boolean | string[];
+  };
+  /**
+   * The configuration of Artalk.
+   * Most settings should be configured on the server side,
+   * so only the most basic configuration is provided here.
+   *
+   * Artalk 的配置。大多数设置应当在服务端进行配置，因此这里仅提供最基本的配置。
+   *
+   * @see https://artalk.js.org/
+   */
+  artalk?: {
+    /**
+     * The server URL of Artalk.
+     *
+     * Artalk 的服务端地址。
+     *
+     * @see https://artalk.js.org/en/guide/frontend/config.html#server
+     */
+    serverURL: string;
+    /**
+     * Language setting of Artalk.
+     *
+     * 语言设置
+     *
+     * @default siteConfig.lang
+     * @see https://artalk.js.org/en/guide/frontend/config.html#locale
+     */
+    locale?: string;
   };
 };
