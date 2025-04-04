@@ -46,7 +46,7 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
         const { icon, text } = item;
         if ('href' in item)
           return (
-            <Button href={item.href} title={text}>
+            <Button href={item.href} target={item.blank ? '_blank' : undefined} title={text}>
               <Icon name={icon} slot="icon" />
             </Button>
           );

@@ -32,6 +32,14 @@ export type ButtonSubConfig<T extends string> = T extends 'text'
            * 按钮的 URL。
            */
           href?: string;
+          /**
+           * Whether to open the link in a new tab.
+           *
+           * 是否在新标签页中打开链接。
+           *
+           * @default false
+           */
+          blank?: boolean;
         }
       | {
           /**
@@ -69,6 +77,14 @@ export type ButtonSubConfig<T extends string> = T extends 'text'
              * 按钮的 URL。
              */
             href?: string;
+            /**
+             * Whether to open the link in a new tab.
+             *
+             * 是否在新标签页中打开链接。
+             *
+             * @default false
+             */
+            blank?: boolean;
           }
         | {
             /**

@@ -43,7 +43,11 @@ if (!title) title = 'Astral Halo';
                     <ul class="menu bg-base-200/50 absolute -translate-x-[50%] rounded-xl shadow backdrop-blur-md">
                       {item.items.map((subItem) => (
                         <Button
-                          {...('href' in subItem && subItem.href && { href: subItem.href })}
+                          {...('href' in subItem &&
+                            subItem.href && {
+                              href: subItem.href,
+                              target: subItem.blank ? '_blank' : undefined,
+                            })}
                           title={i18n(subItem.text)}
                           class="btn-ghost btn-primary rounded-field"
                         >
@@ -57,7 +61,11 @@ if (!title) title = 'Astral Halo';
             } else {
               return (
                 <Button
-                  {...('href' in item && item.href && { href: item.href })}
+                  {...('href' in item &&
+                    item.href && {
+                      href: item.href,
+                      target: item.blank ? '_blank' : undefined,
+                    })}
                   title={i18n(item.text)}
                   class="btn-ghost join-item btn-primary"
                 >
@@ -132,7 +140,11 @@ if (!title) title = 'Astral Halo';
                     {item.items.map((subItem) => (
                       <li>
                         <Button
-                          {...('href' in subItem && subItem.href && { href: subItem.href })}
+                          {...('href' in subItem &&
+                            subItem.href && {
+                              href: subItem.href,
+                              target: subItem.blank ? '_blank' : undefined,
+                            })}
                           title={i18n(subItem.text)}
                           class="btn-ghost"
                         >
@@ -148,7 +160,11 @@ if (!title) title = 'Astral Halo';
             return (
               <li>
                 <Button
-                  {...('href' in item && item.href && { href: item.href })}
+                  {...('href' in item &&
+                    item.href && {
+                      href: item.href,
+                      target: item.blank ? '_blank' : undefined,
+                    })}
                   title={i18n(item.text)}
                   class="btn-ghost"
                 >

@@ -106,6 +106,7 @@ export const navbarConfig: NavbarConfig = {
         icon: 'material-symbols:rss-feed-rounded',
         text: I18nKey.subscribe,
         href: '/rss.xml',
+        blank: true,
       },
       {
         icon: 'material-symbols:casino',
