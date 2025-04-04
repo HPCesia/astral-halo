@@ -33,64 +33,93 @@ const { class: className, showText, ...rest } = Astro.props;
   function setup() {
     const darkmodeBtns = document.querySelectorAll('button.darkmode-btn');
 
+    // 获取当前主题模式
+    function getCurrentMode(): 'system' | 'light' | 'dark' {
+      if (!('darkMode' in localStorage)) {
+        return 'system';
+      }
+      return localStorage.darkMode === 'true' ? 'dark' : 'light';
+    }
+
+    // 获取下一个主题模式
+    function getNextMode(
+      currentMode: 'system' | 'light' | 'dark'
+    ): 'system' | 'light' | 'dark' {
+      switch (currentMode) {
+        case 'system':
+          return 'light';
+        case 'light':
+          return 'dark';
+        case 'dark':
+          return 'system';
+      }
+    }
+
     darkmodeBtns.forEach((btn) => {
       const checkbox = btn.querySelector('input[type="checkbox"]') as HTMLInputElement;
       const text = btn.querySelector('.darkmode-text');
 
-      // 初始化状态
-      if ('darkMode' in localStorage) {
-        checkbox.checked = localStorage.darkMode === 'true';
-        checkbox.indeterminate = false;
-      } else {
-        checkbox.indeterminate = true;
-      }
-
-      // 更新文本和标题
-      function updateText() {
-        if (!text) return;
-
-        const textContent = checkbox.indeterminate
-          ? btn.getAttribute('data-text-auto')
-          : checkbox.checked
-            ? btn.getAttribute('data-text-dark')
-            : btn.getAttribute('data-text-light');
-
-        text.textContent = textContent;
-        btn.setAttribute('title', textContent || '');
-      }
-
-      // 更新主题
-      function updateTheme() {
-        if (checkbox.indeterminate) {
-          localStorage.removeItem('darkMode');
-          const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-        } else {
-          localStorage.darkMode = checkbox.checked;
-          document.documentElement.setAttribute(
-            'data-theme',
-            checkbox.checked ? 'dark' : 'light'
-          );
-        }
-      }
-
-      btn.addEventListener('click', () => {
-        if (checkbox.indeterminate) {
-          checkbox.indeterminate = false;
-          checkbox.checked = false;
-        } else if (!checkbox.checked) {
-          checkbox.checked = true;
-        } else {
-          checkbox.checked = false;
+      // 更新UI状态和文本
+      function updateUI(mode: 'system' | 'light' | 'dark') {
+        if (mode === 'system') {
           checkbox.indeterminate = true;
+        } else {
+          checkbox.indeterminate = false;
+          checkbox.checked = mode === 'dark';
         }
 
-        updateText();
-        updateTheme();
+        if (text) {
+          const textContent =
+            mode === 'system'
+              ? btn.getAttribute('data-text-auto')
+              : mode === 'dark'
+                ? btn.getAttribute('data-text-dark')
+                : btn.getAttribute('data-text-light');
+
+          text.textContent = textContent;
+          btn.setAttribute('title', textContent || '');
+        }
+      }
+
+      // 点击处理
+      btn.addEventListener('click', () => {
+        const currentMode = getCurrentMode();
+        const nextMode = getNextMode(currentMode);
+
+        // 更新 localStorage
+        if (nextMode === 'system') {
+          localStorage.removeItem('darkMode');
+        } else {
+          localStorage.darkMode = nextMode === 'dark';
+        }
+
+        // 触发主题变化事件
+        const isDark =
+          nextMode === 'system'
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            : nextMode === 'dark';
+
+        document.dispatchEvent(
+          new CustomEvent('blog:darkmode-change', {
+            detail: { isDark, nextMode },
+          })
+        );
       });
 
-      updateText();
-      updateTheme();
+      document.addEventListener('blog:darkmode-change', (e) => {
+        // @ts-expect-error CustomEvent.detail is not defined in TypeScript
+        const { nextMode } = e.detail;
+        updateUI(nextMode);
+      });
+
+      // 初始化 UI
+      updateUI(getCurrentMode());
+    });
+
+    document.addEventListener('blog:darkmode-change', (e) => {
+      // @ts-expect-error CustomEvent.detail is not defined in TypeScript
+      const { isDark } = e.detail;
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
     });
   }
 
