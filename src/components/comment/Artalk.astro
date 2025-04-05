@@ -1,15 +1,29 @@
 ---
-import 'artalk/Artalk.css';
+import { commentConfig, siteConfig } from '@/config';
+import { CDN } from '@constants/cdn.mjs';
+
+const artalkConfig = commentConfig.artalk!;
 ---
 
 <div id="artalk-wrapper" class="mt-6"></div>
 
-<script>
-  import { commentConfig, siteConfig } from '@/config';
-  import Artalk from 'artalk';
+<link rel="stylesheet" href={CDN.artalkCss} />
+
+<script
+  type="module"
+  is:inline
+  define:vars={{
+    artalkConfig,
+    siteConfig: {
+      title: siteConfig.title,
+      lang: siteConfig.lang,
+    },
+  }}
+>
+  import Artalk from 'https://esm.sh/artalk@2.9.1';
 
   function setup() {
-    function getCurrentMode(): boolean {
+    function getCurrentMode() {
       if (!('darkMode' in localStorage)) {
         return window.matchMedia('(prefers-color-scheme: dark)').matches;
       }
@@ -21,13 +35,12 @@ import 'artalk/Artalk.css';
       darkMode: getCurrentMode(),
       pageKey: window.location.pathname,
       pageTitle: document.title,
-      server: commentConfig.artalk?.serverURL,
+      server: artalkConfig.serverURL,
       site: siteConfig.title,
-      locale: commentConfig.artalk?.locale || siteConfig.lang,
+      locale: artalkConfig.locale || siteConfig.lang,
     });
 
     document.addEventListener('blog:darkmode-change', (e) => {
-      // @ts-expect-error CustomEvent.detail is not defined in TypeScript
       const { isDark } = e.detail;
       artalk.setDarkMode(isDark);
     });
