@@ -15,7 +15,11 @@ Astral Halo 是一个基于 [Astro](https://astro.build) 开发的静态博客�
 - [x] 搜索（目前仅支持 [Pagefind](https://pagefind.app/)）
 - [x] 响应式的文章目录显示
 - [x] 文章双向引用
-- [x] 评论（支持 [Twikoo](https://twikoo.js.org/)、[Giscus](https://giscus.app/zh-CN/) 和 [Waline](https://waline.js.org/)）
+- [x] 评论系统，支持：
+  - [Twikoo](https://twikoo.js.org/)
+  - [Giscus](https://giscus.app/zh-CN/)
+  - [Waline](https://waline.js.org/)
+  - [Artalk](https://artalk.js.org/)
 - [x] 各种各样可在文章中使用的组件
 - [ ] 流畅的动画和页面过渡
 - [ ] 实用 JS 脚本工具
@@ -29,7 +33,7 @@ Astral Halo 是一个基于 [Astro](https://astro.build) 开发的静态博客�
    - 若未安装 [pnpm](https://pnpm.io/)，请先执行 `npm install -g pnpm` 安装 pnpm。
 
 3. 通过配置文件 `src/config.ts` 自定义博客，配置说明位于 `src/types/config.ts` 的文档注释中。
-4. 执行 `pnpm new [draft|post] [title]` 创建新文章。若创建的是草稿，编写完成后执行 `pnpm pub [title]` 发布文章到 `src/content/posts` 目录。
+4. 执行 `pnpm new [draft|post] [title]` 创建新文章。若创建的是草稿，编写完成后执行 `pnpm pub` 发布文章到 `src/content/posts` 目录。
 5. 参考[官方指南](https://docs.astro.build/zh-cn/guides/deploy/)将博客部署至 Vercel, Netlify, GitHub Pages 等；部署前需编辑 astro.config.mjs 中的站点设置。
 
 ## 文章 Front Matter

@@ -15,7 +15,11 @@ Astral Halo is a static blog template developed with [Astro](https://astro.build
 - [x] Search functionality (currently only supports [Pagefind](https://pagefind.app/))
 - [x] Responsive article table of contents
 - [x] Bidirectional references in articles
-- [x] Comments system (supports [Twikoo](https://twikoo.js.org/en/), [Giscus](https://giscus.app/) and [Waline](https://waline.js.org/en/))
+- [x] Comments system, supports:
+  - [Twikoo](https://twikoo.js.org/en/)
+  - [Giscus](https://giscus.app/en/)
+  - [Waline](https://waline.js.org/en/)
+  - [Artalk](https://artalk.js.org/?lng=en)
 - [x] Various components that can be used in articles
 - [ ] Smooth animations and page transitions
 - [ ] Useful JS script tools
@@ -29,7 +33,7 @@ Astral Halo is a static blog template developed with [Astro](https://astro.build
    - If [pnpm](https://pnpm.io/) is not installed, first run `npm install -g pnpm` to install it.
 
 3. Customize your blog through the configuration file `src/config.ts`. Configuration documentation can be found in the comments of `src/types/config.ts`.
-4. Run `pnpm new [draft|post] [title]` to create a new article. If creating a draft, run `pnpm pub [title]` to publish it to the `src/content/posts` directory when finished.
+4. Run `pnpm new [draft|post] [title]` to create a new article. If creating a draft, run `pnpm pub` to publish it to the `src/content/posts` directory when finished.
 5. Refer to the [official guide](https://docs.astro.build/en/guides/deploy/) to deploy your blog to Vercel, Netlify, GitHub Pages, etc. Before deployment, edit the site settings in astro.config.mjs.
 
 ## Article Front Matter
