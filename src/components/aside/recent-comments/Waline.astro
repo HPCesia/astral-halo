@@ -10,10 +10,7 @@
   async function setup() {
     const walineConfig = commentConfig.waline!;
     const commentCount = asideConfig.recentComment.count;
-    const apiUrl = new URL(
-      `api/comment?type=recent&count=${commentCount}`,
-      walineConfig.serverURL
-    ).toString();
+    const apiUrl = `${walineConfig.serverURL}/api/comment?type=recent&count=${commentCount}`;
 
     const response = await fetch(apiUrl, {
       method: 'GET',
