@@ -30,8 +30,10 @@ const artalkConfig = commentConfig.artalk!;
       return localStorage.darkMode === 'true';
     }
 
+    const warpper = document.getElementById('artalk-wrapper');
+    if (!warpper) return;
     const artalk = Artalk.init({
-      el: '#artalk-wrapper',
+      el: warpper,
       darkMode: getCurrentMode(),
       pageKey: window.location.pathname,
       pageTitle: document.title,
