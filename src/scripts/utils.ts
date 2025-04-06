@@ -6,20 +6,20 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 
 dayjs.extend(relativeTime);
 
-export function getReadingProgress(): number {
+export function getReadingProgress(bottomHeight: number): number {
   const docEl = document.documentElement;
   const bodyEl = document.body;
-  const totalHeight =
-    Math.max(
-      bodyEl.clientHeight,
-      bodyEl.scrollHeight,
-      bodyEl.offsetHeight,
-      docEl.clientHeight,
-      docEl.scrollHeight,
-      docEl.offsetHeight
-    ) - docEl.clientHeight;
+  const totalHeight = Math.max(
+    bodyEl.clientHeight,
+    bodyEl.scrollHeight,
+    bodyEl.offsetHeight,
+    docEl.clientHeight,
+    docEl.scrollHeight,
+    docEl.offsetHeight
+  );
+  const mainHeight = Math.min(totalHeight, bottomHeight) - window.innerHeight;
   const scrollY = window.scrollY;
-  return Math.round((scrollY / totalHeight) * 100);
+  return Math.round((scrollY / mainHeight) * 100);
 }
 
 export async function getRandomPost() {

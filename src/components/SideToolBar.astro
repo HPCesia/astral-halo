@@ -29,11 +29,12 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
     <Button id="stb-back-to-top" class="group btn-circle btn-secondary btn-sm">
       <span
         id="stb-read-percentage"
-        class="absolute text-sm opacity-0 duration-300 group-hover:opacity-0"></span>
+        class="absolute text-sm opacity-0 duration-300 group-hover:opacity-0">0</span
+      >
       <Icon
         id="stb-back-to-top-icon"
         name="material-symbols:arrow-upward-rounded"
-        class="opacity-0 duration-300 group-hover:opacity-100"
+        class="duration-300 group-hover:opacity-100"
       />
     </Button>
   </div>
@@ -94,6 +95,13 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
       });
     });
 
+    const bottomPos =
+      (
+        document.getElementById('page-comment') ||
+        document.getElementById('page-footer') ||
+        document.getElementById('footer')
+      )?.offsetTop || document.documentElement.scrollHeight;
+
     window.addEventListener('scroll', () => {
       // 控制工具栏显隐
       if (window.scrollY > 0) {
@@ -103,15 +111,9 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
         stbShowMore!.querySelector('input')!.checked = true;
       }
       // 控制进度条
-      const scrolledPercentage = getReadingProgress();
+      const scrolledPercentage = getReadingProgress(bottomPos);
       if (stbReadPercent) stbReadPercent.textContent = `${scrolledPercentage}`;
-      const bottomPos =
-        (
-          document.getElementById('page-comment') ||
-          document.getElementById('page-footer') ||
-          document.getElementById('footer')
-        )?.offsetTop || document.documentElement.scrollHeight;
-      const isNearEnd = window.scrollY + document.documentElement.clientHeight >= bottomPos;
+      const isNearEnd = scrolledPercentage >= 99;
       if (isNearEnd) {
         stbReadPercent?.classList.add('opacity-0');
         stbBackToTopIcon?.classList.remove('opacity-0');
