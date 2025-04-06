@@ -52,12 +52,18 @@ article {
   }
 
   /* 基础文本元素 */
+  @apply wrap-break-word;
+
   p:not(:first-child, :last-child) {
     margin: 0.75rem 0;
   }
 
   a:not(.card) {
     @apply text-primary underline decoration-dashed;
+  }
+
+  del {
+    @apply line-through opacity-70;
   }
 
   /* 媒体元素 */
