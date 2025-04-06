@@ -1,5 +1,5 @@
 // @ts-check
-import { CDN } from './src/constants/cdn.mjs';
+import { CDN } from './src/constants/cdn.ts';
 import { rehypeComponentsList } from './src/plugins/rehype-components-list.ts';
 import { rehypePrettierCodes } from './src/plugins/rehype-prettier-codes.ts';
 import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.ts';

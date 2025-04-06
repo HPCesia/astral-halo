@@ -6,7 +6,7 @@ import {
 } from './utils.ts';
 import { asideConfig, commentConfig } from '@/config';
 import { loadScript } from '@/scripts/utils';
-import { CDN } from '@constants/cdn.mjs';
+import { CDN } from '@constants/cdn';
 
 const twikooConfig = commentConfig.twikoo!;
 
