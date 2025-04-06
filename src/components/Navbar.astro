@@ -226,18 +226,16 @@ if (!title) title = 'Astral Halo';
   ].flat();
 
   function setup() {
-    window.swup?.hooks.on('content:replace', () => {
-      rightItems.forEach((item) => {
-        if ('onclick' in item && item.onclick && typeof item.onclick !== 'string') {
-          const navEl = document.getElementById('nav-' + item.onclick.id);
-          if (navEl) navEl.addEventListener('click', item.onclick.function);
-          const sideEl = document.getElementById('side-' + item.onclick.id);
-          if (sideEl) sideEl.addEventListener('click', item.onclick.function);
-        }
-      });
+    rightItems.forEach((item) => {
+      if ('onclick' in item && item.onclick && typeof item.onclick !== 'string') {
+        const navEl = document.getElementById('nav-' + item.onclick.id);
+        if (navEl) navEl.addEventListener('click', item.onclick.function);
+        const sideEl = document.getElementById('side-' + item.onclick.id);
+        if (sideEl) sideEl.addEventListener('click', item.onclick.function);
+      }
     });
   }
 
-  if (window.swup) setup();
-  else document.addEventListener('swup:enable', setup);
+  setup();
+  document.addEventListener('astro:page-load', setup);
 </script>
