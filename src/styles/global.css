@@ -49,6 +49,9 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] * ));
 
 @theme {
+  --breakpoint-xs: 30rem;
+  --breakpoint-2xs: 20rem;
+  --breakpoint-3xs: 15rem;
   --tracking-extra-wide: 0.25em;
 }
 
