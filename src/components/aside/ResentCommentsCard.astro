@@ -2,9 +2,6 @@
 import { asideConfig, commentConfig } from '@/config';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
-import ArtalkRecentCommentScript from './recent-comments/Artalk.astro';
-import TwikooRecentCommentScript from './recent-comments/Twikoo.astro';
-import WalineRecentCommentScript from './recent-comments/Waline.astro';
 ---
 
 <div id="recent-comments-card" class="card border-base-300 bg-base-200/25 border">
@@ -48,11 +45,11 @@ import WalineRecentCommentScript from './recent-comments/Waline.astro';
   (() => {
     switch (commentConfig.provider) {
       case 'twikoo':
-        return <TwikooRecentCommentScript />;
+        return <script src="recent-comments/Twikoo.ts" />;
       case 'waline':
-        return <WalineRecentCommentScript />;
+        return <script src="recent-comments/Waline.ts" />;
       case 'artalk':
-        return <ArtalkRecentCommentScript />;
+        return <script src="recent-comments/Artalk.ts" />;
       default:
         throw new Error(
           `Unsupported comment provider: '${commentConfig.provider}' for recent comments`
