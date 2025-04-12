@@ -1,6 +1,8 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 
+const isLoading = ref(false);
+
 const props = defineProps({
   inputId: {
     type: String,
@@ -16,7 +18,18 @@ const noResults = ref(false);
 let pagefind = null;
 
 const search = async (text) => {
-  if (!pagefind) return;
+  if (!text) {
+    isLoading.value = false;
+    searchResults.value = [];
+    noResults.value = false;
+    return;
+  }
+
+  if (!pagefind) {
+    isLoading.value = true;
+    return;
+  }
+  isLoading.value = false;
 
   const searchResponse = await pagefind.debouncedSearch(text, 300);
   if (!searchResponse) return;
@@ -78,7 +91,16 @@ defineExpose({
     <div
       class="search-result mt-4 flex h-fit max-h-[calc(60vh-8rem)] flex-col items-center gap-2 overflow-y-auto text-center"
     >
-      <template v-if="noResults"> No results found </template>
+      <template v-if="isLoading">
+        <div v-for="i in 2" :key="i" class="w-full rounded-md p-2">
+          <div class="flex flex-row items-center gap-1">
+            <span class="skeleton h-6 w-48"></span>
+          </div>
+          <div class="skeleton mt-2 h-4 w-full"></div>
+          <div class="skeleton mt-1 h-4 w-3/4"></div>
+        </div>
+      </template>
+      <template v-else-if="noResults"> No results found </template>
       <template v-else>
         <a
           v-for="result in searchResults"
@@ -102,5 +124,9 @@ defineExpose({
 [data-pagefind-ui] mark {
   background-color: transparent;
   color: var(--color-secondary);
+}
+
+.skeleton {
+  @apply bg-primary/20 animate-pulse rounded-md;
 }
 </style>
