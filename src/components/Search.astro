@@ -1,6 +1,9 @@
 ---
 import { searchConfig } from '@/config';
-import Pagefind from './search/Pagefind.astro';
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
+import { Icon } from 'astro-icon/components';
+import Pagefind from './search/Pagefind.vue';
 ---
 
 <dialog id="search_modal" class="modal">
@@ -13,22 +16,46 @@ import Pagefind from './search/Pagefind.astro';
         (() => {
           switch (searchConfig.provider) {
             case 'pagefind':
-              return <Pagefind />;
+              return (
+                <Pagefind client:visible inputId="search-input">
+                  <label class="input input-bordered flex w-full items-center gap-2">
+                    <input
+                      id="search-input"
+                      type="text"
+                      class="grow"
+                      placeholder={i18n(I18nKey.search)}
+                    />
+                    <Icon
+                      name="material-symbols:search-rounded"
+                      height="1.875rem"
+                      width="1.875rem"
+                    />
+                  </label>
+                  <Icon
+                    slot="icon"
+                    name="material-symbols:chevron-right"
+                    class="text-primary inline-block"
+                    height="1.125rem"
+                    width="1.125rem"
+                  />
+                </Pagefind>
+              );
           }
         })()
       }
     </div>
     <div class="relative mt-auto w-full shrink-0 pt-4 text-center">
       Powered by {
-        searchConfig.provider === 'pagefind' ? (
-          <a href="https://pagefind.app" target="_blank" class="text-primary">
-            Pagefind
-          </a>
-        ) : (
-          <a href="https://www.algolia.com" target="_blank" class="text-primary">
-            Algolia
-          </a>
-        )
+        (() => {
+          switch (searchConfig.provider) {
+            case 'pagefind':
+              return (
+                <a href="https://pagefind.app" target="_blank" class="text-primary">
+                  Pagefind
+                </a>
+              );
+          }
+        })()
       }
     </div>
   </div>
