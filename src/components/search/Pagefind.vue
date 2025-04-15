@@ -125,8 +125,4 @@ defineExpose({
   background-color: transparent;
   color: var(--color-secondary);
 }
-
-.skeleton {
-  @apply bg-primary/20 animate-pulse rounded-md;
-}
 </style>
