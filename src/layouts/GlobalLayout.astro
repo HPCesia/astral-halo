@@ -109,7 +109,10 @@ const favicons: Favicon[] =
   import { siteConfig } from '@/config';
 
   window.swup = new Swup({
-    containers: ['main', ...(siteConfig.banner === false ? [] : ['#banner-img'])],
+    containers: [
+      'main',
+      ...(siteConfig.banner === false ? [] : ['#banner-img', '#banner-text']),
+    ],
     animationSelector: '[class*="swup-transition-"]',
     linkSelector: 'a:not([href="#"])[href]',
     plugins: [

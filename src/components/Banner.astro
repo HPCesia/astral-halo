@@ -42,6 +42,15 @@ const bannerHeight = getBannerHeight(path.pathname);
   style=`height: ${bannerHeight}; scale: 105%;`
 >
   <div class="h-full w-full">
+    <div id="banner-text">
+      {
+        Astro.url.pathname === '/' && siteConfig.banner && siteConfig.banner.text !== null && (
+          <h1 class="absolute z-10 grid h-full w-full place-items-center text-4xl font-bold text-shadow-md md:px-12">
+            <span>{siteConfig.banner.text || siteConfig.subtitle}</span>
+          </h1>
+        )
+      }
+    </div>
     <ImageWrapper
       id="banner-img"
       src={src}
@@ -51,11 +60,13 @@ const bannerHeight = getBannerHeight(path.pathname);
   </div>
   <div
     id="banner-mask"
-    class="from-base-100 to-base-100/0 absolute bottom-0 grid h-1/2 min-h-48 w-full bg-linear-0"
+    class="from-base-100 to-base-100/0 absolute bottom-0 grid h-3/5 min-h-48 w-full bg-linear-0"
   >
     <Icon
       name="material-symbols:keyboard-arrow-down-rounded"
-      class="text-base-content/60 relative mx-auto h-24 w-24 translate-y-6 scale-x-110 animate-bounce place-self-end duration-300"
+      class="text-base-content/60 relative mx-auto animate-bounce place-self-end duration-300"
+      width="4.5rem"
+      height="4rem"
     />
   </div>
 </div>
@@ -87,7 +98,7 @@ const bannerHeight = getBannerHeight(path.pathname);
     const banner = document.getElementById('banner');
     banner!.style.scale = '100%';
     banner!.style.height = getBannerHeight(window.location.pathname) as string;
-    const bannerMask = document.getElementById('banner-mask');
+    const bannerMask = banner?.querySelector('#banner-mask');
     const icon = bannerMask?.querySelector('svg');
     if (pathsEqual(url('/'), window.location.pathname)) {
       icon?.classList.remove('hidden');

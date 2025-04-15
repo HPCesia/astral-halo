@@ -17,7 +17,7 @@ import { getRandomPost } from '@scripts/utils';
 
 export const siteConfig: SiteConfig = {
   title: 'Astral Halo',
-  subtitle: '',
+  subtitle: 'A static blog template powered by Astro',
   lang: 'en', // "en" | "zh_CN" | "zh_TW"
   favicon: [
     // Leave this array empty to use the default favicon.
@@ -27,6 +27,7 @@ export const siteConfig: SiteConfig = {
   postsPerPage: 10,
   banner: {
     src: 'assets/img/demo_banner.jpg',
+    text: 'Welcome to Astral Halo!',
     homepageHeight: '100vh',
     postHeight: '40vh',
     pagesHeight: [

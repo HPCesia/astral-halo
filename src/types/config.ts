@@ -156,6 +156,14 @@ export type SiteConfig = {
          */
         src: string;
         /**
+         * The text in the center of homepage banner
+         *
+         * 首页横幅中央的文字
+         *
+         * @default SiteConfig.subtitle
+         */
+        text?: string | null;
+        /**
          * The height of the banner in homepage.
          *
          * 主页中横幅的高度。
