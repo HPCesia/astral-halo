@@ -38,8 +38,8 @@ const bannerHeight = getBannerHeight(path.pathname);
 
 <div
   id="banner"
-  class="relative max-h-screen scale-105 opacity-0 duration-1000"
-  style=`height: ${bannerHeight}`
+  class="relative max-h-screen duration-1000"
+  style=`height: ${bannerHeight}; scale: 105%;`
 >
   <div class="h-full w-full">
     <ImageWrapper
@@ -55,7 +55,7 @@ const bannerHeight = getBannerHeight(path.pathname);
   >
     <Icon
       name="material-symbols:keyboard-arrow-down-rounded"
-      class="text-base-content/60 relative mx-auto hidden h-24 w-24 translate-y-6 scale-x-110 animate-bounce place-self-end opacity-0 duration-300"
+      class="text-base-content/60 relative mx-auto h-24 w-24 translate-y-6 scale-x-110 animate-bounce place-self-end duration-300"
     />
   </div>
 </div>
@@ -85,7 +85,7 @@ const bannerHeight = getBannerHeight(path.pathname);
 
   function setupBanner() {
     const banner = document.getElementById('banner');
-    banner?.classList.remove('opacity-0', 'scale-105');
+    banner!.style.scale = '100%';
     banner!.style.height = getBannerHeight(window.location.pathname) as string;
     const bannerMask = document.getElementById('banner-mask');
     const icon = bannerMask?.querySelector('svg');
