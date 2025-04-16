@@ -164,7 +164,7 @@ export const footerConfig: FooterConfig = {
     [
       {
         text: 'Astral Halo',
-        link: 'https://github.com/HPCesia/astral-halo',
+        link: 'https://codeberg.org/HPCesia/AstralHalo',
         class: 'font-bold',
       },
     ],
