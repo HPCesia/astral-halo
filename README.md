@@ -3,7 +3,7 @@
 > [!WARNING]
 > This project is still under development and may contain bugs and breaking changes. Use with caution.
 
-[**Live Demo** (Netlify)](https://astral-halo.netlify.app/) | English | [简体中文](README-zh_CN.md)
+[**Live Demo** (Netlify)](https://astral-halo.netlify.app/) | English | [简体中文](README.zh-CN.md)
 
 Astral Halo is a static blog template developed with [Astro](https://astro.build).
 
