@@ -27,7 +27,7 @@ Astral Halo is a static blog template developed with [Astro](https://astro.build
 
 ## Getting Started
 
-1. Use this template to [generate a new repository](https://github.com/HPCesia/astral-halo/generate) or fork this repository.
+1. Use this template to generate a new repository or fork this repository.
 2. For local development, clone the repository, run `pnpm install` to install dependencies, and `pnpm dev` to start the development server.
 
    - If [pnpm](https://pnpm.io/) is not installed, first run `npm install -g pnpm` to install it.
