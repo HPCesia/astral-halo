@@ -39,6 +39,9 @@ export const zh_TW: Translation = {
   [Key.categoryCount]: '個分類',
   [Key.categoriesCount]: '個分類',
 
+  [Key.toc]: '目錄',
+
+  [Key.themeToggle]: '主題切換',
   [Key.lightMode]: '亮色',
   [Key.darkMode]: '暗色',
   [Key.systemMode]: '跟隨系統',

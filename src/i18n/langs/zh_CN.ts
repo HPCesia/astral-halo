@@ -39,6 +39,9 @@ export const zh_CN: Translation = {
   [Key.categoryCount]: '个分类',
   [Key.categoriesCount]: '个分类',
 
+  [Key.toc]: '目录',
+
+  [Key.themeToggle]: '主题切换',
   [Key.lightMode]: '亮色',
   [Key.darkMode]: '暗色',
   [Key.systemMode]: '跟随系统',

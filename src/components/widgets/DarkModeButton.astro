@@ -13,20 +13,34 @@ const { class: className, showText, ...rest } = Astro.props;
 ---
 
 <Button
-  class:list={['darkmode-btn swap', className]}
+  class:list={['darkmode-btn swap swap-rotate', className]}
   {...rest}
   data-text-light={i18n(I18nKey.lightMode)}
   data-text-dark={i18n(I18nKey.darkMode)}
   data-text-auto={i18n(I18nKey.systemMode)}
+  role="switch"
+  aria-label={i18n(I18nKey.themeToggle)}
 >
-  <input type="checkbox" />
-  <Icon class="darkmode-icon-light swap-off" name="material-symbols:light-mode-rounded" />
-  <Icon class="darkmode-icon-dark swap-on" name="material-symbols:dark-mode-rounded" />
+  <input type="checkbox" inert />
+  <Icon
+    class="darkmode-icon-light swap-off"
+    name="material-symbols:light-mode-rounded"
+    role="presentation"
+    aria-hidden
+  />
+  <Icon
+    class="darkmode-icon-dark swap-on"
+    name="material-symbols:dark-mode-rounded"
+    role="presentation"
+    aria-hidden
+  />
   <Icon
     class="darkmode-icon-auto swap-indeterminate"
     name="material-symbols:night-sight-auto-rounded"
+    role="presentation"
+    aria-hidden
   />
-  {showText && <span class="darkmode-text pl-6" />}
+  <span class={showText ? 'darkmode-text pl-6' : 'sr-only'}></span>
 </Button>
 
 <script>
@@ -57,7 +71,7 @@ const { class: className, showText, ...rest } = Astro.props;
 
     darkmodeBtns.forEach((btn) => {
       const checkbox = btn.querySelector('input[type="checkbox"]') as HTMLInputElement;
-      const text = btn.querySelector('.darkmode-text');
+      const text = btn.querySelector('.darkmode-text') || btn.querySelector('.sr-only');
 
       // 更新UI状态和文本
       function updateUI(mode: 'system' | 'light' | 'dark') {
@@ -65,19 +79,20 @@ const { class: className, showText, ...rest } = Astro.props;
           checkbox.indeterminate = true;
         } else {
           checkbox.indeterminate = false;
-          checkbox.checked = mode === 'dark';
         }
+        checkbox.checked = mode === 'dark';
+
+        const textContent =
+          mode === 'system'
+            ? btn.getAttribute('data-text-auto')
+            : mode === 'dark'
+              ? btn.getAttribute('data-text-dark')
+              : btn.getAttribute('data-text-light');
+
+        btn.setAttribute('title', textContent || '');
 
         if (text) {
-          const textContent =
-            mode === 'system'
-              ? btn.getAttribute('data-text-auto')
-              : mode === 'dark'
-                ? btn.getAttribute('data-text-dark')
-                : btn.getAttribute('data-text-light');
-
           text.textContent = textContent;
-          btn.setAttribute('title', textContent || '');
         }
       }
 

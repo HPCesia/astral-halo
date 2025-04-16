@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
 import { onMounted, onUnmounted, ref } from 'vue';
 
 const isOpen = ref(false);
@@ -63,12 +65,14 @@ onUnmounted(() => {
       ref="buttonRef"
       class="btn btn-circle btn-secondary btn-sm"
       @click="isOpen = !isOpen"
+      :title="i18n(I18nKey.toc)"
     >
       <slot name="icon" />
     </button>
     <div
       ref="tocWrapper"
       class="rounded-box absolute w-[calc(100vw-4rem)] -translate-x-1/2 -translate-y-1/2 max-w-72 backdrop-blur-md duration-300 text-base-content text-start"
+      :inert="!isOpen || isWideScreen"
       :class="{
         '-translate-x-[calc(100%+0.5rem)]! -translate-y-[calc(100%-2.5rem)]!':
           isOpen && !isWideScreen,

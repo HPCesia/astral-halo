@@ -1,5 +1,7 @@
 ---
 import { articleConfig, toolBarConfig } from '@/config';
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
 import { Icon } from 'astro-icon/components';
 import Button from './widgets/Button.astro';
 import DarkModeButton from './widgets/DarkModeButton.astro';
@@ -8,39 +10,9 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
 
 <div id="side-toolbar" class="fixed right-0 bottom-10 z-30 grid grid-cols-1 gap-2">
   <div
-    id="stb-show"
-    class="peer order-2 grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
-  >
-    <Button id="stb-show-more" class="btn-circle btn-secondary btn-sm">
-      <input
-        type="checkbox"
-        class="absolute z-10 h-8 w-8 cursor-pointer appearance-none border-0"
-        checked
-      />
-      <Icon name="material-symbols:settings-rounded" class="animate-spin" />
-    </Button>
-    {
-      articleConfig.toc && (
-        <TocButton client:media="(width <= 80rem)">
-          <Icon name="material-symbols:toc-rounded" slot="icon" />
-        </TocButton>
-      )
-    }
-    <Button id="stb-back-to-top" class="group btn-circle btn-secondary btn-sm">
-      <span
-        id="stb-read-percentage"
-        class="absolute text-sm opacity-0 duration-300 group-hover:opacity-0">0</span
-      >
-      <Icon
-        id="stb-back-to-top-icon"
-        name="material-symbols:arrow-upward-rounded"
-        class="duration-300 group-hover:opacity-100"
-      />
-    </Button>
-  </div>
-  <div
     id="stb-hide"
-    class="order-1 grid grid-cols-1 gap-2 pr-4 duration-500 ease-in-out peer-[:first-child:has(:checked)]:translate-x-full"
+    class="grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
+    inert
   >
     {
       toolBarConfig.items.map((item) => {
@@ -73,6 +45,38 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
     }
     <DarkModeButton id="stb-dark-mode" class="btn-circle btn-secondary btn-sm" />
   </div>
+  <div
+    id="stb-show"
+    class="grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
+  >
+    <Button
+      id="stb-show-more"
+      class="btn-circle btn-secondary btn-sm"
+      aria-expanded="false"
+      aria-label={i18n(I18nKey.more)}
+      aria-controls="stb-hide"
+    >
+      <Icon name="material-symbols:settings-rounded" class="animate-spin" />
+    </Button>
+    {
+      articleConfig.toc && (
+        <TocButton client:media="(width <= 80rem)">
+          <Icon name="material-symbols:toc-rounded" slot="icon" />
+        </TocButton>
+      )
+    }
+    <Button id="stb-back-to-top" class="group btn-circle btn-secondary btn-sm">
+      <span
+        id="stb-read-percentage"
+        class="absolute text-sm opacity-0 duration-300 group-hover:opacity-0">0</span
+      >
+      <Icon
+        id="stb-back-to-top-icon"
+        name="material-symbols:arrow-upward-rounded"
+        class="duration-300 group-hover:opacity-100"
+      />
+    </Button>
+  </div>
 </div>
 
 <script>
@@ -83,10 +87,25 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
 
   function setup() {
     const stbShow = document.getElementById('stb-show');
+    const stbHide = document.getElementById('stb-hide');
     const stbShowMore = document.getElementById('stb-show-more');
     const stbBackToTop = document.getElementById('stb-back-to-top');
     const stbBackToTopIcon = document.getElementById('stb-back-to-top-icon');
     const stbReadPercent = document.getElementById('stb-read-percentage');
+
+    let isExpanded = JSON.parse(stbShowMore?.getAttribute('aria-expanded') || 'false');
+
+    stbShowMore?.addEventListener('click', () => {
+      isExpanded = !isExpanded;
+      stbShowMore.setAttribute('aria-expanded', String(isExpanded));
+      if (isExpanded) {
+        stbHide?.classList.remove('translate-x-full');
+        stbHide?.removeAttribute('inert');
+      } else {
+        stbHide?.classList.add('translate-x-full');
+        stbHide?.setAttribute('inert', 'true');
+      }
+    });
 
     stbBackToTop?.addEventListener('click', () => {
       window.scrollTo({
@@ -108,7 +127,9 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
         stbShow?.classList.remove('translate-x-full');
       } else {
         stbShow?.classList.add('translate-x-full');
-        stbShowMore!.querySelector('input')!.checked = true;
+        stbShowMore?.setAttribute('aria-expanded', 'false');
+        isExpanded = false;
+        document.getElementById('stb-hide')?.classList.add('translate-x-full');
       }
       // 控制进度条
       const scrolledPercentage = getReadingProgress(bottomPos);

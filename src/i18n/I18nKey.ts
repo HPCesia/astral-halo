@@ -36,6 +36,9 @@ enum I18nKey {
   categoryCount = 'categoryCount',
   categoriesCount = 'categoriesCount',
 
+  toc = 'toc',
+
+  themeToggle = 'themeToggle',
   lightMode = 'lightMode',
   darkMode = 'darkMode',
   systemMode = 'systemMode',

@@ -39,6 +39,9 @@ export const en: Translation = {
   [Key.categoryCount]: 'category',
   [Key.categoriesCount]: 'categories',
 
+  [Key.toc]: 'Table of Content',
+
+  [Key.themeToggle]: 'Toggle Theme',
   [Key.lightMode]: 'Light',
   [Key.darkMode]: 'Dark',
   [Key.systemMode]: 'System',
