@@ -3,7 +3,6 @@ import { siteConfig } from '@/config';
 import type { BlogPostData } from '@/types/data';
 import ProfileCard from '@components/aside/ProfileCard.astro';
 import TOC from '@components/aside/TOC.astro';
-import Button from '@components/widgets/Button.astro';
 import MetaIcon from '@components/widgets/MetaIcon.astro';
 import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
@@ -167,24 +166,12 @@ const postCount = await getPostsCount();
                   >
                     <div
                       class:list={[
-                        (index % 2 === 0) !== reverse && 'md:flex-row-reverse',
-                        'mx-4 flex scroll-mt-20 flex-row items-center justify-between',
+                        (index % 2 === 0) !== reverse && 'md:text-end',
+                        'mx-4 text-2xl font-bold',
                       ]}
                       id={`${year}-${month}`}
                     >
-                      <div class="text-2xl font-bold">{month}</div>
-                      <Button
-                        href={`/archives/${year}/${month}`}
-                        title={`${year}/${month}`}
-                        class="pl-3"
-                      >
-                        {i18n(I18nKey.more)}
-                        <Icon
-                          name="material-symbols:chevron-right-rounded"
-                          height="1.5rem"
-                          width="1.5rem"
-                        />
-                      </Button>
+                      {month}
                     </div>
                     <div class="mx-2">{renderMonth(year, month)}</div>
                   </div>
