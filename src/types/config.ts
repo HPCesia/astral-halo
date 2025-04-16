@@ -168,13 +168,13 @@ export type SiteConfig = {
          *
          * 主页中横幅的高度。
          */
-        homepageHeight: `${number}${'vh' | 'rem' | 'px'}`;
+        homepageHeight: `${number}${'vh' | 'dvh' | 'svh' | 'lvh' | 'rem' | 'px'}`;
         /**
          * The height of the banner in post page.
          *
          * 文章页面中横幅的高度。
          */
-        postHeight: `${number}${'vh' | 'rem' | 'px'}`;
+        postHeight: `${number}${'vh' | 'dvh' | 'svh' | 'lvh' | 'rem' | 'px'}`;
         /**
          * The height of the banner in pages.
          *
@@ -192,14 +192,14 @@ export type SiteConfig = {
            *
            * 横幅的高度。
            */
-          height: `${number}${'vh' | 'rem' | 'px'}`;
+          height: `${number}${'vh' | 'dvh' | 'svh' | 'lvh' | 'rem' | 'px'}`;
         }[];
         /**
          * The default height of the banner.
          *
          * 横幅的默认高度。
          */
-        defaultHeight: `${number}${'vh' | 'rem' | 'px'}`;
+        defaultHeight: `${number}${'vh' | 'dvh' | 'svh' | 'lvh' | 'rem' | 'px'}`;
       };
 };
 
