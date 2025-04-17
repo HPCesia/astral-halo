@@ -1,5 +1,9 @@
-<script setup>
-import { onMounted, ref } from 'vue';
+<script setup lang="ts">
+import type {
+  PagefindSearchResult,
+  PagefindSearchResults,
+} from '@/types/PagefindSearchAPI.d.ts';
+import { type Ref, onMounted, ref } from 'vue';
 
 const isLoading = ref(false);
 
@@ -13,11 +17,15 @@ const props = defineProps({
 const bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
 const baseUrl = import.meta.env.BASE_URL;
 
-const searchResults = ref([]);
+const searchResults: Ref<{ url: string; title: string; excerpt: string }[]> = ref([]);
 const noResults = ref(false);
-let pagefind = null;
+let pagefind: null | {
+  init: () => Promise<void>;
+  options: (options: { baseUrl: string; basePath: string }) => Promise<void>;
+  debouncedSearch: (text: string, delay: number) => Promise<PagefindSearchResults> | null;
+} = null;
 
-const search = async (text) => {
+const search = async (text: string) => {
   if (!text) {
     isLoading.value = false;
     searchResults.value = [];
@@ -42,7 +50,7 @@ const search = async (text) => {
 
   noResults.value = false;
   const processedResults = await Promise.all(
-    results.map(async (result) => {
+    results.map(async (result: PagefindSearchResult) => {
       const data = await result.data();
       return {
         url: data.url,
@@ -61,11 +69,20 @@ const setupSearch = () => {
     return;
   }
 
-  searchInput.addEventListener('input', (e) => search(e.target.value));
+  searchInput.addEventListener('input', (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const value = target.value.trim();
+    isLoading.value = true;
+    search(value);
+  });
 };
 
 const setup = async () => {
   pagefind = await import(/* @vite-ignore */ `${bundlePath}pagefind.js`);
+  if (!pagefind) {
+    console.error('Pagefind: Failed to load pagefind.js');
+    return;
+  }
   await pagefind.options({
     baseUrl: baseUrl,
     basePath: bundlePath,
