@@ -81,9 +81,9 @@ onMounted(() => {
             :key="n"
             class="list-row comment-placeholder px-0"
           >
-            <a class="avatar">
+            <div class="avatar">
               <div class="skeleton w-16 min-w-16 rounded-md" />
-            </a>
+            </div>
             <div class="flex w-full flex-col justify-between">
               <div class="flex flex-col gap-2">
                 <div class="skeleton h-4 w-full" />
