@@ -14,7 +14,10 @@ Astral Halo 是一个基于 [Astro](https://astro.build) 开发的静态博客�
 - [x] 响应式设计
 - [x] 搜索（目前仅支持 [Pagefind](https://pagefind.app/)）
 - [x] 响应式的文章目录显示
-- [x] 文章双向引用
+- [x] 部分支持 Obsidian 特性
+  - [x] Callout
+  - [ ] Wiki 链接（仅支持对文章的链接）
+  - [ ] 反向链接（仅支持对 Wiki 链接的反向链接显示）
 - [x] 评论系统，支持：
   - [Twikoo](https://twikoo.js.org/)
   - [Giscus](https://giscus.app/zh-CN/)

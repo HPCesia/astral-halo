@@ -14,7 +14,10 @@ Astral Halo is a static blog template developed with [Astro](https://astro.build
 - [x] Responsive design
 - [x] Search functionality (currently only supports [Pagefind](https://pagefind.app/))
 - [x] Responsive article table of contents
-- [x] Bidirectional references in articles
+- [x] Partially supports Obsidian features
+  - [x] Callout
+  - [ ] Wiki links (only supports links to articles)
+  - [ ] Backlinks (only supports displaying backlinks for Wiki links)
 - [x] Comments system, supports:
   - [Twikoo](https://twikoo.js.org/en/)
   - [Giscus](https://giscus.app/en/)
