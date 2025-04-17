@@ -28,15 +28,15 @@ export const siteConfig: SiteConfig = {
   banner: {
     src: 'assets/img/demo_banner.jpg',
     text: 'Welcome to Astral Halo!',
-    homepageHeight: '100dvh',
-    postHeight: '40dvh',
+    homepageHeight: '100svh',
+    postHeight: '40svh',
     pagesHeight: [
       // {
       //   pagePathRegex: /\/about\//,
-      //   height: '50dvh',
+      //   height: '50svh',
       // },
     ],
-    defaultHeight: '40dvh',
+    defaultHeight: '40svh',
   },
 };
 
