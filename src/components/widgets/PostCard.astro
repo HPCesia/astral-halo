@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from '@/config';
 import { getCategoryUrl, getTagUrl } from '@utils/content-utils';
+import type { ImageMetadata } from 'astro';
 import MetaIcon from './MetaIcon.astro';
 import PostCardCover from './PostCardCover.astro';
 import ReadMoreButton from './ReadMoreButton.astro';
@@ -13,7 +14,7 @@ interface Props {
   updated?: Date;
   tags: string[];
   category?: string;
-  cover?: string;
+  cover?: string | ImageMetadata;
   description: string;
 }
 

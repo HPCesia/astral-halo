@@ -1,11 +1,12 @@
 ---
 import ImageWrapper from '@components/utils/ImageWrapper.astro';
+import type { ImageMetadata } from 'astro';
 import { Icon } from 'astro-icon/components';
 
 interface Props {
   url: string;
   title: string;
-  cover: string;
+  cover: string | ImageMetadata;
 }
 
 const { url, title, cover } = Astro.props;
