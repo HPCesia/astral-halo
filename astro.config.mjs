@@ -6,9 +6,9 @@ import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.ts';
 import { remarkArticleReferences } from './src/plugins/remark-article-references';
 import { remarkCreateTime } from './src/plugins/remark-create-time.ts';
 import { remarkExcerpt } from './src/plugins/remark-excerpt.ts';
-import { remarkGithubBlockquote } from './src/plugins/remark-github-blockquote.ts';
 // import { remarkHeadingShift } from './src/plugins/remark-heading-shift.ts';
 import { remarkImageProcess } from './src/plugins/remark-image-process.ts';
+import { remarkObsidianCallout } from './src/plugins/remark-obsidian-callout.ts';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.ts';
 import { wrapCode } from './src/plugins/shiki-transformers.ts';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
@@ -64,7 +64,7 @@ export default defineConfig({
       remarkReadingTime,
       remarkExcerpt,
       remarkImageProcess,
-      remarkGithubBlockquote,
+      remarkObsidianCallout,
       remarkArticleReferences,
     ],
     rehypePlugins: [

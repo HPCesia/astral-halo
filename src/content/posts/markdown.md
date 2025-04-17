@@ -82,20 +82,44 @@ You can also add footnotes[^1] or [reference links][refer].
 
 [GitHub blockquote alerts](https://github.com/orgs/community/discussions/16925) is also supported:
 
-> [!NOTE]
-> This is a note.
+> [!note]
+> Lorem ipsum dolor sit amet
 
-> [!TIP]
-> This is a tip.
+> [!abstract] With Title
+> Lorem ipsum dolor sit amet
 
-> [!IMPORTANT]
-> This is important.
+> [!info]- Default Collapsed
+> Lorem ipsum dolor sit amet
 
-> [!WARNING]
-> This is a warning.
+> [!todo]+ Default Expanded
+> Lorem ipsum dolor sit amet
 
-> [!CAUTION]
-> This is a caution.
+> [!tip]
+> Lorem ipsum dolor sit amet
+
+> [!success]
+> Lorem ipsum dolor sit amet
+
+> [!question]
+> Lorem ipsum dolor sit amet
+
+> [!warning]
+> Lorem ipsum dolor sit amet
+
+> [!failure]
+> Lorem ipsum dolor sit amet
+
+> [!danger]
+> Lorem ipsum dolor sit amet
+
+> [!bug]
+> Lorem ipsum dolor sit amet
+
+> [!example]
+> Lorem ipsum dolor sit amet
+
+> [!quote]
+> Lorem ipsum dolor sit amet
 
 And that's it!
 

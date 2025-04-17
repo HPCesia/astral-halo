@@ -238,69 +238,84 @@ article {
 
   /* 引用块样式 */
   blockquote {
+    @apply border-l-4;
+
+    --color-blockquote-callout: var(--color-neutral-500);
     padding: 0.25rem 0.25rem 0.25rem 0.75rem;
+    margin-block: 0.5rem;
+    border-radius: var(--radius-sm, 0.25rem);
+    background-color: color-mix(in oklab, var(--color-blockquote-callout) 10%, transparent);
+    border-color: var(--color-blockquote-callout);
 
-    @apply border-primary bg-primary/10 my-2 rounded-sm border-l-4;
-  }
+    /* Obsidian Callout Style */
+    &[data-callout] {
+      @apply grid grid-cols-1;
 
-  /* GitHub Alert 样式 */
-  .admonition {
-    padding: 0.25rem 0.25rem 0.25rem 0.75rem;
+      > .callout-title {
+        @apply flex flex-row items-center gap-2 p-0 text-lg font-semibold;
 
-    @apply my-4 rounded-sm border-l-4;
+        color: var(--color-blockquote-callout);
 
-    .admonition-title {
-      @apply inline-flex items-center gap-1 text-lg font-bold;
-    }
+        svg {
+          @apply h-5 w-5;
+        }
 
-    &.admonition-note {
-      @apply border-info bg-info/10;
+        &:not(.collapse-title) {
+          @apply mb-2;
+        }
 
-      --color-primary: var(--color-info);
+        &.collapse-title {
+          @apply min-h-9;
+        }
+      }
 
-      .admonition-title {
-        @apply text-info;
+      &.collapse > input[type='checkbox'] {
+        @apply min-h-9;
+      }
+
+      &.collapse-arrow .collapse-title::after {
+        top: 1.3rem;
+      }
+
+      > .collapse-content {
+        @apply p-0;
       }
     }
 
-    &.admonition-tip {
-      @apply border-success bg-success/10;
-
-      --color-primary: var(--color-success);
-
-      .admonition-title {
-        @apply text-success;
-      }
+    &[data-callout='tip'],
+    &[data-callout='hint'],
+    &[data-callout='important'] {
+      --color-blockquote-callout: var(--color-primary);
     }
-
-    &.admonition-important {
-      @apply border-accent bg-accent/10;
-
-      --color-primary: var(--color-accent);
-
-      .admonition-title {
-        @apply text-accent;
-      }
+    &[data-callout='info'],
+    &[data-callout='abstract'],
+    &[data-callout='summary'],
+    &[data-callout='tldr'],
+    &[data-callout='todo'],
+    &[data-callout='help'],
+    &[data-callout='faq'] {
+      --color-blockquote-callout: var(--color-info);
     }
-
-    &.admonition-warning {
-      @apply border-warning bg-warning/10;
-
-      --color-primary: var(--color-warning);
-
-      .admonition-title {
-        @apply text-warning;
-      }
+    &[data-callout='success'],
+    &[data-callout='check'],
+    &[data-callout='done'] {
+      --color-blockquote-callout: var(--color-success);
     }
-
-    &.admonition-caution {
-      @apply border-error bg-error/10;
-
-      --color-primary: var(--color-error);
-
-      .admonition-title {
-        @apply text-error;
-      }
+    &[data-callout='warning'],
+    &[data-callout='attention'],
+    &[data-callout='caution'],
+    &[data-callout='question'] {
+      --color-blockquote-callout: var(--color-warning);
+    }
+    &[data-callout='danger'],
+    &[data-callout='bug'],
+    &[data-callout='failure'],
+    &[data-callout='fail'],
+    &[data-callout='missing'] {
+      --color-blockquote-callout: var(--color-error);
+    }
+    &[data-callout='example'] {
+      --color-blockquote-callout: var(--color-indigo-500);
     }
   }
 
