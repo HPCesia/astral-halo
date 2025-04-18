@@ -1,3 +1,6 @@
+// WARNING: This file will be bundled into the build product.
+// DO NOT add any sensitive information here.
+// 警告: 该文件会被打包到构建产物中, 不要在此添加任何敏感信息
 import type {
   ArticleConfig,
   AsideConfig,
