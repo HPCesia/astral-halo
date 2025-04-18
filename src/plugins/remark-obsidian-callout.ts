@@ -147,6 +147,7 @@ export const remarkObsidianCallout: RemarkPlugin = function () {
                   type: 'text',
                   value: remainContents,
                 },
+                ...paragraph.children.slice(1),
               ],
             },
           ],
