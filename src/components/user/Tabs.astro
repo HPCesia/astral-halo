@@ -17,11 +17,15 @@ const html = (await Astro.slots.render('default')).replaceAll(/{{{tabs-name}}}/g
 </div>
 
 <script>
-  import { syncTabs } from '@scripts/stores';
-  import { listenKeys } from 'nanostores';
+  interface SyncTabs {
+    [key: string]: number;
+  }
 
-  function init() {
+  async function init() {
     const tabsNeedSync = document.querySelectorAll('.tabs[data-sync-key]');
+    if (tabsNeedSync.length === 0) return;
+    const { listenKeys, map } = await import('nanostores');
+    const syncTabs = map<SyncTabs>();
     tabsNeedSync.forEach((tab) => {
       const syncKey = tab.getAttribute('data-sync-key')!;
       const tabItems: NodeListOf<HTMLInputElement> = tab.querySelectorAll(
@@ -57,5 +61,5 @@ const html = (await Astro.slots.render('default')).replaceAll(/{{{tabs-name}}}/g
   }
 
   document.addEventListener('astro:after-swap', init);
-  init();
+  await init();
 </script>
