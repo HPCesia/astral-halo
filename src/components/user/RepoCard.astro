@@ -1,26 +1,69 @@
 ---
 import { Icon } from 'astro-icon/components';
 
-interface Props {
+type Platform = {
+  /**
+   * The platform type of the repository
+   *
+   * 存储库的平台类型
+   */
+  platform: string;
+};
+
+interface GithubPlatform extends Platform {
+  platform: 'github';
+}
+
+interface GiteaPlatform extends Platform {
+  platform: 'gitea' | 'forgejo';
+  /**
+   * The host of the Gitea/Forgejo instance
+   *
+   * Gitea/Forgejo 实例的主机地址
+   *
+   * @example 'https://gitea.example.com'
+   */
+  host: string;
+  /**
+   * The Iconify icon name of the Gitea/Forgejo instance
+   *
+   * Gitea/Forgejo 实例的 Iconify 图标名称
+   */
+  icon?: string;
+}
+
+type AllPlatform = GithubPlatform | GiteaPlatform;
+
+type Props = {
   repo:
     | {
         owner: string;
         name: string;
       }
     | `${string}/${string}`;
-  platform: 'github';
-}
+} & AllPlatform;
 
 const { repo, platform } = Astro.props;
 const repoName = typeof repo === 'string' ? repo : `${repo.owner}/${repo.name}`;
 
 let url: string;
-let platformIconName: string;
+let icon: string;
 
 switch (platform) {
   case 'github': {
     url = `https://github.com/${repoName}/`;
-    platformIconName = 'mdi:github';
+    icon = 'mdi:github';
+    break;
+  }
+  case 'gitea':
+  case 'forgejo': {
+    const { host, icon: hostIcon } = Astro.props;
+    url = `${host}/${repoName}/`;
+    icon = hostIcon || `simple-icons:${platform}`;
+    break;
+  }
+  default: {
+    throw new Error(`Unsupported platform: ${platform} for RepoCard`);
   }
 }
 ---
@@ -34,7 +77,7 @@ switch (platform) {
   <div class="card-body p-4">
     <div class="card-title mb-4 justify-between">
       <span class="text-xl">{repoName}</span>
-      <Icon name={platformIconName} height="3rem" width="3rem" />
+      <Icon name={icon} height="3rem" width="3rem" />
     </div>
     <div class="repo-card-desc flex flex-col gap-2">
       <div class="skeleton h-4 w-full"></div>
@@ -62,7 +105,7 @@ switch (platform) {
 </a>
 
 <script>
-  const allPlatform = ['github'] as const;
+  const allPlatform = ['github', 'gitea', 'forgejo'] as const;
   type Platform = (typeof allPlatform)[number];
 
   interface RepoMeta {
@@ -132,7 +175,7 @@ switch (platform) {
             const repoMeta: RepoMeta = {
               description: meta.data.description,
               language: meta.data.language,
-              license: meta.data.license?.name || null,
+              license: meta.data.license?.spdx_id || null,
               forks: meta.data.forks_count,
               stars: meta.data.stargazers_count,
             };
@@ -140,6 +183,33 @@ switch (platform) {
             updateCardUI(card, repoMeta);
           });
           break;
+        }
+        case 'gitea':
+        case 'forgejo': {
+          cards.forEach(async (card) => {
+            const url = card.getAttribute('href');
+            const repoName = card.getAttribute('data-repo')!;
+            const host = url?.substring(0, url.indexOf(repoName) - 1);
+            if (!host) return;
+
+            try {
+              const response = await fetch(`${host}/api/v1/repos/${repoName}`);
+              const data = await response.json();
+              const repoMeta: RepoMeta = {
+                description: data.description,
+                language: data.language,
+                // Gitea and Forgejo do not provide license information in the API response.
+                // And infer license type on client side is expensive.
+                license: null,
+                forks: data.forks_count,
+                stars: data.stars_count,
+              };
+
+              updateCardUI(card, repoMeta);
+            } catch (error) {
+              console.error(`Failed to fetch repo data for ${repoName}:`, error);
+            }
+          });
         }
       }
     });
