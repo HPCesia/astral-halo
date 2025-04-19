@@ -21,7 +21,7 @@ import type {
 export const siteConfig: SiteConfig = {
   title: 'Astral Halo',
   subtitle: 'A static blog template powered by Astro',
-  lang: 'zh_CN', // "en" | "zh_CN" | "zh_TW"
+  lang: 'en', // "en" | "zh_CN" | "zh_TW"
   createAt: new Date('2025-01-01'),
   postsPerPage: 10,
   banner: {
