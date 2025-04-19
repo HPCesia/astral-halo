@@ -20,8 +20,8 @@
     "@astrojs/vue": "^5.0.10",
     "@iconify-json/material-symbols": "^1.2.19",
     "@iconify-json/mdi": "^1.2.3",
-    "@iconify-json/simple-icons": "^1.2.3",
     "@iconify-json/mingcute": "^1.2.3",
+    "@iconify-json/simple-icons": "^1.2.3",
     "@iconify/utils": "^2.3.0",
     "@octokit/request": "^9.2.3",
     "@shikijs/transformers": "^3.2.2",
@@ -32,6 +32,8 @@
     "@swup/scripts-plugin": "^2.1.0",
     "@swup/scroll-plugin": "^3.3.2",
     "@tailwindcss/vite": "^4.1.4",
+    "@vite-pwa/assets-generator": "^1.0.0",
+    "@vite-pwa/astro": "^1.0.1",
     "astro": "^5.7.0",
     "astro-compress": "2.3.5",
     "astro-icon": "^1.1.5",
@@ -61,6 +63,7 @@
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",
     "unist-util-visit": "^5.0.0",
+    "vite-plugin-pwa": "^1.0.0",
     "vue": "^3.5.13"
   },
   "devDependencies": {

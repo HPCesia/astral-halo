@@ -2,13 +2,13 @@
 import { profileConfig, searchConfig, siteConfig, toolBarConfig } from '@/config';
 import '@/styles/global.css';
 import '@/styles/transition.css';
-import type { Favicon } from '@/types/config';
 import Banner from '@components/Banner.astro';
 import Navbar from '@components/Navbar.astro';
 import PageFooter from '@components/PageFooter.astro';
 import Search from '@components/Search.astro';
 import SideToolBar from '@components/SideToolBar.astro';
-import { defaultFavicons } from '@constants/icon';
+import { pwaAssetsHead } from 'virtual:pwa-assets/head';
+import { pwaInfo } from 'virtual:pwa-info';
 
 interface Props {
   title?: string;
@@ -30,9 +30,6 @@ else
 
 if (!lang) lang = `${siteConfig.lang}`;
 const siteLang = lang.replace('_', '-');
-
-const favicons: Favicon[] =
-  siteConfig.favicon.length > 0 ? siteConfig.favicon : defaultFavicons;
 ---
 
 <!doctype html>
@@ -59,18 +56,13 @@ const favicons: Favicon[] =
     <meta name="generator" content={Astro.generator} />
 
     {
-      favicons.map((favicon) => (
-        <link
-          rel="icon"
-          href={
-            favicon.src.startsWith('/')
-              ? ['', import.meta.env.BASE_URL, favicon.src].join('/').replace(/\/+/g, '/')
-              : favicon.src
-          }
-          sizes={favicon.sizes}
-        />
-      ))
+      pwaAssetsHead.themeColor && (
+        <meta name="theme-color" content={pwaAssetsHead.themeColor.content} />
+      )
     }
+    {pwaAssetsHead.links.map((link) => <link {...link} />)}
+    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+    <script src="@scripts/pwa.ts"></script>
 
     <link
       rel="alternate"

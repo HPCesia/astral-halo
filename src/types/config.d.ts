@@ -124,12 +124,6 @@ export type SiteConfig = {
    */
   lang: string;
   /**
-   * The favicon of the site.
-   *
-   * 站点的 favicon。
-   */
-  favicon: Favicon[];
-  /**
    * The time when the site was created.
    *
    * 站点建立时间

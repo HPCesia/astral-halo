@@ -1,4 +1,5 @@
 // @ts-check
+import { siteConfig } from './src/config.ts';
 import { CDN } from './src/constants/cdn.ts';
 import { rehypeComponentsList } from './src/plugins/rehype-components-list.ts';
 import { rehypePrettierCodes } from './src/plugins/rehype-prettier-codes.ts';
@@ -18,6 +19,7 @@ import vue from '@astrojs/vue';
 // import { transformerNotationDiff } from '@shikijs/transformers';
 // import { transformerNotationHighlight } from '@shikijs/transformers';
 import tailwindcss from '@tailwindcss/vite';
+import AstroPWA from '@vite-pwa/astro';
 import icon from 'astro-icon';
 import pagefind from 'astro-pagefind';
 import { defineConfig } from 'astro/config';
@@ -38,6 +40,27 @@ export default defineConfig({
     icon(),
     sitemap({ filter: (page) => !page.includes('/archives/') && !page.includes('/about/') }),
     pagefind(),
+    AstroPWA({
+      manifest: {
+        name: siteConfig.title,
+        short_name: siteConfig.title,
+        description: siteConfig.subtitle,
+        lang: siteConfig.lang,
+        theme_color: '#4f94c9', // Should be the same as the primary color in src/styles/global.css
+        background_color: '#f2e8e0', // Should be the same as the base-100 color in src/styles/global.css
+      },
+      pwaAssets: {
+        config: true,
+      },
+      workbox: {
+        navigateFallback: '/',
+        globPatterns: ['**/*.{css,js,html,svg,png,ico,txt}'],
+      },
+      devOptions: {
+        enabled: true,
+        navigateFallbackAllowlist: [/^\/$/],
+      },
+    }),
     mdx(),
     vue(),
   ],
@@ -97,5 +120,10 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      rollupOptions: {
+        external: ['workbox-window'],
+      },
+    },
   },
 });

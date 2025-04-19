@@ -1,6 +1,8 @@
 // WARNING: This file will be bundled into the build product.
 // DO NOT add any sensitive information here.
 // 警告: 该文件会被打包到构建产物中, 不要在此添加任何敏感信息
+import I18nKey from './i18n/I18nKey';
+import { getRandomPost } from './scripts/utils';
 import type {
   ArticleConfig,
   AsideConfig,
@@ -15,17 +17,11 @@ import type {
   SiteConfig,
   ToolBarConfig,
 } from './types/config';
-import I18nKey from '@i18n/I18nKey';
-import { getRandomPost } from '@scripts/utils';
 
 export const siteConfig: SiteConfig = {
   title: 'Astral Halo',
   subtitle: 'A static blog template powered by Astro',
-  lang: 'en', // "en" | "zh_CN" | "zh_TW"
-  favicon: [
-    // Leave this array empty to use the default favicon.
-    // 留空数组以使用默认的 favicon。
-  ],
+  lang: 'zh_CN', // "en" | "zh_CN" | "zh_TW"
   createAt: new Date('2025-01-01'),
   postsPerPage: 10,
   banner: {
