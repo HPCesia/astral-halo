@@ -26,7 +26,7 @@ Astral Halo 是一個基於 [Astro](https://astro.build) 開發的靜態部落�
 - [x] 各種各樣可在文章中使用的元件
 - [ ] 流暢的動畫和頁面過渡
 - [ ] 實用 JS 指令碼工具
-- [ ] PWA 支援
+- [x] PWA 支援
 
 ## 使用方法
 

@@ -26,7 +26,7 @@ Astral Halo 是一个基于 [Astro](https://astro.build) 开发的静态博客�
 - [x] 各种各样可在文章中使用的组件
 - [ ] 流畅的动画和页面过渡
 - [ ] 实用 JS 脚本工具
-- [ ] PWA 支持
+- [x] PWA 支持
 
 ## 使用方法
 
