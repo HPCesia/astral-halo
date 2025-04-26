@@ -39,7 +39,11 @@ const bannerHeight = getBannerHeight(path.pathname);
 <div
   id="banner"
   class="relative max-h-screen overflow-hidden duration-1000"
-  style=`height: ${bannerHeight}; scale: 105%;`
+  style={{
+    height: bannerHeight,
+    scale: '105%',
+    'transition-property': 'height transform',
+  }}
 >
   <div class="h-full w-full">
     <div id="banner-text">
