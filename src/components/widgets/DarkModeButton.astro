@@ -7,13 +7,15 @@ import Button from './Button.astro';
 
 interface Props extends Omit<HTMLAttributes<'button'>, 'onclick'> {
   showText?: boolean;
+  useDefaultBtnClass?: boolean;
 }
 
-const { class: className, showText, ...rest } = Astro.props;
+const { class: className, showText, useDefaultBtnClass, ...rest } = Astro.props;
 ---
 
 <Button
   class:list={['darkmode-btn swap swap-rotate', className]}
+  useDefaultClass={useDefaultBtnClass}
   {...rest}
   data-text-light={i18n(I18nKey.lightMode)}
   data-text-dark={i18n(I18nKey.darkMode)}

@@ -5,6 +5,7 @@ enum I18nKey {
   search = 'search',
   links = 'links',
   time = 'time',
+  menu = 'menu',
 
   tags = 'tags',
   categories = 'categories',

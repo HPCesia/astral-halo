@@ -1,8 +1,10 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = HTMLAttributes<'button'> | HTMLAttributes<'a'>;
-let { class: className, ...rest } = Astro.props;
+type Props = (HTMLAttributes<'button'> | HTMLAttributes<'a'>) & {
+  useDefaultClass?: boolean;
+};
+let { class: className, useDefaultClass, ...rest } = Astro.props;
 
 function isAnchor(props: Props): props is HTMLAttributes<'a'> {
   return 'href' in props;
@@ -11,6 +13,6 @@ function isAnchor(props: Props): props is HTMLAttributes<'a'> {
 const Tag = isAnchor(rest) ? 'a' : 'button';
 ---
 
-<Tag class:list={['btn', className]} {...rest as object}>
+<Tag class:list={[(useDefaultClass ?? true) && 'btn', className]} {...rest as object}>
   <slot />
 </Tag>

@@ -1,5 +1,6 @@
 ---
 import { navbarConfig, siteConfig } from '@/config';
+import I18nKey from '@i18n/I18nKey';
 import { i18n } from '@i18n/translation';
 import { Icon } from 'astro-icon/components';
 import Button from './widgets/Button.astro';
@@ -124,7 +125,11 @@ if (!title) title = 'Astral Halo';
           }
         </div>
         <div class="md:hidden">
-          <label for="sidebar-drawer" class="btn btn-circle btn-ghost btn-primary">
+          <label
+            for="sidebar-drawer"
+            class="btn btn-circle btn-ghost btn-primary"
+            title={i18n(I18nKey.menu)}
+          >
             <Icon name="material-symbols:menu-rounded" height="1.5rem" width="1.5rem" />
           </label>
         </div>
@@ -137,15 +142,20 @@ if (!title) title = 'Astral Halo';
   <div class="drawer-side z-50">
     <!-- Sidebar -->
     <label for="sidebar-drawer" class="drawer-overlay"></label>
-    <ul class="menu bg-base-200 min-h-full w-[min(calc(100%-3rem),20rem)] p-4">
-      <li><DarkModeButton class="btn-ghost text-xl" showText={true} /></li>
+    <ul
+      class="menu from-base-100 to-base-300 dark:from-base-300 dark:to-base-100 min-h-full w-[min(calc(100%-3rem),20rem)] bg-linear-150 p-4"
+    >
+      <li>
+        <DarkModeButton class="text-xl" showText={true} useDefaultBtnClass={false} />
+      </li>
+      <div class="divider text-lg font-bold">{i18n(I18nKey.menu)}</div>
       {
         navbarConfig.navbarCenterItems.map((item) => {
           if ('items' in item) {
             return (
               <li>
                 <details>
-                  <summary class="justify-center text-xl font-bold">{i18n(item.title)}</summary>
+                  <summary class="text-xl">{i18n(item.title)}</summary>
                   <ul>
                     {item.items.map((subItem) => (
                       <li>
@@ -161,7 +171,7 @@ if (!title) title = 'Astral Halo';
                               ? { onclick: subItem.onclick }
                               : { id: 'side-' + subItem.onclick.id }))}
                           title={i18n(subItem.text)}
-                          class="btn-ghost"
+                          useDefaultClass={false}
                         >
                           <span class="text-xl">{i18n(subItem.text)}</span>
                         </Button>
@@ -186,7 +196,7 @@ if (!title) title = 'Astral Halo';
                       ? { onclick: item.onclick }
                       : { id: 'side-' + item.onclick.id }))}
                   title={i18n(item.text)}
-                  class="btn-ghost"
+                  useDefaultClass={false}
                 >
                   <span class="text-xl">{i18n(item.text)}</span>
                 </Button>
@@ -206,7 +216,7 @@ if (!title) title = 'Astral Halo';
                 (typeof item.onclick === 'string'
                   ? { onclick: item.onclick }
                   : { id: 'side-' + item.onclick.id }))}
-              class="btn-ghost"
+              useDefaultClass={false}
             >
               <Icon name={item.icon} height="1.5rem" width="1.5rem" />
               <span class="text-xl">{i18n(item.text)}</span>
