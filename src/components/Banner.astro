@@ -50,7 +50,7 @@ const bannerHeight = getBannerHeight(path.pathname);
       {
         Astro.url.pathname === '/' && siteConfig.banner && siteConfig.banner.text !== null && (
           <h1 class="absolute z-10 grid h-full w-full place-items-center text-4xl font-bold text-shadow-md md:px-12">
-            <span>{siteConfig.banner.text || siteConfig.subtitle}</span>
+            <span class="text-center">{siteConfig.banner.text || siteConfig.subtitle}</span>
           </h1>
         )
       }
