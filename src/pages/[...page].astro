@@ -1,7 +1,7 @@
 ---
 import { asideConfig, commentConfig, siteConfig } from '@/config';
 import ProfileCard from '@components/aside/ProfileCard.astro';
-import ResentCommentsCard from '@components/aside/RecentCommentsCard.vue';
+import RecentCommentsCard from '@components/aside/RecentCommentsCard.vue';
 import SiteInfoCard from '@components/aside/SiteInfoCard.astro';
 import CategoryBar from '@components/misc/CategoryBar.astro';
 import PostsPage from '@components/PostsPage.astro';
@@ -38,7 +38,7 @@ const categories = await getCategories();
   <Fragment slot="aside-sticky">
     {
       commentConfig.enable && asideConfig.recentComment.enable && (
-        <ResentCommentsCard client:visible />
+        <RecentCommentsCard client:visible />
       )
     }
   </Fragment>
