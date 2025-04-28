@@ -1,4 +1,6 @@
 ---
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
 import { Icon } from 'astro-icon/components';
 import Button from './Button.astro';
 
@@ -43,11 +45,17 @@ else {
 }
 ---
 
-<div id="pagination" class="flex w-full justify-between max-md:px-2">
+<nav id="pagination" class="flex w-full justify-between max-md:px-2">
   <div>
     {
       current > 1 && (
-        <Button id="prev-page-btn" class="btn-primary" href={getPageUrl(current - 1)}>
+        <Button
+          id="prev-page-btn"
+          class="btn-primary"
+          href={getPageUrl(current - 1)}
+          title={i18n(I18nKey.prevPage)}
+          aria-label={i18n(I18nKey.prevPage)}
+        >
           <Icon name="material-symbols:chevron-left-rounded" class="my-1 text-2xl" />
         </Button>
       )
@@ -101,13 +109,19 @@ else {
   <div>
     {
       current < total && (
-        <Button id="next-page-btn" class="btn-primary" href={getPageUrl(current + 1)}>
+        <Button
+          id="next-page-btn"
+          class="btn-primary"
+          href={getPageUrl(current + 1)}
+          title={i18n(I18nKey.nextPage)}
+          aria-label={i18n(I18nKey.nextPage)}
+        >
           <Icon name="material-symbols:chevron-right-rounded" class="my-1 text-2xl" />
         </Button>
       )
     }
   </div>
-</div>
+</nav>
 
 <style>
   /* hide arrows from number input */

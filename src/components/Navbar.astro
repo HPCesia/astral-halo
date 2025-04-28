@@ -55,6 +55,7 @@ if (!title) title = 'Astral Halo';
                               ? { onclick: subItem.onclick }
                               : { id: 'side-' + subItem.onclick.id }))}
                           title={i18n(subItem.text)}
+                          aria-label={i18n(subItem.text)}
                           class="btn-ghost btn-primary rounded-field"
                         >
                           <span class="text-xl tracking-wide">{i18n(subItem.text)}</span>
@@ -78,6 +79,7 @@ if (!title) title = 'Astral Halo';
                       ? { onclick: item.onclick }
                       : { id: 'side-' + item.onclick.id }))}
                   title={i18n(item.text)}
+                  aria-label={i18n(item.text)}
                   class="btn-ghost join-item btn-primary"
                 >
                   <span class="text-xl tracking-wide">{i18n(item.text)}</span>
@@ -95,6 +97,7 @@ if (!title) title = 'Astral Halo';
                 class="nav-menu-item btn-circle btn-ghost btn-primary"
                 {...('href' in item && item.href && { href: item.href })}
                 title={i18n(item.text)}
+                aria-label={i18n(item.text)}
                 {...('onclick' in item &&
                   item.onclick &&
                   (typeof item.onclick === 'string'
@@ -113,6 +116,7 @@ if (!title) title = 'Astral Halo';
                 class="nav-menu-item btn-circle btn-ghost btn-primary"
                 {...('href' in item && item.href && { href: item.href })}
                 title={i18n(item.text)}
+                aria-label={i18n(item.text)}
                 {...('onclick' in item &&
                   item.onclick &&
                   (typeof item.onclick === 'string'
@@ -128,7 +132,9 @@ if (!title) title = 'Astral Halo';
           <label
             for="sidebar-drawer"
             class="btn btn-circle btn-ghost btn-primary"
-            title={i18n(I18nKey.menu)}
+            tabindex="0"
+            title={`${i18n(I18nKey.open)} ${i18n(I18nKey.menu)}`}
+            aria-label={`${i18n(I18nKey.open)} ${i18n(I18nKey.menu)}`}
           >
             <Icon name="material-symbols:menu-rounded" height="1.5rem" width="1.5rem" />
           </label>
@@ -141,8 +147,13 @@ if (!title) title = 'Astral Halo';
   </div>
   <div class="drawer-side z-50">
     <!-- Sidebar -->
-    <label for="sidebar-drawer" class="drawer-overlay"></label>
+    <label
+      for="sidebar-drawer"
+      class="drawer-overlay"
+      title={`${i18n(I18nKey.close)} ${i18n(I18nKey.menu)}`}
+      aria-label={`${i18n(I18nKey.close)} ${i18n(I18nKey.menu)}`}></label>
     <ul
+      role="navigation"
       class="menu from-base-100 to-base-300 dark:from-base-300 dark:to-base-100 min-h-full w-[min(calc(100%-3rem),20rem)] bg-linear-150 p-4"
     >
       <li>
@@ -171,6 +182,7 @@ if (!title) title = 'Astral Halo';
                               ? { onclick: subItem.onclick }
                               : { id: 'side-' + subItem.onclick.id }))}
                           title={i18n(subItem.text)}
+                          aria-label={i18n(subItem.text)}
                           useDefaultClass={false}
                         >
                           <span class="text-xl">{i18n(subItem.text)}</span>
@@ -196,6 +208,7 @@ if (!title) title = 'Astral Halo';
                       ? { onclick: item.onclick }
                       : { id: 'side-' + item.onclick.id }))}
                   title={i18n(item.text)}
+                  aria-label={i18n(item.text)}
                   useDefaultClass={false}
                 >
                   <span class="text-xl">{i18n(item.text)}</span>
@@ -211,6 +224,7 @@ if (!title) title = 'Astral Halo';
             <Button
               {...('href' in item && item.href && { href: item.href })}
               title={i18n(item.text)}
+              aria-label={i18n(item.text)}
               {...('onclick' in item &&
                 item.onclick &&
                 (typeof item.onclick === 'string'

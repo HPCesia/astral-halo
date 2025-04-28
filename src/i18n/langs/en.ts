@@ -9,6 +9,11 @@ export const en: Translation = {
   [Key.links]: 'Links',
   [Key.time]: 'Time',
   [Key.menu]: 'Menu',
+  [Key.close]: 'Close',
+  [Key.open]: 'Open',
+
+  [Key.prevPage]: 'Previous Page',
+  [Key.nextPage]: 'Next Page',
 
   [Key.tags]: 'Tags',
   [Key.categories]: 'Categories',
@@ -40,7 +45,13 @@ export const en: Translation = {
   [Key.categoryCount]: 'category',
   [Key.categoriesCount]: 'categories',
 
+  [Key.searchResults]: 'Search Results',
+  [Key.noSearchResults]: 'No Results Found',
+
   [Key.toc]: 'Table of Content',
+
+  [Key.toolBar]: 'Tool Bar',
+  [Key.toolBarReadingPercentage]: 'Reading Percentage',
 
   [Key.themeToggle]: 'Toggle Theme',
   [Key.lightMode]: 'Light',

@@ -6,6 +6,11 @@ enum I18nKey {
   links = 'links',
   time = 'time',
   menu = 'menu',
+  close = 'close',
+  open = 'open',
+
+  prevPage = 'prevPage',
+  nextPage = 'nextPage',
 
   tags = 'tags',
   categories = 'categories',
@@ -37,7 +42,13 @@ enum I18nKey {
   categoryCount = 'categoryCount',
   categoriesCount = 'categoriesCount',
 
+  searchResults = 'searchResults',
+  noSearchResults = 'noSearchResults',
+
   toc = 'toc',
+
+  toolBar = 'toolBar',
+  toolBarReadingPercentage = 'toolBarReadingPercentage',
 
   themeToggle = 'themeToggle',
   lightMode = 'lightMode',

@@ -66,11 +66,15 @@ onUnmounted(() => {
       class="btn btn-circle btn-secondary btn-sm"
       @click="isOpen = !isOpen"
       :title="i18n(I18nKey.toc)"
+      :aria-label="i18n(I18nKey.toc)"
+      :aria-expanded="isOpen"
+      :aria-controls="'stb-toc-wrapper'"
     >
       <slot name="icon" />
     </button>
     <div
       ref="tocWrapper"
+      id="stb-toc-wrapper"
       class="rounded-box absolute w-[calc(100vw-4rem)] -translate-x-1/2 -translate-y-1/2 max-w-72 backdrop-blur-md duration-300 text-base-content text-start"
       :inert="!isOpen || isWideScreen"
       :class="{

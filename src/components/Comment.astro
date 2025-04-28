@@ -4,9 +4,11 @@ import Artalk from '@components/comment/Artalk.astro';
 import Giscus from '@components/comment/Giscus.astro';
 import Twikoo from '@components/comment/Twikoo.astro';
 import Waline from '@components/comment/Waline.astro';
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
 ---
 
-<div id="page-comment">
+<div id="page-comment" title={i18n(I18nKey.comments)} aria-label={i18n(I18nKey.comments)}>
   {
     (() => {
       switch (commentConfig.provider) {

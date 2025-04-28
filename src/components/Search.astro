@@ -9,7 +9,11 @@ import Pagefind from './search/Pagefind.vue';
 <dialog id="search_modal" class="modal">
   <div class="modal-box">
     <form method="dialog">
-      <button class="btn btn-circle btn-ghost btn-sm absolute top-2 right-2">✕</button>
+      <button
+        class="btn btn-circle btn-ghost btn-sm absolute top-2 right-2"
+        title={i18n(I18nKey.close)}
+        aria-label={i18n(I18nKey.close)}>✕</button
+      >
     </form>
     <div class="w-full p-4">
       {
@@ -21,7 +25,11 @@ import Pagefind from './search/Pagefind.vue';
                   <label class="input input-bordered flex w-full items-center gap-2">
                     <input
                       id="search-input"
-                      type="text"
+                      type="search"
+                      spellcheck="false"
+                      autocorrect="off"
+                      autocomplete="off"
+                      autocapitalize="off"
                       class="grow"
                       placeholder={i18n(I18nKey.search)}
                     />
@@ -60,6 +68,6 @@ import Pagefind from './search/Pagefind.vue';
     </div>
   </div>
   <form method="dialog" class="modal-backdrop">
-    <button>close</button>
+    <button>{i18n(I18nKey.close)}</button>
   </form>
 </dialog>

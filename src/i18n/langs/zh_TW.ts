@@ -9,6 +9,11 @@ export const zh_TW: Translation = {
   [Key.links]: '連結',
   [Key.time]: '時間',
   [Key.menu]: '選單',
+  [Key.close]: '關閉',
+  [Key.open]: '開啟',
+
+  [Key.prevPage]: '上一頁',
+  [Key.nextPage]: '下一頁',
 
   [Key.tags]: '標籤',
   [Key.categories]: '分類',
@@ -40,7 +45,13 @@ export const zh_TW: Translation = {
   [Key.categoryCount]: '個分類',
   [Key.categoriesCount]: '個分類',
 
+  [Key.searchResults]: '搜尋結果',
+  [Key.noSearchResults]: '沒有找到結果',
+
   [Key.toc]: '目錄',
+
+  [Key.toolBar]: '工具列',
+  [Key.toolBarReadingPercentage]: '閱讀進度',
 
   [Key.themeToggle]: '主題切換',
   [Key.lightMode]: '亮色',

@@ -8,7 +8,11 @@ import DarkModeButton from './widgets/DarkModeButton.astro';
 import TocButton from './widgets/SideToolBar/TocButton.vue';
 ---
 
-<div id="side-toolbar" class="fixed right-0 bottom-10 z-30 grid grid-cols-1 gap-2">
+<div
+  id="side-toolbar"
+  class="fixed right-0 bottom-10 z-30 grid grid-cols-1 gap-2"
+  aria-label={i18n(I18nKey.toolBar)}
+>
   <div
     id="stb-hide"
     class="grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
@@ -19,25 +23,30 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
         const { icon, text } = item;
         if ('href' in item)
           return (
-            <Button href={item.href} target={item.blank ? '_blank' : undefined} title={text}>
+            <Button
+              href={item.href}
+              target={item.blank ? '_blank' : undefined}
+              title={text}
+              aria-label={text}
+            >
               <Icon name={icon} slot="icon" />
             </Button>
           );
         if ('onclick' in item) {
           if (typeof item.onclick === 'string')
             return (
-              <Button onclick={item.onclick}>
+              <Button onclick={item.onclick} title={text} aria-label={text}>
                 <Icon name={icon} slot="icon" />
               </Button>
             );
           return (
-            <Button id={`stb-${item.onclick!.id}`} title={text}>
+            <Button id={`stb-${item.onclick!.id}`} title={text} aria-label={text}>
               <Icon name={icon} slot="icon" />
             </Button>
           );
         }
         return (
-          <Button title={text}>
+          <Button title={text} aria-label={text}>
             <Icon name={icon} slot="icon" />
           </Button>
         );
@@ -68,6 +77,7 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
     <Button id="stb-back-to-top" class="group btn-circle btn-secondary btn-sm">
       <span
         id="stb-read-percentage"
+        aria-label={i18n(I18nKey.toolBarReadingPercentage)}
         class="absolute text-sm opacity-0 duration-300 group-hover:opacity-0">0</span
       >
       <Icon

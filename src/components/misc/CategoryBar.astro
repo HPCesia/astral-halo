@@ -15,7 +15,12 @@ const { categories, currentCategory } = Astro.props;
   id="category-bar"
   class="card border-base-300 bg-base-200/25 swup-transition-slide mb-4 w-full border"
 >
-  <div class="card-body flex flex-row items-center gap-2 overflow-auto px-2 py-3">
+  <nav
+    class="card-body flex flex-row items-center gap-2 overflow-auto px-2 py-3"
+    title={i18n(I18nKey.categories)}
+    aria-label={i18n(I18nKey.categories)}
+    role="navigation"
+  >
     <a
       href={`/`}
       class:list={[
@@ -38,7 +43,7 @@ const { categories, currentCategory } = Astro.props;
         </a>
       ))
     }
-  </div>
+  </nav>
 </div>
 
 <script>

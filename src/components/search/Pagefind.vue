@@ -3,6 +3,8 @@ import type {
   PagefindSearchResult,
   PagefindSearchResults,
 } from '@/types/PagefindSearchAPI.d.ts';
+import I18nKey from '@i18n/I18nKey';
+import { i18n } from '@i18n/translation';
 import { type Ref, onMounted, ref } from 'vue';
 
 const isLoading = ref(false);
@@ -107,6 +109,8 @@ defineExpose({
     <slot></slot>
     <div
       class="search-result mt-4 flex h-fit max-h-[calc(60vh-8rem)] flex-col items-center gap-2 overflow-y-auto text-center"
+      :aria-label="i18n(I18nKey.searchResults)"
+      tabindex="-1"
     >
       <template v-if="isLoading">
         <div v-for="i in 2" :key="i" class="w-full rounded-md p-2">
@@ -117,7 +121,7 @@ defineExpose({
           <div class="skeleton mt-1 h-4 w-3/4"></div>
         </div>
       </template>
-      <template v-else-if="noResults"> No results found </template>
+      <template v-else-if="noResults">{{ i18n(I18nKey.noSearchResults) }}</template>
       <template v-else>
         <a
           v-for="result in searchResults"

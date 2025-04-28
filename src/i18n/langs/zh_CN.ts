@@ -9,6 +9,11 @@ export const zh_CN: Translation = {
   [Key.links]: '友链',
   [Key.time]: '时间',
   [Key.menu]: '菜单',
+  [Key.close]: '关闭',
+  [Key.open]: '打开',
+
+  [Key.prevPage]: '上一页',
+  [Key.nextPage]: '下一页',
 
   [Key.tags]: '标签',
   [Key.categories]: '分类',
@@ -40,7 +45,13 @@ export const zh_CN: Translation = {
   [Key.categoryCount]: '个分类',
   [Key.categoriesCount]: '个分类',
 
+  [Key.searchResults]: '搜索结果',
+  [Key.noSearchResults]: '没有找到结果',
+
   [Key.toc]: '目录',
+
+  [Key.toolBar]: '工具栏',
+  [Key.toolBarReadingPercentage]: '阅读进度',
 
   [Key.themeToggle]: '主题切换',
   [Key.lightMode]: '亮色',
