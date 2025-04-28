@@ -1,6 +1,8 @@
 ---
-import { siteConfig } from '@/config';
+import { asideConfig, commentConfig, siteConfig } from '@/config';
 import ProfileCard from '@components/aside/ProfileCard.astro';
+import RecentCommentsCard from '@components/aside/RecentCommentsCard.vue';
+import SiteInfoCard from '@components/aside/SiteInfoCard.astro';
 import CategoryBar from '@components/misc/CategoryBar.astro';
 import PostsPage from '@components/PostsPage.astro';
 import I18nKey from '@i18n/I18nKey';
@@ -45,5 +47,13 @@ const categories = await getCategories();
   />
   <Fragment slot="aside-fixed">
     <ProfileCard />
+    <SiteInfoCard />
+  </Fragment>
+  <Fragment slot="aside-sticky">
+    {
+      commentConfig.enable && asideConfig.recentComment.enable && (
+        <RecentCommentsCard client:visible />
+      )
+    }
   </Fragment>
 </MainLayout>
