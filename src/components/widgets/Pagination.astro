@@ -45,24 +45,26 @@ else {
 }
 ---
 
-<nav id="pagination" class="flex w-full justify-between max-md:px-2">
-  <div>
-    {
-      current > 1 && (
-        <Button
-          id="prev-page-btn"
-          class="btn-primary"
-          href={getPageUrl(current - 1)}
-          title={i18n(I18nKey.prevPage)}
-          aria-label={i18n(I18nKey.prevPage)}
-          rel="prev"
-        >
-          <Icon name="material-symbols:chevron-left-rounded" class="my-1 text-2xl" />
-        </Button>
-      )
-    }
-  </div>
-  <div class="max-2xs:hidden mx-auto flex items-center justify-center gap-2">
+<nav id="pagination" class="relative flex min-h-10 w-full justify-between max-md:px-2">
+  {
+    current > 1 && (
+      <Button
+        id="prev-page-btn"
+        class:list={[
+          'btn-primary absolute left-2 md:left-0',
+          current < total ? 'max-xs:w-[calc(50%-1rem)]' : 'max-xs:w-[calc(100%-1rem)]',
+        ]}
+        href={getPageUrl(current - 1)}
+        title={i18n(I18nKey.prevPage)}
+        aria-label={i18n(I18nKey.prevPage)}
+        rel="prev"
+      >
+        <Icon name="material-symbols:chevron-left-rounded" class="my-1 text-2xl" />
+        <span class="xs:hidden">{i18n(I18nKey.prevPage)}</span>
+      </Button>
+    )
+  }
+  <div class="max-xs:hidden mx-auto flex items-center justify-center gap-2">
     <div class={pages.length > 1 ? 'join' : undefined}>
       {
         pages.map((p) => {
@@ -107,22 +109,24 @@ else {
       )
     }
   </div>
-  <div>
-    {
-      current < total && (
-        <Button
-          id="next-page-btn"
-          class="btn-primary"
-          href={getPageUrl(current + 1)}
-          title={i18n(I18nKey.nextPage)}
-          aria-label={i18n(I18nKey.nextPage)}
-          rel="next"
-        >
-          <Icon name="material-symbols:chevron-right-rounded" class="my-1 text-2xl" />
-        </Button>
-      )
-    }
-  </div>
+  {
+    current < total && (
+      <Button
+        id="next-page-btn"
+        class:list={[
+          'btn-primary absolute right-2 md:right-0',
+          current > 1 ? 'max-xs:w-[calc(50%-1rem)]' : 'max-xs:w-[calc(100%-1rem)]',
+        ]}
+        href={getPageUrl(current + 1)}
+        title={i18n(I18nKey.nextPage)}
+        aria-label={i18n(I18nKey.nextPage)}
+        rel="next"
+      >
+        <span class="xs:hidden">{i18n(I18nKey.nextPage)}</span>
+        <Icon name="material-symbols:chevron-right-rounded" class="my-1 text-2xl" />
+      </Button>
+    )
+  }
 </nav>
 
 <style>
