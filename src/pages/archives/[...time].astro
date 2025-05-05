@@ -9,13 +9,15 @@ import { i18n } from '@i18n/translation';
 import MainLayout from '@layouts/MainLayout.astro';
 import { getCategoryUrl, getPostsCount, getSortedPosts, getTagUrl } from '@utils/content-utils';
 import { Icon } from 'astro-icon/components';
+import dayjs from 'dayjs';
 
 export async function getStaticPaths() {
   const allBlogPosts = await getSortedPosts();
   const yearMap = new Map<number, Map<number, { body: string; data: BlogPostData }[]>>();
   for (const post of allBlogPosts) {
-    const year = post.data.published.getFullYear();
-    const month = post.data.published.getMonth() + 1;
+    const time = dayjs(post.data.published);
+    const year = time.year();
+    const month = time.month() + 1;
     let monthMap = yearMap.get(year);
     if (!monthMap) {
       monthMap = new Map();
@@ -46,28 +48,18 @@ export async function getStaticPaths() {
     },
     ...data.map(({ year }) => ({
       params: {
-        time: year.toString(),
+        time: year,
       },
       props: {
         data: data,
       },
     })),
-    ...data.flatMap(({ year, data: monthData }) =>
-      monthData.map(({ month }) => ({
-        params: {
-          time: `${year}/${month}`,
-        },
-        props: {
-          data: data,
-        },
-      }))
-    ),
   ];
   return paths;
 }
 
 const { data } = Astro.props;
-const slug = Astro.params.time;
+const currentYear = Number(Astro.params.time);
 const postCount = await getPostsCount();
 ---
 
@@ -86,6 +78,7 @@ const postCount = await getPostsCount();
             .find((d) => d.year === year)
             ?.data.find((d) => d.month === month)?.data;
           if (!monthData) {
+            console.log('[WARNING] Month data not found for year:', year, 'month:', month);
             return <p>SHOULD NOT RENDER THIS, IS A BUG</p>;
           }
           return (
@@ -144,6 +137,7 @@ const postCount = await getPostsCount();
         function renderYear(year: number, reverse: boolean = false) {
           const yearData = data.find((d) => d.year === year)?.data;
           if (!yearData) {
+            console.log('[WARNING] Year data not found for year:', year);
             return <p>SHOULD NOT RENDER THIS, IS A BUG</p>;
           }
           return (
@@ -204,12 +198,8 @@ const postCount = await getPostsCount();
           });
         }
 
-        if (slug) {
-          const [year, month] = slug.split('/').map(Number);
-          if (month) {
-            return renderMonth(year, month);
-          }
-          return renderYear(year);
+        if (currentYear) {
+          return renderYear(currentYear);
         } else {
           return renderAll();
         }
@@ -221,7 +211,23 @@ const postCount = await getPostsCount();
   </Fragment>
   <Fragment slot="aside-sticky">
     {
-      !slug && (
+      currentYear ? (
+        (() => {
+          const yearData = data.find((d) => d.year === currentYear);
+
+          return (
+            yearData && (
+              <TOC
+                headings={yearData.data.map(({ month }) => ({
+                  depth: 2,
+                  text: month.toString(),
+                  slug: `${currentYear}-${month}`,
+                }))}
+              />
+            )
+          );
+        })()
+      ) : (
         <TOC
           headings={data.flatMap(({ year, data }) => [
             {
