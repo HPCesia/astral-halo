@@ -176,19 +176,19 @@ article {
     overflow-x: scroll;
 
     code {
-      display: flex;
-      flex-direction: column;
-      gap: 0.125em;
+      display: grid;
 
       > span {
         position: relative;
         display: block;
-        padding-left: 2em;
+        padding-left: 2.25em;
+        padding-block: 0.1em;
+        min-width: fit-content;
         min-height: 1.5em;
 
         &::before {
           position: absolute;
-          left: 0;
+          left: 0.25em;
           content: counter(line);
           counter-increment: line;
           font-size: 0.85em;
@@ -196,6 +196,43 @@ article {
           text-align: right;
           padding-right: 0.25em;
           transform: translateY(0.15em);
+        }
+        &.diff {
+          &.add {
+            &::after {
+              content: '+';
+              color: var(--color-success);
+            }
+
+            &,
+            & span {
+              background-color: color-mix(
+                in oklab,
+                var(--color-success) 15%,
+                var(--code-bg-color)
+              );
+            }
+          }
+          &.remove {
+            &::after {
+              content: '-';
+              color: var(--color-error);
+            }
+
+            &,
+            & span {
+              background-color: color-mix(
+                in oklab,
+                var(--color-error) 15%,
+                var(--code-bg-color)
+              );
+            }
+          }
+
+          &::after {
+            position: absolute;
+            left: 0;
+          }
         }
       }
     }
@@ -214,20 +251,26 @@ article {
   .astro-code,
   .astro-code span {
     &:where([data-theme='light'], [data-theme='light'] *) {
-      color: var(--shiki-light);
-      background-color: var(--shiki-light-bg);
-      font-style: var(--shiki-light-font-style);
-      font-weight: var(--shiki-light-font-weight);
-      text-decoration: var(--shiki-light-text-decoration);
+      --code-text-color: var(--shiki-light);
+      --code-bg-color: var(--shiki-light-bg);
+      --code-font-style: var(--shiki-light-font-style);
+      --code-font-weight: var(--shiki-light-font-weight);
+      --code-text-decoration: var(--shiki-light-text-decoration);
     }
 
     &:where([data-theme='dark'], [data-theme='dark'] *) {
-      color: var(--shiki-dark);
-      background-color: var(--shiki-dark-bg);
-      font-style: var(--shiki-dark-font-style);
-      font-weight: var(--shiki-dark-font-weight);
-      text-decoration: var(--shiki-dark-text-decoration);
+      --code-text-color: var(--shiki-dark);
+      --code-bg-color: var(--shiki-dark-bg);
+      --code-font-style: var(--shiki-dark-font-style);
+      --code-font-weight: var(--shiki-dark-font-weight);
+      --code-text-decoration: var(--shiki-dark-text-decoration);
     }
+
+    color: var(--code-text-color);
+    background-color: var(--code-bg-color);
+    font-style: var(--code-font-style);
+    font-weight: var(--code-font-weight);
+    text-decoration: var(--code-text-decoration);
   }
 
   code:not(pre code) {
