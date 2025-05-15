@@ -150,6 +150,7 @@ export const remarkObsidianCallout: RemarkPlugin = function () {
                 ...paragraph.children.slice(1),
               ],
             },
+            ...blockquote.children.slice(1),
           ],
           data: {
             hName: 'div',
