@@ -197,6 +197,16 @@ article {
           padding-right: 0.25em;
           transform: translateY(0.15em);
         }
+        &.highlighted {
+          &,
+          & span {
+            background-color: color-mix(
+              in oklab,
+              var(--color-neutral-500) 15%,
+              var(--code-bg-color)
+            );
+          }
+        }
         &.diff {
           &.add {
             &::after {
