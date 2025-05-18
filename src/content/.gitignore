@@ -1,0 +1,7 @@
+# Obsidian files
+.obsidian/
+
+# Syncthing files
+.stfolder/
+.stversions/
+.stignore
