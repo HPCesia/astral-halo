@@ -1,8 +1,8 @@
 ---
-title: {{ title }}
-slug:
-category:
-tags:
-cover:
-description:
+title: ''
+slug: ''
+category: ''
+tags: []
+cover: ''
+description: ''
 ---
