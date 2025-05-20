@@ -7,9 +7,11 @@ import { loadedFormatters, loadedLocales, locales } from './i18n-util.js'
 
 import en from './en/index.js'
 import zh_CN from './zh-CN/index.js'
+import zh_TW from './zh-TW/index.js'
 
 import en_cli from './en/cli/index.js'
 import zh_CN_cli from './zh-CN/cli/index.js'
+import zh_TW_cli from './zh-TW/cli/index.js'
 
 const localeTranslations = {
 	en: {
@@ -19,6 +21,10 @@ const localeTranslations = {
 	'zh-CN': {
 		...zh_CN,
 		cli: zh_CN_cli
+	},
+	'zh-TW': {
+		...zh_TW,
+		cli: zh_TW_cli
 	},
 }
 

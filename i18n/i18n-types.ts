@@ -8,6 +8,7 @@ export type BaseLocale = 'en'
 export type Locales =
 	| 'en'
 	| 'zh-CN'
+	| 'zh-TW'
 
 export type Translation = RootTranslation & DisallowNamespaces
 

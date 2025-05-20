@@ -10,7 +10,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { osLocaleSync } from 'os-locale';
 
-const availableLocalesForScript: Locales[] = ['en', 'zh-CN'];
+const availableLocalesForScript: Locales[] = ['en', 'zh-CN', 'zh-TW'];
 let detectedSystemLocale: string = 'en';
 try {
   detectedSystemLocale = osLocaleSync().replace('_', '-');

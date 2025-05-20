@@ -20,7 +20,7 @@ interface CLIOptions extends OptionValues {
 const program = new Command<[], CLIOptions>();
 
 // Determine current locale
-const availableLocalesForScript: Locales[] = ['en', 'zh-CN'];
+const availableLocalesForScript: Locales[] = ['en', 'zh-CN', 'zh-TW'];
 let detectedSystemLocale: string = 'en';
 try {
   detectedSystemLocale = osLocaleSync().replace('_', '-');

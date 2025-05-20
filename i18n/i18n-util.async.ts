@@ -8,6 +8,7 @@ import { loadedFormatters, loadedLocales, locales } from './i18n-util.js'
 const localeTranslationLoaders = {
 	en: () => import('./en/index.js'),
 	'zh-CN': () => import('./zh-CN/index.js'),
+	'zh-TW': () => import('./zh-TW/index.js'),
 }
 
 const localeNamespaceLoaders = {
@@ -16,6 +17,9 @@ const localeNamespaceLoaders = {
 	},
 	'zh-CN': {
 		cli: () => import('./zh-CN/cli/index.js')
+	},
+	'zh-TW': {
+		cli: () => import('./zh-TW/cli/index.js')
 	}
 }
 
