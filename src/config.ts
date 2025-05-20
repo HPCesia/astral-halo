@@ -1,8 +1,7 @@
 // WARNING: This file will be bundled into the build product.
 // DO NOT add any sensitive information here.
 // 警告: 该文件会被打包到构建产物中, 不要在此添加任何敏感信息
-import I18nKey from './i18n/I18nKey';
-import { getRandomPost } from './scripts/utils';
+import L from '../i18n/i18n-node';
 import type {
   ArticleConfig,
   AsideConfig,
@@ -21,7 +20,7 @@ import type {
 export const siteConfig: SiteConfig = {
   title: 'Astral Halo',
   subtitle: 'A static blog template powered by Astro',
-  lang: 'en', // "en" | "zh_CN" | "zh_TW"
+  lang: 'en',
   createAt: new Date('2025-01-01'),
   postsPerPage: 10,
   banner: {
@@ -38,6 +37,9 @@ export const siteConfig: SiteConfig = {
     defaultHeight: '40svh',
   },
 };
+
+// To avoid circular dependency
+const t = L[siteConfig.lang].web;
 
 export const buildConfig: BuildConfig = {
   showDraftsOnDev: true,
@@ -90,37 +92,29 @@ export const linksConfig: LinksConfig = {
 export const navbarConfig: NavbarConfig = {
   navbarCenterItems: [
     {
-      title: I18nKey.archive,
+      title: t.navigation.archive.title(),
       items: [
-        { text: I18nKey.time, href: '/archives/' },
-        { text: I18nKey.categories, href: '/archives/categories/' },
-        { text: I18nKey.tags, href: '/archives/tags/' },
+        { text: t.navigation.archive.time(), href: '/archives/' },
+        { text: t.navigation.archive.categories(), href: '/archives/categories/' },
+        { text: t.navigation.archive.tags(), href: '/archives/tags/' },
       ],
     },
-    { text: I18nKey.links, href: '/links/' },
-    { text: I18nKey.about, href: '/about/' },
+    { text: t.navigation.friendLinks(), href: '/links/' },
+    { text: t.navigation.about(), href: '/about/' },
   ],
   navbarRightItems: {
     onlyWide: [
       {
         icon: 'material-symbols:rss-feed-rounded',
-        text: I18nKey.subscribe,
+        text: t.button.subscribe(),
         href: '/rss.xml',
         blank: true,
-      },
-      {
-        icon: 'material-symbols:casino',
-        text: I18nKey.randomPost,
-        onclick: {
-          id: 'random-post-btn',
-          function: getRandomPost,
-        },
       },
     ],
     always: [
       {
         icon: 'material-symbols:search-rounded',
-        text: I18nKey.search,
+        text: t.button.search(),
         onclick: 'search_modal.showModal()',
       },
     ],

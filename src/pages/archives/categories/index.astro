@@ -10,9 +10,8 @@ import ProfileCard from '@components/aside/ProfileCard.astro';
 import TOC from '@components/aside/TOC.astro';
 import Button from '@components/widgets/Button.astro';
 import MetaIcon from '@components/widgets/MetaIcon.astro';
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
 import MainLayout from '@layouts/MainLayout.astro';
+import { t } from '@utils/i18n';
 import { Icon } from 'astro-icon/components';
 
 const categoriesMap = await getCategories();
@@ -25,29 +24,21 @@ for (const [category] of categoriesMap) {
 }
 const uncategorizedPosts = allPosts.filter((post) => !post.data.category).slice(0, 3);
 if (uncategorizedPosts.length > 0)
-  categoryPosts.set(i18n(I18nKey.uncategorized) as string, uncategorizedPosts);
+  categoryPosts.set(t.meta.unCategorized(), uncategorizedPosts);
 ---
 
-<MainLayout title={i18n(I18nKey.categories)}>
+<MainLayout title={t.navigation.archive.categories()}>
   <div
     class="card bg-base-200/25 border-base-300 swup-transition-fade mx-auto flex flex-col items-center border px-6 py-4"
   >
     <div class="tooltip md:tooltip-right tooltip-bottom mx-auto w-fit">
-      <h1 class="text-center text-3xl font-bold">{i18n(I18nKey.categories)}</h1>
+      <h1 class="text-center text-3xl font-bold">{t.navigation.archive.categories()}</h1>
       <div class="tooltip-content flex flex-col">
         <div>
-          {
-            `${allPosts.length} ${i18n(
-              allPosts.length > 1 ? I18nKey.postsCount : I18nKey.postCount
-            )}, `
-          }
+          {t.status.postsCount(allPosts.length) + ', '}
         </div>
         <div>
-          {
-            `${categoriesMap.size} ${i18n(
-              categoriesMap.size > 1 ? I18nKey.categoriesCount : I18nKey.categoryCount
-            )}`
-          }
+          {t.status.categoriesCount(categoriesMap.size)}
         </div>
       </div>
     </div>
@@ -79,7 +70,7 @@ if (uncategorizedPosts.length > 0)
                   </span>
                 </h2>
                 <Button href={getCategoryUrl(category)} title={category} class="pl-3">
-                  {i18n(I18nKey.more)}
+                  {t.button.more()}
                   <Icon
                     name="material-symbols:chevron-right-rounded"
                     height="1.5rem"
@@ -102,7 +93,7 @@ if (uncategorizedPosts.length > 0)
                         {[
                           {
                             icon: 'material-symbols:category-outline-rounded',
-                            text: data.category || i18n(I18nKey.uncategorized),
+                            text: data.category || t.meta.unCategorized(),
                             link: getCategoryUrl(data.category),
                           },
                           ...(data.tags?.map((tag) => {

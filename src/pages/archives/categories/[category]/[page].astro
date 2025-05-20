@@ -5,14 +5,16 @@ import RecentCommentsCard from '@components/aside/RecentCommentsCard.vue';
 import SiteInfoCard from '@components/aside/SiteInfoCard.astro';
 import CategoryBar from '@components/misc/CategoryBar.astro';
 import PostsPage from '@components/PostsPage.astro';
-import I18nKey from '@i18n/I18nKey';
 import MainLayout from '@layouts/MainLayout.astro';
 import { getCategories, getSortedPosts } from '@utils/content-utils';
+import { t } from '@utils/i18n';
 
 export async function getStaticPaths() {
   const posts = await getSortedPosts();
   const categories = [
-    ...new Set(posts.map((post) => post.data.category || I18nKey.uncategorized)),
+    ...new Set(
+      posts.map((post) => post.data.category || t?.meta.unCategorized() || 'uncategorized')
+    ),
   ];
   return categories
     .map((category) => {

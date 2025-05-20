@@ -1,7 +1,6 @@
 ---
 import { licenseConfig, profileConfig, siteConfig } from '@/config';
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
+import { t } from '@utils/i18n';
 
 interface Props {
   time: Date;
@@ -14,17 +13,17 @@ const { time, license, licenseUrl, lang } = Astro.props;
 
 const infomations = [
   {
-    key: i18n(I18nKey.publishedAt),
+    key: t.meta.publishedAt(),
     value: time.toLocaleDateString(lang || siteConfig.lang.replace('_', '-')),
     time: time,
   },
   {
-    key: i18n(I18nKey.author),
+    key: t.meta.author(),
     value: profileConfig.name,
     link: '/about/',
   },
   {
-    key: i18n(I18nKey.license),
+    key: t.meta.license(),
     value: license || licenseConfig.name,
     link: licenseUrl || licenseConfig.url,
   },

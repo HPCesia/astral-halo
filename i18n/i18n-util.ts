@@ -17,7 +17,8 @@ export const locales: Locales[] = [
 ]
 
 export const namespaces: Namespaces[] = [
-	'cli'
+	'cli',
+	'web'
 ]
 
 export const isLocale = (locale: string): locale is Locales => locales.includes(locale as Locales)

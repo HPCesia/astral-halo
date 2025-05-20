@@ -1,4 +1,4 @@
-import type I18nKey from '@i18n/I18nKey';
+import type { Locales } from 'i18n/i18n-types';
 
 // ============================================================================
 export type Favicon = {
@@ -23,7 +23,7 @@ export type ButtonSubConfig<T extends string> = T extends 'text'
        *
        * 按钮的文本。
        */
-      text: string | I18nKey;
+      text: string;
     } & (
       | {
           /**
@@ -68,7 +68,7 @@ export type ButtonSubConfig<T extends string> = T extends 'text'
          *
          * 按钮的文本。
          */
-        text?: string | I18nKey;
+        text?: string;
       } & (
         | {
             /**
@@ -122,7 +122,7 @@ export type SiteConfig = {
    *
    * 站点的语言。
    */
-  lang: string;
+  lang: Locales;
   /**
    * The time when the site was created.
    *
@@ -345,7 +345,7 @@ export type NavbarConfig = {
          *
          * 组的标题。
          */
-        title: string | I18nKey;
+        title: string;
         /**
          * The items displayed in the group.
          *

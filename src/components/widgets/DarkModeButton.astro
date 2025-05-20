@@ -1,6 +1,5 @@
 ---
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
+import { t } from '@utils/i18n';
 import { Icon } from 'astro-icon/components';
 import type { HTMLAttributes } from 'astro/types';
 import Button from './Button.astro';
@@ -17,11 +16,11 @@ const { class: className, showText, useDefaultBtnClass, ...rest } = Astro.props;
   class:list={['darkmode-btn swap swap-rotate', className]}
   useDefaultClass={useDefaultBtnClass}
   {...rest}
-  data-text-light={i18n(I18nKey.lightMode)}
-  data-text-dark={i18n(I18nKey.darkMode)}
-  data-text-auto={i18n(I18nKey.systemMode)}
+  data-text-light={t.button.themeToggle.lightMode()}
+  data-text-dark={t.button.themeToggle.darkMode()}
+  data-text-auto={t.button.themeToggle.systemMode()}
   role="switch"
-  aria-label={i18n(I18nKey.themeToggle)}
+  aria-label={t.button.themeToggle.title()}
 >
   <input type="checkbox" inert />
   <Icon

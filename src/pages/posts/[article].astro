@@ -5,13 +5,11 @@ import License from '@components/misc/License.astro';
 import PostInfo from '@components/misc/PostInfo.astro';
 import ImageWrapper from '@components/utils/ImageWrapper.astro';
 import Markdown from '@components/utils/Markdown.astro';
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
 import PostPageLayout from '@layouts/PostPageLayout.astro';
 import { getAllReferences, getPosts } from '@utils/content-utils';
+import { t } from '@utils/i18n';
 import { Icon } from 'astro-icon/components';
 import { render } from 'astro:content';
-import MarkdownIt from 'markdown-it';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -88,7 +86,13 @@ const backLinks: {
             <Icon name="material-symbols:info-outline-rounded" />
             NOTE
           </p>
-          <Fragment set:html={new MarkdownIt().render(i18n(I18nKey.draftDevNote)!)} />
+          <Fragment
+            set:html={t.info.devNote({
+              configKey: 'buildConfig.showDraftsOnDev',
+              configValue: false,
+              configFilePath: 'src/config.ts',
+            })}
+          />
         </div>
       )
     }

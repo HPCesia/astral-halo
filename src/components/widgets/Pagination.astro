@@ -1,6 +1,5 @@
 ---
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
+import { t } from '@utils/i18n';
 import { Icon } from 'astro-icon/components';
 import Button from './Button.astro';
 
@@ -55,12 +54,12 @@ else {
           current < total ? 'max-xs:w-[calc(50%-1rem)]' : 'max-xs:w-[calc(100%-1rem)]',
         ]}
         href={getPageUrl(current - 1)}
-        title={i18n(I18nKey.prevPage)}
-        aria-label={i18n(I18nKey.prevPage)}
+        title={t.navigation.prevPage()}
+        aria-label={t.navigation.prevPage()}
         rel="prev"
       >
         <Icon name="material-symbols:chevron-left-rounded" class="my-1 text-2xl" />
-        <span class="xs:hidden">{i18n(I18nKey.prevPage)}</span>
+        <span class="xs:hidden">{t.navigation.prevPage()}</span>
       </Button>
     )
   }
@@ -118,11 +117,11 @@ else {
           current > 1 ? 'max-xs:w-[calc(50%-1rem)]' : 'max-xs:w-[calc(100%-1rem)]',
         ]}
         href={getPageUrl(current + 1)}
-        title={i18n(I18nKey.nextPage)}
-        aria-label={i18n(I18nKey.nextPage)}
+        title={t.navigation.nextPage()}
+        aria-label={t.navigation.nextPage()}
         rel="next"
       >
-        <span class="xs:hidden">{i18n(I18nKey.nextPage)}</span>
+        <span class="xs:hidden">{t.navigation.nextPage()}</span>
         <Icon name="material-symbols:chevron-right-rounded" class="my-1 text-2xl" />
       </Button>
     )

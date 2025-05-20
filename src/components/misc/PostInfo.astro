@@ -1,9 +1,8 @@
 ---
 import { articleConfig, siteConfig } from '@/config';
 import MetaIcon from '@components/widgets/MetaIcon.astro';
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
 import { getCategoryUrl, getTagUrl } from '@utils/content-utils';
+import { t } from '@utils/i18n';
 
 interface Props {
   title: string;
@@ -36,13 +35,13 @@ const metas: ({ icon: string; text: string; link?: string; time?: Date } | undef
   articleConfig.wordCount && typeof wordCount === 'number'
     ? {
         icon: 'material-symbols:docs-rounded',
-        text: `${wordCount} ${wordCount === 1 ? i18n(I18nKey.wordCount) : i18n(I18nKey.wordsCount)}`,
+        text: t.status.wordsCount(wordCount),
       }
     : undefined,
   articleConfig.readingTime && typeof readingTime === 'number'
     ? {
         icon: 'material-symbols:nest-clock-farsight-analog-rounded',
-        text: `${readingTime} ${readingTime === 1 ? i18n(I18nKey.minuteCount) : i18n(I18nKey.minutesCount)}`,
+        text: t.status.readTime(readingTime),
       }
     : undefined,
   category

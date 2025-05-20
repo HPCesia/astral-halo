@@ -1,6 +1,5 @@
 ---
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
+import { t } from '@utils/i18n';
 
 interface Props {
   backLinks: {
@@ -20,7 +19,7 @@ const { backLinks } = Astro.props;
 
 <div class="bg-base-100 border-base-content/25 collapse-plus collapse my-4 border">
   <input type="checkbox" />
-  <div class="collapse-title text-lg font-semibold">{i18n(I18nKey.backLinks)}</div>
+  <div class="collapse-title text-lg font-semibold">{t.info.backLinks()}</div>
   <div class="collapse-content">
     <ul class="list">
       {

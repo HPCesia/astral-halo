@@ -10,21 +10,27 @@ import zh_CN from './zh-CN/index.js'
 import zh_TW from './zh-TW/index.js'
 
 import en_cli from './en/cli/index.js'
+import en_web from './en/web/index.js'
 import zh_CN_cli from './zh-CN/cli/index.js'
+import zh_CN_web from './zh-CN/web/index.js'
 import zh_TW_cli from './zh-TW/cli/index.js'
+import zh_TW_web from './zh-TW/web/index.js'
 
 const localeTranslations = {
 	en: {
 		...en,
-		cli: en_cli
+		cli: en_cli,
+		web: en_web
 	},
 	'zh-CN': {
 		...zh_CN,
-		cli: zh_CN_cli
+		cli: zh_CN_cli,
+		web: zh_CN_web
 	},
 	'zh-TW': {
 		...zh_TW,
-		cli: zh_TW_cli
+		cli: zh_TW_cli,
+		web: zh_TW_web
 	},
 }
 

@@ -1,10 +1,9 @@
 ---
 import PostInfo from '@components/misc/PostInfo.astro';
 import Markdown from '@components/utils/Markdown.astro';
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
 import PostPageLayout from '@layouts/PostPageLayout.astro';
 import { getAllReferences } from '@utils/content-utils';
+import { t } from '@utils/i18n';
 import { getEntry, render } from 'astro:content';
 
 const md = await getEntry('spec', 'about');
@@ -31,12 +30,12 @@ if (md) {
 ---
 
 <PostPageLayout
-  title={md?.data.title || (i18n(I18nKey.about) as string)}
+  title={md?.data.title || t.navigation.about()}
   headings={headings}
   comment={md?.data.comment}
 >
   <Fragment slot="header-content">
-    <PostInfo title={md?.data.title || (i18n(I18nKey.about) as string)} />
+    <PostInfo title={md?.data.title || t.navigation.about()} />
   </Fragment>
   <Markdown
     bidirectional-references={md

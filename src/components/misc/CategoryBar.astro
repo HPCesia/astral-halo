@@ -1,7 +1,6 @@
 ---
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
 import { getCategoryUrl } from '@utils/content-utils';
+import { t } from '@utils/i18n';
 
 interface Props {
   categories: string[];
@@ -17,8 +16,8 @@ const { categories, currentCategory } = Astro.props;
 >
   <nav
     class="card-body flex flex-row items-center gap-2 overflow-auto px-2 py-3"
-    title={i18n(I18nKey.categories)}
-    aria-label={i18n(I18nKey.categories)}
+    title={t.navigation.archive.categories()}
+    aria-label={t.navigation.archive.categories()}
     role="navigation"
   >
     <a
@@ -28,7 +27,7 @@ const { categories, currentCategory } = Astro.props;
         currentCategory ? '' : 'btn-active',
       ]}
     >
-      {i18n(I18nKey.recentPosts)}
+      {t.navigation.recentPosts()}
     </a>
     {
       categories.map((category) => (
@@ -39,7 +38,7 @@ const { categories, currentCategory } = Astro.props;
             currentCategory === category ? 'btn-active' : '',
           ]}
         >
-          {i18n(category)}
+          {category}
         </a>
       ))
     }

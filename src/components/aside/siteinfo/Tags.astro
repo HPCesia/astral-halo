@@ -1,8 +1,7 @@
 ---
 import Button from '@components/widgets/Button.astro';
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
 import { getTags, getTagUrl } from '@utils/content-utils';
+import { t } from '@utils/i18n';
 const tagsMap = await getTags();
 ---
 
@@ -20,7 +19,7 @@ const tagsMap = await getTags();
     }
   </div>
   <div class="btn bg-base-200/50 btn-wide hidden rounded-sm hover:brightness-125">
-    {i18n(I18nKey.more)}
+    {t.button.more()}
   </div>
 </div>
 

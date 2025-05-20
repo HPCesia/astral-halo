@@ -1,7 +1,6 @@
 ---
 import { searchConfig } from '@/config';
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
+import { t } from '@utils/i18n';
 import { Icon } from 'astro-icon/components';
 import Pagefind from './search/Pagefind.vue';
 ---
@@ -11,8 +10,8 @@ import Pagefind from './search/Pagefind.vue';
     <form method="dialog">
       <button
         class="btn btn-circle btn-ghost btn-sm absolute top-2 right-2"
-        title={i18n(I18nKey.close)}
-        aria-label={i18n(I18nKey.close)}>✕</button
+        title={t.common.close()}
+        aria-label={t.common.close()}>✕</button
       >
     </form>
     <div class="w-full p-4">
@@ -31,7 +30,7 @@ import Pagefind from './search/Pagefind.vue';
                       autocomplete="off"
                       autocapitalize="off"
                       class="grow"
-                      placeholder={i18n(I18nKey.search)}
+                      placeholder={t.button.search()}
                     />
                     <Icon
                       name="material-symbols:search-rounded"
@@ -68,6 +67,6 @@ import Pagefind from './search/Pagefind.vue';
     </div>
   </div>
   <form method="dialog" class="modal-backdrop">
-    <button>{i18n(I18nKey.close)}</button>
+    <button>{t.common.close()}</button>
   </form>
 </dialog>

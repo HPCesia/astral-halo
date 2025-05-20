@@ -1,8 +1,7 @@
 ---
 import { asideConfig, siteConfig } from '@/config';
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
 import { getPosts, getPostsCount } from '@utils/content-utils';
+import { t } from '@utils/i18n';
 import { Icon } from 'astro-icon/components';
 import { render } from 'astro:content';
 ---
@@ -12,14 +11,14 @@ import { render } from 'astro:content';
     asideConfig.siteInfo.stats.map(async (entry) => {
       switch (entry) {
         case 'post-count': {
-          const postCount = await getPostsCount();
+          const postsCount = await getPostsCount();
           return (
             <div class="stat">
               <div class="stat-title flex flex-row items-center gap-1">
                 <Icon name="material-symbols:folder-open-rounded" />
-                <span>{i18n(I18nKey.totalPosts)}</span>
+                <span>{t.status.totalPosts}</span>
               </div>
-              <div class="stat-value text-base">{`${postCount} ${postCount > 1 ? i18n(I18nKey.postsCount) : i18n(I18nKey.postCount)}`}</div>
+              <div class="stat-value text-base">{t.status.postsCount(postsCount)}</div>
             </div>
           );
         }
@@ -28,7 +27,7 @@ import { render } from 'astro:content';
             <div class="stat">
               <div class="stat-title flex flex-row items-center gap-1">
                 <Icon name="material-symbols:refresh-rounded" />
-                <span>{i18n(I18nKey.lastUpdated)}</span>
+                <span>{t.status.lastUpdated()}</span>
               </div>
               <div class="stat-value text-base">
                 <time datetime={new Date().toISOString()}>
@@ -42,7 +41,7 @@ import { render } from 'astro:content';
             <div class="stat">
               <div class="stat-title flex flex-row items-center gap-1">
                 <Icon name="material-symbols:docs-rounded" />
-                <span>{i18n(I18nKey.totalWords)}</span>
+                <span>{t.status.totalWords()}</span>
               </div>
               <div class="stat-value text-base">
                 {(async () => {
@@ -54,7 +53,7 @@ import { render } from 'astro:content';
                     })
                   );
                   const total = words.reduce((acc, cur) => acc + cur, 0);
-                  return `${total} ${total > 1 ? i18n(I18nKey.wordsCount) : i18n(I18nKey.wordCount)}`;
+                  return t.status.wordsCount(total);
                 })()}
               </div>
             </div>
@@ -64,7 +63,7 @@ import { render } from 'astro:content';
             <div class="stat">
               <div class="stat-title flex flex-row items-center gap-1">
                 <Icon name="material-symbols:calendar-clock-rounded" />
-                <span>{i18n(I18nKey.runTime)}</span>
+                <span>{t.status.runTime()}</span>
               </div>
               <div class="stat-value text-base">
                 <time

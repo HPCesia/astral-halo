@@ -4,10 +4,9 @@ import type { BlogPostData } from '@/types/data';
 import ProfileCard from '@components/aside/ProfileCard.astro';
 import TOC from '@components/aside/TOC.astro';
 import MetaIcon from '@components/widgets/MetaIcon.astro';
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
 import MainLayout from '@layouts/MainLayout.astro';
 import { getCategoryUrl, getPostsCount, getSortedPosts, getTagUrl } from '@utils/content-utils';
+import { t } from '@utils/i18n';
 import { Icon } from 'astro-icon/components';
 import dayjs from 'dayjs';
 
@@ -66,9 +65,9 @@ const postCount = await getPostsCount();
 <MainLayout>
   <div class="card border-base-300 bg-base-200/25 swup-transition-fade border px-6 py-4">
     <div class="tooltip md:tooltip-right tooltip-bottom mx-auto w-fit">
-      <h1 class="text-center text-3xl font-bold">{i18n(I18nKey.archive)}</h1>
+      <h1 class="text-center text-3xl font-bold">{t.navigation.archive.title()}</h1>
       <div class="tooltip-content">
-        {`${postCount} ${i18n(postCount > 1 ? I18nKey.postsCount : I18nKey.postCount)}`}
+        {t.status.postsCount(postCount)}
       </div>
     </div>
     {
@@ -97,7 +96,7 @@ const postCount = await getPostsCount();
                       {[
                         {
                           icon: 'material-symbols:category-outline-rounded',
-                          text: data.category || i18n(I18nKey.uncategorized),
+                          text: data.category || t.meta.unCategorized(),
                           link: getCategoryUrl(data.category),
                         },
                         ...data.tags.map((tag) => {

@@ -14,7 +14,8 @@ export type Translation = RootTranslation & DisallowNamespaces
 
 export type Translations = RootTranslation &
 {
-	cli: NamespaceCliTranslation
+	cli: NamespaceCliTranslation,
+	web: NamespaceWebTranslation
 }
 
 type RootTranslation = {}
@@ -162,8 +163,248 @@ export type NamespaceCliTranslation = {
 	}
 }
 
+export type NamespaceWebTranslation = {
+	common: {
+		/**
+		 * O​p​e​n
+		 */
+		open: string
+		/**
+		 * C​l​o​s​e
+		 */
+		close: string
+	}
+	navigation: {
+		/**
+		 * H​o​m​e
+		 */
+		home: string
+		/**
+		 * A​b​o​u​t
+		 */
+		about: string
+		archive: {
+			/**
+			 * A​r​c​h​i​v​e
+			 */
+			title: string
+			/**
+			 * T​i​m​e
+			 */
+			time: string
+			/**
+			 * T​a​g​s
+			 */
+			tags: string
+			/**
+			 * C​a​t​e​g​o​r​i​e​s
+			 */
+			categories: string
+		}
+		/**
+		 * L​i​n​k​s
+		 */
+		friendLinks: string
+		/**
+		 * M​e​n​u
+		 */
+		menu: string
+		/**
+		 * P​r​e​v​i​o​u​s​ ​P​a​g​e
+		 */
+		prevPage: string
+		/**
+		 * N​e​x​t​ ​P​a​g​e
+		 */
+		nextPage: string
+		/**
+		 * R​e​c​e​n​t​ ​P​o​s​t​s
+		 */
+		recentPosts: string
+	}
+	status: {
+		/**
+		 * T​o​t​a​l​ ​P​o​s​t​s
+		 */
+		totalPosts: string
+		/**
+		 * T​o​t​a​l​ ​W​o​r​d​s
+		 */
+		totalWords: string
+		/**
+		 * L​a​s​t​ ​U​p​d​a​t​e​d
+		 */
+		lastUpdated: string
+		/**
+		 * R​u​n​ ​T​i​m​e
+		 */
+		runTime: string
+		/**
+		 * {​0​}​ ​w​o​r​d​{​{​s​}​}
+		 * @param {string | number | boolean} 0
+		 */
+		wordsCount: RequiredParams<'0'>
+		/**
+		 * {​0​}​ ​m​i​n​u​t​e​{​{​s​}​}
+		 * @param {string | number | boolean} 0
+		 */
+		readTime: RequiredParams<'0'>
+		/**
+		 * {​0​}​ ​p​o​s​t​{​{​s​}​}
+		 * @param {string | number | boolean} 0
+		 */
+		postsCount: RequiredParams<'0'>
+		/**
+		 * {​0​}​ ​t​a​g​{​{​s​}​}
+		 * @param {string | number | boolean} 0
+		 */
+		tagsCount: RequiredParams<'0'>
+		/**
+		 * {​0​}​ ​c​a​t​e​g​o​r​y​{​{​s​}​}
+		 * @param {string | number | boolean} 0
+		 */
+		categoriesCount: RequiredParams<'0'>
+	}
+	button: {
+		/**
+		 * S​e​a​r​c​h
+		 */
+		search: string
+		/**
+		 * S​u​b​s​c​r​i​b​e
+		 */
+		subscribe: string
+		/**
+		 * M​o​r​e
+		 */
+		more: string
+		themeToggle: {
+			/**
+			 * T​o​g​g​l​e​ ​T​h​e​m​e
+			 */
+			title: string
+			/**
+			 * L​i​g​h​t
+			 */
+			lightMode: string
+			/**
+			 * D​a​r​k
+			 */
+			darkMode: string
+			/**
+			 * S​y​s​t​e​m
+			 */
+			systemMode: string
+		}
+	}
+	meta: {
+		/**
+		 * A​u​t​h​o​r
+		 */
+		author: string
+		/**
+		 * P​u​b​l​i​s​h​e​d​ ​A​t
+		 */
+		publishedAt: string
+		/**
+		 * L​i​c​e​n​s​e
+		 */
+		license: string
+		/**
+		 * T​a​g​s
+		 */
+		tags: string
+		/**
+		 * C​a​t​e​g​o​r​y
+		 */
+		category: string
+		/**
+		 * N​o​ ​T​a​g​s
+		 */
+		unTagged: string
+		/**
+		 * U​n​c​a​t​e​g​o​r​i​z​e​d
+		 */
+		unCategorized: string
+	}
+	info: {
+		/**
+		 * T​a​b​l​e​ ​o​f​ ​C​o​n​t​e​n​t
+		 */
+		toc: string
+		/**
+		 * T​o​o​l​ ​B​a​r
+		 */
+		toolBar: string
+		/**
+		 * R​e​a​d​i​n​g​ ​P​e​r​c​e​n​t​a​g​e
+		 */
+		readingPercentage: string
+		/**
+		 * C​o​m​m​e​n​t​s
+		 */
+		comments: string
+		/**
+		 * R​e​c​e​n​t​ ​C​o​m​m​e​n​t​s
+		 */
+		recentComments: string
+		commentAbbrs: {
+			/**
+			 * [​I​m​a​g​e​]
+			 */
+			image: string
+			/**
+			 * [​L​i​n​k​]
+			 */
+			link: string
+			/**
+			 * [​C​o​d​e​]
+			 */
+			code: string
+		}
+		/**
+		 * B​a​c​k​ ​L​i​n​k​s
+		 */
+		backLinks: string
+		/**
+		 * T​h​i​s​ ​i​s​ ​a​ ​d​r​a​f​t​ ​a​n​d​ ​w​i​l​l​ ​o​n​l​y​ ​b​e​ ​d​i​s​p​l​a​y​e​d​ ​i​n​ ​<​c​o​d​e​>​D​E​V​<​/​c​o​d​e​>​ ​m​o​d​e​.​ ​T​o​ ​d​i​s​a​b​l​e​ ​d​r​a​f​t​ ​p​r​e​v​i​e​w​,​ ​p​l​e​a​s​e​ ​m​o​d​i​f​y​ ​<​c​o​d​e​>​{​c​o​n​f​i​g​K​e​y​}​<​/​c​o​d​e​>​ ​t​o​ ​<​c​o​d​e​>​{​c​o​n​f​i​g​V​a​l​u​e​}​<​/​c​o​d​e​>​ ​i​n​ ​<​c​o​d​e​>​{​c​o​n​f​i​g​F​i​l​e​P​a​t​h​}​<​/​c​o​d​e​>​.
+		 * @param {string} configFilePath
+		 * @param {string} configKey
+		 * @param {boolean} configValue
+		 */
+		devNote: RequiredParams<'configFilePath' | 'configKey' | 'configValue'>
+		/**
+		 * O​p​e​n​ ​M​e​n​u
+		 */
+		openMenu: string
+		/**
+		 * C​l​o​s​e​ ​M​e​n​u
+		 */
+		closeMenu: string
+	}
+	search: {
+		/**
+		 * S​e​a​r​c​h
+		 */
+		title: string
+		/**
+		 * S​e​a​r​c​h​ ​A​n​y​t​h​i​n​g​.​.​.
+		 */
+		placeholder: string
+		/**
+		 * S​e​a​r​c​h​ ​R​e​s​u​l​t​s
+		 */
+		searchResults: string
+		/**
+		 * N​o​ ​R​e​s​u​l​t​s​ ​F​o​u​n​d
+		 */
+		noSearchResults: string
+	}
+}
+
 export type Namespaces =
 	| 'cli'
+	| 'web'
 
 type DisallowNamespaces = {
 	/**
@@ -171,6 +412,12 @@ type DisallowNamespaces = {
 	 * you need to use the `./cli/index.ts` file instead
 	 */
 	cli?: "[typesafe-i18n] reserved for 'cli'-namespace. You need to use the `./cli/index.ts` file instead."
+
+	/**
+	 * reserved for 'web'-namespace\
+	 * you need to use the `./web/index.ts` file instead
+	 */
+	web?: "[typesafe-i18n] reserved for 'web'-namespace. You need to use the `./web/index.ts` file instead."
 }
 
 export type TranslationFunctions = {
@@ -302,6 +549,236 @@ export type TranslationFunctions = {
 			 * Cannot rename to original file name: {fileName}
 			 */
 			rename_to_original_conflict: (arg: { fileName: string }) => LocalizedString
+		}
+	}
+	web: {
+		common: {
+			/**
+			 * Open
+			 */
+			open: () => LocalizedString
+			/**
+			 * Close
+			 */
+			close: () => LocalizedString
+		}
+		navigation: {
+			/**
+			 * Home
+			 */
+			home: () => LocalizedString
+			/**
+			 * About
+			 */
+			about: () => LocalizedString
+			archive: {
+				/**
+				 * Archive
+				 */
+				title: () => LocalizedString
+				/**
+				 * Time
+				 */
+				time: () => LocalizedString
+				/**
+				 * Tags
+				 */
+				tags: () => LocalizedString
+				/**
+				 * Categories
+				 */
+				categories: () => LocalizedString
+			}
+			/**
+			 * Links
+			 */
+			friendLinks: () => LocalizedString
+			/**
+			 * Menu
+			 */
+			menu: () => LocalizedString
+			/**
+			 * Previous Page
+			 */
+			prevPage: () => LocalizedString
+			/**
+			 * Next Page
+			 */
+			nextPage: () => LocalizedString
+			/**
+			 * Recent Posts
+			 */
+			recentPosts: () => LocalizedString
+		}
+		status: {
+			/**
+			 * Total Posts
+			 */
+			totalPosts: () => LocalizedString
+			/**
+			 * Total Words
+			 */
+			totalWords: () => LocalizedString
+			/**
+			 * Last Updated
+			 */
+			lastUpdated: () => LocalizedString
+			/**
+			 * Run Time
+			 */
+			runTime: () => LocalizedString
+			/**
+			 * {0} word{{s}}
+			 */
+			wordsCount: (arg0: string | number | boolean) => LocalizedString
+			/**
+			 * {0} minute{{s}}
+			 */
+			readTime: (arg0: string | number | boolean) => LocalizedString
+			/**
+			 * {0} post{{s}}
+			 */
+			postsCount: (arg0: string | number | boolean) => LocalizedString
+			/**
+			 * {0} tag{{s}}
+			 */
+			tagsCount: (arg0: string | number | boolean) => LocalizedString
+			/**
+			 * {0} category{{s}}
+			 */
+			categoriesCount: (arg0: string | number | boolean) => LocalizedString
+		}
+		button: {
+			/**
+			 * Search
+			 */
+			search: () => LocalizedString
+			/**
+			 * Subscribe
+			 */
+			subscribe: () => LocalizedString
+			/**
+			 * More
+			 */
+			more: () => LocalizedString
+			themeToggle: {
+				/**
+				 * Toggle Theme
+				 */
+				title: () => LocalizedString
+				/**
+				 * Light
+				 */
+				lightMode: () => LocalizedString
+				/**
+				 * Dark
+				 */
+				darkMode: () => LocalizedString
+				/**
+				 * System
+				 */
+				systemMode: () => LocalizedString
+			}
+		}
+		meta: {
+			/**
+			 * Author
+			 */
+			author: () => LocalizedString
+			/**
+			 * Published At
+			 */
+			publishedAt: () => LocalizedString
+			/**
+			 * License
+			 */
+			license: () => LocalizedString
+			/**
+			 * Tags
+			 */
+			tags: () => LocalizedString
+			/**
+			 * Category
+			 */
+			category: () => LocalizedString
+			/**
+			 * No Tags
+			 */
+			unTagged: () => LocalizedString
+			/**
+			 * Uncategorized
+			 */
+			unCategorized: () => LocalizedString
+		}
+		info: {
+			/**
+			 * Table of Content
+			 */
+			toc: () => LocalizedString
+			/**
+			 * Tool Bar
+			 */
+			toolBar: () => LocalizedString
+			/**
+			 * Reading Percentage
+			 */
+			readingPercentage: () => LocalizedString
+			/**
+			 * Comments
+			 */
+			comments: () => LocalizedString
+			/**
+			 * Recent Comments
+			 */
+			recentComments: () => LocalizedString
+			commentAbbrs: {
+				/**
+				 * [Image]
+				 */
+				image: () => LocalizedString
+				/**
+				 * [Link]
+				 */
+				link: () => LocalizedString
+				/**
+				 * [Code]
+				 */
+				code: () => LocalizedString
+			}
+			/**
+			 * Back Links
+			 */
+			backLinks: () => LocalizedString
+			/**
+			 * This is a draft and will only be displayed in <code>DEV</code> mode. To disable draft preview, please modify <code>{configKey}</code> to <code>{configValue}</code> in <code>{configFilePath}</code>.
+			 */
+			devNote: (arg: { configFilePath: string, configKey: string, configValue: boolean }) => LocalizedString
+			/**
+			 * Open Menu
+			 */
+			openMenu: () => LocalizedString
+			/**
+			 * Close Menu
+			 */
+			closeMenu: () => LocalizedString
+		}
+		search: {
+			/**
+			 * Search
+			 */
+			title: () => LocalizedString
+			/**
+			 * Search Anything...
+			 */
+			placeholder: () => LocalizedString
+			/**
+			 * Search Results
+			 */
+			searchResults: () => LocalizedString
+			/**
+			 * No Results Found
+			 */
+			noSearchResults: () => LocalizedString
 		}
 	}
 }

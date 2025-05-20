@@ -13,13 +13,16 @@ const localeTranslationLoaders = {
 
 const localeNamespaceLoaders = {
 	en: {
-		cli: () => import('./en/cli/index.js')
+		cli: () => import('./en/cli/index.js'),
+		web: () => import('./en/web/index.js')
 	},
 	'zh-CN': {
-		cli: () => import('./zh-CN/cli/index.js')
+		cli: () => import('./zh-CN/cli/index.js'),
+		web: () => import('./zh-CN/web/index.js')
 	},
 	'zh-TW': {
-		cli: () => import('./zh-TW/cli/index.js')
+		cli: () => import('./zh-TW/cli/index.js'),
+		web: () => import('./zh-TW/web/index.js')
 	}
 }
 

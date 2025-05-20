@@ -1,7 +1,6 @@
 ---
 import { articleConfig, toolBarConfig } from '@/config';
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
+import { t } from '@utils/i18n';
 import { Icon } from 'astro-icon/components';
 import Button from './widgets/Button.astro';
 import DarkModeButton from './widgets/DarkModeButton.astro';
@@ -11,7 +10,7 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
 <div
   id="side-toolbar"
   class="fixed right-0 bottom-10 z-30 grid grid-cols-1 gap-2"
-  aria-label={i18n(I18nKey.toolBar)}
+  aria-label={t.info.toolBar()}
 >
   <div
     id="stb-hide"
@@ -62,7 +61,7 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
       id="stb-show-more"
       class="btn-circle btn-secondary btn-sm"
       aria-expanded="false"
-      aria-label={i18n(I18nKey.more)}
+      aria-label={t.button.more()}
       aria-controls="stb-hide"
     >
       <Icon name="material-symbols:settings-rounded" class="animate-spin" />
@@ -77,7 +76,7 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
     <Button id="stb-back-to-top" class="group btn-circle btn-secondary btn-sm">
       <span
         id="stb-read-percentage"
-        aria-label={i18n(I18nKey.toolBarReadingPercentage)}
+        aria-label={t.info.readingPercentage()}
         class="absolute text-sm opacity-0 duration-300 group-hover:opacity-0">0</span
       >
       <Icon

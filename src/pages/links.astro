@@ -3,10 +3,9 @@ import { linksConfig } from '@/config';
 import PostInfo from '@components/misc/PostInfo.astro';
 import ImageWrapper from '@components/utils/ImageWrapper.astro';
 import Markdown from '@components/utils/Markdown.astro';
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
 import PostPageLayout from '@layouts/PostPageLayout.astro';
 import { getAllReferences } from '@utils/content-utils';
+import { t } from '@utils/i18n';
 import { getEntry, render } from 'astro:content';
 
 const md = await getEntry('spec', 'links');
@@ -39,12 +38,12 @@ const groupHeadings = linksConfig.items.map((item) => ({
 ---
 
 <PostPageLayout
-  title={i18n(I18nKey.links) as string}
+  title={t.navigation.friendLinks()}
   comment={md?.data.comment}
   headings={[...groupHeadings, ...headings]}
 >
   <Fragment slot="header-content">
-    <PostInfo title={i18n(I18nKey.links) as string} />
+    <PostInfo title={t.navigation.friendLinks()} />
   </Fragment>
   {
     linksConfig.items.map((item) => (

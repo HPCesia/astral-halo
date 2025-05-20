@@ -4,8 +4,7 @@ import { TwikooProvider } from './recent-comments/Twikoo';
 import { WalineProvider } from './recent-comments/Waline';
 import type { CommentData } from './recent-comments/types';
 import { asideConfig, commentConfig, siteConfig } from '@/config';
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
+import { t } from '@utils/i18n';
 import { onMounted, ref } from 'vue';
 
 const comments = ref<CommentData[]>([]);
@@ -47,7 +46,7 @@ onMounted(() => {
   <div id="recent-comments-card" class="card border-base-300 bg-base-200/25 border">
     <div class="card-body px-4 py-2">
       <div class="card-title">
-        {{ i18n(I18nKey.recentComments) }}
+        {{ t.info.recentComments() }}
       </div>
       <ul class="list">
         <template v-if="!loading">

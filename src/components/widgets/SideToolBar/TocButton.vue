@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import I18nKey from '@i18n/I18nKey';
-import { i18n } from '@i18n/translation';
+import { t } from '@utils/i18n';
 import { onMounted, onUnmounted, ref } from 'vue';
 
 const isOpen = ref(false);
@@ -65,8 +64,8 @@ onUnmounted(() => {
       ref="buttonRef"
       class="btn btn-circle btn-secondary btn-sm"
       @click="isOpen = !isOpen"
-      :title="i18n(I18nKey.toc)"
-      :aria-label="i18n(I18nKey.toc)"
+      :title="t.info.toc()"
+      :aria-label="t.info.toc()"
       :aria-expanded="isOpen"
       :aria-controls="'stb-toc-wrapper'"
     >
