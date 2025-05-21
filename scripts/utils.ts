@@ -1,4 +1,5 @@
 import { ParseFrontmatterOptions, parseFrontmatter } from '@astrojs/markdown-remark';
+import { slug as githubSlug } from 'github-slugger';
 import yaml, { type DumpOptions } from 'js-yaml';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -12,7 +13,7 @@ import path from 'node:path';
  * - Collapses multiple consecutive hyphens into a single hyphen.
  * @param text The string to slugify.
  * @param hard A boolean indicating the type of slugification.
- *   - `true`: Only allows alphanumeric characters and hyphens.
+ *   - `true`: Use github-slugger to create a github-like slug.
  *   - `false`: Only replaces invalid path characters (e.g., `\ / : * ? " < > |`) with hyphens.
  * @returns The slugified string.
  */
@@ -20,27 +21,17 @@ export function slugify(text: string, hard: boolean = false): string {
   if (!text) {
     return '';
   }
-  if (hard) {
-    return text
-      .toString()
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, '-') // Replace spaces with -
-      .replace(/[^\w-]+/g, '-') // Replace non-alphanumeric characters with -
-      .replace(/--+/g, '-') // Replace multiple - with single -
-      .replace(/^-+/, '') // Trim - from start of text
-      .replace(/-+$/, ''); // Trim - from end of text
-  } else {
-    return text
-      .toString()
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, '-') // Replace spaces with -
-      .replace(/[\\/:*?"<>|]/g, '-') // Replace invalid path characters with -
-      .replace(/--+/g, '-') // Replace multiple - with single -
-      .replace(/^-+/, '') // Trim - from start of text
-      .replace(/-+$/, ''); // Trim - from end of text
-  }
+  const newText = text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(/[\\/:*?"<>|]/g, '-') // Replace invalid path characters with -
+    .replace(/--+/g, '-') // Replace multiple - with single -
+    .replace(/^-+/, '') // Trim - from start of text
+    .replace(/-+$/, ''); // Trim - from end of text
+  if (hard) return githubSlug(newText);
+  return newText;
 }
 
 /**
