@@ -143,7 +143,7 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
       // 控制进度条
       const scrolledPercentage = getReadingProgress(bottomPos);
       if (stbReadPercent) stbReadPercent.textContent = `${scrolledPercentage}`;
-      const isNearEnd = scrolledPercentage >= 99;
+      const isNearEnd = scrolledPercentage >= 99 || scrolledPercentage < 0;
       if (isNearEnd) {
         stbReadPercent?.classList.add('opacity-0');
         stbBackToTopIcon?.classList.remove('opacity-0');
