@@ -3,5 +3,5 @@
   "baseLocale": "en",
   "adapter": "node",
   "esmImports": true,
-  "outputPath": "./i18n/"
+  "outputPath": "./src/"
 }

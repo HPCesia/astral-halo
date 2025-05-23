@@ -1,7 +1,6 @@
 // WARNING: This file will be bundled into the build product.
 // DO NOT add any sensitive information here.
 // 警告: 该文件会被打包到构建产物中, 不要在此添加任何敏感信息
-import L from '../i18n/i18n-node';
 import type {
   ArticleConfig,
   AsideConfig,
@@ -16,6 +15,7 @@ import type {
   SiteConfig,
   ToolBarConfig,
 } from './types/config';
+import { L } from '@astral-halo/i18n';
 
 export const siteConfig: SiteConfig = {
   title: 'Astral Halo',

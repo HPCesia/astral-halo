@@ -1,4 +1,4 @@
-import type { Locales } from 'i18n/i18n-types';
+import type { Locales } from '@astral-halo/i18n';
 
 // ============================================================================
 export type Favicon = {

@@ -1,8 +1,7 @@
-import L from '../i18n/i18n-node';
-import type { Locales } from '../i18n/i18n-types';
 import { config as scriptConfig } from './config';
 import { findAvailableFileName, slugify } from './utils';
 import type { AvailableFileNameInfo } from './utils';
+import { L, type Locales } from '@astral-halo/i18n';
 import { ExitPromptError } from '@inquirer/core';
 import { input, select } from '@inquirer/prompts';
 import dayjs from 'dayjs';

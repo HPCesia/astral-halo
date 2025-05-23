@@ -1,4 +1,4 @@
-import originalL from '../../i18n/i18n-node';
 import { siteConfig } from '../config';
+import { L } from '@astral-halo/i18n';
 
-export const t = originalL[siteConfig.lang].web;
+export const t = L[siteConfig.lang].web;

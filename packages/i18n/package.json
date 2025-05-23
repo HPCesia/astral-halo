@@ -1,0 +1,10 @@
+{
+  "name": "@astral-halo/i18n",
+  "scripts": {
+    "typesafe-i18n": "typesafe-i18n"
+  },
+  "main": "src/index.ts",
+  "dependencies": {
+    "typesafe-i18n": "^5.26.2"
+  }
+}
