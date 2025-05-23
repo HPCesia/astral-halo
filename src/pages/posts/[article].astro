@@ -81,19 +81,22 @@ const backLinks: {
   >
     {
       isDraft && (
-        <div class="admonition admonition-note">
-          <p class="admonition-title">
-            <Icon name="material-symbols:info-outline-rounded" />
+        <blockquote class="collapse-arrow collapse" data-callout="note">
+          <input type="checkbox" checked="true" />
+          <div class="callout-title collapse-title">
+            <Icon name="mingcute:pencil-line" />
             NOTE
-          </p>
-          <Fragment
-            set:html={t.info.devNote({
-              configKey: 'buildConfig.showDraftsOnDev',
-              configValue: false,
-              configFilePath: 'src/config.ts',
-            })}
-          />
-        </div>
+          </div>
+          <div class="collapse-content">
+            <Fragment
+              set:html={t.info.devNote({
+                configKey: 'buildConfig.showDraftsOnDev',
+                configValue: false,
+                configFilePath: 'src/config.ts',
+              })}
+            />
+          </div>
+        </blockquote>
       )
     }
     <Content />
