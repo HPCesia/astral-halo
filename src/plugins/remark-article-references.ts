@@ -20,21 +20,31 @@ export const remarkArticleReferences: RemarkPlugin = function () {
       //   (.*?) - 第二个捕获组($2)，非贪婪匹配任意字符
       // \]\] - 匹配结束的 ]]
       const linkPattern = /\[\[((?:\\.|[^|\]])*?)(?:\|(.*?))?\]\]/g;
-      node.value = node.value.replaceAll(linkPattern, (match, reference, alias, offset) => {
-        const startOffset = Math.max(0, offset - 40);
-        const endOffset = Math.min(node.value.length, offset + match.length + 40);
-        const matchOffsetStart = offset - startOffset + 3;
-        const matchOffsetEnd = match.length + matchOffsetStart;
-        const context = `...${node.value.substring(startOffset, endOffset).trim()}...`;
-        references.push({
-          reference,
-          context,
-          offset: [matchOffsetStart, matchOffsetEnd],
-          id: crypto.randomUUID(),
-        });
-        if (alias) return `%%%%${reference}%%${alias}%%%%`;
-        return `%%%%${reference}%%%%`;
-      });
+      node.value = node.value.replaceAll(
+        linkPattern,
+        (match, reference: string, alias: string | undefined, offset) => {
+          const startOffset = Math.max(0, offset - 40);
+          const endOffset = Math.min(node.value.length, offset + match.length + 40);
+          const matchOffsetStart = offset - startOffset + 3;
+          const matchOffsetEnd = match.length + matchOffsetStart;
+          const context = `...${node.value
+            .replaceAll(
+              linkPattern,
+              (_, ref: string, alias) =>
+                alias || ref.split('/').at(-1)?.split('.').slice(0, -1).join('') || ref
+            )
+            .substring(startOffset, endOffset)
+            .trim()}...`;
+          references.push({
+            reference,
+            context,
+            offset: [matchOffsetStart, matchOffsetEnd],
+            id: crypto.randomUUID(),
+          });
+          if (alias) return `%%%%${reference}%%${alias}%%%%`;
+          return `%%%%${reference}%%%%`;
+        }
+      );
       if (references.length) data.astro!.frontmatter!.references = references;
     });
   };
