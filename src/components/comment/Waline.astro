@@ -1,5 +1,6 @@
 ---
 import { commentConfig, siteConfig } from '@/config';
+import '@/styles/waline.css?url';
 
 const walineConfig = commentConfig.waline!;
 const pathName = walineConfig.path ? walineConfig.path(Astro.url.pathname) : Astro.url.pathname;
