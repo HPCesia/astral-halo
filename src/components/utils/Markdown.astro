@@ -32,7 +32,7 @@ const {
 const references = bidirectionalReferences?.references;
 const allRefByCurrent = bidirectionalReferences?.allRefByCurrent;
 const replacer = (_: string, reference: string, alias: string) => {
-  const id = references?.find((item) => item.reference === reference)?.id;
+  const id = references?.find((item) => item.reference === reference.split('#')[0])?.id;
   if (!id) return '';
   const refTo = allRefByCurrent?.find((it) => it.id === id);
   if (!refTo) return '';

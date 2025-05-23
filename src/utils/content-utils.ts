@@ -146,7 +146,12 @@ export async function getAllReferences() {
       title: post.data.title,
       colletion: 'posts',
       id: post.id,
-      references,
+      references: references.map((ref) => ({
+        reference: ref.reference.split('#')[0],
+        context: ref.context,
+        offset: ref.offset,
+        id: ref.id,
+      })),
     };
   });
   const specRefData = specs.map(async (spec) => {

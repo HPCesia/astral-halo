@@ -34,7 +34,18 @@ const references: {
   reference: string;
   context: string;
   id: string;
-}[] = remarkPluginFrontmatter.references || [];
+}[] =
+  (
+    remarkPluginFrontmatter.references as {
+      reference: string;
+      context: string;
+      id: string;
+    }[]
+  )?.map((it) => ({
+    reference: it.reference.split('#')[0],
+    context: it.context,
+    id: it.id,
+  })) || [];
 
 const backLinks: {
   refBy: {
