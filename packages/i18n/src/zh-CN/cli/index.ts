@@ -45,6 +45,7 @@ const zh_CN_cli = {
   },
   info: {
     cancelled_by_user: '用户已取消操作。',
+    provide_root_dir_guidance: '尝试使用 {option} 选项运行命令以指定根目录。',
   },
   error: {
     unexpected: '发生意外错误：{message}',
@@ -53,6 +54,7 @@ const zh_CN_cli = {
     create_file: '创建文件时出错：{message}',
     empty_filename: '文件名不能为空。',
     rename_to_original_conflict: '新文件名与原文件名冲突：{fileName}',
+    failed_to_find_root: '无法确定项目根目录：{message}',
   },
 } satisfies NamespaceCliTranslation;
 

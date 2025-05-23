@@ -1,5 +1,5 @@
 import { config as scriptConfig } from './config';
-import { changeFrontmatter, findAvailableFileName, slugify } from './utils';
+import { changeFrontmatter, findAvailableFileName, findMonorepoRoot, slugify } from './utils';
 import type { AvailableFileNameInfo } from './utils';
 import { L, type Locales } from '@astral-halo/i18n';
 import { Command, OptionValues } from '@commander-js/extra-typings';
@@ -14,6 +14,7 @@ interface CLIOptions extends OptionValues {
   title?: string;
   category?: string;
   tags?: string;
+  root?: string;
 }
 
 const program = new Command<[], CLIOptions>();
@@ -38,8 +39,9 @@ program
   .option('-t, --title <titleString>', 'Article title')
   .option('-c, --category <categoryString>', 'Article category (optional)')
   .option('-T, --tags <tagsString>', 'Article tags, comma-separated (optional)')
+  .option('--root <path>', 'Specify the root directory of the project')
   .action(async (options: CLIOptions) => {
-    const { title: cliTitle, category: cliCategory, tags: cliTags } = options;
+    const { title: cliTitle, category: cliCategory, tags: cliTags, root: cliRootDir } = options;
 
     let title = cliTitle;
     let category = cliCategory;
@@ -74,7 +76,25 @@ program
     const fileExtension = '.md';
     const currentFileName = `${baseSlugForFile}${fileExtension}`;
 
-    let targetDir = path.resolve(process.cwd(), scriptConfig.draftsDir);
+    let projectRootDir: string;
+    try {
+      if (cliRootDir) {
+        projectRootDir = path.resolve(cliRootDir);
+        // Verify if the provided rootDir is valid by checking for a known file/dir, e.g., package.json
+        // This is a simple check, can be made more robust.
+        await fs.access(path.join(projectRootDir, 'package.json'));
+      } else {
+        projectRootDir = await findMonorepoRoot();
+      }
+    } catch (error) {
+      console.error(
+        L[currentLocale].cli.error.failed_to_find_root({ message: (error as Error).message })
+      );
+      console.error(L[currentLocale].cli.info.provide_root_dir_guidance({ option: '--root' }));
+      process.exit(1);
+    }
+
+    let targetDir = path.resolve(projectRootDir, scriptConfig.draftsDir);
     if (scriptConfig.draftStructure === 'category' && category && category.trim() !== '') {
       const categorySlug = slugify(category);
       targetDir = path.join(targetDir, categorySlug);
@@ -176,7 +196,7 @@ program
         }
       }
 
-      const scaffoldPath = path.resolve(process.cwd(), 'scaffolds/draft.md');
+      const scaffoldPath = './scaffolds/draft.md';
       let content = await fs.readFile(scaffoldPath, 'utf-8');
 
       const frontmatterChanges: Record<string, unknown> = {

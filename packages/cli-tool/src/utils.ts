@@ -120,3 +120,35 @@ export async function findAvailableFileName(
     }
   }
 }
+
+/**
+ * Finds the monorepo root directory by searching upwards for a 'pnpm-workspace.yaml' file.
+ * @param startDir The directory to start searching from. Defaults to the current working directory of the script.
+ * @returns The path to the monorepo root directory.
+ * @throws Error if 'pnpm-workspace.yaml' is not found after searching up to the filesystem root.
+ */
+export async function findMonorepoRoot(
+  startDir: string = path.dirname(new URL(import.meta.url).pathname)
+): Promise<string> {
+  let currentDir = startDir;
+  // Adjust for Windows if path starts with /C: -> C:
+  if (process.platform === 'win32' && currentDir.match(/^\/[A-Za-z]:/)) {
+    currentDir = currentDir.substring(1);
+  }
+
+  while (true) {
+    const workspaceFilePath = path.join(currentDir, 'pnpm-workspace.yaml');
+    try {
+      await fs.access(workspaceFilePath);
+      return currentDir; // Found the file, this is the root
+    } catch {
+      // File not found, move up one directory
+      const parentDir = path.dirname(currentDir);
+      if (parentDir === currentDir) {
+        // Reached the filesystem root and haven't found the file
+        throw new Error("Could not find 'pnpm-workspace.yaml'.");
+      }
+      currentDir = parentDir;
+    }
+  }
+}

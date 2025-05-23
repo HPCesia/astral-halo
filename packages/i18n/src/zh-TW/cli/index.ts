@@ -45,6 +45,7 @@ const zh_TW_cli = {
   },
   info: {
     cancelled_by_user: '用戶已取消操作。',
+    provide_root_dir_guidance: '嘗試使用 {option} 選項運行命令以指定根目錄。',
   },
   error: {
     unexpected: '發生意外錯誤：{message}',
@@ -53,6 +54,7 @@ const zh_TW_cli = {
     create_file: '創建文件時出錯：{message}',
     empty_filename: '文件名不能為空。',
     rename_to_original_conflict: '新文件名與原文件名衝突：{fileName}',
+    failed_to_find_root: '無法確定項目根目錄：{message}',
   },
 } satisfies NamespaceCliTranslation;
 

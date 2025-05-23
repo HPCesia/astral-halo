@@ -46,6 +46,8 @@ const en_cli = {
   },
   info: {
     cancelled_by_user: 'Operation cancelled by user.',
+    provide_root_dir_guidance:
+      'Try running the command with the {option:string} option to specify the root directory.',
   },
   error: {
     unexpected: 'An unexpected error occurred: {message:string}',
@@ -54,6 +56,7 @@ const en_cli = {
     create_file: 'Error creating file: {message:string}',
     empty_filename: 'File name cannot be empty.',
     rename_to_original_conflict: 'Cannot rename to original file name: {fileName:string}',
+    failed_to_find_root: 'Failed to determine project root: {message:string}',
   },
 } satisfies BaseTranslation;
 

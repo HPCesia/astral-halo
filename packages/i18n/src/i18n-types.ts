@@ -129,6 +129,11 @@ export type NamespaceCliTranslation = {
 		 * O​p​e​r​a​t​i​o​n​ ​c​a​n​c​e​l​l​e​d​ ​b​y​ ​u​s​e​r​.
 		 */
 		cancelled_by_user: string
+		/**
+		 * T​r​y​ ​r​u​n​n​i​n​g​ ​t​h​e​ ​c​o​m​m​a​n​d​ ​w​i​t​h​ ​t​h​e​ ​{​o​p​t​i​o​n​}​ ​o​p​t​i​o​n​ ​t​o​ ​s​p​e​c​i​f​y​ ​t​h​e​ ​r​o​o​t​ ​d​i​r​e​c​t​o​r​y​.
+		 * @param {string} option
+		 */
+		provide_root_dir_guidance: RequiredParams<'option'>
 	}
 	error: {
 		/**
@@ -160,6 +165,11 @@ export type NamespaceCliTranslation = {
 		 * @param {string} fileName
 		 */
 		rename_to_original_conflict: RequiredParams<'fileName'>
+		/**
+		 * F​a​i​l​e​d​ ​t​o​ ​d​e​t​e​r​m​i​n​e​ ​p​r​o​j​e​c​t​ ​r​o​o​t​:​ ​{​m​e​s​s​a​g​e​}
+		 * @param {string} message
+		 */
+		failed_to_find_root: RequiredParams<'message'>
 	}
 }
 
@@ -523,6 +533,10 @@ export type TranslationFunctions = {
 			 * Operation cancelled by user.
 			 */
 			cancelled_by_user: () => LocalizedString
+			/**
+			 * Try running the command with the {option} option to specify the root directory.
+			 */
+			provide_root_dir_guidance: (arg: { option: string }) => LocalizedString
 		}
 		error: {
 			/**
@@ -549,6 +563,10 @@ export type TranslationFunctions = {
 			 * Cannot rename to original file name: {fileName}
 			 */
 			rename_to_original_conflict: (arg: { fileName: string }) => LocalizedString
+			/**
+			 * Failed to determine project root: {message}
+			 */
+			failed_to_find_root: (arg: { message: string }) => LocalizedString
 		}
 	}
 	web: {
