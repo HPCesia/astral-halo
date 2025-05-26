@@ -21,8 +21,6 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await render(article);
-const coverSrc =
-  typeof article.data.cover === 'string' ? article.data.cover : article.data.cover?.src;
 const description = article.data.description || remarkPluginFrontmatter.excerpt;
 const isDraft = article.data.draft === true;
 
@@ -65,7 +63,7 @@ const backLinks: {
   headings={headings}
   comment={article.data.comment}
   lang={article.data.lang}
-  banner={coverSrc}
+  banner={typeof article.data.cover === 'string' ? article.data.cover : article.data.cover?.src}
 >
   <Fragment slot="header-content">
     <PostInfo
@@ -80,8 +78,12 @@ const backLinks: {
     />
   </Fragment>
   {
-    siteConfig.banner === false && coverSrc && (
-      <ImageWrapper src={coverSrc!} class="mb-6 rounded-xl shadow" alt={article.data.title} />
+    siteConfig.banner === false && article.data.cover && (
+      <ImageWrapper
+        src={article.data.cover}
+        class="mb-6 rounded-xl shadow"
+        alt={article.data.title}
+      />
     )
   }
   <Markdown
