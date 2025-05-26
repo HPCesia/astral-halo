@@ -186,6 +186,10 @@ export type NamespaceWebTranslation = {
 	}
 	navigation: {
 		/**
+		 * N​a​v​i​g​a​t​i​o​n
+		 */
+		title: string
+		/**
 		 * H​o​m​e
 		 */
 		home: string
@@ -581,6 +585,10 @@ export type TranslationFunctions = {
 			close: () => LocalizedString
 		}
 		navigation: {
+			/**
+			 * Navigation
+			 */
+			title: () => LocalizedString
 			/**
 			 * Home
 			 */

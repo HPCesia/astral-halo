@@ -6,6 +6,7 @@ const zh_CN_web = {
     close: '关闭',
   },
   navigation: {
+    title: '导航',
     home: '首页',
     about: '关于',
     archive: {

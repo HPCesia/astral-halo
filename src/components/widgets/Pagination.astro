@@ -1,4 +1,5 @@
 ---
+import { footerConfig } from '@/config';
 import { t } from '@utils/i18n';
 import { Icon } from 'astro-icon/components';
 import Button from './Button.astro';
@@ -44,7 +45,14 @@ else {
 }
 ---
 
-<nav id="pagination" class="relative flex min-h-10 w-full justify-between max-md:px-2">
+<nav
+  id="pagination"
+  class:list={[
+    'relative flex min-h-10 w-full justify-between max-md:px-2',
+    // Hide pagination if only one page and no footer columns
+    pages.length <= 1 && footerConfig.columns !== false && 'max-xs:hidden',
+  ]}
+>
   {
     current > 1 && (
       <Button

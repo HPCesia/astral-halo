@@ -455,6 +455,20 @@ export type LicenseConfig = {
 
 export type FooterConfig = {
   /**
+   * The columns displayed in the footer. If set to `false`, no columns will be displayed.
+   *
+   * 页脚中显示的列。如果设置为 `false`，则不显示任何列。
+   */
+  columns:
+    | {
+        title: string;
+        items: {
+          text: string;
+          link: string;
+        }[];
+      }[]
+    | false;
+  /**
    * The start year of the copyright.
    *
    * 版权开始年份。

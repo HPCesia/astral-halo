@@ -145,6 +145,25 @@ export const licenseConfig: LicenseConfig = {
 };
 
 export const footerConfig: FooterConfig = {
+  columns: [
+    {
+      title: t.navigation.title(),
+      items: [
+        { text: t.navigation.home(), link: '/' },
+        { text: t.navigation.archive.title(), link: '/archives/' },
+        { text: t.navigation.about(), link: '/about/' },
+        { text: t.button.subscribe(), link: '/rss.xml' },
+      ],
+    },
+    {
+      title: t.navigation.friendLinks(),
+      items: linksConfig.items
+        .flatMap((group) =>
+          group.groupItems.map((item) => ({ text: item.name, link: item.url }))
+        )
+        .slice(0, 5),
+    },
+  ],
   copyrightYear: 2025,
   rightItems: [
     [

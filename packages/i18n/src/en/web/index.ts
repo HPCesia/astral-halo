@@ -6,6 +6,7 @@ const en_web = {
     close: 'Close',
   },
   navigation: {
+    title: 'Navigation',
     home: 'Home',
     about: 'About',
     archive: {

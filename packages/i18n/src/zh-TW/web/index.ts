@@ -6,6 +6,7 @@ const zh_TW_web = {
     close: '關閉',
   },
   navigation: {
+    title: '導航',
     home: '首頁',
     about: '關於',
     archive: {
