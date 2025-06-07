@@ -59,17 +59,17 @@ comment: true # 是否启用评论，需要在 `config.ts` 中启用并配置评
 
 下列指令均需要在项目根目录执行：
 
-| 指令                             | 行为                               |
-| -------------------------------- | ---------------------------------- |
-| `pnpm install`                   | 安装依赖                           |
-| `pnpm dev`                       | 在 `localhost:4321` 启动开发服务器 |
-| `pnpm build`                     | 构建静态站点到 `./dist/` 目录      |
-| `pnpm preview`                   | 本地预览构建的静态站点             |
-| `pnpm new [draft\|post] [title]` | 创建新文章                         |
-| `pnpm pub`                       | 发布草稿                           |
-| `pnpm lint`                      | 检查代码                           |
-| `pnpm format`                    | 格式化代码                         |
-| `pnpm astro ...`                 | 运行 Astro CLI                     |
+| 指令             | 行为                               |
+| ---------------- | ---------------------------------- |
+| `pnpm install`   | 安装依赖                           |
+| `pnpm dev`       | 在 `localhost:4321` 启动开发服务器 |
+| `pnpm build`     | 构建静态站点到 `./dist/` 目录      |
+| `pnpm preview`   | 本地预览构建的静态站点             |
+| `pnpm new`       | 创建新文章                         |
+| `pnpm pub`       | 发布草稿                           |
+| `pnpm lint`      | 检查代码                           |
+| `pnpm format`    | 格式化代码                         |
+| `pnpm astro ...` | 运行 Astro CLI                     |
 
 ## 致谢
 

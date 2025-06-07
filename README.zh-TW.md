@@ -59,17 +59,17 @@ comment: true # 是否啟用評論，需要在 `config.ts` 中啟用並配置評
 
 下列指令均需要在專案根目錄執行：
 
-| 指令                             | 行為                               |
-| -------------------------------- | ---------------------------------- |
-| `pnpm install`                   | 安裝依賴                           |
-| `pnpm dev`                       | 在 `localhost:4321` 啟動開發伺服器 |
-| `pnpm build`                     | 構建靜態網站到 `./dist/` 目錄      |
-| `pnpm preview`                   | 本地預覽構建的靜態網站             |
-| `pnpm new [draft\|post] [title]` | 建立新文章                         |
-| `pnpm pub`                       | 發布草稿                           |
-| `pnpm lint`                      | 檢查程式碼                         |
-| `pnpm format`                    | 格式化程式碼                       |
-| `pnpm astro ...`                 | 執行 Astro CLI                     |
+| 指令             | 行為                               |
+| ---------------- | ---------------------------------- |
+| `pnpm install`   | 安裝依賴                           |
+| `pnpm dev`       | 在 `localhost:4321` 啟動開發伺服器 |
+| `pnpm build`     | 構建靜態網站到 `./dist/` 目錄      |
+| `pnpm preview`   | 本地預覽構建的靜態網站             |
+| `pnpm new`       | 建立新文章                         |
+| `pnpm pub`       | 發布草稿                           |
+| `pnpm lint`      | 檢查程式碼                         |
+| `pnpm format`    | 格式化程式碼                       |
+| `pnpm astro ...` | 執行 Astro CLI                     |
 
 ## 致謝
 

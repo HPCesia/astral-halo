@@ -59,17 +59,17 @@ comment: true # Enable comments, requires comment system to be enabled and confi
 
 All commands need to be run from the project root directory:
 
-| Command                          | Action                               |
-| -------------------------------- | ------------------------------------ |
-| `pnpm install`                   | Install dependencies                 |
-| `pnpm dev`                       | Start dev server at `localhost:4321` |
-| `pnpm build`                     | Build static site to `./dist/`       |
-| `pnpm preview`                   | Preview built site locally           |
-| `pnpm new [draft\|post] [title]` | Create new article                   |
-| `pnpm pub`                       | Publish draft                        |
-| `pnpm lint`                      | Check code                           |
-| `pnpm format`                    | Format code                          |
-| `pnpm astro ...`                 | Run Astro CLI                        |
+| Command          | Action                               |
+| ---------------- | ------------------------------------ |
+| `pnpm install`   | Install dependencies                 |
+| `pnpm dev`       | Start dev server at `localhost:4321` |
+| `pnpm build`     | Build static site to `./dist/`       |
+| `pnpm preview`   | Preview built site locally           |
+| `pnpm new`       | Create new article                   |
+| `pnpm pub`       | Publish draft                        |
+| `pnpm lint`      | Check code                           |
+| `pnpm format`    | Format code                          |
+| `pnpm astro ...` | Run Astro CLI                        |
 
 ## Acknowledgments
 
