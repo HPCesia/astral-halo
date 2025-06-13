@@ -7,7 +7,7 @@ const currentYear = new Date().getFullYear();
 <footer class="mt-auto shrink-0" id="page-footer">
   {
     footerConfig.columns && (
-      <div class="mt-4 mb-8 flex w-full flex-wrap justify-between px-8 md:px-12">
+      <div class="mx-auto mt-4 mb-8 flex w-full max-w-(--breakpoint-xl) flex-wrap justify-between px-8 md:px-12 xl:px-8">
         {footerConfig.columns.map((col) => (
           <nav class="grid grid-cols-1 gap-4">
             <ul class="menu">
