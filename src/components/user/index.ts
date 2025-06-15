@@ -3,6 +3,7 @@ export { default as Icon } from './Icon.astro';
 export { default as LinkCard } from './LinkCard.astro';
 export { default as Repl } from './Repl.astro';
 export { default as RepoCard } from './RepoCard.astro';
+export { default as Ruby } from './Ruby.astro';
 export { default as Tabs } from './Tabs.astro';
 export { default as TabItem } from './TabItem.astro';
 export { default as Tooltip } from './Tooltip.astro';

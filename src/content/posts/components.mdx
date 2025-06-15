@@ -9,12 +9,11 @@ tags:
 published: 2025-02-10T21:23:23+08:00
 ---
 
-import { Collapse, Icon, LinkCard, Repl, RepoCard, TabItem, Tabs, Tooltip } from '@components/user';
+import { Collapse, Icon, LinkCard, Repl, RepoCard, Ruby, TabItem, Tabs, Tooltip } from '@components/user';
 
 Components let you easily reuse a piece of UI or styling consistently. You can use them not just in `.astro` files, but also in `.mdx` files.
 
-> [!TIP]
-> [MDX](https://mdxjs.com/) is a format that lets you write JSX embedded inside Markdown. And it has no difference with markdown files in other ways.
+> [!TIP] > [MDX](https://mdxjs.com/) is a format that lets you write JSX embedded inside Markdown. And it has no difference with markdown files in other ways.
 
 > [!TIP]
 > Some components are both available in `.md` and `.mdx` files, but some are only available in `.mdx` files. In `.md` files, you can use components with [remark-directive](https://github.com/remarkjs/remark-directive). Components that available in `.md` files will have a `md` tab in the example.
@@ -143,6 +142,7 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
 </Repl>
 
 ### LinkCard
+
 <Repl>
   <LinkCard
     title="Astral Halo"
@@ -251,6 +251,34 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
       :icon{name="mdi:github"}
       :icon{name="mdi:open-source-initiative"}
       :icon{name="mdi:alert-octagon" size="5em"}
+      ```
+    </TabItem>
+  </Tabs>
+  </Fragment>
+</Repl>
+
+### Ruby
+
+<Repl>
+  <div class="flex flex-col gap-2 w-fit mx-auto">
+    <Ruby pairs={[{base: "汉", text: "hàn"}, {base: "字", text: "zì"}]} />
+    <Ruby pairs={[["漢", "ㄏㄢ"], ["字", "ㄗ"]]} />
+    <Ruby base="漢字" text="からじ" />
+  </div>
+  <Fragment slot="desc">
+  <Tabs>
+    <TabItem label="mdx" active>
+      ```jsx
+      <Ruby pairs={[{base: "汉", text: "hàn"}, {base: "字", text: "zì"}]} />
+      <Ruby pairs={[["漢", "ㄏㄢ"], ["字", "ㄗ"]]} />
+      <Ruby base="漢字" text="からじ" />
+      ```
+    </TabItem>
+    <TabItem label="md">
+      ```md
+      ::rubyc{base="汉|字" text="hàn|zì"}
+      ::rubyc{base="漢|字" text="ㄏㄢ|ㄗ"}
+      ::rubyc{base="漢字" text="からじ"}
       ```
     </TabItem>
   </Tabs>

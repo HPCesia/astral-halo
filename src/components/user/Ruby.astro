@@ -1,0 +1,34 @@
+---
+interface RubyPair {
+  base: string;
+  text: string;
+}
+
+type Props = (RubyPair | { pairs: RubyPair[] | [string, string][] }) & {
+  rp?: [string, string];
+};
+
+const props = Astro.props;
+const rpContent = props.rp || ['(', ')'];
+const pairs = (() => {
+  const p = 'pairs' in props ? props.pairs : ([props] as RubyPair[]);
+  if (p.length < 1) return p;
+  if ('base' in p[0]) return p;
+  return (p as [string, string][]).map(([base, text]) => ({ base, text }));
+})() as RubyPair[];
+---
+
+<ruby>
+  {
+    pairs.map(({ base, text }) => {
+      return (
+        <Fragment>
+          {base}
+          <rp>{rpContent[0]}</rp>
+          <rt>{text}</rt>
+          <rp>{rpContent[1]}</rp>
+        </Fragment>
+      );
+    })
+  }
+</ruby>

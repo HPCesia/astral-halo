@@ -156,6 +156,37 @@ const LinkCard = function (props: { title: string; description: string; url: str
   return h('a', { class: wrapperClassName, href: url, title }, bodyNode);
 };
 
+const Ruby = function (props: { base: string; text: string }) {
+  const pairs = (() => {
+    const { base, text } = props;
+    const pattern = /(?<!\\)\|/g;
+    const baseGroups = base.split(pattern);
+    let textGroups = text.split(pattern);
+    if (baseGroups.length > textGroups.length) {
+      console.warn('[WARN] Invalid ruby, base splitter number should lesser than text.');
+      console.warn(`         base: "${base}"`);
+      console.warn(`         text: "${text}"`);
+      return [{ base, text }];
+    }
+    textGroups[baseGroups.length - 1] = textGroups.slice(baseGroups.length - 1).join(' ');
+    textGroups = textGroups.slice(0, baseGroups.length);
+    return baseGroups.map((b, i) => ({ base: b, text: textGroups[i] }));
+  })();
+  return h(
+    'ruby',
+    {},
+    pairs.flatMap(
+      ({ base, text }) =>
+        [
+          { type: 'text', value: base },
+          h('rp', {}, '('),
+          h('rt', {}, text),
+          h('rp', {}, ')'),
+        ] as Child
+    )
+  );
+};
+
 const Tooltip = function (
   props: {
     tip: string;
@@ -172,5 +203,6 @@ export const rehypeComponentsList = {
   collapse: Collapse,
   icon: Icon,
   linkcard: LinkCard,
+  rubyc: Ruby,
   tooltip: Tooltip,
 };
