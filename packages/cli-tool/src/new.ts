@@ -80,9 +80,7 @@ program
     try {
       if (cliRootDir) {
         projectRootDir = path.resolve(cliRootDir);
-        // Verify if the provided rootDir is valid by checking for a known file/dir, e.g., package.json
-        // This is a simple check, can be made more robust.
-        await fs.access(path.join(projectRootDir, 'package.json'));
+        await fs.access(path.join(projectRootDir, 'astro.config.mjs'));
       } else {
         projectRootDir = await findMonorepoRoot();
       }

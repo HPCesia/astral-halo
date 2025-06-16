@@ -1,5 +1,5 @@
 import { config as scriptConfig } from './config';
-import { findAvailableFileName, slugify } from './utils';
+import { findAvailableFileName, findMonorepoRoot, slugify } from './utils';
 import type { AvailableFileNameInfo } from './utils';
 import { L, type Locales } from '@astral-halo/i18n';
 import { ExitPromptError } from '@inquirer/core';
@@ -68,8 +68,9 @@ async function updateFrontmatterWithPublishedDate(filePath: string): Promise<voi
 }
 
 async function run() {
-  const draftsDir = path.resolve(process.cwd(), scriptConfig.draftsDir);
-  let postsDir = path.resolve(process.cwd(), scriptConfig.postsDir); // Made postsDir mutable
+  const root = await findMonorepoRoot(process.cwd());
+  const draftsDir = path.resolve(root, scriptConfig.draftsDir);
+  let postsDir = path.resolve(root, scriptConfig.postsDir);
 
   let selectedDraftRelativePath: string | undefined;
 

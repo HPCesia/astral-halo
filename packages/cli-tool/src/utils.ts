@@ -137,7 +137,7 @@ export async function findMonorepoRoot(
   }
 
   while (true) {
-    const workspaceFilePath = path.join(currentDir, 'pnpm-workspace.yaml');
+    const workspaceFilePath = path.join(currentDir, 'astro.config.mjs');
     try {
       await fs.access(workspaceFilePath);
       return currentDir; // Found the file, this is the root
@@ -146,7 +146,7 @@ export async function findMonorepoRoot(
       const parentDir = path.dirname(currentDir);
       if (parentDir === currentDir) {
         // Reached the filesystem root and haven't found the file
-        throw new Error("Could not find 'pnpm-workspace.yaml'.");
+        throw new Error("Could not find 'astro.config.mjs'.");
       }
       currentDir = parentDir;
     }
