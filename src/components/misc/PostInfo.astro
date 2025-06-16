@@ -3,8 +3,9 @@ import { articleConfig, siteConfig } from '@/config';
 import MetaIcon from '@components/widgets/MetaIcon.astro';
 import { getCategoryUrl, getTagUrl } from '@utils/content-utils';
 import { t } from '@utils/i18n';
+import type { HTMLAttributes } from 'astro/types';
 
-interface Props {
+interface Props extends HTMLAttributes<'div'> {
   title: string;
   publishedAt?: Date;
   category?: string;
@@ -24,6 +25,7 @@ const {
   readingTime,
   lang,
   class: className,
+  ...rest
 } = Astro.props;
 
 const metas: ({ icon: string; text: string; link?: string; time?: Date } | undefined)[] = [
@@ -61,7 +63,7 @@ const metas: ({ icon: string; text: string; link?: string; time?: Date } | undef
 ];
 ---
 
-<div id="post-info" class:list={['flex flex-col max-md:px-3', className]}>
+<div id="post-info" class:list={['flex flex-col max-md:px-3', className]} {...rest}>
   <h1 class="text-3xl font-bold">{title}</h1>
   {
     metas.filter((item) => Boolean(item)).length > 0 && (

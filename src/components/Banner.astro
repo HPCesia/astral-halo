@@ -101,7 +101,7 @@ const bannerHeight = getBannerHeight(path.pathname);
   function setupBanner() {
     const banner = document.getElementById('banner');
     banner!.style.scale = '100%';
-    banner!.style.height = getBannerHeight(window.location.pathname) as string;
+    banner!.style.height = `calc((${getBannerHeight(window.location.pathname) as string}) + 4rem)`;
     const bannerMask = banner?.querySelector('#banner-mask');
     const icon = bannerMask?.querySelector('svg');
     if (pathsEqual(url('/'), window.location.pathname)) {

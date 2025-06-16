@@ -74,7 +74,8 @@ const backLinks: {
       wordCount={remarkPluginFrontmatter.words}
       readingTime={remarkPluginFrontmatter.minutes}
       lang={article.data.lang}
-      class="mx-2 mt-4"
+      class="mx-2 mt-4 overflow-y-scroll"
+      style={siteConfig.banner !== false ? `max-height: ${siteConfig.banner.postHeight}` : null}
     />
   </Fragment>
   {
