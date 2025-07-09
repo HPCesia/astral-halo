@@ -305,7 +305,7 @@ article {
       @apply grid grid-cols-1;
 
       > .callout-title {
-        @apply flex flex-row items-center gap-2 p-0 text-lg font-semibold;
+        @apply flex flex-row items-center gap-2 py-0 pr-10 pl-0 text-lg font-semibold;
 
         color: var(--color-blockquote-callout);
 
