@@ -18,6 +18,10 @@ export type BlogPost = {
   id: string;
   body: string;
   data: BlogPostData;
-  rendered?: RenderedContent;
+  rendered?: RenderedContent & {
+    headings?: MarkdownHeading[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    frontmatter?: Record<string, any>;
+  };
   filePath?: string;
 };
