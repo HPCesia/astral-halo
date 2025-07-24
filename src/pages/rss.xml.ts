@@ -7,6 +7,7 @@ import type { APIRoute } from 'astro';
 import { experimental_AstroContainer } from 'astro/container';
 import { loadRenderers } from 'astro:container';
 import { render } from 'astro:content';
+import sanitizeHtml from 'sanitize-html';
 
 const renderers = await loadRenderers([mdxContainerRenderer()]);
 const container = await experimental_AstroContainer.create({
@@ -22,42 +23,44 @@ export const GET: APIRoute = async function (context) {
       pubDate: post.data.published,
       description: post.data.description,
       link: `/posts/${post.data.slug}`,
-      content: await container.renderToString(Markdown, {
-        slots: {
-          default: await container.renderToString(
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (await render({ collection: 'posts', ...post } as any)).Content
-          ),
-        },
-        props: {
-          'bidirectional-references': await (async () => {
-            const allRefByCurrent = allReferences.filter((it) => it.refBy.id === post.id);
-            const { remarkPluginFrontmatter } = await render({
-              collection: 'posts',
-              ...post,
+      content: sanitizeHtml(
+        await container.renderToString(Markdown, {
+          slots: {
+            default: await container.renderToString(
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            } as any);
+              (await render({ collection: 'posts', ...post } as any)).Content
+            ),
+          },
+          props: {
+            'bidirectional-references': await (async () => {
+              const allRefByCurrent = allReferences.filter((it) => it.refBy.id === post.id);
+              const { remarkPluginFrontmatter } = await render({
+                collection: 'posts',
+                ...post,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              } as any);
 
-            const references: {
-              reference: string;
-              context: string;
-              id: string;
-            }[] =
-              (
-                remarkPluginFrontmatter.references as {
-                  reference: string;
-                  context: string;
-                  id: string;
-                }[]
-              )?.map((it) => ({
-                reference: it.reference.split('#')[0],
-                context: it.context,
-                id: it.id,
-              })) || [];
-            return { references, allRefByCurrent };
-          })(),
-        },
-      }),
+              const references: {
+                reference: string;
+                context: string;
+                id: string;
+              }[] =
+                (
+                  remarkPluginFrontmatter.references as {
+                    reference: string;
+                    context: string;
+                    id: string;
+                  }[]
+                )?.map((it) => ({
+                  reference: it.reference.split('#')[0],
+                  context: it.context,
+                  id: it.id,
+                })) || [];
+              return { references, allRefByCurrent };
+            })(),
+          },
+        })
+      ),
     }))
   );
   return rss({
