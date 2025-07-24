@@ -53,6 +53,7 @@ if (!title) title = 'Astral Halo';
                             (typeof subItem.onclick === 'string'
                               ? { onclick: subItem.onclick }
                               : { id: 'side-' + subItem.onclick.id }))}
+                          {...(subItem.extraAttr || {})}
                           title={subItem.text}
                           aria-label={subItem.text}
                           class="btn-ghost btn-primary rounded-field"
@@ -77,6 +78,7 @@ if (!title) title = 'Astral Halo';
                     (typeof item.onclick === 'string'
                       ? { onclick: item.onclick }
                       : { id: 'side-' + item.onclick.id }))}
+                  {...(item.extraAttr || {})}
                   title={item.text}
                   aria-label={item.text}
                   class="btn-ghost join-item btn-primary"
@@ -103,6 +105,7 @@ if (!title) title = 'Astral Halo';
                   (typeof item.onclick === 'string'
                     ? { onclick: item.onclick }
                     : { id: 'nav-' + item.onclick.id }))}
+                {...(item.extraAttr || {})}
               >
                 <Icon name={item.icon} height="1.5rem" width="1.5rem" />
               </Button>
@@ -123,6 +126,7 @@ if (!title) title = 'Astral Halo';
                   (typeof item.onclick === 'string'
                     ? { onclick: item.onclick }
                     : { id: 'nav-' + item.onclick.id }))}
+                {...(item.extraAttr || {})}
               >
                 <Icon name={item.icon} height="1.5rem" width="1.5rem" />
               </Button>
@@ -182,6 +186,7 @@ if (!title) title = 'Astral Halo';
                             (typeof subItem.onclick === 'string'
                               ? { onclick: subItem.onclick }
                               : { id: 'side-' + subItem.onclick.id }))}
+                          {...(subItem.extraAttr || {})}
                           title={subItem.text}
                           aria-label={subItem.text}
                           useDefaultClass={false}
@@ -208,6 +213,7 @@ if (!title) title = 'Astral Halo';
                     (typeof item.onclick === 'string'
                       ? { onclick: item.onclick }
                       : { id: 'side-' + item.onclick.id }))}
+                  {...(item.extraAttr || {})}
                   title={item.text}
                   aria-label={item.text}
                   useDefaultClass={false}
@@ -232,6 +238,7 @@ if (!title) title = 'Astral Halo';
                 (typeof item.onclick === 'string'
                   ? { onclick: item.onclick }
                   : { id: 'side-' + item.onclick.id }))}
+              {...(item.extraAttr || {})}
               useDefaultClass={false}
             >
               <Icon name={item.icon} height="1.5rem" width="1.5rem" />

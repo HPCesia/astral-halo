@@ -24,6 +24,12 @@ export type ButtonSubConfig<T extends string> = T extends 'text'
        * 按钮的文本。
        */
       text: string;
+      /**
+       * Extra attributes add to button HTML tag
+       *
+       * 添加到按钮 HTML 标签上的额外属性
+       */
+      extraAttr?: Record<string, string>;
     } & (
       | {
           /**
@@ -69,6 +75,12 @@ export type ButtonSubConfig<T extends string> = T extends 'text'
          * 按钮的文本。
          */
         text?: string;
+        /**
+         * Extra attributes add to button HTML tag
+         *
+         * 添加到按钮 HTML 标签上的额外属性
+         */
+        extraAttr?: Record<string, string>;
       } & (
         | {
             /**

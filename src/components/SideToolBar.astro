@@ -27,6 +27,7 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
               target={item.blank ? '_blank' : undefined}
               title={text}
               aria-label={text}
+              {...(item.extraAttr || {})}
             >
               <Icon name={icon} slot="icon" />
             </Button>
@@ -34,18 +35,28 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
         if ('onclick' in item) {
           if (typeof item.onclick === 'string')
             return (
-              <Button onclick={item.onclick} title={text} aria-label={text}>
+              <Button
+                onclick={item.onclick}
+                title={text}
+                aria-label={text}
+                {...(item.extraAttr || {})}
+              >
                 <Icon name={icon} slot="icon" />
               </Button>
             );
           return (
-            <Button id={`stb-${item.onclick!.id}`} title={text} aria-label={text}>
+            <Button
+              id={`stb-${item.onclick!.id}`}
+              title={text}
+              aria-label={text}
+              {...(item.extraAttr || {})}
+            >
               <Icon name={icon} slot="icon" />
             </Button>
           );
         }
         return (
-          <Button title={text} aria-label={text}>
+          <Button title={text} aria-label={text} {...(item.extraAttr || {})}>
             <Icon name={icon} slot="icon" />
           </Button>
         );
