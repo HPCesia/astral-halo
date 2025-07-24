@@ -25,7 +25,7 @@ Astral Halo is a static blog template developed with [Astro](https://astro.build
   - [Artalk](https://artalk.js.org/?lng=en)
 - [x] Various components that can be used in articles
 - [ ] Smooth animations and page transitions
-- [ ] Useful JS script tools
+- [x] Useful JS script tools
 - [x] PWA supports
 
 ## Getting Started
