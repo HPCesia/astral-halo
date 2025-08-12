@@ -1,0 +1,47 @@
+---
+import PostInfo from '@components/misc/PostInfo.astro';
+import Markdown from '@components/utils/Markdown.astro';
+import PostPageLayout from '@layouts/PostPageLayout.astro';
+import { getAllReferences } from '@utils/content-utils';
+import { getEntry, render } from 'astro:content';
+
+const pageSlug = 'page-template';
+
+const md = await getEntry('spec', pageSlug);
+
+const { Content, headings, remarkPluginFrontmatter } = md
+  ? await render(md)
+  : {
+      Content: Fragment,
+      headings: [],
+      remarkPluginFrontmatter: { references: [] },
+    };
+
+const allReferences = await getAllReferences();
+let allRefByCurrent: typeof allReferences = [];
+let references: {
+  reference: string;
+  context: string;
+  id: string;
+}[] = [];
+if (md) {
+  allRefByCurrent = allReferences.filter((it) => it.refBy.id === md.id);
+  references = remarkPluginFrontmatter.references || [];
+}
+---
+
+<PostPageLayout title={md!.data.title!} headings={headings} comment={md?.data.comment}>
+  <Fragment slot="header-content">
+    <PostInfo title={md!.data.title!} />
+  </Fragment>
+  <Markdown
+    bidirectional-references={md
+      ? {
+          references,
+          allRefByCurrent,
+        }
+      : undefined}
+  >
+    <Content />
+  </Markdown>
+</PostPageLayout>

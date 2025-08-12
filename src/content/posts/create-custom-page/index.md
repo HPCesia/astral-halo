@@ -9,88 +9,10 @@ cover: ./demo_cover.jpg
 
 In this guide, I will show you how to create a custom page in this blog template.
 
-> [!NOTE]
-> This guide is not yet available, please check back later. The text below is just a placeholder.
+You might not be satisfied with posts, or the preset About and Links pages in Astral Halo; you want more—this article is here to meet that need.
 
----
+In the `src/content/spec` directory, you can find a file named `page-template.md`. Make a copy of this file in the same place, rename it to `any-name-you-want.md`, and write whatever content you want.
 
-## Introduction
+In the `src/pages` directory, find a file named `_page.template.astro` (files starting with `_` will not be rendered). Make a copy of this file in the same directory, and rename it to `any-name-you-want.astro` (the name can be different from the previous `any-name-you-want.md`), and this new file name will be the URL of your custom page. Open this `.astro` file in your editor, and you'll see the line `const pageSlug = 'page-template';`. Change `'page-template'` to the `any-name-you-want` from your just-renamed `any-name-you-want.md` and save.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-et dolore magnam aliquam quaerat voluptatem. Ut enim aeque doleamus animo, cum corpore
-dolemus, fieri tamen permagna accessio potest, si aliquod aeternum et infinitum impendere malum
-nobis opinemur. Quod idem licet transferre in voluptatem, ut postea variari voluptas distinguique
-possit, augeri amplificarique non possit. At etiam Athenis, ut e patre audiebam facete et urbane
-Stoicos irridente, statua est in quo a nobis philosophia defensa et collaudata est, cum id, quod
-maxime placeat, facere possim.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-et dolore magnam aliquam quaerat voluptatem. Ut enim aeque doleamus animo, cum corpore
-dolemus, fieri tamen permagna accessio potest, si aliquod aeternum et infinitum impendere malum
-nobis opinemur. Quod idem licet transferre in voluptatem, ut postea variari voluptas distinguique
-possit.
-
-## Getting Started
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-et dolore magnam aliquam quaerat voluptatem.
-
-```bash
-lorem ipsum "dolor" --sit --amet
-```
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-et dolore magnam aliquam quaerat voluptatem. Ut enim aeque doleamus animo, cum corpore
-dolemus, fieri tamen permagna accessio potest, si aliquod aeternum et infinitum impendere malum
-nobis opinemur. Quod idem licet transferre in voluptatem.
-
-```astro
----
-import Lorem from 'ipsum.astro';
----
-
-<Lorem>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-    labore et dolore magnam aliquam quaerat voluptatem.
-  </p>
-  <p>
-    Ut enim aeque doleamus animo, cum corpore dolemus, fieri tamen permagna accessio potest, si
-    aliquod aeternum et infinitum impendere malum nobis opinemur.
-  </p>
-  <p>
-    Quod idem licet transferre in voluptatem, ut postea variari voluptas distinguique possit,
-    augeri amplificarique non possit.
-  </p>
-</Lorem>
-```
-
-## Troubleshooting
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-et dolore magnam aliquam quaerat voluptatem. Ut enim aeque doleamus animo, cum corpore
-dolemus, fieri tamen permagna accessio potest, si aliquod aeternum et infinitum impendere malum
-nobis opinemur. Quod idem licet transferre in voluptatem, ut postea variari voluptas distinguique
-possit, augeri amplificarique non possit.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-et dolore magnam aliquam quaerat voluptatem.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-et dolore magnam aliquam quaerat voluptatem. Ut enim aeque doleamus animo, cum corpore
-dolemus, fieri tamen permagna accessio potest, si aliquod aeternum et infinitum impendere malum
-nobis opinemur. Quod idem licet transferre in voluptatem, ut postea variari voluptas distinguique
-possit, augeri amplificarique non possit. At etiam Athenis, ut e patre audiebam facete et urbane
-Stoicos irridente, statua est in quo a nobis philosophia defensa et collaudata est, cum id, quod
-maxime placeat, facere possim.
-
-1. **LOREM IPSUM** dolor sit amet, consectetur adipiscing elit.
-2. **SED DO** eiusmod tempor incididunt ut labore et dolore magna aliqua.
-3. **UT ENIM** ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et
-voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum defuturum, quas
-natura non depravata desiderat. Et quem ad me accedis, saluto: 'chaere,' inquam, 'Tite!' lictores,
-turma omnis chorusque: 'chaere, Tite!' hinc hostis mi Albucius, hinc inimicus. Sed iure Mucius. Ego
-autem mirari satis non queo unde hoc sit tam insolens domesticarum rerum fastidium. Non est
-omnino hic docendi locus; sed ita prorsus existimo, neque eum Torquatum, qui hoc primus cognomen.
+Wherever you want to add this new page, add a link to `/any-name-you-want`, where `any-name-you-want` refers to the `.astro` file. Finally, use `pnpm dev` and view your newly created custom page in the local preview that launches.
