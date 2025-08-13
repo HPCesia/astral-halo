@@ -4,6 +4,7 @@ const zh_CN_web = {
   common: {
     open: '打开',
     close: '关闭',
+    refresh: '刷新',
   },
   navigation: {
     title: '导航',

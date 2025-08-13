@@ -4,6 +4,7 @@ const en_web = {
   common: {
     open: 'Open',
     close: 'Close',
+    refresh: 'Refresh',
   },
   navigation: {
     title: 'Navigation',

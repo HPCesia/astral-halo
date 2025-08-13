@@ -183,6 +183,10 @@ export type NamespaceWebTranslation = {
 		 * C​l​o​s​e
 		 */
 		close: string
+		/**
+		 * R​e​f​r​e​s​h
+		 */
+		refresh: string
 	}
 	navigation: {
 		/**
@@ -583,6 +587,10 @@ export type TranslationFunctions = {
 			 * Close
 			 */
 			close: () => LocalizedString
+			/**
+			 * Refresh
+			 */
+			refresh: () => LocalizedString
 		}
 		navigation: {
 			/**

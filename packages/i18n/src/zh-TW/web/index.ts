@@ -4,6 +4,7 @@ const zh_TW_web = {
   common: {
     open: '打開',
     close: '關閉',
+    refresh: '刷新',
   },
   navigation: {
     title: '導航',

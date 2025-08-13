@@ -10,8 +10,68 @@ import { onMounted, ref } from 'vue';
 const comments = ref<CommentData[]>([]);
 const loading = ref(true);
 
-// 根据评论系统类型加载不同的评论数据
+const cacheKey = 'recent-comments-cache';
+const cacheExpireTime = 30 * 60 * 1000; // 30 min
+
+interface CacheData {
+  data: CommentData[];
+  timestamp: number;
+  provider: string;
+}
+
+function getFromCache(): CommentData[] | null {
+  try {
+    const cached = localStorage.getItem(cacheKey);
+    if (!cached) return null;
+
+    const cacheData: CacheData = JSON.parse(cached);
+
+    // 检查缓存是否过期
+    const isExpired = Date.now() - cacheData.timestamp > cacheExpireTime;
+    if (isExpired) {
+      localStorage.removeItem(cacheKey);
+      return null;
+    }
+
+    // 检查评论系统是否变更
+    if (cacheData.provider !== commentConfig.provider) {
+      localStorage.removeItem(cacheKey);
+      return null;
+    }
+
+    // 恢复 Date 对象（JSON 序列化会将 Date 转为字符串）
+    return cacheData.data.map((comment) => ({
+      ...comment,
+      time: new Date(comment.time),
+    }));
+  } catch (error) {
+    console.warn('Failed to read from cache:', error);
+    localStorage.removeItem(cacheKey);
+    return null;
+  }
+}
+
+function saveToCache(data: CommentData[]): void {
+  try {
+    const cacheData: CacheData = {
+      data,
+      timestamp: Date.now(),
+      provider: commentConfig.provider,
+    };
+    localStorage.setItem(cacheKey, JSON.stringify(cacheData));
+  } catch (error) {
+    console.warn('Failed to save to cache:', error);
+  }
+}
+
 async function loadComments() {
+  const cachedComments = getFromCache();
+  if (cachedComments) {
+    comments.value = cachedComments;
+    loading.value = false;
+    return;
+  }
+
   const provider = (() => {
     switch (commentConfig.provider) {
       case 'twikoo':
@@ -28,13 +88,21 @@ async function loadComments() {
   })();
 
   try {
-    comments.value = await provider.setup();
+    const data = await provider.setup();
+    comments.value = data;
+    saveToCache(data);
   } catch (error) {
     console.error('Failed to load recent comments:', error);
     comments.value = [];
   } finally {
     loading.value = false;
   }
+}
+
+function refreshComments() {
+  localStorage.removeItem(cacheKey);
+  loading.value = true;
+  loadComments();
 }
 
 onMounted(() => {
@@ -45,8 +113,17 @@ onMounted(() => {
 <template>
   <div id="recent-comments-card" class="card border-base-300 bg-base-200/25 border">
     <div class="card-body px-4 py-2">
-      <div class="card-title">
-        {{ t.info.recentComments() }}
+      <div class="card-title flex justify-between">
+        <span>{{ t.info.recentComments() }}</span>
+        <button
+          @click="refreshComments"
+          class="btn btn-ghost btn-sm btn-square text-base"
+          :disabled="loading"
+          :title="t.common.refresh()"
+          :aria-label="t.common.refresh()"
+        >
+          ↻
+        </button>
       </div>
       <ul class="list">
         <template v-if="!loading">
