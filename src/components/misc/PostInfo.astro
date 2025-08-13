@@ -28,38 +28,54 @@ const {
   ...rest
 } = Astro.props;
 
-const metas: ({ icon: string; text: string; link?: string; time?: Date } | undefined)[] = [
+interface MetaInfo {
+  text: string;
+  link?: string;
+  time?: Date;
+}
+
+const metas: (
+  | ({ icon: string; title?: string } & (MetaInfo | { group: MetaInfo[] }))
+  | undefined
+)[] = [
   publishedAt && {
     icon: 'material-symbols:calendar-clock-outline-rounded',
+    title: t.meta.publishedAt(),
     text: publishedAt.toLocaleDateString(lang || siteConfig.lang.replace('_', '-')),
     time: publishedAt,
   },
   articleConfig.wordCount && typeof wordCount === 'number'
     ? {
         icon: 'material-symbols:docs-rounded',
+        title: t.meta.wordsCount(),
         text: t.status.wordsCount(wordCount),
       }
     : undefined,
   articleConfig.readingTime && typeof readingTime === 'number'
     ? {
         icon: 'material-symbols:nest-clock-farsight-analog-rounded',
+        title: t.meta.readingTime(),
         text: t.status.readTime(readingTime),
       }
     : undefined,
   category
     ? {
         icon: 'material-symbols:category-outline-rounded',
+        title: t.meta.category(),
         text: category,
         link: getCategoryUrl(category),
       }
     : undefined,
-  ...(tags?.map((tag) => {
-    return {
-      icon: 'material-symbols:tag-rounded',
-      text: tag,
-      link: getTagUrl(tag),
-    };
-  }) || []),
+  tags && tags.length > 0
+    ? {
+        icon: 'material-symbols:tag-rounded',
+        title: t.meta.tags(),
+        group: tags.map((tag) => ({
+          text: tag,
+          link: getTagUrl(tag),
+        })),
+      }
+    : undefined,
 ];
 ---
 
@@ -71,21 +87,31 @@ const metas: ({ icon: string; text: string; link?: string; time?: Date } | undef
         {metas.map((meta) => {
           return (
             meta && (
-              <div class="text-base-content/60 flex items-center text-sm">
-                <MetaIcon name={meta.icon} />
+              <div class="flex flex-wrap items-center gap-1">
+                <MetaIcon name={meta.icon} title={meta.title} aria-label={meta.title} />
                 {(() => {
-                  const text = meta.time ? (
-                    <time datetime={meta.time?.toISOString()}>{meta.text}</time>
-                  ) : (
-                    <span>{meta.text}</span>
-                  );
-                  return meta.link ? (
-                    <a href={meta.link} title={meta.text}>
-                      {text}
-                    </a>
-                  ) : (
-                    text
-                  );
+                  const process = (info: MetaInfo) => {
+                    const text = info.time ? (
+                      <time datetime={info.time?.toISOString()}>{info.text}</time>
+                    ) : (
+                      <span>{info.text}</span>
+                    );
+                    return info.link ? (
+                      <a href={info.link} title={info.text} class="link-hover">
+                        {text}
+                      </a>
+                    ) : (
+                      text
+                    );
+                  };
+                  if ('group' in meta) {
+                    return meta.group
+                      .map(process)
+                      .flatMap((item, index, arr) =>
+                        index === arr.length - 1 ? [item] : [item, '/']
+                      );
+                  }
+                  return process(meta);
                 })()}
               </div>
             )

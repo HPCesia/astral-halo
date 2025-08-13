@@ -52,6 +52,8 @@ const zh_TW_web = {
     category: '分類',
     unTagged: '無標籤',
     unCategorized: '未分類',
+    wordsCount: '字數統計',
+    readingTime: '閱讀時間',
   },
   info: {
     toc: '目錄',

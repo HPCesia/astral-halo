@@ -52,6 +52,8 @@ const zh_CN_web = {
     category: '分类',
     unTagged: '无标签',
     unCategorized: '未分类',
+    wordsCount: '字数统计',
+    readingTime: '阅读时间',
   },
   info: {
     toc: '目录',

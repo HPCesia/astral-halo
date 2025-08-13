@@ -52,6 +52,8 @@ const en_web = {
     category: 'Category',
     unTagged: 'No Tags',
     unCategorized: 'Uncategorized',
+    wordsCount: 'Words Count',
+    readingTime: 'Reading Time',
   },
   info: {
     toc: 'Table of Content',

@@ -344,6 +344,14 @@ export type NamespaceWebTranslation = {
 		 * U​n​c​a​t​e​g​o​r​i​z​e​d
 		 */
 		unCategorized: string
+		/**
+		 * W​o​r​d​s​ ​C​o​u​n​t
+		 */
+		wordsCount: string
+		/**
+		 * R​e​a​d​i​n​g​ ​T​i​m​e
+		 */
+		readingTime: string
 	}
 	info: {
 		/**
@@ -743,6 +751,14 @@ export type TranslationFunctions = {
 			 * Uncategorized
 			 */
 			unCategorized: () => LocalizedString
+			/**
+			 * Words Count
+			 */
+			wordsCount: () => LocalizedString
+			/**
+			 * Reading Time
+			 */
+			readingTime: () => LocalizedString
 		}
 		info: {
 			/**
