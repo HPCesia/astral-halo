@@ -23,7 +23,8 @@ import { Icon } from 'astro-icon/components';
             href={link.url}
             title={link.name}
             target="_blank"
-            class="btn-circle btn-ghost text-2xl"
+            class="btn-circle btn-ghost tooltip text-2xl"
+            data-tip={link.name}
           >
             <Icon name={link.icon} />
           </Button>
