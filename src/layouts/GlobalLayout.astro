@@ -7,6 +7,7 @@ import Navbar from '@components/Navbar.astro';
 import PageFooter from '@components/PageFooter.astro';
 import Search from '@components/Search.astro';
 import SideToolBar from '@components/SideToolBar.astro';
+import 'photoswipe/dist/photoswipe.css';
 import { pwaAssetsHead } from 'virtual:pwa-assets/head';
 import { pwaInfo } from 'virtual:pwa-info';
 
@@ -131,7 +132,6 @@ const siteLang = lang.replace('_', '-');
 
 <script>
   import { convertTimeToRelative } from '@scripts/utils';
-  import mediumZoom from 'medium-zoom/dist/pure';
 
   // 深色模式切换
   function applyDarkMode() {
@@ -147,19 +147,25 @@ const siteLang = lang.replace('_', '-');
   function setup() {
     applyDarkMode();
     convertTimeToRelative();
-    mediumZoom('[data-zoom]', {
-      background: 'rgba(0, 0, 0, 0.4)',
-    });
   }
 
   document.addEventListener('astro:after-swap', setup);
   setup();
 </script>
 
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+
+  window.lightbox = PhotoSwipeLightbox;
+  window.pswpModuleImporter = () => import('photoswipe');
+
+  const event = new CustomEvent('pswp:enable');
+  document.dispatchEvent(event);
+  // console.log("Producer: PhotoSwipe resources are ready and 'pswp:enable' event dispatched.");
+</script>
+
 <style is:global>
-  @import 'medium-zoom/dist/style.css';
-  .medium-zoom-overlay,
-  .medium-zoom-image--opened {
-    z-index: 999;
+  a[data-pwsp-src] {
+    cursor: zoom-in;
   }
 </style>

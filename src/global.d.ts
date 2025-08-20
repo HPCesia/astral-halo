@@ -1,8 +1,11 @@
+import type PhotoSwipeLightbox from 'photoswipe/lightbox';
 import type { Swup } from 'swup';
 
 declare global {
   interface Window {
     swup: Swup;
+    lightbox: typeof PhotoSwipeLightbox;
+    pswpModuleImporter: () => Promise<typeof import('photoswipe')>;
   }
 
   const twikoo: {

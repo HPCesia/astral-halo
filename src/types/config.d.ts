@@ -217,13 +217,9 @@ export type BuildConfig = {
    */
   showDraftsOnDev: boolean;
   /**
-   * Fetch the size data of remote images during build.\
-   * This feature **CAN NOT** fetch images in `.md` files.
-   * To fetch images in `.md` files, see https://docs.astro.build/en/reference/configuration-reference/#imageservice
+   * Fetch the size data of remote images during build.
    *
-   * 在构建时获取远程图像的大小数据。\
-   * 需要注意，本功能**不能**获取 `.md` 中的图像。
-   * 获取 `.md` 中的图像，请参考 https://docs.astro.build/zh-cn/reference/configuration-reference/#imageservice
+   * 在构建时获取远程图像的大小数据。
    */
   inferRemoteImageSize: {
     /**

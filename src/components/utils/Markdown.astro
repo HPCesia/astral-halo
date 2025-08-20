@@ -1,8 +1,11 @@
 ---
+import { buildConfig } from '@/config';
 import '@/styles/markdown.css';
 import type { HTMLAttributes } from 'astro/types';
-import 'cheerio';
+import { inferRemoteSize } from 'astro:assets';
 import { load as cheerioLoad } from 'cheerio';
+import crypto from 'crypto';
+import type PhotoSwipeLightbox from 'photoswipe/lightbox';
 import Replacer from './Replacer.astro';
 
 interface Props extends HTMLAttributes<'article'> {
@@ -23,11 +26,16 @@ interface Props extends HTMLAttributes<'article'> {
       id: string;
     }[];
   };
+  zoomReplacer?: (html: string) => string;
+  zoomOption?: ConstructorParameters<typeof PhotoSwipeLightbox>[0];
 }
 
 const {
   class: className,
   'bidirectional-references': bidirectionalReferences,
+  id: wrapperId,
+  zoomReplacer,
+  zoomOption,
   ...rest
 } = Astro.props;
 
@@ -44,17 +52,73 @@ const referenceReplacer = (_: string, reference: string, alias: string) => {
 };
 const referencePattern = /%%%%(.*?)(?:%%(.*?))?%%%%/g;
 
-const imageZoomReplacer = (html: string) => {
-  const $ = cheerioLoad(html);
-  $('img:where(:not(inline img))').attr('data-zoom', '');
-  return $.html();
-};
+const imageZoomReplacer =
+  zoomReplacer ||
+  (async (html: string) => {
+    const $ = cheerioLoad(html);
+    const imgs = $('img:where(:not(inline img, a img))');
+    if (imgs.length === 0) return html;
+
+    const srcWHMap = new Map<string, { width: number; height: number }>();
+    await Promise.all(
+      imgs.map(async (_, el) => {
+        if (el.type !== 'tag') return '';
+        const src = el.attribs['src'];
+        if (!src) return '';
+        let width = parseInt(el.attribs['width']) || undefined;
+        let height = parseInt(el.attribs['height']) || undefined;
+        if (
+          (!width || !height) &&
+          !src.startsWith('/') &&
+          buildConfig.inferRemoteImageSize.enable
+        ) {
+          try {
+            const metadata = await inferRemoteSize(src);
+            width = metadata.width;
+            height = metadata.height;
+          } catch (error) {
+            console.warn(
+              `[WARN] Could not infer size for image "${src}": ${(error as Error).message}.`
+            );
+          }
+        }
+        if (width && height) {
+          srcWHMap.set(src, { width, height });
+        } else {
+          console.warn(
+            `[WARN] Size for image "${src}" could not be determined, the zoom feature may not work correctly.
+                    To ensure the zoom feature works, please provide width and height attributes for the image.
+                    If the image is in 'public' folder, you can use the 'width' and 'height' attributes in the <img> tag.
+                    If the image is from remote, please enable 'inferRemoteImageSize' in the config or provide the size manually.
+            `
+          );
+          srcWHMap.set(src, buildConfig.inferRemoteImageSize.defaultSize);
+        }
+      })
+    );
+
+    $('img:where(:not(inline img, a img))').wrap((_, el) => {
+      if (el.type !== 'tag') return '';
+      const src = el.attribs['src'];
+      if (!src) return '';
+      const { width, height } = srcWHMap.get(src) || {};
+      const attrs = [
+        `data-pswp-src="${el.attribs['src']}"`,
+        width ? `data-pswp-width="${width}"` : undefined,
+        height ? `data-pswp-height="${height}"` : undefined,
+      ];
+      return `<a ${attrs.join(' ')}></a>`;
+    });
+    return $.html();
+  });
 const imageZoomPattern = null; // Use null to process entire HTML
 
 const Fragment = bidirectionalReferences ? Replacer : 'Fragment';
+
+const id = wrapperId || `markdown-${crypto.randomUUID()}`;
 ---
 
-<article class={className} {...rest}>
+<article class:list={['pswp-gallery', className]} id={id} {...rest}>
   <Fragment
     options={[
       { pattern: referencePattern, replacer: referenceReplacer },
@@ -64,3 +128,37 @@ const Fragment = bidirectionalReferences ? Replacer : 'Fragment';
     <slot />
   </Fragment>
 </article>
+
+<script is:inline define:vars={{ id, option: zoomOption }}>
+  function initPhotoSwipe() {
+    // console.log(
+    //   `Consumer (ID: ${id}): 'pswp:enable' event received or lightbox was ready. Initializing.`
+    // );
+
+    const lightbox = new window.lightbox(
+      option || {
+        gallery: `#${id}`,
+        children: 'a[data-pswp-src]',
+        pswpModule: window.pswpModuleImporter,
+      }
+    );
+    lightbox.init();
+
+    document.addEventListener(
+      'astro:before-swap',
+      () => {
+        if (lightbox) {
+          lightbox.destroy();
+        }
+      },
+      { once: true }
+    );
+  }
+
+  if (window.lightbox) {
+    initPhotoSwipe();
+  } else {
+    // console.log(`Consumer (ID: ${id}): lightbox not ready. Waiting for 'pswp:enable' event.`);
+    document.addEventListener('pswp:enable', initPhotoSwipe, { once: true });
+  }
+</script>
