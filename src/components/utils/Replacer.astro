@@ -1,24 +1,52 @@
 ---
-export type Props = {
-  pattern: string | RegExp;
-  replaceValue?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  replacer?: (match: string, ...args: any[]) => string;
-};
+type ReplaceOption =
+  | {
+      /**
+       * The pattern to match in the HTML content.
+       * It can be a string, a regular expression, or null.
+       * - If null, the replacer function will be called with the entire HTML content,
+       *   and the replaceValue will be used as the result.
+       * - If a string or RegExp, it will be used to find matches in the HTML content.
+       */
+      pattern: string | RegExp | null;
+      replaceValue: string;
+    }
+  | {
+      pattern: string | RegExp;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      replacer: (match: string, ...args: any[]) => string;
+    }
+  | {
+      pattern: null;
+      replacer: (match: string) => string | Promise<string>;
+    };
 
-const { pattern, replaceValue, replacer } = Astro.props;
-
-if (replaceValue && replacer) {
-  throw new Error('You can only use one of `replaceValue` or `replacer. Please choose one.');
-}
-if (replaceValue === undefined && replacer === undefined) {
-  throw new Error('You must provide either `replaceValue` or `replacer`.');
-}
+export type Props =
+  | {
+      option: ReplaceOption;
+    }
+  | {
+      options: ReplaceOption[];
+    };
 
 const raw = await Astro.slots.render('default');
-const html = replacer
-  ? raw.replaceAll(pattern, replacer)
-  : raw.replaceAll(pattern, replaceValue!);
+
+const replace = async function (html: string, option: ReplaceOption): Promise<string> {
+  if (option.pattern === null) {
+    return 'replacer' in option ? await option.replacer(html) : option.replaceValue;
+  }
+  return 'replacer' in option
+    ? html.replaceAll(option.pattern, option.replacer)
+    : html.replaceAll(option.pattern, option.replaceValue);
+};
+
+let html: string | undefined = undefined;
+if ('options' in Astro.props) {
+  for (const option of Astro.props.options) {
+    html = await replace(html || raw, option);
+  }
+} else if ('option' in Astro.props) html = await replace(raw, Astro.props.option);
+else html = raw;
 ---
 
 <Fragment set:html={html} />

@@ -1,6 +1,7 @@
 ---
 import '@/styles/markdown.css';
 import type { HTMLAttributes } from 'astro/types';
+import 'cheerio';
 import Replacer from './Replacer.astro';
 
 interface Props extends HTMLAttributes<'article'> {
@@ -46,7 +47,7 @@ const Fragment = bidirectionalReferences ? Replacer : 'Fragment';
 ---
 
 <article class={className} {...rest}>
-  <Fragment pattern={referencePattern} replacer={replacer}>
+  <Fragment option={{ pattern: referencePattern, replacer: replacer }}>
     <slot />
   </Fragment>
 </article>
