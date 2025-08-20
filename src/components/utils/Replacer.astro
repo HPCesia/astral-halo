@@ -21,13 +21,7 @@ type ReplaceOption =
       replacer: (match: string) => string | Promise<string>;
     };
 
-export type Props =
-  | {
-      option: ReplaceOption;
-    }
-  | {
-      options: ReplaceOption[];
-    };
+export type Props = { option: ReplaceOption } | { options: ReplaceOption[] };
 
 const raw = await Astro.slots.render('default');
 

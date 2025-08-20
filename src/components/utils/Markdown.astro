@@ -2,6 +2,7 @@
 import '@/styles/markdown.css';
 import type { HTMLAttributes } from 'astro/types';
 import 'cheerio';
+import { load as cheerioLoad } from 'cheerio';
 import Replacer from './Replacer.astro';
 
 interface Props extends HTMLAttributes<'article'> {
@@ -32,7 +33,7 @@ const {
 
 const references = bidirectionalReferences?.references;
 const allRefByCurrent = bidirectionalReferences?.allRefByCurrent;
-const replacer = (_: string, reference: string, alias: string) => {
+const referenceReplacer = (_: string, reference: string, alias: string) => {
   const id = references?.find((item) => item.reference === reference.split('#')[0])?.id;
   if (!id) return '';
   const refTo = allRefByCurrent?.find((it) => it.id === id);
@@ -43,11 +44,23 @@ const replacer = (_: string, reference: string, alias: string) => {
 };
 const referencePattern = /%%%%(.*?)(?:%%(.*?))?%%%%/g;
 
+const imageZoomReplacer = (html: string) => {
+  const $ = cheerioLoad(html);
+  $('img:where(:not(inline img))').attr('data-zoom', '');
+  return $.html();
+};
+const imageZoomPattern = null; // Use null to process entire HTML
+
 const Fragment = bidirectionalReferences ? Replacer : 'Fragment';
 ---
 
 <article class={className} {...rest}>
-  <Fragment option={{ pattern: referencePattern, replacer: replacer }}>
+  <Fragment
+    options={[
+      { pattern: referencePattern, replacer: referenceReplacer },
+      { pattern: imageZoomPattern, replacer: imageZoomReplacer },
+    ]}
+  >
     <slot />
   </Fragment>
 </article>

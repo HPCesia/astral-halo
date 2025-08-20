@@ -40,6 +40,7 @@
     "astro-icon": "^1.1.5",
     "astro-pagefind": "^1.8.3",
     "autoprefixer": "^10.4.21",
+    "cheerio": "^1.1.2",
     "daisyui": "^5.0.46",
     "dayjs": "^1.11.13",
     "hast-util-from-html": "^2.0.3",
