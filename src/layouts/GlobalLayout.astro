@@ -1,8 +1,9 @@
 ---
-import { profileConfig, searchConfig, siteConfig, toolBarConfig } from '@/config';
+import { buildConfig, profileConfig, searchConfig, siteConfig, toolBarConfig } from '@/config';
 import '@/styles/global.css';
 import '@/styles/transition.css';
 import Banner from '@components/Banner.astro';
+import ImageZoomLoader from '@components/misc/ImageZoomLoader.astro';
 import Navbar from '@components/Navbar.astro';
 import PageFooter from '@components/PageFooter.astro';
 import Search from '@components/Search.astro';
@@ -153,16 +154,7 @@ const siteLang = lang.replace('_', '-');
   setup();
 </script>
 
-<script>
-  import PhotoSwipeLightbox from 'photoswipe/lightbox';
-
-  window.lightbox = PhotoSwipeLightbox;
-  window.pswpModuleImporter = () => import('photoswipe');
-
-  const event = new CustomEvent('pswp:enable');
-  document.dispatchEvent(event);
-  // console.log("Producer: PhotoSwipe resources are ready and 'pswp:enable' event dispatched.");
-</script>
+{buildConfig.enableImageZoom && <ImageZoomLoader />}
 
 <style is:global>
   a[data-pwsp-src] {

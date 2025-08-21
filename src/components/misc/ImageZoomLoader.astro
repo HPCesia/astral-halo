@@ -1,0 +1,10 @@
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+
+  window.lightbox = PhotoSwipeLightbox;
+  window.pswpModuleImporter = () => import('photoswipe');
+
+  const event = new CustomEvent('pswp:enable');
+  document.dispatchEvent(event);
+  // console.log("Producer: PhotoSwipe resources are ready and 'pswp:enable' event dispatched.");
+</script>

@@ -238,6 +238,12 @@ export type BuildConfig = {
       height: number;
     };
   };
+  /**
+   * Whether to enable image zoom feature.
+   *
+   * 是否启用图像缩放功能。
+   */
+  enableImageZoom: boolean;
 };
 
 export type ProfileConfig = {

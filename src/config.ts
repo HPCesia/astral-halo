@@ -50,6 +50,7 @@ export const buildConfig: BuildConfig = {
       height: 600,
     },
   },
+  enableImageZoom: true,
 };
 
 export const profileConfig: ProfileConfig = {
