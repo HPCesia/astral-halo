@@ -1,8 +1,8 @@
 ---
 import { buildConfig } from '@/config';
 import '@/styles/markdown.css';
+import { getCachedRemoteImageSize } from '@/utils/image-size-cache';
 import type { HTMLAttributes } from 'astro/types';
-import { inferRemoteSize } from 'astro:assets';
 import { load as cheerioLoad } from 'cheerio';
 import crypto from 'crypto';
 import type PhotoSwipeLightbox from 'photoswipe/lightbox';
@@ -73,14 +73,10 @@ const imageZoomReplacer = !buildConfig.enableImageZoom
             !src.startsWith('/') &&
             buildConfig.inferRemoteImageSize.enable
           ) {
-            try {
-              const metadata = await inferRemoteSize(src);
-              width = metadata.width;
-              height = metadata.height;
-            } catch (error) {
-              console.warn(
-                `[WARN] Could not infer size for image "${src}": ${(error as Error).message}.`
-              );
+            const dimensions = await getCachedRemoteImageSize(src);
+            if (dimensions) {
+              width = dimensions.width;
+              height = dimensions.height;
             }
           }
           if (width && height) {
