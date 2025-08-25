@@ -176,118 +176,21 @@ article {
   }
 
   /* 代码样式 */
-  pre {
-    padding: 1rem 2rem 1rem 0.5rem;
-    counter-reset: line;
-    transition: 300ms all ease;
-    overflow-x: scroll;
-
-    code {
-      display: grid;
-
-      > span {
-        position: relative;
-        display: block;
-        padding-left: 2.25em;
-        padding-block: 0.1em;
-        min-width: fit-content;
-        min-height: 1.5em;
-
-        &::before {
-          position: absolute;
-          left: 0.25em;
-          content: counter(line);
-          counter-increment: line;
-          font-size: 0.85em;
-          width: 2em;
-          text-align: right;
-          padding-right: 0.25em;
-          transform: translateY(0.15em);
-        }
-        &.highlighted {
-          &,
-          & span {
-            background-color: color-mix(
-              in oklab,
-              var(--color-neutral-500) 15%,
-              var(--code-bg-color)
-            );
-          }
-        }
-        &.diff {
-          &.add {
-            &::after {
-              content: '+';
-              color: var(--color-success);
-            }
-
-            &,
-            & span {
-              background-color: color-mix(
-                in oklab,
-                var(--color-success) 15%,
-                var(--code-bg-color)
-              );
-            }
-          }
-          &.remove {
-            &::after {
-              content: '-';
-              color: var(--color-error);
-            }
-
-            &,
-            & span {
-              background-color: color-mix(
-                in oklab,
-                var(--color-error) 15%,
-                var(--code-bg-color)
-              );
-            }
-          }
-
-          &::after {
-            position: absolute;
-            left: 0;
-          }
-        }
+  .expressive-code {
+    &:where(:not(.card-body > :only-child)) {
+      &:where(:not(:first-child)) {
+        margin-top: 1rem;
+      }
+      &:where(:not(:last-child)) {
+        margin-bottom: 1rem;
       }
     }
-  }
-  .astro-code {
-    @apply relative rounded-md;
-
-    > :last-child > span {
-      @apply bg-base-content/60!;
+    &where(.card-body > :only-child) {
+      pre,
+      .frame .header {
+        @apply rounded-t-none;
+      }
     }
-    /* 避免 Repl 组件中出现上下间隙 */
-    &:where(:not(.card-body :only-child)) {
-      @apply my-4;
-    }
-  }
-  .astro-code,
-  .astro-code span {
-    &:where([data-theme='light'], [data-theme='light'] *) {
-      --code-text-color: var(--shiki-light);
-      --code-bg-color: var(--shiki-light-bg);
-      --code-font-style: var(--shiki-light-font-style);
-      --code-font-weight: var(--shiki-light-font-weight);
-      --code-text-decoration: var(--shiki-light-text-decoration);
-    }
-
-    &:where([data-theme='dark'], [data-theme='dark'] *) {
-      --code-text-color: var(--shiki-dark);
-      --code-bg-color: var(--shiki-dark-bg);
-      --code-font-style: var(--shiki-dark-font-style);
-      --code-font-weight: var(--shiki-dark-font-weight);
-      --code-text-decoration: var(--shiki-dark-text-decoration);
-    }
-
-    color: var(--code-text-color);
-    background-color: var(--code-bg-color);
-    font-style: var(--code-font-style);
-    font-weight: var(--code-font-weight);
-    text-decoration: var(--code-text-decoration);
   }
 
   code:not(pre code) {

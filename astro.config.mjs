@@ -1,8 +1,8 @@
 // @ts-check
-import { siteConfig } from './src/config.ts';
+import { buildConfig, siteConfig } from './src/config.ts';
 import { CDN } from './src/constants/cdn.ts';
+import { pluginLanguageBadge } from './src/plugins/expressive-code-lang-badget.ts';
 import { rehypeComponentsList } from './src/plugins/rehype-components-list.ts';
-import { rehypePrettierCodes } from './src/plugins/rehype-prettier-codes.ts';
 import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.ts';
 import { remarkArticleReferences } from './src/plugins/remark-article-references';
 import { remarkCreateTime } from './src/plugins/remark-create-time.ts';
@@ -11,15 +11,14 @@ import { remarkExcerpt } from './src/plugins/remark-excerpt.ts';
 import { remarkImageProcess } from './src/plugins/remark-image-process.ts';
 import { remarkObsidianCallout } from './src/plugins/remark-obsidian-callout.ts';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.ts';
-import { wrapCode } from './src/plugins/shiki-transformers.ts';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import vue from '@astrojs/vue';
-// import { transformerNotationDiff } from '@shikijs/transformers';
-// import { transformerNotationHighlight } from '@shikijs/transformers';
+import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
 import tailwindcss from '@tailwindcss/vite';
 import AstroPWA from '@vite-pwa/astro';
+import expressiveCode from 'astro-expressive-code';
 import icon from 'astro-icon';
 import pagefind from 'astro-pagefind';
 import { defineConfig } from 'astro/config';
@@ -61,22 +60,19 @@ export default defineConfig({
         navigateFallbackAllowlist: [/^\/$/],
       },
     }),
+    expressiveCode({
+      themeCssSelector: (theme) => `[data-theme="${buildConfig.themeNames[theme.type]}"]`,
+      plugins: [pluginLineNumbers(), pluginLanguageBadge()],
+      shiki: {
+        langAlias: {
+          pip: 'ini',
+        },
+      },
+    }),
     mdx(),
     vue(),
   ],
   markdown: {
-    shikiConfig: {
-      themes: {
-        light: 'one-light',
-        dark: 'one-dark-pro',
-      },
-      defaultColor: false,
-      transformers: [
-        // transformerNotationDiff(),
-        // transformerNotationHighlight(),
-        wrapCode(),
-      ],
-    },
     remarkPlugins: [
       // remarkHeadingShift,
       remarkMath,
@@ -114,7 +110,6 @@ export default defineConfig({
         },
       ],
       rehypeWrapTables,
-      rehypePrettierCodes,
       [rehypeComponents, { components: rehypeComponentsList }],
     ],
   },
