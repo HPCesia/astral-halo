@@ -111,7 +111,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="recent-comments-card" class="card border-base-300 bg-base-200/25 border">
+  <div id="recent-comments-card" class="card border-base-300 bg-base-200 border">
     <div class="card-body px-4 py-2">
       <div class="card-title flex justify-between">
         <span>{{ t.info.recentComments() }}</span>
