@@ -16,7 +16,9 @@ const currentYear = new Date().getFullYear();
               </li>
               {col.items.map((item) => (
                 <li>
-                  <a href={item.link}>{item.text}</a>
+                  <a href={item.link} {...(item.blank ? { target: '_blank' } : {})}>
+                    {item.text}
+                  </a>
                 </li>
               ))}
             </ul>

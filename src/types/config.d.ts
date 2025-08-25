@@ -479,6 +479,7 @@ export type FooterConfig = {
         items: {
           text: string;
           link: string;
+          blank?: boolean;
         }[];
       }[]
     | false;
