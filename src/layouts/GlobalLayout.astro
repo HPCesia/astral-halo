@@ -132,6 +132,7 @@ const siteLang = lang.replace('_', '-');
 </script>
 
 <script>
+  import { buildConfig } from '@/config';
   import { convertTimeToRelative } from '@scripts/utils';
 
   // 深色模式切换
@@ -141,8 +142,8 @@ const siteLang = lang.replace('_', '-');
       (!('darkMode' in localStorage) &&
         window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.setAttribute('data-theme', buildConfig.themeNames.dark);
+    } else document.documentElement.setAttribute('data-theme', buildConfig.themeNames.light);
   }
 
   function setup() {

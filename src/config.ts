@@ -51,6 +51,10 @@ export const buildConfig: BuildConfig = {
     },
   },
   enableImageZoom: true,
+  themeNames: {
+    light: 'light',
+    dark: 'dark',
+  },
 };
 
 export const profileConfig: ProfileConfig = {

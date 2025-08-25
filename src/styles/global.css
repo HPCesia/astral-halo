@@ -1,6 +1,13 @@
 @import 'tailwindcss';
 
 @plugin 'daisyui' {
+  /**
+   * You can modify the light and dark themes by editing below.
+   * But remember to modify any css selectors that depend on the theme colors.
+   * For example, if you change the dark theme to DaisyUI's build-in `black` theme,
+   * you need to replace all `[data-theme="dark"]` in source files to `[data-theme="black"]`.
+   * `buildConfig.themeNames` in `src/config,ts` is also need to be updated accordingly.
+   */
   themes:
     light --default,
     dark --prefersdark;

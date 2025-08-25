@@ -244,6 +244,17 @@ export type BuildConfig = {
    * 是否启用图像缩放功能。
    */
   enableImageZoom: boolean;
+  /**
+   * The name of the light and dark themes.
+   * Should be same as the choosen themes in `src/styles/global.css`
+   *
+   * 浅色和深色主题的名称。
+   * 应与 `src/styles/global.css` 中选择的主题相同。
+   */
+  themeNames: {
+    light: string;
+    dark: string;
+  };
 };
 
 export type ProfileConfig = {

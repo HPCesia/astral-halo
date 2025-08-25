@@ -45,6 +45,8 @@ const { class: className, showText, useDefaultBtnClass, ...rest } = Astro.props;
 </Button>
 
 <script>
+  import { buildConfig } from '@/config';
+
   function setup() {
     const darkmodeBtns = document.querySelectorAll('button.darkmode-btn');
 
@@ -135,7 +137,10 @@ const { class: className, showText, useDefaultBtnClass, ...rest } = Astro.props;
     document.addEventListener('blog:darkmode-change', (e) => {
       // @ts-expect-error CustomEvent.detail is not defined in TypeScript
       const { isDark } = e.detail;
-      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      document.documentElement.setAttribute(
+        'data-theme',
+        isDark ? buildConfig.themeNames.dark : buildConfig.themeNames.light
+      );
     });
   }
 
