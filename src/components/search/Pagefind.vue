@@ -26,7 +26,11 @@ let pagefind: null | {
   debouncedSearch: (text: string, delay: number) => Promise<PagefindSearchResults> | null;
 } = null;
 
+let searchSequence = 0;
+
 const search = async (text: string) => {
+  const currentSequence = ++searchSequence;
+
   if (!text) {
     isLoading.value = false;
     searchResults.value = [];
@@ -38,29 +42,53 @@ const search = async (text: string) => {
     isLoading.value = true;
     return;
   }
-  isLoading.value = false;
 
-  const searchResponse = await pagefind.debouncedSearch(text, 300);
-  if (!searchResponse) return;
-  const results = searchResponse.results;
-  if (results.length === 0) {
-    searchResults.value = [];
-    noResults.value = true;
-    return;
+  isLoading.value = true;
+
+  try {
+    const searchResponse = await pagefind.debouncedSearch(text, 300);
+
+    if (currentSequence !== searchSequence) {
+      return;
+    }
+
+    if (!searchResponse) {
+      isLoading.value = false;
+      return;
+    }
+
+    const results = searchResponse.results;
+    if (results.length === 0) {
+      searchResults.value = [];
+      noResults.value = true;
+      isLoading.value = false;
+      return;
+    }
+
+    noResults.value = false;
+    const processedResults = await Promise.all(
+      results.map(async (result: PagefindSearchResult) => {
+        const data = await result.data();
+        return {
+          url: data.url,
+          title: data.meta.title,
+          excerpt: data.excerpt,
+        };
+      })
+    );
+
+    if (currentSequence === searchSequence) {
+      searchResults.value = processedResults;
+      isLoading.value = false;
+    }
+  } catch (error) {
+    if (currentSequence === searchSequence) {
+      console.error('Search error:', error);
+      isLoading.value = false;
+      noResults.value = true;
+      searchResults.value = [];
+    }
   }
-
-  noResults.value = false;
-  const processedResults = await Promise.all(
-    results.map(async (result: PagefindSearchResult) => {
-      const data = await result.data();
-      return {
-        url: data.url,
-        title: data.meta.title,
-        excerpt: data.excerpt,
-      };
-    })
-  );
-  searchResults.value = processedResults;
 };
 
 const setupSearch = () => {
@@ -73,7 +101,6 @@ const setupSearch = () => {
   searchInput.addEventListener('input', (event: Event) => {
     const target = event.target as HTMLInputElement;
     const value = target.value.trim();
-    isLoading.value = true;
     search(value);
   });
 };
