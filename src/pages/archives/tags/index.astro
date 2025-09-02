@@ -101,10 +101,14 @@ if (untaggedPosts.length > 0) tagPosts.set(t.meta.unTagged(), untaggedPosts);
                             };
                           }),
                         ].map((meta) => (
-                          <div class="flex items-center gap-0">
+                          <div class="flex items-center gap-1">
                             <MetaIcon name={meta.icon} />
                             {meta.link ? (
-                              <a href={meta.link} class="meta-text" title={meta.text}>
+                              <a
+                                href={meta.link}
+                                class="meta-text link-hover not-hover:link"
+                                title={meta.text}
+                              >
                                 {meta.text}
                               </a>
                             ) : (

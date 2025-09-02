@@ -107,10 +107,14 @@ const postCount = await getPostsCount();
                           };
                         }),
                       ].map((meta) => (
-                        <div class="flex items-center gap-0">
+                        <div class="flex items-center gap-1">
                           <MetaIcon name={meta.icon} />
                           {meta.link ? (
-                            <a href={meta.link} class="meta-text" title={meta.text}>
+                            <a
+                              href={meta.link}
+                              title={meta.text}
+                              class="meta-text link-hover not-hover:link"
+                            >
                               {meta.text}
                             </a>
                           ) : (
