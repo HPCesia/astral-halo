@@ -3,7 +3,7 @@ import { siteConfig } from '@/config';
 import { getCategoryUrl, getTagUrl } from '@utils/content-utils';
 import { t } from '@utils/i18n';
 import type { ImageMetadata } from 'astro';
-import MetaIcon from './MetaIcon.astro';
+import MetaList from './MetaList.astro';
 import PostCardCover from './PostCardCover.astro';
 import ReadMoreButton from './ReadMoreButton.astro';
 
@@ -68,43 +68,7 @@ const metas: (
 >
   <div class="card-body">
     <a href={url} class="card-title">{title}</a>
-    <div class="text-base-content/60 mb-3 flex flex-wrap items-center gap-3 text-sm">
-      {
-        metas.map((meta) => {
-          return (
-            meta && (
-              <div class="flex flex-wrap items-center gap-1">
-                <MetaIcon name={meta.icon} title={meta.title} aria-label={meta.title} />
-                {(() => {
-                  const process = (info: MetaInfo) => {
-                    const text = info.time ? (
-                      <time datetime={info.time?.toISOString()}>{info.text}</time>
-                    ) : (
-                      <span>{info.text}</span>
-                    );
-                    return info.link ? (
-                      <a href={info.link} title={info.text} class="link-hover not-hover:link">
-                        {text}
-                      </a>
-                    ) : (
-                      text
-                    );
-                  };
-                  if ('group' in meta) {
-                    return meta.group
-                      .map(process)
-                      .flatMap((item, index, arr) =>
-                        index === arr.length - 1 ? [item] : [item, '/']
-                      );
-                  }
-                  return process(meta);
-                })()}
-              </div>
-            )
-          );
-        })
-      }
-    </div>
+    <MetaList class="text-base-content/60 mt-2 items-start text-sm" metas={metas} />
   </div>
   {
     hasCover ? (
