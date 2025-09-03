@@ -65,6 +65,8 @@ const en_web = {
       image: '[Image]',
       link: '[Link]',
       code: '[Code]',
+      collapsed: '[Collapsed]',
+      pending: '[Pending]',
     },
     backLinks: 'Back Links',
     devNote:

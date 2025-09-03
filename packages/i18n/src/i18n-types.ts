@@ -387,6 +387,14 @@ export type NamespaceWebTranslation = {
 			 * [​C​o​d​e​]
 			 */
 			code: string
+			/**
+			 * [​C​o​l​l​a​p​s​e​d​]
+			 */
+			collapsed: string
+			/**
+			 * [​P​e​n​d​i​n​g​]
+			 */
+			pending: string
 		}
 		/**
 		 * B​a​c​k​ ​L​i​n​k​s
@@ -794,6 +802,14 @@ export type TranslationFunctions = {
 				 * [Code]
 				 */
 				code: () => LocalizedString
+				/**
+				 * [Collapsed]
+				 */
+				collapsed: () => LocalizedString
+				/**
+				 * [Pending]
+				 */
+				pending: () => LocalizedString
 			}
 			/**
 			 * Back Links

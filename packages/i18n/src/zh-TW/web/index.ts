@@ -65,6 +65,8 @@ const zh_TW_web = {
       image: '[圖片]',
       link: '[連結]',
       code: '[程式碼]',
+      collapsed: '[已摺疊]',
+      pending: '[待審]',
     },
     backLinks: '反向連結',
     devNote:

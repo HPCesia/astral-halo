@@ -65,6 +65,8 @@ const zh_CN_web = {
       image: '[图片]',
       link: '[链接]',
       code: '[代码]',
+      collapsed: '[已折叠]',
+      pending: '[待审]',
     },
     backLinks: '反向链接',
     devNote:
