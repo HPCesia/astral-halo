@@ -36,7 +36,8 @@
         "src/*"
       ]
     },
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js"
   },
   "include": [
     "src/**/*"

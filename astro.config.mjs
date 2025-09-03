@@ -14,7 +14,7 @@ import { remarkReadingTime } from './src/plugins/remark-reading-time.ts';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import vue from '@astrojs/vue';
+import solidJs from '@astrojs/solid-js';
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
 import tailwindcss from '@tailwindcss/vite';
 import AstroPWA from '@vite-pwa/astro';
@@ -28,6 +28,7 @@ import rehypeMathJaxCHtml from 'rehype-mathjax/chtml';
 import remarkDirective from 'remark-directive';
 import remarkDirectiveRehype from 'remark-directive-rehype';
 import remarkMath from 'remark-math';
+import Icons from 'unplugin-icons/vite';
 
 // https://astro.build/config
 export default defineConfig({
@@ -70,7 +71,7 @@ export default defineConfig({
       },
     }),
     mdx(),
-    vue(),
+    solidJs({ devtools: true }),
   ],
   markdown: {
     remarkPlugins: [
@@ -114,7 +115,7 @@ export default defineConfig({
     ],
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), Icons({ compiler: 'solid' })],
     build: {
       rollupOptions: {
         external: ['workbox-window'],

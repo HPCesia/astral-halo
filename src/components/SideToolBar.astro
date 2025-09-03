@@ -4,7 +4,7 @@ import { t } from '@utils/i18n';
 import { Icon } from 'astro-icon/components';
 import Button from './widgets/Button.astro';
 import DarkModeButton from './widgets/DarkModeButton.astro';
-import TocButton from './widgets/SideToolBar/TocButton.vue';
+import TocButton from './widgets/SideToolBar/TocButton.tsx';
 ---
 
 <div
@@ -80,7 +80,7 @@ import TocButton from './widgets/SideToolBar/TocButton.vue';
     {
       articleConfig.toc && (
         <TocButton client:media="(width <= 80rem)">
-          <Icon name="material-symbols:toc-rounded" slot="icon" />
+          <Icon name="material-symbols:toc-rounded" />
         </TocButton>
       )
     }

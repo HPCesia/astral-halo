@@ -1,8 +1,7 @@
 ---
 import { searchConfig } from '@/config';
 import { t } from '@utils/i18n';
-import { Icon } from 'astro-icon/components';
-import Pagefind from './search/Pagefind.vue';
+import Pagefind from './search/Pagefind.tsx';
 ---
 
 <dialog id="search_modal" class="modal">
@@ -19,34 +18,7 @@ import Pagefind from './search/Pagefind.vue';
         (() => {
           switch (searchConfig.provider) {
             case 'pagefind':
-              return (
-                <Pagefind client:visible inputId="search-input">
-                  <label class="input input-bordered flex w-full items-center gap-2">
-                    <input
-                      id="search-input"
-                      type="search"
-                      spellcheck="false"
-                      autocorrect="off"
-                      autocomplete="off"
-                      autocapitalize="off"
-                      class="grow"
-                      placeholder={t.button.search()}
-                    />
-                    <Icon
-                      name="material-symbols:search-rounded"
-                      height="1.875rem"
-                      width="1.875rem"
-                    />
-                  </label>
-                  <Icon
-                    slot="icon"
-                    name="material-symbols:chevron-right"
-                    class="text-primary inline-block"
-                    height="1.125rem"
-                    width="1.125rem"
-                  />
-                </Pagefind>
-              );
+              return <Pagefind client:visible inputId="search-input" />;
           }
         })()
       }
