@@ -2,6 +2,7 @@
 import { buildConfig, siteConfig } from './src/config.ts';
 import { CDN } from './src/constants/cdn.ts';
 import { pluginLanguageBadge } from './src/plugins/expressive-code-lang-badget.ts';
+import { rehypeComponentsAsync } from './src/plugins/rehype-components-async.ts';
 import { rehypeComponentsList } from './src/plugins/rehype-components-list.ts';
 import { rehypeWrapTables } from './src/plugins/rehype-wrap-tables.ts';
 import { remarkArticleReferences } from './src/plugins/remark-article-references';
@@ -23,7 +24,6 @@ import icon from 'astro-icon';
 import pagefind from 'astro-pagefind';
 import { defineConfig } from 'astro/config';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeComponents from 'rehype-components';
 import rehypeMathJaxCHtml from 'rehype-mathjax/chtml';
 import remarkDirective from 'remark-directive';
 import remarkDirectiveRehype from 'remark-directive-rehype';
@@ -111,7 +111,7 @@ export default defineConfig({
         },
       ],
       rehypeWrapTables,
-      [rehypeComponents, { components: rehypeComponentsList }],
+  [rehypeComponentsAsync, { components: rehypeComponentsList }],
     ],
   },
   vite: {
