@@ -16,12 +16,16 @@ Here is an example of a Markdown blog post.
 Heading Level 1 is reserved for the post title, so you should start with Heading Level 2.
 
 :::collapse{title="Or"}
-You can uncomment `import remarkHeadingShift from './src/plugins/remark-heading-shift.mjs';` to the top of `astro.config.mjs` and then uncomment the first line of the `remarkPlugins` array. After that, you can use Heading Level 1 as a regular heading in your blog posts.
+You can uncomment `import remarkHeadingShift from './src/plugins/remark-heading-shift.mjs';`
+on the top of `astro.config.mjs` and then uncomment the first line of the `remarkPlugins` array.
+After that, you can use Heading Level 1 as a regular heading in your blog posts.
 :::
 
 ## Heading Level 2
 
-You can use GitHub Flavored Markdown to format your blog posts. For example, you can use **bold**, _italic_ and ~~strikethrough~~ text, create a [link](https://example.com) or just write a raw URL like https://example.com, and add images:
+You can use GitHub Flavored Markdown to format your blog posts. For example, you can use **bold**,
+_italic_ and ~~strikethrough~~ text, create a [link](https://example.com) or just write a raw URL
+like https://example.com, and add images:
 
 ![Example Image](../../assets/img/avatar.jpg)
 
@@ -125,7 +129,8 @@ And that's it!
 
 #### I Think You Want to Have a Look at Heading Level 4
 
-Bidirectional article links are also supported, you can use `[[slug]]` to create a link to another article like [[posts/create-custom-page/index#Introduction|create custom page]] or [[manual]]
+Bidirectional article links are also supported, you can use `[[slug]]` to create a link to
+another article like [[posts/create-custom-page/index#Introduction|create custom page]] or [[manual]]
 
 ##### Too Many Nested Headings is Not a Good Idea, but Here is Heading Level 5
 

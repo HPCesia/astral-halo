@@ -8,7 +8,8 @@ tags:
   - manual
 ---
 
-This blog template is built with [Astro](https://astro.build). For the things that are not mentioned in this guide, you may find the answers in the [Astro Docs](https://docs.astro.build/).
+This blog template is built with [Astro](https://astro.build). For the things that are not
+mentioned in this guide, you may find the answers in the [Astro Docs](https://docs.astro.build/).
 
 ## Article Front Matter
 
@@ -28,7 +29,9 @@ comment: true # Enable comments, requires comment system to be enabled and confi
 
 ## Where to Place the Post Files
 
-Your post files should be placed in `src/content/posts/` directory. You need to create sub-directories if you want to use local assets. To automatically generate a new post file, run `pnpm new [draft|post] [title] [--dir]` in the terminal at the root of the project.
+Your post files should be placed in `src/content/posts/` directory. You need to create
+sub-directories if you want to use local assets. To automatically generate a new post file,
+run `pnpm new [draft|post] [title] [--dir]` in the terminal at the root of the project.
 
 ```
 src/content/posts/
