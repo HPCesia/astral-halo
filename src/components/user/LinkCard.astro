@@ -1,22 +1,72 @@
 ---
 import { Icon } from 'astro-icon/components';
 
+import { getLinkPreview } from '@utils/link-preview';
+
 interface Props {
-  title: string;
-  description: string;
   url: string;
+  title?: string;
+  description?: string;
+  siteName?: string;
+  image?: string;
+  favicon?: string;
 }
 
-let { title, description, url } = Astro.props;
+const props = Astro.props as Props;
+
+const preview = await getLinkPreview(props.url, {
+  title: props.title,
+  description: props.description,
+  siteName: props.siteName,
+  image: props.image,
+  favicon: props.favicon,
+});
 ---
 
-<a href={url} title={title} class="card border-base-content/25 my-4 overflow-hidden border">
-  <div class="card-body flex flex-row items-center justify-between p-4">
-    <div>
-      <div class="card-title">
-        {title}
+<a
+  href={preview.url}
+  title={preview.title}
+  class="card card-side border-base-content/25 my-4 overflow-hidden border"
+  data-link-card
+  data-url={preview.url}
+  data-fetched-at={preview.fetchedAt}
+  rel="noopener noreferrer"
+>
+  {
+    preview.image && (
+      <figure class="flex-shrink-0">
+        <img
+          src={preview.image}
+          alt={preview.title || 'Link preview image'}
+          class="h-24 w-32 object-cover"
+          loading="lazy"
+        />
+      </figure>
+    )
+  }
+  <div class="card-body grid grid-cols-[minmax(0,1fr)_auto] items-center p-4">
+    <div class="grid grid-rows-2 gap-2">
+      <div class="flex items-center gap-2">
+        {
+          preview.favicon && (
+            <img
+              src={preview.favicon}
+              alt={preview.siteName}
+              class="h-6 w-6 rounded object-cover"
+              loading="lazy"
+            />
+          )
+        }
+        <span class="card-title truncate">
+          {preview.title}
+        </span>
+        <span class="text-base-content/60 text-sm">
+          {preview.siteName}
+        </span>
       </div>
-      <div class="card-desc text-base-content/50">{description}</div>
+      <p class="text-base-content/50 truncate">
+        {preview.description}
+      </p>
     </div>
     <Icon name="material-symbols:arrow-right-alt-rounded" height="1.875rem" width="1.875rem" />
   </div>

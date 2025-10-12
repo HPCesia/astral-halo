@@ -1,8 +1,10 @@
 /**
  * All components in this file should sync with the components in `src/components/user`
  */
+import { getLinkPreview } from '../utils/link-preview.ts';
 import type { IconifyJSON } from '@iconify/types';
 import { getIconData, iconToHTML, iconToSVG, stringToIcon } from '@iconify/utils';
+import { fromHtml } from 'hast-util-from-html';
 import { h } from 'hastscript';
 import type { Child } from 'hastscript';
 import { readFile } from 'node:fs/promises';
@@ -43,10 +45,10 @@ async function loadCollection(name: string) {
 }
 
 const collections: Record<string, IconifyJSON> = {};
-iconSets.forEach(async (set) => {
+for (const set of iconSets) {
   const icons = await loadCollection(set);
   if (icons) collections[set] = icons;
-});
+}
 
 const Collapse = function (
   props: {
@@ -118,42 +120,155 @@ const Icon = function (props: {
   );
 };
 
-const LinkCard = function (props: { title: string; description: string; url: string }) {
-  const { title, description, url } = props;
-  const wrapperClassName = 'card border-base-content/25 my-4 overflow-hidden border';
-  const bodyClassName = 'card-body flex flex-row items-center justify-between p-4';
-  const titleClassName = 'card-title';
-  const descClassName = 'card-desc text-base-content/50';
+const LinkCard = async function (props: {
+  url: string;
+  title?: string;
+  description?: string;
+  siteName?: string;
+  image?: string;
+  favicon?: string;
+}) {
+  if (!props.url) {
+    console.error('LinkCard requires a "url" property.');
+    return h(
+      'a',
+      { class: 'card border-base-content/25 my-4 overflow-hidden border' },
+      'Link card error'
+    );
+  }
 
-  const titleNode = h('div', { class: titleClassName }, title);
-  const descNode = h('div', { class: descClassName }, description);
-  const contentNode = h('div', null, [titleNode, descNode]);
+  const preview = await getLinkPreview(props.url, {
+    title: props.title,
+    description: props.description,
+    siteName: props.siteName,
+    image: props.image,
+    favicon: props.favicon,
+  });
+
+  const contentNodes: Child[] = [];
+
+  if (preview.image) {
+    contentNodes.push(
+      h('figure', { class: 'flex-shrink-0' }, [
+        h('img', {
+          src: preview.image,
+          alt: preview.title || 'Link preview image',
+          class: 'h-24 w-32 object-cover',
+          loading: 'lazy',
+        }),
+      ])
+    );
+  }
+
+  const metaRowChildren: Child[] = [];
+  if (preview.favicon) {
+    metaRowChildren.push(
+      h('img', {
+        src: preview.favicon,
+        alt: preview.siteName || preview.title,
+        class: 'h-6 w-6 rounded object-cover',
+        loading: 'lazy',
+      })
+    );
+  }
+
+  metaRowChildren.push(
+    h('span', { class: 'card-title truncate' }, preview.title || preview.url)
+  );
+  metaRowChildren.push(
+    h(
+      'span',
+      { class: 'text-base-content/60 text-sm' },
+      preview.siteName || new URL(preview.url).hostname
+    )
+  );
+
+  const infoColumn = h(
+    'div',
+    { class: 'grid grid-rows-2 gap-2' },
+    h('div', { class: 'flex items-center gap-2' }, ...metaRowChildren),
+    h('p', { class: 'text-base-content/50 truncate' }, preview.description || '')
+  );
 
   const collection = collections['material-symbols'];
   if (!collection) {
-    console.error('LinkCard icon set found: material-symbols');
-    return h('a', { class: wrapperClassName, href: url, title }, 'Link card error');
+    console.error('LinkCard icon set not found: material-symbols');
+    const bodyNode = h('div', { class: 'card-body p-4' }, infoColumn);
+    contentNodes.push(bodyNode);
+    return h(
+      'a',
+      {
+        class: 'card card-side border-base-content/25 my-4 overflow-hidden border',
+        href: preview.url,
+        title: preview.title,
+        'data-link-card': '',
+        'data-url': preview.url,
+        'data-fetched-at': preview.fetchedAt,
+        rel: 'noopener noreferrer',
+      },
+      ...contentNodes
+    );
   }
+
   const iconData = getIconData(collection, 'arrow-right-alt-rounded');
   if (!iconData) {
     console.error('LinkCard icon not found: material-symbols:arrow-right-alt-rounded');
-    return h('a', { class: wrapperClassName, href: url, title }, 'Link card error');
+    const bodyNode = h('div', { class: 'card-body p-4' }, infoColumn);
+    contentNodes.push(bodyNode);
+    return h(
+      'a',
+      {
+        class: 'card card-side border-base-content/25 my-4 overflow-hidden border',
+        href: preview.url,
+        title: preview.title,
+        'data-link-card': '',
+        'data-url': preview.url,
+        'data-fetched-at': preview.fetchedAt,
+        rel: 'noopener noreferrer',
+      },
+      ...contentNodes
+    );
   }
-  const { attributes, body } = iconToSVG(iconData);
-  const iconHtml = iconToHTML(body, attributes);
-  const iconNode = h(
-    'span',
-    {
-      class: 'text-3xl',
-    },
-    {
-      type: 'raw',
-      value: iconHtml,
-    }
-  );
-  const bodyNode = h('div', { class: bodyClassName }, [contentNode, iconNode]);
 
-  return h('a', { class: wrapperClassName, href: url, title }, bodyNode);
+  const { attributes, body } = iconToSVG(iconData);
+  const svgAttributes: Record<string, string> = {
+    ...attributes,
+    width: '1.875rem',
+    height: '1.875rem',
+    'aria-hidden': 'true',
+    focusable: 'false',
+  };
+
+  const parsed = fromHtml(body, { fragment: true });
+  const svgNode = h('svg', svgAttributes, ...(parsed.children as Child[]));
+
+  const iconNode = h(
+    'div',
+    { class: 'flex items-center justify-center text-base-content/60' },
+    svgNode
+  );
+
+  const bodyNode = h(
+    'div',
+    { class: 'card-body grid grid-cols-[minmax(0,1fr)_auto] items-center p-4' },
+    [infoColumn, iconNode]
+  );
+
+  contentNodes.push(bodyNode);
+
+  return h(
+    'a',
+    {
+      class: 'card card-side border-base-content/25 my-4 overflow-hidden border',
+      href: preview.url,
+      title: preview.title,
+      'data-link-card': '',
+      'data-url': preview.url,
+      'data-fetched-at': preview.fetchedAt,
+      rel: 'noopener noreferrer',
+    },
+    ...contentNodes
+  );
 };
 
 const Ruby = function (props: { base: string; text: string }) {
