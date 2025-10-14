@@ -33,10 +33,12 @@ Your post files should be placed in `src/content/posts/` directory. You need to 
 sub-directories if you want to use local assets. To automatically generate a new post file,
 run `pnpm new [draft|post] [title] [--dir]` in the terminal at the root of the project.
 
-```
-src/content/posts/
-├── post-1.md
-└── post-2/
-    ├── cover.png
-    └── index.md
-```
+:::filetree{open=true}
+
+- src/content/posts
+  - post-1.md
+  - post-2
+    - cover.png
+    - index.md
+
+:::

@@ -1,0 +1,50 @@
+---
+import { fileIcon } from '@utils/file-icon';
+import { Icon } from 'astro-icon/components';
+
+type FileNode =
+  | {
+      name: string;
+      children?: FileNode[];
+    }
+  | string;
+
+interface Props {
+  files: FileNode[];
+  open?: boolean;
+}
+
+const { files, open } = Astro.props;
+---
+
+<ul class="menu menu-sm rounded-box border-base-content/25 w-full border">
+  {
+    (() => {
+      function renderer(node: FileNode) {
+        if (typeof node === 'string') {
+          return (
+            <li>
+              <span class="cursor-auto">
+                <Icon name={fileIcon(node)} />
+                {node}
+              </span>
+            </li>
+          );
+        } else {
+          return (
+            <li>
+              <details {...(open ? { open: true } : {})}>
+                <summary>
+                  <Icon name="mdi:folder" />
+                  {node.name}
+                </summary>
+                {node.children && <ul>{node.children.map((child) => renderer(child))}</ul>}
+              </details>
+            </li>
+          );
+        }
+      }
+      return files.map((node) => renderer(node));
+    })()
+  }
+</ul>

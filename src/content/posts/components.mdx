@@ -9,7 +9,7 @@ tags:
 published: 2025-02-10T21:23:23+08:00
 ---
 
-import { Collapse, Icon, LinkCard, Repl, RepoCard, Ruby, TabItem, Tabs, Tooltip } from '@components/user';
+import { Collapse, FileTree, Icon, LinkCard, Repl, RepoCard, Ruby, TabItem, Tabs, Tooltip } from '@components/user';
 
 Components let you easily reuse a piece of UI or styling consistently. You can use them not just in `.astro` files, but also in `.mdx` files.
 
@@ -144,6 +144,78 @@ Components let you easily reuse a piece of UI or styling consistently. You can u
     ````
   </Fragment>
 </Repl>
+
+### FileTree
+
+<Repl>
+  <FileTree
+    files={[
+      {
+        name: "src",
+        children: [
+          { name: "components", children: ["Button.astro", "Card.astro"] },
+          { name: "layouts", children: ["BaseLayout.astro"] },
+          { name: "pages", children: ["index.astro", "about.astro"] },
+        ],
+      },
+      { name: "public", children: ["favicon.ico", "robots.txt"] },
+      ".gitignore",
+      "astro.config.mjs",
+      "package.json",
+      "README.md",
+    ]}
+  />
+  <Fragment slot="desc">
+    <Tabs>
+      <TabItem label="mdx" active>
+        ```jsx
+        <FileTree
+          files={[
+            {
+              name: "src",
+              children: [
+                { name: "components", children: ["Button.astro", "Card.astro"] },
+                { name: "layouts", children: ["BaseLayout.astro"] },
+                { name: "pages", children: ["index.astro", "about.astro"] },
+              ],
+            },
+            { name: "public", children: ["favicon.ico", "robots.txt"] },
+            ".gitignore",
+            "astro.config.mjs",
+            "package.json",
+            "README.md",
+          ]}
+        />
+        ```
+      </TabItem>
+      <TabItem label="md">
+        ```md
+        :::filetree
+        - src
+          - components
+            - Button.astro
+            - Card.astro
+          - layouts
+            - BaseLayout.astro
+          - pages
+            - index.astro
+            - about.astro
+        - public
+          - favicon.ico
+          - robots.txt
+        - .gitignore
+        - astro.config.mjs
+        - package.json
+        - README.md
+        :::
+        ```
+      </TabItem>
+    </Tabs>
+  </Fragment>
+</Repl>
+
+> [!NOTE]
+> `FileTree` has an optional `open` prop for both `.mdx` and `.md` components to make the tree expanded by default.
 
 ## Inline Containers
 

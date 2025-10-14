@@ -102,7 +102,7 @@ article {
   }
 
   /* 列表样式 */
-  ul,
+  ul:not(.menu):not(.menu *),
   ol {
     margin-top: 0.5rem;
   }
@@ -136,7 +136,7 @@ article {
     }
   }
 
-  ul > li {
+  ul:not(.menu):not(.menu *) > li {
     position: relative;
     padding: 0.25rem 0.25rem 0.25rem 1.4em;
 

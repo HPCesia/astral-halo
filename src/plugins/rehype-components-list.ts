@@ -1,9 +1,11 @@
 /**
  * All components in this file should sync with the components in `src/components/user`
  */
+import { fileIcon } from '../utils/file-icon.ts';
 import { getLinkPreview } from '../utils/link-preview.ts';
 import type { IconifyJSON } from '@iconify/types';
 import { getIconData, iconToHTML, iconToSVG, stringToIcon } from '@iconify/utils';
+import type { Element, ElementContent, Text } from 'hast';
 import { fromHtml } from 'hast-util-from-html';
 import { h } from 'hastscript';
 import type { Child } from 'hastscript';
@@ -70,6 +72,120 @@ const Collapse = function (
   const titleNode = h('div', { class: titleClassName }, title);
   const contentNode = h('div', { class: contentClassName }, children);
   return h('div', { class: wrapperClassName }, [inputNode, titleNode, contentNode]);
+};
+
+type ParsedFileNode =
+  | string
+  | {
+      name: string;
+      children: ParsedFileNode[];
+    };
+
+function isElementNode(value: ElementContent): value is Element {
+  return value.type === 'element';
+}
+
+function isTextNode(value: ElementContent): value is Text {
+  return value.type === 'text';
+}
+
+function extractText(value: ElementContent): string {
+  if (isTextNode(value)) {
+    return value.value;
+  }
+
+  if (isElementNode(value)) {
+    if (value.tagName === 'ul') return '';
+    return (value.children ?? []).map(extractText).join('');
+  }
+
+  return '';
+}
+
+function normalizeName(raw: string): string {
+  return raw.replace(/\s+/g, ' ').trim();
+}
+
+function parseListElement(list: Element): ParsedFileNode[] {
+  const items: ParsedFileNode[] = [];
+
+  for (const child of list.children ?? []) {
+    if (!isElementNode(child) || child.tagName !== 'li') continue;
+
+    let nested: ParsedFileNode[] = [];
+    const nameParts: string[] = [];
+
+    for (const itemChild of child.children ?? []) {
+      if (isElementNode(itemChild) && itemChild.tagName === 'ul') {
+        nested = parseListElement(itemChild);
+        continue;
+      }
+
+      const piece = extractText(itemChild);
+      if (piece.trim().length > 0) {
+        nameParts.push(piece);
+      }
+    }
+
+    const name = normalizeName(nameParts.join(' '));
+    if (!name) continue;
+
+    if (nested.length > 0) {
+      items.push({ name, children: nested });
+    } else {
+      items.push(name);
+    }
+  }
+
+  return items;
+}
+
+function renderFileNode(node: ParsedFileNode, open: boolean): Child {
+  if (typeof node === 'string') {
+    return h(
+      'li',
+      h('span', { class: 'cursor-auto' }, Icon({ name: fileIcon(node) }), ' ', node)
+    );
+  }
+
+  const nestedChildren =
+    node.children.length > 0
+      ? [h('ul', ...node.children.map((child) => renderFileNode(child, open)))]
+      : [];
+
+  return h(
+    'li',
+    h(
+      'details',
+      { ...(open ? { open: '' } : {}) },
+      h('summary', Icon({ name: 'mdi:folder' }), ' ', node.name),
+      ...nestedChildren
+    )
+  );
+}
+
+const FileTree = function (props: { open?: boolean }, children: ElementContent[]) {
+  const listElement = children.find(
+    (child): child is Element => isElementNode(child) && child.tagName === 'ul'
+  );
+
+  if (!listElement) {
+    console.warn('[WARN] FileTree directive expects a nested list as its content.');
+    return children;
+  }
+
+  const parsed = parseListElement(listElement);
+
+  if (parsed.length === 0) {
+    console.warn('[WARN] FileTree directive content is empty.');
+    return children;
+  }
+
+  return h(
+    'ul',
+    { class: 'menu menu-sm rounded-box border-base-content/25 w-full border' },
+    ...parsed.map((node) => renderFileNode(node, props.open ?? false))
+  );
 };
 
 const Icon = function (props: {
@@ -316,6 +432,7 @@ const Tooltip = function (
 
 export const rehypeComponentsList = {
   collapse: Collapse,
+  filetree: FileTree,
   icon: Icon,
   linkcard: LinkCard,
   rubyc: Ruby,
