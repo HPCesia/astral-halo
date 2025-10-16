@@ -7,13 +7,19 @@ import { Icon } from 'astro-icon/components';
 
 <div id="profile-card" class="card border-base-300 bg-base-200 border">
   <figure class="px-4 pt-4">
-    <a href="/about/">
-      <ImageWrapper class="rounded-xl" src={profileConfig.avatar} alt={profileConfig.name} />
+    <a href="/about/" class="overflow-clip rounded-xl">
+      <ImageWrapper
+        class="duration-300 hover:scale-105 hover:brightness-110"
+        src={profileConfig.avatar}
+        alt={profileConfig.name}
+      />
     </a>
   </figure>
   <div class="card-body items-center p-5 text-center">
     <div class="card-title">
-      <a href="/about/" class="font-bold">{profileConfig.name}</a>
+      <a href="/about/" class="hover:text-primary font-bold duration-150"
+        >{profileConfig.name}</a
+      >
     </div>
     <div>{profileConfig.bio}</div>
     <div class="flex flex-row flex-wrap items-center justify-center gap-2">
