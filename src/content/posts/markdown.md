@@ -16,9 +16,27 @@ Here is an example of a Markdown blog post.
 Heading Level 1 is reserved for the post title, so you should start with Heading Level 2.
 
 :::collapse{title="Or"}
+
 You can uncomment `import remarkHeadingShift from './src/plugins/remark-heading-shift.mjs';`
 on the top of `astro.config.mjs` and then uncomment the first line of the `remarkPlugins` array.
 After that, you can use Heading Level 1 as a regular heading in your blog posts.
+
+```js del={2,8} add={3,9} showLineNumbers=false
+// astro.config.mjs
+// import { remarkHeadingShift } from './src/plugins/remark-heading-shift.ts';
+import { remarkHeadingShift } from './src/plugins/remark-heading-shift.ts';
+
+export default defineConfig({
+  markdown: {
+    remarkPlugins: [
+      // remarkHeadingShift,
+      remarkHeadingShift,
+      // Other plugins
+    ],
+  },
+});
+```
+
 :::
 
 ## Heading Level 2
@@ -50,11 +68,14 @@ Common Markdown features like:
 
 You can use <code>\`</code> to create code line like `this`, or
 
-````markdown
+````markdown showLineNumbers=false
 ```markdown
 use triple backticks to create code blocks.
 ```
 ````
+
+> [!NOTE]
+> Astral Halo use [Expressive Code](https://expressive-code.com) for code block, check their [document](https://expressive-code.com/key-features/syntax-highlighting/) for more information.
 
 $\LaTeX$ formulas are also supported, inline formula like $e^{i\pi} + 1 = 0$ or block formula like:
 
@@ -84,7 +105,7 @@ You can also add footnotes[^1] or [reference links][refer].
 
 [refer]: https://example.com
 
-[GitHub blockquote alerts](https://github.com/orgs/community/discussions/16925) is also supported:
+[Obsidian callouts](https://help.obsidian.md/callouts) is also supported:
 
 > [!note]
 > Lorem ipsum dolor sit amet
@@ -130,7 +151,7 @@ And that's it!
 #### I Think You Want to Have a Look at Heading Level 4
 
 Bidirectional article links are also supported, you can use `[[slug]]` to create a link to
-another article like [[posts/create-custom-page/index#Introduction|create custom page]] or [[manual]]
+another article like [[posts/create-custom-page/index#Introduction|create custom page]] or [[manual]].
 
 ##### Too Many Nested Headings is Not a Good Idea, but Here is Heading Level 5
 
