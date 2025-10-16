@@ -1,13 +1,19 @@
 ---
-import { buildConfig, profileConfig, searchConfig, siteConfig, toolBarConfig } from '@/config';
+import {
+  buildConfig,
+  fastActionsConfig,
+  profileConfig,
+  searchConfig,
+  siteConfig,
+} from '@/config';
 import '@/styles/global.css';
 import '@/styles/transition.css';
 import Banner from '@components/Banner.astro';
+import FastActions from '@components/FastActions.astro';
 import ImageZoomLoader from '@components/misc/ImageZoomLoader.astro';
 import Navbar from '@components/Navbar.astro';
 import PageFooter from '@components/PageFooter.astro';
 import Search from '@components/Search.astro';
-import SideToolBar from '@components/SideToolBar.astro';
 import 'photoswipe/dist/photoswipe.css';
 import { pwaAssetsHead } from 'virtual:pwa-assets/head';
 import { pwaInfo } from 'virtual:pwa-info';
@@ -76,7 +82,7 @@ const siteLang = lang.replace('_', '-');
     <slot name="head" />
   </head>
   <body class="bg-base-100 text-base-content flex min-h-screen flex-col">
-    {toolBarConfig.enable && <SideToolBar />}
+    {fastActionsConfig.enable && <FastActions />}
     <Navbar title={siteConfig.title}>
       <slot name="header" />
       {siteConfig.banner !== false && <Banner src={banner?.src} basePath={banner?.basePath} />}

@@ -57,7 +57,7 @@ const zh_TW_web = {
   },
   info: {
     toc: '目錄',
-    toolBar: '工具欄',
+    fastActions: '快捷操作',
     readingPercentage: '閱讀進度',
     comments: '評論',
     recentComments: '最新評論',

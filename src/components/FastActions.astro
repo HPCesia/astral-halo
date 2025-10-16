@@ -1,5 +1,5 @@
 ---
-import { articleConfig, toolBarConfig } from '@/config';
+import { articleConfig, fastActionsConfig } from '@/config';
 import { t } from '@utils/i18n';
 import { Icon } from 'astro-icon/components';
 import Button from './widgets/Button.astro';
@@ -8,17 +8,17 @@ import TocButton from './widgets/SideToolBar/TocButton.tsx';
 ---
 
 <div
-  id="side-toolbar"
+  id="fast-actions"
   class="fixed right-0 bottom-10 z-30 grid grid-cols-1 gap-2"
-  aria-label={t.info.toolBar()}
+  aria-label={t.info.fastActions()}
 >
   <div
-    id="stb-hide"
+    id="fab-hide"
     class="grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
     inert
   >
     {
-      toolBarConfig.items.map((item) => {
+      fastActionsConfig.items.map((item) => {
         const { icon, text } = item;
         if ('href' in item)
           return (
@@ -46,7 +46,7 @@ import TocButton from './widgets/SideToolBar/TocButton.tsx';
             );
           return (
             <Button
-              id={`stb-${item.onclick!.id}`}
+              id={`fab-${item.onclick!.id}`}
               title={text}
               aria-label={text}
               {...(item.extraAttr || {})}
@@ -62,18 +62,18 @@ import TocButton from './widgets/SideToolBar/TocButton.tsx';
         );
       })
     }
-    <DarkModeButton id="stb-dark-mode" class="btn-circle btn-secondary btn-sm" />
+    <DarkModeButton id="fab-dark-mode" class="btn-circle btn-secondary btn-sm" />
   </div>
   <div
-    id="stb-show"
+    id="fab-show"
     class="grid translate-x-full grid-cols-1 gap-2 pr-4 duration-500 ease-in-out"
   >
     <Button
-      id="stb-show-more"
+      id="fab-show-more"
       class="btn-circle btn-secondary btn-sm"
       aria-expanded="false"
       aria-label={t.button.more()}
-      aria-controls="stb-hide"
+      aria-controls="fab-hide"
     >
       <Icon name="material-symbols:settings-rounded" class="animate-spin" />
     </Button>
@@ -84,14 +84,14 @@ import TocButton from './widgets/SideToolBar/TocButton.tsx';
         </TocButton>
       )
     }
-    <Button id="stb-back-to-top" class="group btn-circle btn-secondary btn-sm">
+    <Button id="fab-back-to-top" class="group btn-circle btn-secondary btn-sm">
       <span
-        id="stb-read-percentage"
+        id="fab-read-percentage"
         aria-label={t.info.readingPercentage()}
         class="absolute text-sm opacity-0 duration-300 group-hover:opacity-0">0</span
       >
       <Icon
-        id="stb-back-to-top-icon"
+        id="fab-back-to-top-icon"
         name="material-symbols:arrow-upward-rounded"
         class="duration-300 group-hover:opacity-100"
       />
@@ -100,34 +100,34 @@ import TocButton from './widgets/SideToolBar/TocButton.tsx';
 </div>
 
 <script>
-  import { toolBarConfig } from '@/config';
+  import { fastActionsConfig } from '@/config';
   import { getReadingProgress } from '@scripts/utils';
 
-  const stbItems = toolBarConfig.items;
+  const fabItems = fastActionsConfig.items;
 
   function setup() {
-    const stbShow = document.getElementById('stb-show');
-    const stbHide = document.getElementById('stb-hide');
-    const stbShowMore = document.getElementById('stb-show-more');
-    const stbBackToTop = document.getElementById('stb-back-to-top');
-    const stbBackToTopIcon = document.getElementById('stb-back-to-top-icon');
-    const stbReadPercent = document.getElementById('stb-read-percentage');
+    const fabShow = document.getElementById('fab-show');
+    const fabHide = document.getElementById('fab-hide');
+    const fabShowMore = document.getElementById('fab-show-more');
+    const fabBackToTop = document.getElementById('fab-back-to-top');
+    const fabBackToTopIcon = document.getElementById('fab-back-to-top-icon');
+    const fabReadPercent = document.getElementById('fab-read-percentage');
 
-    let isExpanded = JSON.parse(stbShowMore?.getAttribute('aria-expanded') || 'false');
+    let isExpanded = JSON.parse(fabShowMore?.getAttribute('aria-expanded') || 'false');
 
-    stbShowMore?.addEventListener('click', () => {
+    fabShowMore?.addEventListener('click', () => {
       isExpanded = !isExpanded;
-      stbShowMore.setAttribute('aria-expanded', String(isExpanded));
+      fabShowMore.setAttribute('aria-expanded', String(isExpanded));
       if (isExpanded) {
-        stbHide?.classList.remove('translate-x-full');
-        stbHide?.removeAttribute('inert');
+        fabHide?.classList.remove('translate-x-full');
+        fabHide?.removeAttribute('inert');
       } else {
-        stbHide?.classList.add('translate-x-full');
-        stbHide?.setAttribute('inert', 'true');
+        fabHide?.classList.add('translate-x-full');
+        fabHide?.setAttribute('inert', 'true');
       }
     });
 
-    stbBackToTop?.addEventListener('click', () => {
+    fabBackToTop?.addEventListener('click', () => {
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
@@ -144,30 +144,30 @@ import TocButton from './widgets/SideToolBar/TocButton.tsx';
     window.addEventListener('scroll', () => {
       // 控制工具栏显隐
       if (window.scrollY > 0) {
-        stbShow?.classList.remove('translate-x-full');
+        fabShow?.classList.remove('translate-x-full');
       } else {
-        stbShow?.classList.add('translate-x-full');
-        stbShowMore?.setAttribute('aria-expanded', 'false');
+        fabShow?.classList.add('translate-x-full');
+        fabShowMore?.setAttribute('aria-expanded', 'false');
         isExpanded = false;
-        document.getElementById('stb-hide')?.classList.add('translate-x-full');
+        document.getElementById('fab-hide')?.classList.add('translate-x-full');
       }
       // 控制进度条
       const scrolledPercentage = getReadingProgress(bottomPos);
-      if (stbReadPercent) stbReadPercent.textContent = `${scrolledPercentage}`;
+      if (fabReadPercent) fabReadPercent.textContent = `${scrolledPercentage}`;
       const isNearEnd = scrolledPercentage >= 99 || scrolledPercentage < 0;
       if (isNearEnd) {
-        stbReadPercent?.classList.add('opacity-0');
-        stbBackToTopIcon?.classList.remove('opacity-0');
+        fabReadPercent?.classList.add('opacity-0');
+        fabBackToTopIcon?.classList.remove('opacity-0');
       } else {
-        stbReadPercent?.classList.remove('opacity-0');
-        stbBackToTopIcon?.classList.add('opacity-0');
+        fabReadPercent?.classList.remove('opacity-0');
+        fabBackToTopIcon?.classList.add('opacity-0');
       }
     });
 
-    stbItems.forEach((item) => {
+    fabItems.forEach((item) => {
       if ('onclick' in item && item.onclick && typeof item.onclick !== 'string') {
-        const stbEl = document.getElementById('stb-' + item.onclick.id);
-        if (stbEl) stbEl.addEventListener('click', item.onclick.function);
+        const fabEl = document.getElementById('fab-' + item.onclick.id);
+        if (fabEl) fabEl.addEventListener('click', item.onclick.function);
       }
     });
   }

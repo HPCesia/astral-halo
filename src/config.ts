@@ -6,6 +6,7 @@ import type {
   AsideConfig,
   BuildConfig,
   CommentConfig,
+  FastActionsConfig,
   FooterConfig,
   LicenseConfig,
   LinksConfig,
@@ -13,7 +14,6 @@ import type {
   ProfileConfig,
   SearchConfig,
   SiteConfig,
-  ToolBarConfig,
 } from './types/config';
 import { L } from '@astral-halo/i18n';
 
@@ -132,7 +132,7 @@ export const navbarConfig: NavbarConfig = {
   },
 };
 
-export const toolBarConfig: ToolBarConfig = {
+export const fastActionsConfig: FastActionsConfig = {
   enable: true,
   items: [],
 };

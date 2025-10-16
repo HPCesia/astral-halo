@@ -57,7 +57,7 @@ const en_web = {
   },
   info: {
     toc: 'Table of Content',
-    toolBar: 'Tool Bar',
+    fastActions: 'Fast Actions',
     readingPercentage: 'Reading Percentage',
     comments: 'Comments',
     recentComments: 'Recent Comments',

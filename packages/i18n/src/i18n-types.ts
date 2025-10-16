@@ -359,9 +359,9 @@ export type NamespaceWebTranslation = {
 		 */
 		toc: string
 		/**
-		 * T​o​o​l​ ​B​a​r
+		 * F​a​s​t​ ​A​c​t​i​o​n​s
 		 */
-		toolBar: string
+		fastActions: string
 		/**
 		 * R​e​a​d​i​n​g​ ​P​e​r​c​e​n​t​a​g​e
 		 */
@@ -774,9 +774,9 @@ export type TranslationFunctions = {
 			 */
 			toc: () => LocalizedString
 			/**
-			 * Tool Bar
+			 * Fast Actions
 			 */
-			toolBar: () => LocalizedString
+			fastActions: () => LocalizedString
 			/**
 			 * Reading Percentage
 			 */

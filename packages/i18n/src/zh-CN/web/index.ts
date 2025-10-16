@@ -57,7 +57,7 @@ const zh_CN_web = {
   },
   info: {
     toc: '目录',
-    toolBar: '工具栏',
+    fastActions: '快捷操作',
     readingPercentage: '阅读进度',
     comments: '评论',
     recentComments: '最新评论',

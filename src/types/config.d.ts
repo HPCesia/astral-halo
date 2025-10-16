@@ -400,17 +400,17 @@ export type NavbarConfig = {
   };
 };
 
-export type ToolBarConfig = {
+export type FastActionsConfig = {
   /**
-   * Whether to enable the side toolbar.
+   * Whether to enable fast actions.
    *
-   * 是否启用侧边工具栏。
+   * 是否启用侧边快捷操作按钮。
    */
   enable: boolean;
   /**
-   * The items displayed in the side toolbar.
+   * The items displayed in fast actions.
    *
-   * 在侧边工具栏中显示的项目。
+   * 在侧边快捷操作按钮中显示的项目。
    */
   items: ButtonSubConfig<'icon'>[];
 };
