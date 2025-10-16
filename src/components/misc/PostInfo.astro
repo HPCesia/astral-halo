@@ -70,7 +70,11 @@ const metas: MetaItem[] = [
 ];
 ---
 
-<div id="post-info" class:list={['flex flex-col max-md:px-3', className]} {...rest}>
+<div
+  id="post-info"
+  class:list={['grid grid-rows-2 space-y-2 max-md:px-3', className]}
+  {...rest}
+>
   <h1 class="text-3xl font-bold">{title}</h1>
   <MetaList metas={metas} />
 </div>
