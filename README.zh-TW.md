@@ -3,9 +3,17 @@
 > [!WARNING]
 > 該項目仍在開發中，可能存在 bug，且會有破壞性變更。請謹慎使用。
 
-[**線上預覽**（Netlify）](https://astral-halo.netlify.app/) | [English](README.md) | [简体中文](README.zh-CN.md) | 繁體中文
+[**線上預覽**（Netlify）](https://astral-halo.netlify.app/) | [English](./README.md) | [简体中文](./README.zh-CN.md) | 繁體中文
 
 Astral Halo 是一個基於 [Astro](https://astro.build) 開發的靜態部落格模板。
+
+> [!NOTE]
+> 本專案託管於以下倉庫：
+>
+> - Codeberg（主倉庫）：[HPCesia/AstralHalo](https://codeberg.org/HPCesia/AstralHalo)
+> - GitHub（鏡像）：[HPCesia/astral-halo](https://github.com/HPCesia/astral-halo)
+>
+> 鏡像倉庫僅用於收集 issue，不接受 PR。
 
 ## 功能特性/TODO
 
@@ -36,7 +44,7 @@ Astral Halo 是一個基於 [Astro](https://astro.build) 開發的靜態部落�
    - 若未安裝 [pnpm](https://pnpm.io/)，請先執行 `npm install -g pnpm` 安裝 pnpm。
 
 3. 通過配置檔案 `src/config.ts` 自訂部落格，配置說明位於 `src/types/config.ts` 的文件註釋中。
-4. 執行 `pnpm new [draft|post] [title]` 建立新文章。若建立的是草稿，編寫完成後執行 `pnpm pub` 發布文章到 `src/content/posts` 目錄。
+4. 執行 `pnpm new` 建立新草稿。編寫完成後執行 `pnpm pub` 發布文章到 `src/content/posts` 目錄。
 5. 參考[官方指南](https://docs.astro.build/zh-cn/guides/deploy/)將部落格部署至 Vercel, Netlify, GitHub Pages 等；部署前需編輯 astro.config.mjs 中的網站設定。
 
 ## 文章 Front Matter

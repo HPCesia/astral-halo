@@ -3,9 +3,17 @@
 > [!WARNING]
 > 该项目仍在开发中，可能存在 bug，且会有破坏性变更。请谨慎使用。
 
-[**在线预览**（Netlify）](https://astral-halo.netlify.app/) | [English](README.md) | 简体中文 | [繁體中文](README.zh-TW.md)
+[**在线预览**（Netlify）](https://astral-halo.netlify.app/) | [English](./README.md) | 简体中文 | [繁體中文](./README.zh-TW.md)
 
 Astral Halo 是一个基于 [Astro](https://astro.build) 开发的静态博客模板。
+
+> [!NOTE]
+> 本项目托管于如下仓库：
+>
+> - Codeberg（主仓库）: [HPCesia/AstralHalo](https://codeberg.org/HPCesia/AstralHalo)
+> - GitHub（镜像）: [HPCesia/astral-halo](https://github.com/HPCesia/astral-halo)
+>
+> 镜像仓库仅用于收集 issue，不接受 PR。
 
 ## 功能特性/TODO
 
@@ -32,11 +40,10 @@ Astral Halo 是一个基于 [Astro](https://astro.build) 开发的静态博客�
 
 1. 使用此模板生成新仓库或 Fork 此仓库。
 2. 进行本地开发，克隆仓库到本地，执行 `pnpm install` 安装依赖，执行 `pnpm dev` 启动开发服务器。
-
    - 若未安装 [pnpm](https://pnpm.io/)，请先执行 `npm install -g pnpm` 安装 pnpm。
 
 3. 通过配置文件 `src/config.ts` 自定义博客，配置说明位于 `src/types/config.ts` 的文档注释中。
-4. 执行 `pnpm new [draft|post] [title]` 创建新文章。若创建的是草稿，编写完成后执行 `pnpm pub` 发布文章到 `src/content/posts` 目录。
+4. 执行 `pnpm new` 创建新草稿。编写完成后执行 `pnpm pub` 发布文章到 `src/content/posts` 目录。
 5. 参考[官方指南](https://docs.astro.build/zh-cn/guides/deploy/)将博客部署至 Vercel, Netlify, GitHub Pages 等；部署前需编辑 astro.config.mjs 中的站点设置。
 
 ## 文章 Front Matter

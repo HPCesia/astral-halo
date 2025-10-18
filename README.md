@@ -3,9 +3,17 @@
 > [!WARNING]
 > This project is still under development and may contain bugs and breaking changes. Use with caution.
 
-[**Live Demo** (Netlify)](https://astral-halo.netlify.app/) | English | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md)
+[**Live Demo** (Netlify)](https://astral-halo.netlify.app/) | English | [简体中文](./README.zh-CN.md) | [繁體中文](./README.zh-TW.md)
 
 Astral Halo is a static blog template developed with [Astro](https://astro.build).
+
+> [!NOTE]
+> This project is hosted in the following repositories:
+>
+> - Codeberg (main repository): [HPCesia/AstralHalo](https://codeberg.org/HPCesia/AstralHalo)
+> - GitHub (mirror): [HPCesia/astral-halo](https://github.com/HPCesia/astral-halo)
+>
+> The mirror repository is only used for collecting issues and does not accept PRs.
 
 ## Features/TODO
 
@@ -36,7 +44,7 @@ Astral Halo is a static blog template developed with [Astro](https://astro.build
    - If [pnpm](https://pnpm.io/) is not installed, first run `npm install -g pnpm` to install it.
 
 3. Customize your blog through the configuration file `src/config.ts`. Configuration documentation can be found in the comments of `src/types/config.ts`.
-4. Run `pnpm new [draft|post] [title]` to create a new article. If creating a draft, run `pnpm pub` to publish it to the `src/content/posts` directory when finished.
+4. Run `pnpm new` to create a new draft. Then run `pnpm pub` to publish it to the `src/content/posts` directory when finished.
 5. Refer to the [official guide](https://docs.astro.build/en/guides/deploy/) to deploy your blog to Vercel, Netlify, GitHub Pages, etc. Before deployment, edit the site settings in astro.config.mjs.
 
 ## Article Front Matter
