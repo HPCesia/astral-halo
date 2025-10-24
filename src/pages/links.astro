@@ -48,17 +48,20 @@ const groupHeadings = linksConfig.items.map((item) => ({
   {
     linksConfig.items.map((item) => (
       <Fragment>
-        <h2
-          class="mt-4 mb-1 flex items-baseline justify-between gap-4 text-2xl font-bold"
-          id={`links-group-${item.groupName.toLowerCase().replace(/\s/g, '-')}`}
-        >
-          {item.groupName}
+        <div class="mt-4 mb-1 grid grid-cols-[auto_minmax(0,1fr)] items-baseline justify-between gap-4">
+          {' '}
+          <h2
+            class="text-2xl font-bold"
+            id={`links-group-${item.groupName.toLowerCase().replace(/\s/g, '-')}`}
+          >
+            {item.groupName}
+          </h2>
           {item.groupDescription && (
-            <span class="text-base-content/60 line-clamp-1 text-sm font-medium">
+            <span class="text-base-content/60 line-clamp-1 text-right text-sm font-medium">
               {item.groupDescription}
             </span>
           )}
-        </h2>
+        </div>
         <hr class="text-base-content/25 my-1" />
         <div class="flex flex-wrap">
           {item.groupItems.map((item) => (
