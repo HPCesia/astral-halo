@@ -51,7 +51,7 @@ if (!title) title = 'Astral Halo';
                           subItem.onclick &&
                           (typeof subItem.onclick === 'string'
                             ? { onclick: subItem.onclick }
-                            : { id: 'side-' + subItem.onclick.id }))}
+                            : { id: 'nav-' + subItem.onclick.id }))}
                         {...(subItem.extraAttr || {})}
                         title={subItem.text}
                         aria-label={subItem.text}
@@ -75,7 +75,7 @@ if (!title) title = 'Astral Halo';
                     item.onclick &&
                     (typeof item.onclick === 'string'
                       ? { onclick: item.onclick }
-                      : { id: 'side-' + item.onclick.id }))}
+                      : { id: 'nav-' + item.onclick.id }))}
                   {...(item.extraAttr || {})}
                   title={item.text}
                   aria-label={item.text}
