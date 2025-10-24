@@ -11,6 +11,9 @@ interface Props {
 }
 let { title } = Astro.props;
 if (!title) title = 'Astral Halo';
+
+const drawerItemClass =
+  'is-drawer-open:opacity-100 is-drawer-open:translate-x-0 translate-x-5 opacity-0 duration-150';
 ---
 
 <div class="drawer drawer-end">
@@ -164,10 +167,10 @@ if (!title) title = 'Astral Halo';
       </li>
       <div class="divider text-lg font-bold">{t.navigation.menu()}</div>
       {
-        navbarConfig.navbarCenterItems.map((item) => {
+        navbarConfig.navbarCenterItems.map((item, index) => {
           if ('items' in item) {
             return (
-              <li>
+              <li class={drawerItemClass} style={`transition-delay: ${(index + 1) * 75}ms`}>
                 <details>
                   <summary class="text-xl">{item.title}</summary>
                   <ul>
@@ -199,7 +202,7 @@ if (!title) title = 'Astral Halo';
             );
           } else {
             return (
-              <li>
+              <li class={drawerItemClass} style={`transition-delay: ${(index + 1) * 75}ms`}>
                 <Button
                   {...('href' in item &&
                     item.href && {
@@ -224,8 +227,11 @@ if (!title) title = 'Astral Halo';
         })
       }
       {
-        navbarConfig.navbarRightItems.onlyWide.map((item) => (
-          <li>
+        navbarConfig.navbarRightItems.onlyWide.map((item, index) => (
+          <li
+            class={drawerItemClass}
+            style={`transition-delay: ${(index + navbarConfig.navbarCenterItems.length + 1) * 75}ms`}
+          >
             <Button
               {...('href' in item &&
                 item.href && { href: item.href, target: item.blank ? '_blank' : undefined })}
