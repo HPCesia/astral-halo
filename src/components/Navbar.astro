@@ -25,7 +25,11 @@ const drawerItemClass =
       class="navbar bg-base-200/50 fixed z-20 flex h-16 w-full items-center backdrop-blur-md"
     >
       <div class="navbar-start">
-        <Button id="site-name" href="/" class="group btn-ghost btn-accent">
+        <Button
+          id="site-name"
+          href="/"
+          class="group btn-ghost btn-accent not-hover:text-base-content"
+        >
           <span class="text-xl font-bold duration-300 group-hover:opacity-0">{title}</span>
           <Icon
             name="material-symbols:home-rounded"
@@ -39,7 +43,10 @@ const drawerItemClass =
             if ('items' in item) {
               return (
                 <div class="dropdown dropdown-center dropdown-hover">
-                  <Button title={item.title} class="btn-ghost join-item btn-primary">
+                  <Button
+                    title={item.title}
+                    class="btn-ghost join-item btn-primary not-hover:text-base-content"
+                  >
                     <span class="text-xl tracking-wide">{item.title}</span>
                   </Button>
                   <ul class="menu bg-base-200/50 dropdown-content absolute rounded-xl shadow">
@@ -58,7 +65,7 @@ const drawerItemClass =
                         {...(subItem.extraAttr || {})}
                         title={subItem.text}
                         aria-label={subItem.text}
-                        class="btn-ghost btn-primary rounded-field"
+                        class="btn-ghost btn-primary not-hover:text-base-content rounded-field"
                       >
                         <span class="text-xl tracking-wide text-nowrap">{subItem.text}</span>
                       </Button>
@@ -82,7 +89,7 @@ const drawerItemClass =
                   {...(item.extraAttr || {})}
                   title={item.text}
                   aria-label={item.text}
-                  class="btn-ghost join-item btn-primary"
+                  class="btn-ghost join-item btn-primary not-hover:text-base-content"
                 >
                   <span class="text-xl tracking-wide">{item.text}</span>
                 </Button>
@@ -96,7 +103,7 @@ const drawerItemClass =
           {
             navbarConfig.navbarRightItems.onlyWide.map((item) => (
               <Button
-                class="nav-menu-item btn-circle btn-ghost btn-primary"
+                class="nav-menu-item btn-circle btn-ghost btn-primary not-hover:text-base-content"
                 {...('href' in item &&
                   item.href && { href: item.href, target: item.blank ? '_blank' : undefined })}
                 title={item.text}
@@ -117,7 +124,7 @@ const drawerItemClass =
           {
             navbarConfig.navbarRightItems.always.map((item) => (
               <Button
-                class="nav-menu-item btn-circle btn-ghost btn-primary"
+                class="nav-menu-item btn-circle btn-ghost btn-primary not-hover:text-base-content"
                 {...('href' in item &&
                   item.href && { href: item.href, target: item.blank ? '_blank' : undefined })}
                 title={item.text}
@@ -137,7 +144,7 @@ const drawerItemClass =
         <div class="md:hidden">
           <label
             for="sidebar-drawer"
-            class="btn btn-circle btn-ghost btn-primary"
+            class="btn btn-circle btn-ghost btn-primary not-hover:text-base-content"
             tabindex="0"
             title={t.info.openMenu()}
             aria-label={t.info.openMenu()}
