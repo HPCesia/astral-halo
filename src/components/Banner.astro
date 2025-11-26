@@ -12,7 +12,7 @@ interface Props {
 const siteBanner = siteConfig.banner;
 if (siteBanner === false) throw Error('Should not show this error');
 
-const src = Astro.props.src || (siteBanner.src as string);
+const src = Astro.props.src || siteBanner.src;
 
 function getBannerHeight(path: string) {
   if (siteConfig.banner === false) {
@@ -55,12 +55,32 @@ const bannerHeight = getBannerHeight(path.pathname);
         )
       }
     </div>
-    <ImageWrapper
-      id="banner-img"
-      src={src}
-      class="swup-transition-parallel-slide absolute! h-full w-full overflow-hidden"
-      basePath={Astro.props.basePath}
-    />
+    {
+      (() => {
+        if (typeof src === 'string')
+          return (
+            <ImageWrapper
+              id="banner-img"
+              src={src}
+              class="swup-transition-parallel-slide absolute! h-full w-full overflow-hidden"
+              basePath={Astro.props.basePath}
+            />
+          );
+        else
+          return (
+            <ImageWrapper
+              id="banner-img-light"
+              src={src.light}
+              class="swup-transition-parallel-slide absolute! h-full w-full overflow-hidden dark:hidden"
+            />
+            <ImageWrapper
+              id="banner-img-dark"
+              src={src.dark}
+              class="swup-transition-parallel-slide absolute! h-full w-full overflow-hidden not-dark:hidden"
+            />
+          );
+      })()
+    }
   </div>
   <div
     id="banner-mask"
@@ -151,7 +171,12 @@ const bannerHeight = getBannerHeight(path.pathname);
     // 处理 Banner 图片切换
     window.swup?.hooks.before('content:insert', (_, { containers }) => {
       for (const container of containers) {
-        if (container.selector !== '#banner-img') continue;
+        // 支持单模式和双模式 Banner
+        const isBannerImg = container.selector === '#banner-img' ||
+                          container.selector === '#banner-img-light' ||
+                          container.selector === '#banner-img-dark';
+        if (!isBannerImg) continue;
+
         const prevWrapper = container.previous;
         const nextWrapper = container.next;
         const prevImg = prevWrapper.querySelector('img') as HTMLImageElement;

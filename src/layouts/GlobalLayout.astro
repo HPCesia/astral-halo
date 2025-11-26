@@ -111,7 +111,14 @@ const siteLang = lang.replace('_', '-');
   window.swup = new Swup({
     containers: [
       'main',
-      ...(siteConfig.banner === false ? [] : ['#banner-img', '#banner-text']),
+      ...(siteConfig.banner === false
+        ? []
+        : [
+            ...(typeof siteConfig.banner.src === 'string'
+              ? ['#banner-img']
+              : ['#banner-img-light', '#banner-img-dark']),
+            '#banner-text',
+          ]),
     ],
     animationSelector: '[class*="swup-transition-"]',
     linkSelector: 'a:not([href="#"])[href]',

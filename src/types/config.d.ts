@@ -160,7 +160,22 @@ export type SiteConfig = {
          *
          * 横幅的 URL。
          */
-        src: string;
+        src:
+          | string
+          | {
+              /**
+               * URL of the banner in light mode
+               *
+               * 明亮模式下横幅的 URL
+               */
+              light: string;
+              /**
+               * URL of the banner in dark mode
+               *
+               * 暗黑模式下横幅的 URL
+               */
+              dark: string;
+            };
         /**
          * The text in the center of homepage banner
          *
